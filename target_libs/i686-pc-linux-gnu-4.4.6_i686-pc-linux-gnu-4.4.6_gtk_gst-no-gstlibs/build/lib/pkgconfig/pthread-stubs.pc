@@ -1,0 +1,8 @@
+prefix=/home/pdrezet/workspace/inxware2.0-Release/INX/comp-lib-support/inx_build_scripts/../target_libs/i686-linux-gnu-i686-pc-linux-gnu-4.4.6-gtk_gst/build
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+
+Name: pthread stubs
+Description: Stubs missing from libc for standard pthread functions
+Version: 0.3
+Libs: 
