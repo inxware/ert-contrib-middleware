@@ -1,0 +1,2 @@
+add-missing-khronos-extentions-headers.patch
+fix_OMX_Core_c_libname.patch

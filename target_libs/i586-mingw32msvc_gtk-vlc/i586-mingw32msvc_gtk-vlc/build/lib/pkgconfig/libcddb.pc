@@ -1,0 +1,10 @@
+prefix=/usr/win32
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libcddb
+Description: CDDB server access library
+Version: 1.3.2
+Libs: -L${libdir} -lcddb -lregex ${libdir}/libregex.a  -lws2_32
+Cflags: -I${includedir}

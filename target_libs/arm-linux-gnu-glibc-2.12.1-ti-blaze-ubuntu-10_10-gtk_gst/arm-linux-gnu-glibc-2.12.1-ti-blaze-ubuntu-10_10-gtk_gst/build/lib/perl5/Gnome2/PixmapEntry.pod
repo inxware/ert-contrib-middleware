@@ -1,0 +1,118 @@
+=head1 NAME
+
+Gnome2::PixmapEntry - wrapper for GnomePixmapEntry
+
+=cut
+
+=head1 HIERARCHY
+
+  Glib::Object
+  +----Glib::InitiallyUnowned
+       +----Gtk2::Object
+            +----Gtk2::Widget
+                 +----Gtk2::Container
+                      +----Gtk2::Box
+                           +----Gtk2::VBox
+                                +----Gnome2::FileEntry
+                                     +----Gnome2::PixmapEntry
+
+
+
+=cut
+
+=head1 INTERFACES
+
+  Glib::Object::_Unregistered::AtkImplementorIface
+  Gtk2::Buildable
+  Gtk2::Orientable
+  Gtk2::Editable
+
+
+
+=cut
+
+
+=head1 METHODS
+
+=head2 widget = Gnome2::PixmapEntry-E<gt>B<new> ($history_id, $browse_dialog_title, $do_preview)
+
+=over
+
+=item * $history_id (string) 
+
+=item * $browse_dialog_title (string) 
+
+=item * $do_preview (boolean) 
+
+=back
+
+=head2 string = $pentry-E<gt>B<get_filename> 
+
+=head2 $pentry-E<gt>B<set_pixmap_subdir> ($subdir)
+
+=over
+
+=item * $subdir (string) 
+
+=back
+
+=head2 $pentry-E<gt>B<set_preview> ($do_preview)
+
+=over
+
+=item * $do_preview (boolean) 
+
+=back
+
+=head2 $pentry-E<gt>B<set_preview_size> ($preview_w, $preview_h)
+
+=over
+
+=item * $preview_w (integer) 
+
+=item * $preview_h (integer) 
+
+=back
+
+=head2 widget = $pentry-E<gt>B<preview_widget> 
+
+=head2 widget = $pentry-E<gt>B<scrolled_window> 
+
+
+
+=cut
+
+
+=head1 PROPERTIES
+
+=over
+
+=item 'do-preview' (boolean : readable / writable)
+
+Whether the pixmap entry should have a preview.
+
+=back
+
+
+
+=cut
+
+
+=head1 SEE ALSO
+
+L<Gnome2>, L<Glib::Object>, L<Glib::InitiallyUnowned>, L<Gtk2::Object>, L<Gtk2::Widget>, L<Gtk2::Container>, L<Gtk2::Box>, L<Gtk2::VBox>, L<Gnome2::FileEntry>
+
+
+=cut
+
+
+=head1 COPYRIGHT
+
+Copyright (C) 2003-2004 by the gtk2-perl team.
+
+This software is licensed under the LGPL.  See L<Gnome2> for a full notice.
+
+
+
+=cut
+

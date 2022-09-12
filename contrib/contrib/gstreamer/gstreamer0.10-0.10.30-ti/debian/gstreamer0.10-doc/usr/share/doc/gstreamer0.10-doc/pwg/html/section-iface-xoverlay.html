@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>X Overlay Interface</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Interfaces"
+HREF="chapter-advanced-interfaces.html"><LINK
+REL="PREVIOUS"
+TITLE="Property Probe Interface"
+HREF="section-iface-propprobe.html"><LINK
+REL="NEXT"
+TITLE="Navigation Interface"
+HREF="section-iface-navigation.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-iface-propprobe.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 16. Interfaces</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-iface-navigation.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-iface-xoverlay"
+>16.7. X Overlay Interface</A
+></H1
+><P
+>&#13;      An X Overlay is basically a video output in a XFree86 drawable. Elements
+      implementing this interface will draw video in a X11 window. Through this
+      interface, applications will be proposed 2 different modes to work with
+      a plugin implementing it. The first mode is a passive mode where the plugin
+      owns, creates and destroys the X11 window. The second mode is an active
+      mode where the application handles the X11 window creation and then tell
+      the plugin where it should output video. Let's get a bit deeper in those
+      modes...
+    </P
+><P
+>&#13;      A plugin drawing video output in a X11 window will need to have that
+      window at one stage or another. Passive mode simply means that no window
+      has been given to the plugin before that stage, so the plugin created the
+      window by itself. In that case the plugin is responsible of destroying
+      that window when it's not needed any more and it has to tell the
+      applications that a window has been created so that the application can
+      use it. This is done using the <CODE
+CLASS="classname"
+>have_xwindow_id</CODE
+>
+      signal that can be emitted from the plugin with the
+      <CODE
+CLASS="function"
+>gst_x_overlay_got_xwindow_id</CODE
+> method.
+    </P
+><P
+>&#13;      As you probably guessed already active mode just means sending a X11
+      window to the plugin so that video output goes there. This is done using
+      the <CODE
+CLASS="function"
+>gst_x_overlay_set_xwindow_id</CODE
+> method.
+    </P
+><P
+>&#13;      It is possible to switch from one mode to another at any moment, so the
+      plugin implementing this interface has to handle all cases. There are only
+      2 methods that plugins writers have to implement and they most probably
+      look like that :
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;static void
+gst_my_filter_set_xwindow_id (GstXOverlay *overlay, XID xwindow_id)
+{
+  GstMyFilter *my_filter = GST_MY_FILTER (overlay);
+
+  if (my_filter-&#62;window)
+    gst_my_filter_destroy_window (my_filter-&#62;window);
+    
+  my_filter-&#62;window = xwindow_id;
+}
+
+static void
+gst_my_filter_get_desired_size (GstXOverlay *overlay,
+                                guint *width, guint *height)
+{
+  GstMyFilter *my_filter = GST_MY_FILTER (overlay);
+
+  *width = my_filter-&#62;width;
+  *height = my_filter-&#62;height;
+}
+
+static void
+gst_my_filter_xoverlay_init (GstXOverlayClass *iface)
+{
+  iface-&#62;set_xwindow_id = gst_my_filter_set_xwindow_id;
+  iface-&#62;get_desired_size = gst_my_filter_get_desired_size;
+}
+    </PRE
+><P
+>&#13;      You will also need to use the interface methods to fire signals when 
+      needed such as in the pad link function where you will know the video
+      geometry and maybe create the window.
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;static MyFilterWindow *
+gst_my_filter_window_create (GstMyFilter *my_filter, gint width, gint height)
+{
+  MyFilterWindow *window = g_new (MyFilterWindow, 1);
+  ...
+  gst_x_overlay_got_xwindow_id (GST_X_OVERLAY (my_filter), window-&#62;win);
+}
+
+static GstPadLinkReturn
+gst_my_filter_sink_link (GstPad *pad, const GstCaps *caps)
+{
+  GstMyFilter *my_filter = GST_MY_FILTER (overlay);
+  gint width, height;
+  gboolean ret;
+  ...
+  ret = gst_structure_get_int (structure, "width", &#38;width);
+  ret &#38;= gst_structure_get_int (structure, "height", &#38;height);
+  if (!ret) return GST_PAD_LINK_REFUSED;
+  
+  if (!my_filter-&#62;window)
+    my_filter-&#62;window = gst_my_filter_create_window (my_filter, width, height);
+
+  gst_x_overlay_got_desired_size (GST_X_OVERLAY (my_filter),
+                                  width, height);
+  ...
+}
+    </PRE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-iface-propprobe.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-iface-navigation.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Property Probe Interface</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-advanced-interfaces.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Navigation Interface</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

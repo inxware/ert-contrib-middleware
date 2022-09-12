@@ -1,0 +1,550 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>All Events Together</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Events: Seeking, Navigation and More"
+HREF="chapter-advanced-events.html"><LINK
+REL="PREVIOUS"
+TITLE="Upstream events"
+HREF="section-events-upstream.html"><LINK
+REL="NEXT"
+TITLE="Creating special element types"
+HREF="part-other.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-events-upstream.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 18. Events: Seeking, Navigation and More</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="part-other.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-events-definitions"
+>18.3. All Events Together</A
+></H1
+><P
+>&#13;      In this chapter follows a list of all defined events that are currently
+      being used, plus how they should be used/interpreted. You can check the
+      what type a certain event is using the GST_EVENT_TYPE macro (or if you
+      need a string for debugging purposes you can use GST_EVENT_TYPE_NAME).
+    </P
+><P
+>&#13;      In this chapter, we will discuss the following events:
+    </P
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="section-events-definitions.html#section-events-eos"
+>End of Stream (EOS)</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="section-events-definitions.html#section-events-flush-start"
+>Flush Start</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="section-events-definitions.html#section-events-flush-stop"
+>Flush Stop</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="section-events-definitions.html#section-events-newsegment"
+>New Segment</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="section-events-definitions.html#section-events-seek"
+>Seek Request</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="section-events-definitions.html#section-events-nav"
+>Navigation</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="section-events-definitions.html#section-events-tag"
+>Tag (metadata)</A
+></P
+></LI
+></UL
+><P
+>&#13;      For more comprehensive information about events and how they should be
+      used correctly in various circumstances please consult the GStreamer
+      design documentation. This section only gives a general overview.      
+    </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="section-events-eos"
+>18.3.1. End of Stream (EOS)</A
+></H2
+><P
+>&#13;        End-of-stream events are sent if the stream that an element sends out
+        is finished. An element receiving this event (from upstream, so it
+        receives it on its sinkpad) will generally just process any buffered
+        data (if there is any) and then forward the event further downstream.
+        The <CODE
+CLASS="function"
+>gst_pad_event_default ()</CODE
+> takes care of all
+        this, so most elements do not need to support this event. Exceptions are
+        elements that explicitly need to close a resource down on EOS, and
+        N-to-1 elements. Note that the stream itself is <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>not</I
+></SPAN
+>
+        a resource that should be closed down on EOS! Applications might seek
+        back to a point before EOS and continue playing again.
+      </P
+><P
+>&#13;        The EOS event has no properties, which makes it one of the simplest
+        events in <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>. It is created using the 
+        <CODE
+CLASS="function"
+>gst_event_new_eos()</CODE
+> function.
+      </P
+><P
+>&#13;        It is important to note that <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>only elements driving the
+        pipeline should ever send an EOS event</I
+></SPAN
+>. If your element
+        is chain-based, it is not driving the pipeline. Chain-based elements
+        should just return GST_FLOW_UNEXPECTED from their chain function at
+        the end of the stream (or the configured segment), the upstream
+        element that is driving the pipeline will then take care of
+        sending the EOS event (or alternatively post a SEGMENT_DONE message
+        on the bus depending on the mode of operation). If you are implementing
+        your own source element, you also do not need to ever manually send
+        an EOS event, you should also just return GST_FLOW_UNEXPECTED in
+        your create function (assuming your element derives from GstBaseSrc
+        or GstPushSrc).
+      </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="section-events-flush-start"
+>18.3.2. Flush Start</A
+></H2
+><P
+>&#13;        The flush start event is sent downstream if all buffers and caches
+        in the pipeline should be emptied. <SPAN
+CLASS="QUOTE"
+>"Queue"</SPAN
+> elements will
+        empty their internal list of buffers when they receive this event, for
+        example. File sink elements (e.g. <SPAN
+CLASS="QUOTE"
+>"filesink"</SPAN
+>) will flush
+        the kernel-to-disk cache (<CODE
+CLASS="function"
+>fdatasync ()</CODE
+> or
+        <CODE
+CLASS="function"
+>fflush ()</CODE
+>) when they receive this event. Normally,
+        elements receiving this event will simply just forward it, since most
+        filter or filter-like elements don't have an internal cache of data.
+        <CODE
+CLASS="function"
+>gst_pad_event_default ()</CODE
+> does just that, so for
+        most elements, it is enough to forward the event using the default
+        event handler.
+      </P
+><P
+>&#13;        As a side-effect of flushing all data from the pipeline, this event
+        unblocks the streaming thread by making all pads reject data until
+        they receive a <A
+HREF="section-events-definitions.html#section-events-flush-stop"
+>Flush Stop</A
+> signal
+        (elements trying to push data will get a WRONG_STATE flow return
+         and stop processing data).
+      </P
+><P
+>&#13;        The flush-start event is created with the
+        <CODE
+CLASS="function"
+>gst_event_new_flush_start ()</CODE
+>.
+        Like the EOS event, it has no properties. This event is usually
+        only created by elements driving the pipeline, like source elements
+        operating in push-mode or pull-range based demuxers/decoders.
+      </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="section-events-flush-stop"
+>18.3.3. Flush Stop</A
+></H2
+><P
+>&#13;        The flush-stop event is sent by an element driving the pipeline
+        after a flush-start and tells pads and elements downstream that
+        they should accept events and buffers again (there will be at
+        least a NEWSEGMENT event before any buffers first though).
+      </P
+><P
+>&#13;        If your element keeps temporary caches of stream data, it should
+        clear them when it receives a FLUSH-STOP event (and also whenever
+        its chain function receives a buffer with the DISCONT flag set).
+      </P
+><P
+>&#13;        The flush-stop event is created with
+        <CODE
+CLASS="function"
+>gst_event_new_flush_stop ()</CODE
+>. Like the EOS event,
+        it has no properties.
+      </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="section-events-newsegment"
+>18.3.4. New Segment</A
+></H2
+><P
+>&#13;        A new segment event is sent downstream to either announce a new
+        segment of data in the data stream or to update the current segment
+        with new values. A new segment event must always be sent before the
+        first buffer of data and after a flush (see above).
+      </P
+><P
+>&#13;        The first new segment event is created by the element driving the 
+        pipeline, like a source operating in push-mode or a demuxer/decoder
+        operating pull-based. This new segment event then travels down the
+        pipeline and may be transformed on the way (a decoder, for example,
+        might receive a new-segment event in BYTES format and might transform
+        this into a new-segment event in TIMES format based on the average
+        bitrate).
+      </P
+><P
+>&#13;        New segment events may also be used to indicate 'gaps' in the stream,
+        like in a subtitle stream for example where there may not be any
+        data at all for a considerable amount of (stream) time. This is done
+        by updating the segment start of the current segment (see the design
+        documentation for more details).
+      </P
+><P
+>&#13;        Depending on the element type, the event can simply be forwarded using
+        <CODE
+CLASS="function"
+>gst_pad_event_default ()</CODE
+>, or it should be parsed
+        and a modified event should be sent on. The last is true for demuxers,
+        which generally have a byte-to-time conversion concept. Their input
+        is usually byte-based, so the incoming event will have an offset in
+        byte units (<CODE
+CLASS="symbol"
+>GST_FORMAT_BYTES</CODE
+>), too. Elements
+        downstream, however, expect new segment events in time units, so that
+        it can be used to update the pipeline clock. Therefore, demuxers and
+        similar elements should not forward the event, but parse it, free it
+        and send a new newsegment event (in time units,
+        <CODE
+CLASS="symbol"
+>GST_FORMAT_TIME</CODE
+>) further downstream.
+      </P
+><P
+>&#13;        The newsegment event is created using the function
+        <CODE
+CLASS="function"
+>gst_event_new_new_segment ()</CODE
+>. See the API
+        reference and design document for details about its parameters. 
+      </P
+><P
+>&#13;        Elements parsing this event can use gst_event_parse_new_segment_full()
+        to extract the event details. Elements may find the GstSegment
+        API useful to keep track of the current segment (if they want to use
+        it for output clipping, for example).
+      </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="section-events-seek"
+>18.3.5. Seek Request</A
+></H2
+><P
+>&#13;        Seek events are meant to request a new stream position to elements.
+        This new position can be set in several formats (time, bytes or
+        <SPAN
+CLASS="QUOTE"
+>"default units"</SPAN
+> [a term indicating frames for video,
+        channel-independent samples for audio, etc.]). Seeking can be done with
+        respect to the end-of-file, start-of-file or current position, and
+        usually happens in upstream direction (downstream seeking is done by
+        sending a NEWSEGMENT event with the appropriate offsets for elements
+        that support that, like filesink).
+      </P
+><P
+>&#13;        Elements receiving seek events should, depending on the element type,
+        either just forward it upstream (filters, decoders), change the
+        format in which the event is given and then forward it (demuxers),
+        or handle the event by changing the file pointer in their internal
+        stream resource (file sources, demuxers/decoders driving the pipeline
+        in pull-mode) or something else.
+      </P
+><P
+>&#13;        Seek events are built up using positions in specified formats (time,
+        bytes, units). They are created using the function
+        <CODE
+CLASS="function"
+>gst_event_new_seek ()</CODE
+>. Note that many plugins do
+        not support seeking from the end of the stream or from the current
+        position. An element not driving the pipeline and forwarding a seek
+        request should not assume that the seek succeeded or actually happened,
+        it should operate based on the NEWSEGMENT events it receives.
+      </P
+><P
+>&#13;        Elements parsing this event can do this using
+        <CODE
+CLASS="function"
+>gst_event_parse_seek()</CODE
+>.
+      </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="section-events-nav"
+>18.3.6. Navigation</A
+></H2
+><P
+>&#13;        Navigation events are sent upstream by video sinks to inform upstream
+        elements of where the mouse pointer is, if and where mouse pointer
+        clicks have happened, or if keys have been pressed or released.
+      </P
+><P
+>&#13;        All this information is contained in the event structure which can
+        be obtained with <CODE
+CLASS="function"
+>gst_event_get_structure ()</CODE
+>.
+      </P
+><P
+>&#13;        Check out the navigationtest element in gst-plugins-good for an idea
+        how to extract navigation information from this event.
+      </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="section-events-tag"
+>18.3.7. Tag (metadata)</A
+></H2
+><P
+>&#13;        Tagging events are being sent downstream to indicate the tags as parsed
+        from the stream data. This is currently used to preserve tags during
+        stream transcoding from one format to the other. Tags are discussed
+        extensively in <A
+HREF="chapter-advanced-tagging.html"
+>Chapter 17</A
+>. Most
+        elements will simply forward the event by calling
+        <CODE
+CLASS="function"
+>gst_pad_event_default ()</CODE
+>.
+      </P
+><P
+>&#13;        The tag event is created using the function
+        <CODE
+CLASS="function"
+>gst_event_new_tag ()</CODE
+>, but more often elements will
+        use either the <CODE
+CLASS="function"
+>gst_element_found_tags ()</CODE
+> function
+        or the <CODE
+CLASS="function"
+>gst_element_found_tags_for_pad ()</CODE
+>, which
+        will do both: post a tag message on the bus and send a tag event
+        downstream. All of these functions require a filled-in taglist as
+        argument, which they will take ownership of.
+      </P
+><P
+>&#13;        Elements parsing this event can use the function
+        <CODE
+CLASS="function"
+>gst_event_parse_tag ()</CODE
+> to acquire the
+        taglist that the event contains.
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-events-upstream.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="part-other.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Upstream events</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-advanced-events.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Creating special element types</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

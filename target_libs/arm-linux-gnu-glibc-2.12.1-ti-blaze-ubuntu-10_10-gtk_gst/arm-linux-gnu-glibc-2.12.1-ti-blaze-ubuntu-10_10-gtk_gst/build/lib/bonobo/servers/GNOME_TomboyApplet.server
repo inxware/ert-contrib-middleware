@@ -1,0 +1,381 @@
+<oaf_info>
+<oaf_server iid="OAFIID:TomboyApplet_Factory" 
+	    type="exe"
+            location="/usr/bin/tomboy-panel">
+
+        <oaf_attribute name="repo_ids" type="stringv">
+                <item value="IDL:Bonobo/GenericFactory:1.0"/>
+                <item value="IDL:Bonobo/Unknown:1.0"/>
+        </oaf_attribute>
+        <oaf_attribute name="name" type="string" value="Tomboy Applet Factory"/>
+        <oaf_attribute name="name-af" type="string" value="Tomboy-miniprogram-fabriek"/>
+        <oaf_attribute name="name-ar" type="string" value="مصنع بريمجات Tomboy"/>
+        <oaf_attribute name="name-as" type="string" value="Tomboy এপ্লেট ফেক্টৰি"/>
+        <oaf_attribute name="name-ast" type="string" value="Fábrica d&apos;applets Tomboy"/>
+        <oaf_attribute name="name-be" type="string" value="Аплет Нататніка"/>
+        <oaf_attribute name="name-be@latin" type="string" value="Fabryka apletu Tomboy"/>
+        <oaf_attribute name="name-bg" type="string" value="Фабрика за аплети на Tomboy"/>
+        <oaf_attribute name="name-bn" type="string" value="Tomboy অ্যাপ্লেট ফ্যাক্টরি"/>
+        <oaf_attribute name="name-bn_IN" type="string" value="Tomboy অ্যাপ্লেট ফ্যাক্টরি"/>
+        <oaf_attribute name="name-ca" type="string" value="Factoria de miniaplicacions del Tomboy"/>
+        <oaf_attribute name="name-ca@valencia" type="string" value="Factoria de miniaplicacions del Tomboy"/>
+        <oaf_attribute name="name-cs" type="string" value="Generátor appletu Tomboy"/>
+        <oaf_attribute name="name-da" type="string" value="Tomboy-programfabrik"/>
+        <oaf_attribute name="name-de" type="string" value="Tomboy Applet Factory"/>
+        <oaf_attribute name="name-dz" type="string" value="ཊོམ་བོ་ཡེ་ཨེཔ་ལེཊི་འཕྲུལ་ཁང་།"/>
+        <oaf_attribute name="name-el" type="string" value="Εργοστάσιο μικροεφαρμογής Tomboy"/>
+        <oaf_attribute name="name-en@shaw" type="string" value="·𐑑𐑪𐑥𐑚𐑶 𐑨𐑐𐑤𐑩𐑑 𐑓𐑨𐑒𐑑𐑼𐑦"/>
+        <oaf_attribute name="name-en_CA" type="string" value="Tomboy Applet Factory"/>
+        <oaf_attribute name="name-en_GB" type="string" value="Tomboy Applet Factory"/>
+        <oaf_attribute name="name-es" type="string" value="Fábrica de la miniaplicación Tomboy"/>
+        <oaf_attribute name="name-et" type="string" value="Tomboy rakendi Factory"/>
+        <oaf_attribute name="name-eu" type="string" value="Tomboy miniaplikazioaren fabrika"/>
+        <oaf_attribute name="name-fi" type="string" value="Tomboy-sovelman tehdas"/>
+        <oaf_attribute name="name-fr" type="string" value="Fabrique d&apos;applet Tomboy"/>
+        <oaf_attribute name="name-ga" type="string" value="Monarcha Fheidhmchláirín Tomboy"/>
+        <oaf_attribute name="name-gl" type="string" value="Factoría de miniaplicativos Tomboy"/>
+        <oaf_attribute name="name-gu" type="string" value="Tomboy એપ્લેટ કારખાનું"/>
+        <oaf_attribute name="name-he" type="string" value="Tomboy Applet Factory"/>
+        <oaf_attribute name="name-hi" type="string" value="टॉमब्वाए एप्पलेट फैक्टरी"/>
+        <oaf_attribute name="name-hu" type="string" value="Tomboy kisalkalmazás factory"/>
+        <oaf_attribute name="name-id" type="string" value="Pabrik Aplet Tomboy"/>
+        <oaf_attribute name="name-it" type="string" value="Fabbrica applet Tomboy"/>
+        <oaf_attribute name="name-ja" type="string" value="Tomboy アプレットのファクトリ"/>
+        <oaf_attribute name="name-kn" type="string" value="Tomboy ಆಪ್ಲೆಟ್ ಫ್ಯಾಕ್ಟರಿ"/>
+        <oaf_attribute name="name-ko" type="string" value="톰보이 애플릿 팩토리"/>
+        <oaf_attribute name="name-lt" type="string" value="Tomboy įtaiso gamykla"/>
+        <oaf_attribute name="name-lv" type="string" value="Tomboy sīklietotņu ražotne"/>
+        <oaf_attribute name="name-mai" type="string" value="टॉमब्वाए एप्पलेट फैक्टरी"/>
+        <oaf_attribute name="name-mk" type="string" value="Tomboy фабрика за аплети"/>
+        <oaf_attribute name="name-ml" type="string" value="ടോംബോയ് അപ്പ്-ലെറ്റ് ശാല"/>
+        <oaf_attribute name="name-mr" type="string" value="Tomboy ऍपलेट फॅक्ट्री"/>
+        <oaf_attribute name="name-nb" type="string" value="Tomboy programfabrikk"/>
+        <oaf_attribute name="name-ne" type="string" value="टोमब्वाय एप्लेट कारखाना"/>
+        <oaf_attribute name="name-nl" type="string" value="Tomboy-appletfabriek"/>
+        <oaf_attribute name="name-nn" type="string" value="Tomboy programverkstad"/>
+        <oaf_attribute name="name-or" type="string" value="ଟୋମ୍ବୋ ଆପ୍ଲେଟ କାରଖାନା"/>
+        <oaf_attribute name="name-pa" type="string" value="ਟੋਮਬਾਏ ਐਪਲਿਟ ਫੈਕਟਰੀ"/>
+        <oaf_attribute name="name-pl" type="string" value="Generator apletów programu Tomboy"/>
+        <oaf_attribute name="name-pt" type="string" value="Fábrica de Applets Tomboy"/>
+        <oaf_attribute name="name-pt_BR" type="string" value="Fábrica do miniaplicativo Tomboy"/>
+        <oaf_attribute name="name-ro" type="string" value="Șablon miniaplicație Tomboy"/>
+        <oaf_attribute name="name-ru" type="string" value="Фабрика апплета Tomboy"/>
+        <oaf_attribute name="name-si" type="string" value="ටොම්බොයි යෙදුම්පත් වැඩපොළ"/>
+        <oaf_attribute name="name-sk" type="string" value="Tomboy aplet továreň"/>
+        <oaf_attribute name="name-sl" type="string" value="Tovarna apletov za Tomboy"/>
+        <oaf_attribute name="name-sq" type="string" value="Fabrika e aksesorit Tomboy"/>
+        <oaf_attribute name="name-sr" type="string" value="Подршка за програмче Томичине белешке"/>
+        <oaf_attribute name="name-sr@latin" type="string" value="Podrška za programče Tomičine beleške"/>
+        <oaf_attribute name="name-sv" type="string" value="Tomboy-panelprogramsfabrik"/>
+        <oaf_attribute name="name-ta" type="string" value="Tomboy Applet Factory"/>
+        <oaf_attribute name="name-te" type="string" value="టోంబాయ్ ఆప్లెట్ కర్మాగారము"/>
+        <oaf_attribute name="name-th" type="string" value="โรงงานแอพเพล็ต Tomboy"/>
+        <oaf_attribute name="name-tr" type="string" value="Tomboy Uygulamacık Üreticisi"/>
+        <oaf_attribute name="name-uk" type="string" value="Фабрика аплетів Tomboy"/>
+        <oaf_attribute name="name-vi" type="string" value="Bộ tạo tiểu dụng Tomboy"/>
+        <oaf_attribute name="name-zh_CN" type="string" value="阿帖小程序工厂"/>
+        <oaf_attribute name="name-zh_HK" type="string" value="Tomboy 面板程式工廠"/>
+        <oaf_attribute name="name-zh_TW" type="string" value="Tomboy 面板程式工廠"/>
+	<oaf_attribute name="description" type="string" value="Tomboy Applet Factory"/>
+	<oaf_attribute name="description-af" type="string" value="Tomboy-miniprogram-fabriek"/>
+	<oaf_attribute name="description-ar" type="string" value="مصنع بريمجات Tomboy"/>
+	<oaf_attribute name="description-as" type="string" value="Tomboy এপ্লেট ফেক্টৰি"/>
+	<oaf_attribute name="description-ast" type="string" value="Fábrica d&apos;applets Tomboy"/>
+	<oaf_attribute name="description-be" type="string" value="Аплет Нататніка"/>
+	<oaf_attribute name="description-be@latin" type="string" value="Fabryka apletu Tomboy"/>
+	<oaf_attribute name="description-bg" type="string" value="Фабрика за аплети на Tomboy"/>
+	<oaf_attribute name="description-bn" type="string" value="Tomboy অ্যাপ্লেট ফ্যাক্টরি"/>
+	<oaf_attribute name="description-bn_IN" type="string" value="Tomboy অ্যাপ্লেট ফ্যাক্টরি"/>
+	<oaf_attribute name="description-ca" type="string" value="Factoria de miniaplicacions del Tomboy"/>
+	<oaf_attribute name="description-ca@valencia" type="string" value="Factoria de miniaplicacions del Tomboy"/>
+	<oaf_attribute name="description-cs" type="string" value="Generátor appletu Tomboy"/>
+	<oaf_attribute name="description-da" type="string" value="Tomboy-programfabrik"/>
+	<oaf_attribute name="description-de" type="string" value="Tomboy Applet Factory"/>
+	<oaf_attribute name="description-dz" type="string" value="ཊོམ་བོ་ཡེ་ཨེཔ་ལེཊི་འཕྲུལ་ཁང་།"/>
+	<oaf_attribute name="description-el" type="string" value="Εργοστάσιο μικροεφαρμογής Tomboy"/>
+	<oaf_attribute name="description-en@shaw" type="string" value="·𐑑𐑪𐑥𐑚𐑶 𐑨𐑐𐑤𐑩𐑑 𐑓𐑨𐑒𐑑𐑼𐑦"/>
+	<oaf_attribute name="description-en_CA" type="string" value="Tomboy Applet Factory"/>
+	<oaf_attribute name="description-en_GB" type="string" value="Tomboy Applet Factory"/>
+	<oaf_attribute name="description-es" type="string" value="Fábrica de la miniaplicación Tomboy"/>
+	<oaf_attribute name="description-et" type="string" value="Tomboy rakendi Factory"/>
+	<oaf_attribute name="description-eu" type="string" value="Tomboy miniaplikazioaren fabrika"/>
+	<oaf_attribute name="description-fi" type="string" value="Tomboy-sovelman tehdas"/>
+	<oaf_attribute name="description-fr" type="string" value="Fabrique d&apos;applet Tomboy"/>
+	<oaf_attribute name="description-ga" type="string" value="Monarcha Fheidhmchláirín Tomboy"/>
+	<oaf_attribute name="description-gl" type="string" value="Factoría de miniaplicativos Tomboy"/>
+	<oaf_attribute name="description-gu" type="string" value="Tomboy એપ્લેટ કારખાનું"/>
+	<oaf_attribute name="description-he" type="string" value="Tomboy Applet Factory"/>
+	<oaf_attribute name="description-hi" type="string" value="टॉमब्वाए एप्पलेट फैक्टरी"/>
+	<oaf_attribute name="description-hu" type="string" value="Tomboy kisalkalmazás factory"/>
+	<oaf_attribute name="description-id" type="string" value="Pabrik Aplet Tomboy"/>
+	<oaf_attribute name="description-it" type="string" value="Fabbrica applet Tomboy"/>
+	<oaf_attribute name="description-ja" type="string" value="Tomboy アプレットのファクトリ"/>
+	<oaf_attribute name="description-kn" type="string" value="Tomboy ಆಪ್ಲೆಟ್ ಫ್ಯಾಕ್ಟರಿ"/>
+	<oaf_attribute name="description-ko" type="string" value="톰보이 애플릿 팩토리"/>
+	<oaf_attribute name="description-lt" type="string" value="Tomboy įtaiso gamykla"/>
+	<oaf_attribute name="description-lv" type="string" value="Tomboy sīklietotņu ražotne"/>
+	<oaf_attribute name="description-mai" type="string" value="टॉमब्वाए एप्पलेट फैक्टरी"/>
+	<oaf_attribute name="description-mk" type="string" value="Tomboy фабрика за аплети"/>
+	<oaf_attribute name="description-ml" type="string" value="ടോംബോയ് അപ്പ്-ലെറ്റ് ശാല"/>
+	<oaf_attribute name="description-mr" type="string" value="Tomboy ऍपलेट फॅक्ट्री"/>
+	<oaf_attribute name="description-nb" type="string" value="Tomboy programfabrikk"/>
+	<oaf_attribute name="description-ne" type="string" value="टोमब्वाय एप्लेट कारखाना"/>
+	<oaf_attribute name="description-nl" type="string" value="Tomboy-appletfabriek"/>
+	<oaf_attribute name="description-nn" type="string" value="Tomboy programverkstad"/>
+	<oaf_attribute name="description-or" type="string" value="ଟୋମ୍ବୋ ଆପ୍ଲେଟ କାରଖାନା"/>
+	<oaf_attribute name="description-pa" type="string" value="ਟੋਮਬਾਏ ਐਪਲਿਟ ਫੈਕਟਰੀ"/>
+	<oaf_attribute name="description-pl" type="string" value="Generator apletów programu Tomboy"/>
+	<oaf_attribute name="description-pt" type="string" value="Fábrica de Applets Tomboy"/>
+	<oaf_attribute name="description-pt_BR" type="string" value="Fábrica do miniaplicativo Tomboy"/>
+	<oaf_attribute name="description-ro" type="string" value="Șablon miniaplicație Tomboy"/>
+	<oaf_attribute name="description-ru" type="string" value="Фабрика апплета Tomboy"/>
+	<oaf_attribute name="description-si" type="string" value="ටොම්බොයි යෙදුම්පත් වැඩපොළ"/>
+	<oaf_attribute name="description-sk" type="string" value="Tomboy aplet továreň"/>
+	<oaf_attribute name="description-sl" type="string" value="Tovarna apletov za Tomboy"/>
+	<oaf_attribute name="description-sq" type="string" value="Fabrika e aksesorit Tomboy"/>
+	<oaf_attribute name="description-sr" type="string" value="Подршка за програмче Томичине белешке"/>
+	<oaf_attribute name="description-sr@latin" type="string" value="Podrška za programče Tomičine beleške"/>
+	<oaf_attribute name="description-sv" type="string" value="Tomboy-panelprogramsfabrik"/>
+	<oaf_attribute name="description-ta" type="string" value="Tomboy Applet Factory"/>
+	<oaf_attribute name="description-te" type="string" value="టోంబాయ్ ఆప్లెట్ కర్మాగారము"/>
+	<oaf_attribute name="description-th" type="string" value="โรงงานแอพเพล็ต Tomboy"/>
+	<oaf_attribute name="description-tr" type="string" value="Tomboy Uygulamacık Üreticisi"/>
+	<oaf_attribute name="description-uk" type="string" value="Фабрика аплетів Tomboy"/>
+	<oaf_attribute name="description-vi" type="string" value="Bộ tạo tiểu dụng Tomboy"/>
+	<oaf_attribute name="description-zh_CN" type="string" value="阿帖小程序工厂"/>
+	<oaf_attribute name="description-zh_HK" type="string" value="Tomboy 面板程式工廠"/>
+	<oaf_attribute name="description-zh_TW" type="string" value="Tomboy 面板程式工廠"/>
+</oaf_server>
+
+<oaf_server iid="OAFIID:TomboyApplet" 
+	    type="factory"
+            location="OAFIID:TomboyApplet_Factory">
+
+        <oaf_attribute name="repo_ids" type="stringv">
+                <item value="IDL:GNOME/Vertigo/PanelAppletShell:1.0"/>
+                <item value="IDL:Bonobo/Control:1.0"/>
+                <item value="IDL:Bonobo/Unknown:1.0"/>
+        </oaf_attribute>
+        <oaf_attribute name="name" type="string" value="Tomboy Notes"/>
+        <oaf_attribute name="name-af" type="string" value="Tomboy-notas"/>
+        <oaf_attribute name="name-ar" type="string" value="ملاحظات Tomboy"/>
+        <oaf_attribute name="name-as" type="string" value="Tomboy Notes"/>
+        <oaf_attribute name="name-ast" type="string" value="Notes Tomboy"/>
+        <oaf_attribute name="name-be" type="string" value="Нататнік Tomboy"/>
+        <oaf_attribute name="name-be@latin" type="string" value="Natatki Tomboy"/>
+        <oaf_attribute name="name-bg" type="string" value="Бележки (Tomboy)"/>
+        <oaf_attribute name="name-bn" type="string" value="Tomboy নোট"/>
+        <oaf_attribute name="name-bn_IN" type="string" value="Tomboy Notes"/>
+        <oaf_attribute name="name-br" type="string" value="Notennoù Tomboy"/>
+        <oaf_attribute name="name-ca" type="string" value="Notes del Tomboy"/>
+        <oaf_attribute name="name-ca@valencia" type="string" value="Notes del Tomboy"/>
+        <oaf_attribute name="name-cs" type="string" value="Poznámky Tomboy"/>
+        <oaf_attribute name="name-da" type="string" value="Tomboy-notesblok"/>
+        <oaf_attribute name="name-de" type="string" value="Tomboy Notizen"/>
+        <oaf_attribute name="name-dz" type="string" value="ཊོམ་བོ་ཡེ་དྲན་འཛིན།"/>
+        <oaf_attribute name="name-el" type="string" value="Σημειώσεις"/>
+        <oaf_attribute name="name-en@shaw" type="string" value="·𐑑𐑪𐑥𐑚𐑶 𐑯𐑴𐑑𐑕"/>
+        <oaf_attribute name="name-en_CA" type="string" value="Tomboy Notes"/>
+        <oaf_attribute name="name-en_GB" type="string" value="Tomboy Notes"/>
+        <oaf_attribute name="name-eo" type="string" value="Tomboy-notoj"/>
+        <oaf_attribute name="name-es" type="string" value="Notas Tomboy"/>
+        <oaf_attribute name="name-et" type="string" value="Tomboy märkmed"/>
+        <oaf_attribute name="name-eu" type="string" value="Tomboy oharrak"/>
+        <oaf_attribute name="name-fi" type="string" value="Tomboy-muistilaput"/>
+        <oaf_attribute name="name-fr" type="string" value="Notes Tomboy"/>
+        <oaf_attribute name="name-ga" type="string" value="Nótaí Tomboy"/>
+        <oaf_attribute name="name-gl" type="string" value="Notas do Tomboy"/>
+        <oaf_attribute name="name-gu" type="string" value="Tomboy નોંધો"/>
+        <oaf_attribute name="name-he" type="string" value="פתקיות Tomboy"/>
+        <oaf_attribute name="name-hi" type="string" value="टॉमब्वाए नोट्स"/>
+        <oaf_attribute name="name-hu" type="string" value="Tomboy jegyzettömb"/>
+        <oaf_attribute name="name-id" type="string" value="Tomboy Catatan"/>
+        <oaf_attribute name="name-is" type="string" value="Tomboy Glósur"/>
+        <oaf_attribute name="name-it" type="string" value="Note Tomboy"/>
+        <oaf_attribute name="name-ja" type="string" value="Tomboy メモ"/>
+        <oaf_attribute name="name-kn" type="string" value="Tomboy ಟಿಪ್ಪಣಿಗಳು"/>
+        <oaf_attribute name="name-ko" type="string" value="톰보이 쪽지"/>
+        <oaf_attribute name="name-ku" type="string" value="Bernameya Notan Tomboy"/>
+        <oaf_attribute name="name-lt" type="string" value="Tomboy užrašai"/>
+        <oaf_attribute name="name-lv" type="string" value="Tomboy piezīmes"/>
+        <oaf_attribute name="name-mai" type="string" value="टॉमब्वाए नोट्स"/>
+        <oaf_attribute name="name-mk" type="string" value="Tomboy белешки"/>
+        <oaf_attribute name="name-ml" type="string" value="ടോംബോയ് കുറിപ്പുകള്‍"/>
+        <oaf_attribute name="name-mr" type="string" value="Tomboy टिप"/>
+        <oaf_attribute name="name-nb" type="string" value="Tomboy notatskriver"/>
+        <oaf_attribute name="name-ne" type="string" value="टोमब्वाय द्रष्टव्यहरू"/>
+        <oaf_attribute name="name-nl" type="string" value="Tomboy-notities"/>
+        <oaf_attribute name="name-nn" type="string" value="Tomboy notatskriving"/>
+        <oaf_attribute name="name-oc" type="string" value="Nòtas Tomboy"/>
+        <oaf_attribute name="name-or" type="string" value="ଟୋମ୍ବୋ ଟିପ୍ପଣୀ"/>
+        <oaf_attribute name="name-pa" type="string" value="ਟੋਮਬਾਏ ਨੋਟਿਸ"/>
+        <oaf_attribute name="name-pl" type="string" value="Notatnik Tomboy"/>
+        <oaf_attribute name="name-pt" type="string" value="Notas Tomboy"/>
+        <oaf_attribute name="name-pt_BR" type="string" value="Tomboy Notas"/>
+        <oaf_attribute name="name-ro" type="string" value="Notițe Tomboy"/>
+        <oaf_attribute name="name-ru" type="string" value="Заметки Tomboy"/>
+        <oaf_attribute name="name-si" type="string" value="ටොම්බොයි සටහන්"/>
+        <oaf_attribute name="name-sk" type="string" value="Poznámky Tomboy"/>
+        <oaf_attribute name="name-sl" type="string" value="Sporočilca Tomboy"/>
+        <oaf_attribute name="name-sq" type="string" value="Tomboy - Shënime"/>
+        <oaf_attribute name="name-sr" type="string" value="Томичине белешке"/>
+        <oaf_attribute name="name-sr@latin" type="string" value="Tomičine beleške"/>
+        <oaf_attribute name="name-sv" type="string" value="Tomboy-anteckningar"/>
+        <oaf_attribute name="name-ta" type="string" value="Tomboy குறிப்புகள்"/>
+        <oaf_attribute name="name-te" type="string" value="టోంబాయ్ నోట్స్"/>
+        <oaf_attribute name="name-th" type="string" value="บันทึกของ Tomboy"/>
+        <oaf_attribute name="name-tr" type="string" value="Tomboy Notları"/>
+        <oaf_attribute name="name-uk" type="string" value="Примітки Tomboy"/>
+        <oaf_attribute name="name-vi" type="string" value="Ghi chú Tomboy"/>
+        <oaf_attribute name="name-zh_CN" type="string" value="阿帖便笺"/>
+        <oaf_attribute name="name-zh_HK" type="string" value="Tomboy 筆記"/>
+        <oaf_attribute name="name-zh_TW" type="string" value="Tomboy 筆記"/>
+        <oaf_attribute name="description" type="string" value="Simple and easy to use note-taking"/>
+        <oaf_attribute name="description-af" type="string" value="Maak notas maklik en eenvoudig"/>
+        <oaf_attribute name="description-ar" type="string" value="تسجيل ملاحظات بسيط و سهل الاستخدام"/>
+        <oaf_attribute name="description-as" type="string" value="নোট তৈয়াৰ কৰাৰ সহজ সৰল উপায়"/>
+        <oaf_attribute name="description-ast" type="string" value="Un apunta-notes cenciellu d&apos;usar"/>
+        <oaf_attribute name="description-be" type="string" value="Просты нататнік"/>
+        <oaf_attribute name="description-be@latin" type="string" value="Prostaje j lohkaje viadzieńnie natatak"/>
+        <oaf_attribute name="description-bg" type="string" value="Просто и лесно водене на бележки"/>
+        <oaf_attribute name="description-bn" type="string" value="নোট তৈরি করার সহজ সরল উপায়"/>
+        <oaf_attribute name="description-bn_IN" type="string" value="নোট তৈরি করার সহজ সরল উপায়"/>
+        <oaf_attribute name="description-ca" type="string" value="Una forma senzilla i fàcil de prendre notes"/>
+        <oaf_attribute name="description-ca@valencia" type="string" value="Una forma senzilla i fàcil de prendre notes"/>
+        <oaf_attribute name="description-cs" type="string" value="Jednoduché a snadno použitelné psaní poznámek"/>
+        <oaf_attribute name="description-da" type="string" value="Enkel og brugervenlig notesblok"/>
+        <oaf_attribute name="description-de" type="string" value="Einfache und leicht benutzbare Notizzettel"/>
+        <oaf_attribute name="description-dz" type="string" value="དྲན་འཛིན་བཀོད་ནིའི་དོན་ལུ་ ལག་ལེན་འཐབ་ནི་འཇམ་ཏོང་ཏོ།"/>
+        <oaf_attribute name="description-el" type="string" value="Απλή και εύκολη στη χρήση λήψη σημειώσεων"/>
+        <oaf_attribute name="description-en@shaw" type="string" value="𐑕𐑦𐑥𐑐𐑩𐑤 𐑯 𐑰𐑟𐑦 𐑑 𐑿𐑕 𐑯𐑴𐑑-𐑑𐑱𐑒𐑦𐑙"/>
+        <oaf_attribute name="description-en_CA" type="string" value="Simple and easy to use note-taker"/>
+        <oaf_attribute name="description-en_GB" type="string" value="Simple and easy to use note-taking"/>
+        <oaf_attribute name="description-es" type="string" value="Toma de notas simple y fácil de usar"/>
+        <oaf_attribute name="description-et" type="string" value="Lihtne ja kergestikasutatav märkmete tegemise programm"/>
+        <oaf_attribute name="description-eu" type="string" value="Erraza eta erosoa oharrak hartzeko"/>
+        <oaf_attribute name="description-fi" type="string" value="Yksinkertainen ja helppokäyttöinen muistiinpanosovelma"/>
+        <oaf_attribute name="description-fr" type="string" value="Une application de prise de notes simple et facile à utiliser"/>
+        <oaf_attribute name="description-gl" type="string" value="Aplicativo sinxelo e fácil de usar para tomar notas"/>
+        <oaf_attribute name="description-gu" type="string" value="નોંધ-લેવા માટેનું સાદું અને સરળ"/>
+        <oaf_attribute name="description-he" type="string" value="רישום בפתקיות פשוט וקל לשימוש"/>
+        <oaf_attribute name="description-hi" type="string" value="नोट प्रयोग में सरल व आसान"/>
+        <oaf_attribute name="description-hu" type="string" value="Egyszerű, könnyen használható jegyzetkezelés"/>
+        <oaf_attribute name="description-id" type="string" value="Pembuat catatan yang sederhana dan mudah dipakai"/>
+        <oaf_attribute name="description-it" type="string" value="Un programma per prendere note semplice e facile da usare"/>
+        <oaf_attribute name="description-ja" type="string" value="シンプルで使いやすいメモ用アプリケーションです"/>
+        <oaf_attribute name="description-kn" type="string" value="ಸರಳ ಹಾಗು ಬಳಸಲು ಸುಲಭವಾಗಿರುವ ಟಿಪ್ಪಣಿ ಮಾಡುವ ಸಾಧನ"/>
+        <oaf_attribute name="description-ko" type="string" value="이용하기 쉽고 간단한 쪽지"/>
+        <oaf_attribute name="description-lt" type="string" value="Paprasta ir lengvai naudojama užrašinė"/>
+        <oaf_attribute name="description-lv" type="string" value="Vienkārša un ērta piezīmju veikšana"/>
+        <oaf_attribute name="description-mai" type="string" value="नोट प्रयोगमे सरल आ आसान"/>
+        <oaf_attribute name="description-mk" type="string" value="Едноставно и лесно за употреба зпишување на белешки"/>
+        <oaf_attribute name="description-ml" type="string" value="ലളിതവും എളുപ്പവുമായ കുറിപ്പെടുക്കല്‍"/>
+        <oaf_attribute name="description-mr" type="string" value="टिप-लिहीण्याकरीता सोपे व सुलभ साधन"/>
+        <oaf_attribute name="description-ms" type="string" value="Ringkas dan mudah untuk mengambil nota"/>
+        <oaf_attribute name="description-nb" type="string" value="Enkel og brukervennlig notatskriver"/>
+        <oaf_attribute name="description-ne" type="string" value="द्रष्टव्य-लिने प्रयोग गर्नको लागि सरल र सजिलो"/>
+        <oaf_attribute name="description-nl" type="string" value="Eenvoudig en snel notities maken"/>
+        <oaf_attribute name="description-nn" type="string" value="Enkel og brukarvenleg notatskriving"/>
+        <oaf_attribute name="description-or" type="string" value="ନୋଟ କରିବା ପାଇଁ ସହଜ ଏବଂ ସରଳ"/>
+        <oaf_attribute name="description-pa" type="string" value="ਨੋਟ-ਲੈਣ ਲਈ ਸਧਾਰਨ ਅਤੇ ਸੌਖਾ ਢੰਗ"/>
+        <oaf_attribute name="description-pl" type="string" value="Prosty i łatwy w użyciu program do sporządzania notatek"/>
+        <oaf_attribute name="description-pt" type="string" value="Tomar notas de forma simples e fácil"/>
+        <oaf_attribute name="description-pt_BR" type="string" value="Aplicativo para tomar notas, simples e fácil de usar"/>
+        <oaf_attribute name="description-ro" type="string" value="Carnețel de notițe ușor de utilizat"/>
+        <oaf_attribute name="description-ru" type="string" value="Простая в использовании программа для создания заметок"/>
+        <oaf_attribute name="description-si" type="string" value="Simple and easy to use note-taking"/>
+        <oaf_attribute name="description-sk" type="string" value="Jednoduché a ľahko použiteľné písanie poznámok"/>
+        <oaf_attribute name="description-sl" type="string" value="Preprosto in enostavno pisanje sporočilc"/>
+        <oaf_attribute name="description-sq" type="string" value="Mbajtës-shënimesh i thjeshtë dhe i lehtë në përdorim"/>
+        <oaf_attribute name="description-sr" type="string" value="Једноставан хватач белешки"/>
+        <oaf_attribute name="description-sr@latin" type="string" value="Jednostavan hvatač beleški"/>
+        <oaf_attribute name="description-sv" type="string" value="Enkelt och lättanvänt anteckningsblock"/>
+        <oaf_attribute name="description-ta" type="string" value="எளிய குறிப்பெடுக்கும் பயன்பாடு"/>
+        <oaf_attribute name="description-te" type="string" value="నోట్-తీసుకొనుట వాడుటకు సామాన్యమైన మరియు సులభమైనది"/>
+        <oaf_attribute name="description-th" type="string" value="บันทึกข้อความสะดวกใช้"/>
+        <oaf_attribute name="description-tr" type="string" value="Basit ve kullanışlı not alma"/>
+        <oaf_attribute name="description-uk" type="string" value="Проста та зручна програма для створення приміток"/>
+        <oaf_attribute name="description-vi" type="string" value="Ghi chú đơn giản và dễ dùng."/>
+        <oaf_attribute name="description-zh_CN" type="string" value="简单易用的随意帖"/>
+        <oaf_attribute name="description-zh_HK" type="string" value="簡單易用的桌面筆記軟件"/>
+        <oaf_attribute name="description-zh_TW" type="string" value="簡單易用的桌面筆記軟體"/>
+        <oaf_attribute name="panel:category" type="string" value="Accessories"/>
+        <oaf_attribute name="panel:category-af" type="string" value="Toebehore"/>
+        <oaf_attribute name="panel:category-ar" type="string" value="كماليات"/>
+        <oaf_attribute name="panel:category-as" type="string" value="আনুষঙ্গিক"/>
+        <oaf_attribute name="panel:category-ast" type="string" value="Utilidaes"/>
+        <oaf_attribute name="panel:category-be" type="string" value="Інструмэнты"/>
+        <oaf_attribute name="panel:category-be@latin" type="string" value="Dadatki"/>
+        <oaf_attribute name="panel:category-bg" type="string" value="Аксесоари"/>
+        <oaf_attribute name="panel:category-bn" type="string" value="আনুষঙ্গিক"/>
+        <oaf_attribute name="panel:category-bn_IN" type="string" value="আনুষঙ্গিক"/>
+        <oaf_attribute name="panel:category-br" type="string" value="Mavegoù"/>
+        <oaf_attribute name="panel:category-ca" type="string" value="Accessoris"/>
+        <oaf_attribute name="panel:category-ca@valencia" type="string" value="Accessoris"/>
+        <oaf_attribute name="panel:category-cs" type="string" value="Příslušenství"/>
+        <oaf_attribute name="panel:category-da" type="string" value="Tilbehør"/>
+        <oaf_attribute name="panel:category-de" type="string" value="Zubehör"/>
+        <oaf_attribute name="panel:category-dz" type="string" value="ཡན་ལག་ཅ་ཆས།"/>
+        <oaf_attribute name="panel:category-el" type="string" value="Βοηθήματα"/>
+        <oaf_attribute name="panel:category-en@shaw" type="string" value="𐑨𐑒𐑕𐑧𐑕𐑼𐑦𐑟"/>
+        <oaf_attribute name="panel:category-en_CA" type="string" value="Accessories"/>
+        <oaf_attribute name="panel:category-en_GB" type="string" value="Accessories"/>
+        <oaf_attribute name="panel:category-eo" type="string" value="Kromaĵojn"/>
+        <oaf_attribute name="panel:category-es" type="string" value="Accesorios"/>
+        <oaf_attribute name="panel:category-et" type="string" value="Tarvikud"/>
+        <oaf_attribute name="panel:category-eu" type="string" value="Gehigarriak"/>
+        <oaf_attribute name="panel:category-fi" type="string" value="Apuohjelmat"/>
+        <oaf_attribute name="panel:category-fr" type="string" value="Accessoires"/>
+        <oaf_attribute name="panel:category-ga" type="string" value="Oiriúintí"/>
+        <oaf_attribute name="panel:category-gl" type="string" value="Accesorios"/>
+        <oaf_attribute name="panel:category-gu" type="string" value="સહાયક કાર્યક્રમો"/>
+        <oaf_attribute name="panel:category-he" type="string" value="עזרים"/>
+        <oaf_attribute name="panel:category-hi" type="string" value="संलग्नक"/>
+        <oaf_attribute name="panel:category-hu" type="string" value="Kellékek"/>
+        <oaf_attribute name="panel:category-id" type="string" value="Aksesoris"/>
+        <oaf_attribute name="panel:category-it" type="string" value="Accessori"/>
+        <oaf_attribute name="panel:category-ja" type="string" value="アクセサリ"/>
+        <oaf_attribute name="panel:category-kn" type="string" value="ಹೆಚ್ಚುವರಿ ಪರಿಕರಗಳು"/>
+        <oaf_attribute name="panel:category-ko" type="string" value="보조 프로그램"/>
+        <oaf_attribute name="panel:category-lt" type="string" value="Reikmenys"/>
+        <oaf_attribute name="panel:category-lv" type="string" value="Piederumi"/>
+        <oaf_attribute name="panel:category-mai" type="string" value="संलग्नक"/>
+        <oaf_attribute name="panel:category-mk" type="string" value="Услужни алатки"/>
+        <oaf_attribute name="panel:category-ml" type="string" value="പ്രയോഗങ്ങള്‍"/>
+        <oaf_attribute name="panel:category-mr" type="string" value="सुलभता"/>
+        <oaf_attribute name="panel:category-nb" type="string" value="Tilbehør"/>
+        <oaf_attribute name="panel:category-ne" type="string" value="सहायक सामाग्रीहरू"/>
+        <oaf_attribute name="panel:category-nl" type="string" value="Hulpmiddelen"/>
+        <oaf_attribute name="panel:category-nn" type="string" value="Tilhøyr"/>
+        <oaf_attribute name="panel:category-oc" type="string" value="Accessòris"/>
+        <oaf_attribute name="panel:category-or" type="string" value="ସହାୟକ ବସ୍ତୁ"/>
+        <oaf_attribute name="panel:category-pa" type="string" value="ਸਹਾਇਕ"/>
+        <oaf_attribute name="panel:category-pl" type="string" value="Akcesoria"/>
+        <oaf_attribute name="panel:category-pt" type="string" value="Acessórios"/>
+        <oaf_attribute name="panel:category-pt_BR" type="string" value="Acessórios"/>
+        <oaf_attribute name="panel:category-ro" type="string" value="Accesorii"/>
+        <oaf_attribute name="panel:category-ru" type="string" value="Принадлежности"/>
+        <oaf_attribute name="panel:category-si" type="string" value="උපාංග"/>
+        <oaf_attribute name="panel:category-sk" type="string" value="Príslušenstvo"/>
+        <oaf_attribute name="panel:category-sl" type="string" value="Pripomočki"/>
+        <oaf_attribute name="panel:category-sq" type="string" value="Aksesorë"/>
+        <oaf_attribute name="panel:category-sr" type="string" value="Алатке"/>
+        <oaf_attribute name="panel:category-sr@latin" type="string" value="Alatke"/>
+        <oaf_attribute name="panel:category-sv" type="string" value="Tillbehör"/>
+        <oaf_attribute name="panel:category-ta" type="string" value="துணை பொருட்கள் "/>
+        <oaf_attribute name="panel:category-te" type="string" value="సహాయకాలు"/>
+        <oaf_attribute name="panel:category-th" type="string" value="อุปกรณ์เสริม"/>
+        <oaf_attribute name="panel:category-tr" type="string" value="Donatılar"/>
+        <oaf_attribute name="panel:category-uk" type="string" value="Стандартні"/>
+        <oaf_attribute name="panel:category-vi" type="string" value="Phụ tùng"/>
+        <oaf_attribute name="panel:category-zh_CN" type="string" value="附件"/>
+        <oaf_attribute name="panel:category-zh_HK" type="string" value="附屬應用程式"/>
+        <oaf_attribute name="panel:category-zh_TW" type="string" value="附屬應用程式"/>
+        <oaf_attribute name="panel:icon" type="string" value="tomboy.png"/>
+
+	<oaf_attribute name="bugzilla:bugzilla" type="string" value="GNOME"/>
+        <oaf_attribute name="bugzilla:product" type="string" value="Tomboy"/>
+        <oaf_attribute name="bugzilla:component" type="string" value="General"/>
+        <oaf_attribute name="bugzilla:other_binaries" type="string" value="tomboy"/>
+</oaf_server>
+</oaf_info>

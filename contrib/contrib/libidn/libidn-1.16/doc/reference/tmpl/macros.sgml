@@ -1,0 +1,37 @@
+<!-- ##### SECTION Title ##### -->
+macros
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### MACRO ASSERT ##### -->
+<para>
+
+</para>
+
+@expr: 
+
+
+<!-- ##### MACRO SIZEOF ##### -->
+<para>
+
+</para>
+
+@array: 
+
+

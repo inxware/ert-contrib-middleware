@@ -1,0 +1,12 @@
+prefix=/home/pdrezet/workspace/inxware2.0-Release/INX/comp-lib-support/inx_build_scripts/../target_libs/i486-pc-linux-gnu-i686-pc-linux-gnu-4.2.4-gtk_vlc/build
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Xcomposite
+Description: X Composite  Library
+Version: 0.4.1
+Requires: xproto compositeproto >= 0.4 xfixes
+Requires.private: x11 xfixes xext
+Cflags: -I${includedir}
+Libs: -L${libdir} -lXcomposite

@@ -1,0 +1,25 @@
+Metadata-Version: 1.0
+Name: pysqlite
+Version: 1.0.1
+Summary: An interface to SQLite
+Home-page: http://pysqlite.sourceforge.net/
+Author: PySQLite developers
+Author-email: pysqlite-devel@lists.sourceforge.net
+License: Python license
+Description: Python interface to SQLite
+        
+        pysqlite is an interface to the SQLite database server for Python. It aims to be
+        fully compliant with Python database API version 2.0 while also exploiting the
+        unique features of SQLite.
+        
+        
+Platform: ALL
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Microsoft :: Windows :: Windows NT/2000
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: C
+Classifier: Programming Language :: Python
+Classifier: Topic :: Database :: Database Engines/Servers
+Classifier: Topic :: Database :: Front-Ends

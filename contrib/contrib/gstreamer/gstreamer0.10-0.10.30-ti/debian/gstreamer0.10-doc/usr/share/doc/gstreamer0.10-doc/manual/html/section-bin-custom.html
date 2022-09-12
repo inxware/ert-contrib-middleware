@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Custom bins</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Bins"
+HREF="chapter-bins.html"><LINK
+REL="PREVIOUS"
+TITLE="Creating a bin"
+HREF="section-bin-create.html"><LINK
+REL="NEXT"
+TITLE="Bus"
+HREF="chapter-bus.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-bin-create.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 6. Bins</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-bus.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-bin-custom"
+>6.3. Custom bins</A
+></H1
+><P
+> 
+      The application programmer can create custom bins packed with elements
+      to perform a specific task. This allows you, for example, to write
+      an Ogg/Vorbis decoder with just the following lines of code:
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;int
+main (int   argc,
+      char *argv[])
+{
+  GstElement *player;
+
+  /* init */
+  gst_init (&#38;argc, &#38;argv);
+
+  /* create player */
+  player = gst_element_factory_make ("oggvorbisplayer", "player");
+
+  /* set the source audio file */
+  g_object_set (player, "location", "helloworld.ogg", NULL);
+
+  /* start playback */
+  gst_element_set_state (GST_ELEMENT (player), GST_STATE_PLAYING);
+[..]
+}
+    </PRE
+><P
+>&#13;      Custom bins can be created with a plugin or an XML description. You
+      will find more information about creating custom bin in the <A
+HREF="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/pwg/html/index.html"
+TARGET="_top"
+>Plugin
+      Writers Guide</A
+>.
+    </P
+><P
+>&#13;      Examples of such custom bins are the playbin and decodebin elements from<A
+HREF="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gst-plugins-base-plugins/html/index.html"
+TARGET="_top"
+>&#13;      gst-plugins-base</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-bin-create.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-bus.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Creating a bin</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-bins.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Bus</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

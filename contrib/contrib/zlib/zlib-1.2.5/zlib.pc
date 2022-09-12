@@ -1,0 +1,13 @@
+prefix=/home/zuhaib/Desktop/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/i486-pc-linux-gnu_i686-pc-linux-gnu-4.2.4_i686-pc-linux-gnu-4.2.4_gtk_gst/build
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+sharedlibdir=${libdir}
+includedir=${prefix}/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.5
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

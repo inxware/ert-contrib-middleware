@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>GStreamer licensing</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Appendices"
+HREF="part-appendix.html"><LINK
+REL="PREVIOUS"
+TITLE="Porting 0.8 plug-ins to 0.10"
+HREF="chapter-porting.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-porting.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+>&nbsp;</TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="chapter-licensing-advisory"
+></A
+>Chapter 25. GStreamer licensing</H1
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-application-licensing"
+>25.1. How to license the code you write for <SPAN
+CLASS="application"
+>GStreamer</SPAN
+></A
+></H1
+><P
+>&#13;GStreamer is a plugin-based framework licensed under the LGPL. The reason 
+for this choice in licensing is to ensure that everyone can use GStreamer 
+to build applications using licenses of their choice.
+</P
+><P
+>&#13;To keep this policy viable, the GStreamer community has made a few 
+licensing rules for code to be included in GStreamer's core or GStreamer's 
+official modules, like our plugin packages. We require that all code going 
+into our core package is LGPL. For the plugin code, we require the use of 
+the LGPL for all plugins written from scratch or linking to external 
+libraries. The only exception to this is when plugins contain older code 
+under more liberal licenses (like the MPL or BSD). They can use those 
+licenses instead and will still be considered for inclusion. We do not 
+accept GPL code to be added to our plugins module, but we do accept 
+LGPL-licensed plugins using an external GPL library. The reason for 
+demanding plugins be licensed under the LGPL, even when using a GPL 
+library, is that other developers might want to use the plugin code as a 
+template for plugins linking to non-GPL libraries.
+</P
+><P
+>&#13;We also plan on splitting out the plugins using GPL libraries into a 
+separate package eventually and implement a system which makes sure an 
+application will not be able to access these plugins unless it uses some 
+special code to do so. The point of this is not to block GPL-licensed 
+plugins from being used and developed, but to make sure people are not 
+unintentionally violating the GPL license of said plugins. 
+</P
+><P
+>&#13;This advisory is part of a bigger advisory with a FAQ which you can find
+on the <A
+HREF="http://gstreamer.freedesktop.org/documentation/licensing.html"
+TARGET="_top"
+>GStreamer website</A
+>
+</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-porting.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>&nbsp;</TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Porting 0.8 plug-ins to 0.10</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part-appendix.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>&nbsp;</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

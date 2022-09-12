@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: d2cmap
+Description: Ducati to Chiron Tiler block remap Interface for TI OMAP processors
+Version: 1.00
+Requires:
+Libs: -L${libdir} -ld2cmap
+Cflags: -I${includedir}/d2cmap

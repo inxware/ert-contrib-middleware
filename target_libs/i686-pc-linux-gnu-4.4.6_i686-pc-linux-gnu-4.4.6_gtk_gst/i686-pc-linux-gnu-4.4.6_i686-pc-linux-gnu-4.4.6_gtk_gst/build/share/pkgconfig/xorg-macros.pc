@@ -1,0 +1,16 @@
+prefix=/home/pdrezet/workspace/inxware2.0-Release/INX/comp-lib-support/inx_build_scripts/../target_libs/i686-linux-gnu-i686-pc-linux-gnu-4.4.6-gtk_gst/build
+exec_prefix=${prefix}
+includedir=${prefix}/include
+datarootdir=${prefix}/share
+datadir=${datarootdir}
+PACKAGE=util-macros
+# Used by XORG_INSTALL
+pkgdatadir=${datadir}/${PACKAGE}
+# docdir is kept for backwards compatibility with XORG_INSTALL from
+# util-macros 1.4
+docdir=${pkgdatadir}
+
+Name: X.Org Macros
+Description: A set of autoconf project macros for X.Org modules
+Version: 1.10.1
+

@@ -1,0 +1,14 @@
+prefix=/usr
+exec_prefix=
+libdir=
+includedir=
+
+pixmapsdir=@pixmapsdir@
+backenddir=@scriptsdir@
+
+Name: gst
+Description: Gnome System Tools
+Version: 2.32.0
+Requires:
+Libs:
+Cflags:

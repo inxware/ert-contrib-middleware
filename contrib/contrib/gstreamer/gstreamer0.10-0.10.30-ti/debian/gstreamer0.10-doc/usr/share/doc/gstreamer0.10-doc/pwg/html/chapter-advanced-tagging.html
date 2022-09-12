@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Tagging (Metadata and Streaminfo)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Advanced Filter Concepts"
+HREF="part-advanced.html"><LINK
+REL="PREVIOUS"
+TITLE="Navigation Interface"
+HREF="section-iface-navigation.html"><LINK
+REL="NEXT"
+TITLE="Reading Tags from Streams"
+HREF="section-tagging-read.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-iface-navigation.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-tagging-read.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="chapter-advanced-tagging"
+></A
+>Chapter 17. Tagging (Metadata and Streaminfo)</H1
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-tagging-overview"
+>17.1. Overview</A
+></H1
+><P
+>&#13;    Tags are pieces of information stored in a stream that are not the content
+    itself, but they rather <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>describe</I
+></SPAN
+> the content. Most
+    media container formats support tagging in one way or another. Ogg uses
+    VorbisComment for this, MP3 uses ID3, AVI and WAV use RIFF's INFO list
+    chunk, etc. GStreamer provides a general way for elements to read tags from
+    the stream and expose this to the user. The tags (at least the metadata)
+    will be part of the stream inside the pipeline. The consequence of this is
+    that transcoding of files from one format to another will automatically
+    preserve tags, as long as the input and output format elements both support
+    tagging.
+  </P
+><P
+>&#13;    Tags are separated in two categories in GStreamer, even though applications
+    won't notice anything of this. The first are called <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>metadata</I
+></SPAN
+>,
+    the second are called <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>streaminfo</I
+></SPAN
+>. Metadata are tags
+    that describe the non-technical parts of stream content. They can be
+    changed without needing to re-encode the stream completely. Examples are
+    <SPAN
+CLASS="QUOTE"
+>"author"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"title"</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"album"</SPAN
+>. The
+    container format might still need to be re-written for the tags to fit in,
+    though. Streaminfo, on the other hand, are tags that describe the stream
+    contents technically. To change them, the stream needs to be re-encoded.
+    Examples are <SPAN
+CLASS="QUOTE"
+>"codec"</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"bitrate"</SPAN
+>. Note that some
+    container formats (like ID3) store various streaminfo tags as metadata in
+    the file container, which means that they can be changed so that they don't
+    match the content in the file any more. Still, they are called metadata
+    because <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>technically</I
+></SPAN
+>, they can be changed without
+    re-encoding the whole stream, even though that makes them invalid. Files
+    with such metadata tags will have the same tag twice: once as metadata,
+    once as streaminfo.
+  </P
+><P
+>&#13;    There is no special name for tag reading elements in <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>. There are
+    specialised elements (e.g. id3demux) that do nothing besides tag reading,
+    but any  <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> element may extract tags while processing data, and
+    most decoders, demuxers and parsers do.
+  </P
+><P
+>&#13;    A tag writer is called <A
+HREF="../../gstreamer/html/GstTagSetter.html"
+TARGET="_top"
+><CODE
+CLASS="classname"
+>TagSetter</CODE
+></A
+>.
+    An element supporting both can be used in a tag editor for quick tag
+    changing (note: in-place tag editing is still poorly supported at the time
+    of writing and usually requires tag extraction/stripping and remuxing of
+    the stream with new tags).
+  </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-iface-navigation.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-tagging-read.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Navigation Interface</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part-advanced.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Reading Tags from Streams</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

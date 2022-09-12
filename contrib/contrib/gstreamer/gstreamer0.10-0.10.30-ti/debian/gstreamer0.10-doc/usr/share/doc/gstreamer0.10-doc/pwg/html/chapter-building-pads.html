@@ -1,0 +1,355 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Specifying the pads</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Building a Plugin"
+HREF="part-building.html"><LINK
+REL="PREVIOUS"
+TITLE="The plugin_init function"
+HREF="section-boiler-plugininit.html"><LINK
+REL="NEXT"
+TITLE="The chain function"
+HREF="chapter-building-chainfn.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-boiler-plugininit.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-building-chainfn.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="chapter-building-pads"
+></A
+>Chapter 4. Specifying the pads</H1
+><P
+>&#13;    As explained before, pads are the port through which data goes in and out
+    of your element, and that makes them a very important item in the process
+    of element creation. In the boilerplate code, we have seen how static pad
+    templates take care of registering pad templates with the element class.
+    Here, we will see how to create actual elements, use a <CODE
+CLASS="function"
+>_setcaps
+    ()</CODE
+>-functions to configure for a particular format and how to
+    register functions to let data flow through the element.
+  </P
+><P
+>&#13;    In the element <CODE
+CLASS="function"
+>_init ()</CODE
+> function, you create the pad
+    from the pad template that has been registered with the element class in
+    the <CODE
+CLASS="function"
+>_base_init ()</CODE
+> function. After creating the pad,
+    you have to set a <CODE
+CLASS="function"
+>_setcaps ()</CODE
+> function pointer and
+    optionally a <CODE
+CLASS="function"
+>_getcaps ()</CODE
+> function pointer. Also, you
+    have to set a <CODE
+CLASS="function"
+>_chain ()</CODE
+> function pointer.
+    Alternatively, pads can also operate in looping mode, which means that they
+    can pull data themselves. More on this topic later. After that, you have
+    to register the pad with the element. This happens like this:
+  </P
+><PRE
+CLASS="programlisting"
+>&#13;
+static gboolean		gst_my_filter_setcaps	(GstPad        *pad,
+						 GstCaps       *caps);
+static GstFlowReturn	gst_my_filter_chain	(GstPad        *pad,
+						 GstBuffer     *buf);
+
+
+
+
+static void
+gst_my_filter_init (GstMyFilter *filter, GstMyFilterClass *filter_klass)
+{
+  GstElementClass *klass = GST_ELEMENT_CLASS (filter_klass);
+
+  /* pad through which data comes in to the element */
+  filter-&#62;sinkpad = gst_pad_new_from_template (
+	gst_element_class_get_pad_template (klass, "sink"), "sink");
+  gst_pad_set_setcaps_function (filter-&#62;sinkpad, gst_my_filter_setcaps);
+  gst_pad_set_chain_function (filter-&#62;sinkpad, gst_my_filter_chain);
+
+
+
+  gst_element_add_pad (GST_ELEMENT (filter), filter-&#62;sinkpad);
+
+  /* pad through which data goes out of the element */
+  filter-&#62;srcpad = gst_pad_new_from_template (
+	gst_element_class_get_pad_template (klass, "src"), "src");
+
+
+
+  gst_element_add_pad (GST_ELEMENT (filter), filter-&#62;srcpad);
+
+  /* properties initial value */
+  filter-&#62;silent = FALSE;
+}
+  </PRE
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-pads-linkfn"
+>4.1. The setcaps-function</A
+></H1
+><P
+>&#13;    The <CODE
+CLASS="function"
+>_setcaps ()</CODE
+>-function is called during caps
+    negotiation, which is discussed in great detail in <A
+HREF="chapter-negotiation.html"
+>Caps negotiation</A
+>. This is the process where the linked
+    pads decide on the streamtype that will transfer between them. A full
+    list of type-definitions can be found in <A
+HREF="chapter-building-types.html"
+>Chapter 12</A
+>. A <CODE
+CLASS="function"
+>_link ()</CODE
+>
+    receives a pointer to a <A
+HREF="../../gstreamer/html/gstreamer-GstCaps.html"
+TARGET="_top"
+><CODE
+CLASS="classname"
+>GstCaps</CODE
+></A
+>
+    struct that defines the proposed streamtype, and can respond with
+    either <SPAN
+CLASS="QUOTE"
+>"yes"</SPAN
+> (<CODE
+CLASS="symbol"
+>TRUE</CODE
+>) or <SPAN
+CLASS="QUOTE"
+>"no"</SPAN
+>
+    (<CODE
+CLASS="symbol"
+>FALSE</CODE
+>). If the element responds positively towards
+    the streamtype, that type will be used on the pad. An example:
+  </P
+><PRE
+CLASS="programlisting"
+>&#13;static gboolean
+gst_my_filter_setcaps (GstPad  *pad,
+		       GstCaps *caps)
+{
+  GstStructure *structure = gst_caps_get_structure (caps, 0);
+  GstMyFilter *filter = GST_MY_FILTER (GST_OBJECT_PARENT (pad));
+  const gchar *mime;
+
+  /* Since we're an audio filter, we want to handle raw audio
+   * and from that audio type, we need to get the samplerate and
+   * number of channels. */
+  mime = gst_structure_get_name (structure);
+  if (strcmp (mime, "audio/x-raw-int") != 0) {
+    GST_WARNING ("Wrong mimetype %s provided, we only support %s",
+		 mime, "audio/x-raw-int");
+    return FALSE;
+  }
+
+  /* we're a filter and don't touch the properties of the data.
+   * That means we can set the given caps unmodified on the next
+   * element, and use that negotiation return value as ours. */
+  if (!gst_pad_set_caps (filter-&#62;srcpad, caps))
+    return FALSE;
+
+  /* Capsnego succeeded, get the stream properties for internal
+   * usage and return success. */
+  gst_structure_get_int (structure, "rate", &#38;filter-&#62;samplerate);
+  gst_structure_get_int (structure, "channels", &#38;filter-&#62;channels);
+
+  g_print ("Caps negotiation succeeded with %d Hz @ %d channels\n",
+	   filter-&#62;samplerate, filter-&#62;channels);
+
+  return TRUE;
+}
+
+</PRE
+><P
+>&#13;    In here, we check the mimetype of the provided caps. Normally, you don't
+    need to do that in your own plugin/element, because the core does that
+    for you. We simply use it to show how to retrieve the mimetype from a
+    provided set of caps. Types are stored in <A
+HREF="../../gstreamer/html/gstreamer-GstStructure.html"
+TARGET="_top"
+><CODE
+CLASS="classname"
+>GstStructure
+    </CODE
+></A
+> internally. A <A
+HREF="../../gstreamer/html/gstreamer-GstCaps.html"
+TARGET="_top"
+><CODE
+CLASS="classname"
+>GstCaps
+    </CODE
+></A
+> is nothing more than a small
+    wrapper for 0 or more structures/types. From the structure, you can also
+    retrieve properties, as is shown above with the function
+    <CODE
+CLASS="function"
+>gst_structure_get_int ()</CODE
+>.
+  </P
+><P
+>&#13;    If your <CODE
+CLASS="function"
+>_link ()</CODE
+> function does not need to perform
+    any specific operation (i.e. it will only forward caps), you can set it
+    to <CODE
+CLASS="function"
+>gst_pad_proxy_link ()</CODE
+>. This is a link forwarding
+    function implementation provided by the core. It is useful for elements
+    such as <CODE
+CLASS="classname"
+>identity</CODE
+>.
+  </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-boiler-plugininit.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-building-chainfn.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The plugin_init function</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part-building.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The chain function</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

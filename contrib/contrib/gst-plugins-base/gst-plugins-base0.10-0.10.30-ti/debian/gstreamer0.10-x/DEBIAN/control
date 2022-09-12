@@ -1,0 +1,24 @@
+Package: gstreamer0.10-x
+Source: gst-plugins-base0.10
+Version: 0.10.30-2+ti0.24.12.2+2
+Architecture: armel
+Maintainer: Maintainers of GStreamer packages <pkg-gstreamer-maintainers@lists.alioth.debian.org>
+Installed-Size: 268
+Depends: libc6 (>= 2.4), libcairo2 (>= 1.2.4), libglib2.0-0 (>= 2.20.0), libgstreamer0.10-0 (>= 0.10.30), libpango1.0-0 (>= 1.18.0), libx11-6, libxext6, libxv1, libgstreamer-plugins-base0.10-0 (>= 0.10.30)
+Provides: gstreamer0.10-videosink
+Section: libs
+Priority: optional
+Homepage: http://gstreamer.freedesktop.org
+Description: GStreamer plugins for X11 and Pango
+ GStreamer is a streaming media framework, based on graphs of filters
+ which operate on media data.  Applications using this library can do
+ anything from real-time sound processing to playing videos, and just
+ about anything else media-related.  Its plugin-based architecture means
+ that new data types or processing capabilities can be added simply by
+ installing new plug-ins.
+ .
+ This package contains the GStreamer plugins for X11 video output, both
+ for standard Xlib support and for the Xv extension, as well as the
+ plugin for Pango-based text rendering and overlay.
+Gstreamer-Elements: clockoverlay, textoverlay, textrender, timeoverlay, ximagesink, xvimagesink
+Gstreamer-Version: 0.10

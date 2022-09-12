@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=/usr/bin
+libdir=/usr/lib
+includedir=/usr/include
+
+Name: libept
+Description: Access various data sources about software packages
+Version: 1.0.9
+Requires: libtagcoll2 libwibble
+Cflags: -I${includedir}
+Libs: -L${libdir} -lept -lapt-pkg -lxapian -lz

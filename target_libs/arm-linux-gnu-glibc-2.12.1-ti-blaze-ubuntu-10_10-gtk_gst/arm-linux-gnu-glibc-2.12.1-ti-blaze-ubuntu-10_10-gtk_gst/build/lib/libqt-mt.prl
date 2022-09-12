@@ -1,0 +1,8 @@
+QMAKE_PRL_BUILD_DIR = /usr/share/qt3/src
+QMAKE_PRO_INPUT = qt.pro
+QMAKE_PRL_TARGET = libqt-mt.so.3.3.8
+QMAKE_PRL_DEFINES = QT_SHARED QT_TABLET_SUPPORT QT_NO_DEBUG QT_THREAD_SUPPORT
+QMAKE_PRL_CFLAGS = -D_REENTRANT
+QMAKE_PRL_CXXFLAGS = -D_REENTRANT
+QMAKE_PRL_CONFIG = qt warn_on release incremental link_prl thread nocrosscompiler dlopen_opengl minimal-config small-config medium-config large-config full-config styles tools kernel widgets dialogs iconview workspace inputmethod network canvas table xml opengl sql opengl release dll thread largefile stl ipv6 system-mng system-jpeg jpeg system-png png gif system-zlib nis cups nas bigcodecs x11sm xshape xinerama xcursor xrandr xrender xftfreetype tablet xkb inputmethod dylib create_prl link_prl qt warn_on depend_includepath qmake_cache x11 x11inc create_libtool create_pc moc x11lib
+QMAKE_PRL_VERSION = 3.3.8

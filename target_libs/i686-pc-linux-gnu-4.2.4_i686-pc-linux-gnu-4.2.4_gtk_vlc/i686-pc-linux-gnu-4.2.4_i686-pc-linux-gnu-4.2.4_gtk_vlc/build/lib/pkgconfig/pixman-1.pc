@@ -1,0 +1,11 @@
+prefix=/home/pdrezet/workspace/inxware2.0-Release/INX/comp-lib-support/inx_build_scripts/../target_libs/i486-pc-linux-gnu-i686-pc-linux-gnu-4.2.4-gtk_vlc/build
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Pixman
+Description: The pixman library (version 1)
+Version: 0.19.4
+Cflags: -I${includedir}/pixman-1 
+Libs: -L${libdir} -lpixman-1 
+

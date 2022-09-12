@@ -1,0 +1,1 @@
+/usr/share/pyshared/numpy/lib/type_check.py

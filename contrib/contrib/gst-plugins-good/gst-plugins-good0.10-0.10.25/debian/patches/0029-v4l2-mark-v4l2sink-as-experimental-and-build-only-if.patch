@@ -1,0 +1,134 @@
+From 40e683c1996065a59fe438d7c0c4df8f2456b49f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Tim-Philipp=20M=C3=BCller?= <tim.muller@collabora.co.uk>
+Date: Sun, 2 Jan 2011 11:37:14 +0000
+Subject: [PATCH 29/44] v4l2: mark v4l2sink as experimental and build only if --enable-experimental is passed
+
+It's not really of 'good' quality yet, but there's a lot of
+code shared with v4l2src, so not so easy to move it elswhere.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=612244
+---
+ sys/v4l2/Makefile.am         |    5 ++++-
+ sys/v4l2/gstv4l2.c           |    4 ++++
+ sys/v4l2/gstv4l2bufferpool.c |    4 ++++
+ sys/v4l2/v4l2_calls.c        |    7 +++++++
+ 4 files changed, 19 insertions(+), 1 deletions(-)
+
+diff --git a/sys/v4l2/Makefile.am b/sys/v4l2/Makefile.am
+index 22cfec4..ab996a1 100644
+--- a/sys/v4l2/Makefile.am
++++ b/sys/v4l2/Makefile.am
+@@ -13,13 +13,16 @@ libgstvideo4linux2_la_SOURCES = gstv4l2.c \
+ 				gstv4l2object.c \
+ 				gstv4l2bufferpool.c \
+ 				gstv4l2src.c \
+-				gstv4l2sink.c \
+ 				gstv4l2tuner.c \
+ 				gstv4l2vidorient.c \
+ 				v4l2_calls.c \
+ 				v4l2src_calls.c \
+ 				$(xv_source)
+ 
++if BUILD_EXPERIMENTAL
++libgstvideo4linux2_la_SOURCES += gstv4l2sink.c
++endif
++
+ libgstvideo4linux2_la_CFLAGS =   $(GST_PLUGINS_BASE_CFLAGS) \
+ 				 $(GST_BASE_CFLAGS) \
+ 				 $(GST_CONTROLLER_CFLAGS) \
+diff --git a/sys/v4l2/gstv4l2.c b/sys/v4l2/gstv4l2.c
+index 2599f77..4a7056f 100644
+--- a/sys/v4l2/gstv4l2.c
++++ b/sys/v4l2/gstv4l2.c
+@@ -32,7 +32,9 @@
+ 
+ #include "gstv4l2object.h"
+ #include "gstv4l2src.h"
++#ifdef HAVE_EXPERIMENTAL
+ #include "gstv4l2sink.h"
++#endif
+ /* #include "gstv4l2jpegsrc.h" */
+ /* #include "gstv4l2mjpegsrc.h" */
+ /* #include "gstv4l2mjpegsink.h" */
+@@ -52,8 +54,10 @@ plugin_init (GstPlugin * plugin)
+ 
+   if (!gst_element_register (plugin, "v4l2src", GST_RANK_PRIMARY,
+           GST_TYPE_V4L2SRC) ||
++#ifdef HAVE_EXPERIMENTAL
+       !gst_element_register (plugin, "v4l2sink", GST_RANK_NONE,
+           GST_TYPE_V4L2SINK) ||
++#endif
+       /*       !gst_element_register (plugin, "v4l2jpegsrc", */
+       /*           GST_RANK_NONE, GST_TYPE_V4L2JPEGSRC) || */
+       /*       !gst_element_register (plugin, "v4l2mjpegsrc", */
+diff --git a/sys/v4l2/gstv4l2bufferpool.c b/sys/v4l2/gstv4l2bufferpool.c
+index a8e7e79..505689a 100644
+--- a/sys/v4l2/gstv4l2bufferpool.c
++++ b/sys/v4l2/gstv4l2bufferpool.c
+@@ -34,7 +34,9 @@
+ 
+ #include <gstv4l2bufferpool.h>
+ #include "gstv4l2src.h"
++#ifdef HAVE_EXPERIMENTAL
+ #include "gstv4l2sink.h"
++#endif
+ #include "v4l2_calls.h"
+ #include "gst/gst-i18n-plugin.h"
+ 
+@@ -290,8 +292,10 @@ get_v4l2_object (GstElement * v4l2elem)
+   GstV4l2Object *v4l2object = NULL;
+   if (GST_IS_V4L2SRC (v4l2elem)) {
+     v4l2object = (GST_V4L2SRC (v4l2elem))->v4l2object;
++#ifdef HAVE_EXPERIMENTAL
+   } else if (GST_IS_V4L2SINK (v4l2elem)) {
+     v4l2object = (GST_V4L2SINK (v4l2elem))->v4l2object;
++#endif
+   } else {
+     GST_ERROR_OBJECT (v4l2elem, "unknown v4l2 element");
+   }
+diff --git a/sys/v4l2/v4l2_calls.c b/sys/v4l2/v4l2_calls.c
+index b4feef3..e9d3069 100644
+--- a/sys/v4l2/v4l2_calls.c
++++ b/sys/v4l2/v4l2_calls.c
+@@ -46,7 +46,10 @@
+ #include "gstv4l2colorbalance.h"
+ 
+ #include "gstv4l2src.h"
++
++#ifdef HAVE_EXPERIMENTAL
+ #include "gstv4l2sink.h"
++#endif
+ 
+ #include "gst/gst-i18n-plugin.h"
+ 
+@@ -462,9 +465,11 @@ gst_v4l2_open (GstV4l2Object * v4l2object)
+       !(v4l2object->vcap.capabilities & V4L2_CAP_VIDEO_CAPTURE))
+     goto not_capture;
+ 
++#ifdef HAVE_EXPERIMENTAL
+   if (GST_IS_V4L2SINK (v4l2object->element) &&
+       !(v4l2object->vcap.capabilities & V4L2_CAP_VIDEO_OUTPUT))
+     goto not_output;
++#endif
+ 
+   /* create enumerations, posts errors. */
+   if (!gst_v4l2_fill_lists (v4l2object))
+@@ -510,6 +515,7 @@ not_capture:
+         ("Capabilities: 0x%x", v4l2object->vcap.capabilities));
+     goto error;
+   }
++#ifdef HAVE_EXPERIMENTAL
+ not_output:
+   {
+     GST_ELEMENT_ERROR (v4l2object->element, RESOURCE, NOT_FOUND,
+@@ -518,6 +524,7 @@ not_output:
+         ("Capabilities: 0x%x", v4l2object->vcap.capabilities));
+     goto error;
+   }
++#endif
+ error:
+   {
+     if (GST_V4L2_IS_OPEN (v4l2object)) {
+-- 
+1.7.1
+

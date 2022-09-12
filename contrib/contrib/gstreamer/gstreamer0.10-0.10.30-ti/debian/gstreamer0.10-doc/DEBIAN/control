@@ -1,0 +1,24 @@
+Package: gstreamer0.10-doc
+Source: gstreamer0.10
+Version: 0.10.30-1+ti0.24.12.2+2
+Architecture: all
+Maintainer: Maintainers of GStreamer packages <pkg-gstreamer-maintainers@lists.alioth.debian.org>
+Installed-Size: 25868
+Depends: libxml2-doc, libglib2.0-doc
+Recommends: libgstreamer0.10-dev (= 0.10.30-1+ti0.24.12.2+2)
+Section: doc
+Priority: optional
+Homepage: http://gstreamer.freedesktop.org
+Description: GStreamer core documentation and manuals
+ GStreamer is a streaming media framework, based on graphs of filters
+ which operate on media data.  Applications using this library can do
+ anything from real-time sound processing to playing videos, and just
+ about anything else media-related.  Its plugin-based architecture means
+ that new data types or processing capabilities can be added simply by
+ installing new plug-ins.
+ .
+ This package contains documentation for core libraries and elements as
+ well as:
+  * the GStreamer Manual
+  * the GStreamer Plugin Writers Guide
+  * Various API docs

@@ -1,0 +1,15 @@
+Package: avahi-dbg
+Source: avahi
+Version: 0.6.27-2ubuntu3.1
+Architecture: armel
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 1708
+Section: debug
+Priority: extra
+Homepage: http://avahi.org/
+Description: Avahi - debugging symbols
+ This package contains detached debugging symbols for the binary packages
+ produced by the avahi source.
+ .
+ Most people will not need this package.
+Original-Maintainer: Utopia Maintenance Team <pkg-utopia-maintainers@lists.alioth.debian.org>

@@ -1,0 +1,41 @@
+
+=head1 NAME
+
+Gnome2::Canvas - API Reference Pod Index
+
+=head1 PAGES
+
+=over
+
+=item L<Gnome2::Canvas>
+
+=item L<Gnome2::Canvas::Bpath>
+
+=item L<Gnome2::Canvas::Ellipse>
+
+=item L<Gnome2::Canvas::Group>
+
+=item L<Gnome2::Canvas::Item>
+
+=item L<Gnome2::Canvas::Line>
+
+=item L<Gnome2::Canvas::PathDef>
+
+=item L<Gnome2::Canvas::Pixbuf>
+
+=item L<Gnome2::Canvas::RE>
+
+=item L<Gnome2::Canvas::Rect>
+
+=item L<Gnome2::Canvas::RichText>
+
+=item L<Gnome2::Canvas::Shape>
+
+=item L<Gnome2::Canvas::Text>
+
+=item L<Gnome2::Canvas::Widget>
+
+=item L<Gnome2::Canvas::version>
+
+=back
+

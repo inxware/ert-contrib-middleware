@@ -1,0 +1,40 @@
+Source: titiler-memmgr
+Section: libs
+Priority: extra
+Maintainer: TI OMAP Developers <tiomap-dev@lists.launchpad.net>
+Build-Depends: cdbs, debhelper (>= 7), quilt, libtool
+Standards-Version: 3.9.1
+Homepage: http://dev.omapzoom.org/?p=tiler/tiler-userspace.git
+Vcs-Git: git://git.omapzoom.org/platform/hardware/ti/tiler.git
+
+Package: libtimemmgr1
+Section: libs
+Architecture: armel
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Replaces: libtitiler-memmgr0
+Breaks:   libtitiler-memmgr0
+Description: TI Tiler memory manager
+ Tiler is required for the System Memory Manager (Syslink)
+
+Package: libtimemmgr-dev
+Section: libdevel
+Architecture: armel
+Depends: ${shlibs:Depends},
+	 ${misc:Depends},
+	 libtimemmgr1 (= ${binary:Version}),
+	 pkg-config
+Replaces: libtitiler-memmgr-dev
+Breaks:   libtitiler-memmgr-dev
+Description: TI Tiler memory manager development files.
+ Generally required for building TI Syslink device driver.
+
+Package: timemmgr-tests
+Section: utils
+Architecture: armel
+Depends: ${shlibs:Depends}, 
+         ${misc:Depends},
+	 libtimemmgr1 (= ${binary:Version})
+Replaces: titiler-memmgr-tests
+Breaks:   titiler-memmgr-tests
+Description: TI Tiler memory manager test applications and tools.
+ This package is required for testing the Tiler library.

@@ -1,0 +1,12 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libmmosal
+Description: OMX OS Abstraction Layer
+Version: 1.0.0
+Requires:
+Libs: -L${libdir} -lmmosal -lpthread
+Cflags: -I${includedir}/omx/mmosal
+

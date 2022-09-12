@@ -1,0 +1,174 @@
+=head1 NAME
+
+Gnome2::Scores - wrapper for GnomeScores
+
+=cut
+
+=head1 HIERARCHY
+
+  Glib::Object
+  +----Glib::InitiallyUnowned
+       +----Gtk2::Object
+            +----Gtk2::Widget
+                 +----Gtk2::Container
+                      +----Gtk2::Bin
+                           +----Gtk2::Window
+                                +----Gtk2::Dialog
+                                     +----Gnome2::Scores
+
+
+
+=cut
+
+=head1 INTERFACES
+
+  Glib::Object::_Unregistered::AtkImplementorIface
+  Gtk2::Buildable
+
+
+
+=cut
+
+
+=head1 METHODS
+
+=head2 widget = Gnome2::Scores-E<gt>B<new> ($names, $scores, $times, $clear)
+
+=over
+
+=item * $names (scalar) - reference to an array
+
+=item * $scores (scalar) - reference to an array
+
+=item * $times (scalar) - reference to an array
+
+=item * $clear (boolean) 
+
+=back
+
+
+
+
+
+
+=head2 $gs-E<gt>B<set_color> ($n, $col)
+
+=over
+
+=item * $n (integer) 
+
+=item * $col (Gtk2::Gdk::Color) 
+
+=back
+
+=head2 $gs-E<gt>B<set_colors> ($col)
+
+=over
+
+=item * $col (Gtk2::Gdk::Color) 
+
+=back
+
+=head2 $gs-E<gt>B<set_current_player> ($i)
+
+=over
+
+=item * $i (integer) 
+
+=back
+
+=head2 $gs-E<gt>B<set_def_color> ($col)
+
+=over
+
+=item * $col (Gtk2::Gdk::Color) 
+
+=back
+
+=head2 widget = Gnome2::Scores-E<gt>B<display> ($title, $app_name, $level, $pos)
+
+=over
+
+=item * $title (string) 
+
+=item * $app_name (string) 
+
+=item * $level (string) 
+
+=item * $pos (integer) 
+
+=back
+
+=head2 widget = Gnome2::Scores-E<gt>B<display_with_pixmap> ($pixmap_logo, $app_name, $level, $pos)
+
+=over
+
+=item * $pixmap_logo (string) 
+
+=item * $app_name (string) 
+
+=item * $level (string) 
+
+=item * $pos (integer) 
+
+=back
+
+=head2 $gs-E<gt>B<set_logo_label> ($txt, $font, $col)
+
+=over
+
+=item * $txt (string) 
+
+=item * $font (string) 
+
+=item * $col (Gtk2::Gdk::Color) 
+
+=back
+
+=head2 $gs-E<gt>B<set_logo_label_title> ($txt)
+
+=over
+
+=item * $txt (string) 
+
+=back
+
+=head2 $gs-E<gt>B<set_logo_pixmap> ($pix_name)
+
+=over
+
+=item * $pix_name (string) 
+
+=back
+
+=head2 $gs-E<gt>B<set_logo_widget> ($w)
+
+=over
+
+=item * $w (Gtk2::Widget) 
+
+=back
+
+
+
+=cut
+
+
+=head1 SEE ALSO
+
+L<Gnome2>, L<Glib::Object>, L<Glib::InitiallyUnowned>, L<Gtk2::Object>, L<Gtk2::Widget>, L<Gtk2::Container>, L<Gtk2::Bin>, L<Gtk2::Window>, L<Gtk2::Dialog>
+
+
+=cut
+
+
+=head1 COPYRIGHT
+
+Copyright (C) 2003-2004 by the gtk2-perl team.
+
+This software is licensed under the LGPL.  See L<Gnome2> for a full notice.
+
+
+
+=cut
+

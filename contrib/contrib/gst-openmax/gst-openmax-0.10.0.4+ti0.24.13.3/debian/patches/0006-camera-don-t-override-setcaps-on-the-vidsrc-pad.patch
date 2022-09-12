@@ -1,0 +1,48 @@
+From a87e8ec4e9d620c73f3b2c798a86aabebd88bd4b Mon Sep 17 00:00:00 2001
+From: Alessandro Decina <alessandro.decina@collabora.co.uk>
+Date: Fri, 20 May 2011 10:44:12 +0200
+Subject: [PATCH 6/7] camera: don't override setcaps on the vidsrc pad
+
+The vidsrc pad can't negotiate, it's always slaved on the src pad.
+---
+ omx/gstomx_camera.c |   16 ----------------
+ 1 files changed, 0 insertions(+), 16 deletions(-)
+
+diff --git a/omx/gstomx_camera.c b/omx/gstomx_camera.c
+index b97cc72..1886bdd 100644
+--- a/omx/gstomx_camera.c
++++ b/omx/gstomx_camera.c
+@@ -266,19 +266,7 @@ src_setcaps (GstPad *pad, GstCaps *caps)
+         if  (!gst_pad_set_caps (GST_BASE_SRC (self)->srcpad, caps))
+             return FALSE;
+ 
+-#if 0
+-        /* force the src pad and vidsrc pad to use the same caps: */
+-        if (pad == self->vidsrcpad)
+-        {
+-            gst_pad_set_caps (GST_BASE_SRC (self)->srcpad, caps);
+-        }
+-        else
+-        {
+-            gst_pad_set_caps (self->vidsrcpad, caps);
+-        }
+-
+         GST_INFO_OBJECT (omx_base, " exit setcaps src: %");
+-#endif
+     }
+ 
+     return TRUE;
+@@ -1177,10 +1165,6 @@ type_instance_init (GTypeInstance *instance,
+     self->vidsrcpad = gst_pad_new_from_template (pad_template, "vidsrc");
+     gst_element_add_pad (GST_ELEMENT_CAST (self), self->vidsrcpad);
+ 
+-    /* src and vidsrc pads have same caps: */
+-    gst_pad_set_setcaps_function (self->vidsrcpad,
+-            GST_DEBUG_FUNCPTR (src_setcaps));
+-
+     /* create/setup imgsrc pad: */
+     pad_template = gst_element_class_get_pad_template (
+             GST_ELEMENT_CLASS (g_class), "imgsrc");
+-- 
+1.7.1
+

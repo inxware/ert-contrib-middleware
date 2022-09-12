@@ -1,0 +1,237 @@
+From c84ed61ec37c2f8b585d711ca21d17f7288c0035 Mon Sep 17 00:00:00 2001
+From: Edward Hervey <edward.hervey@collabora.co.uk>
+Date: Mon, 20 Dec 2010 13:30:43 +0100
+Subject: [PATCH 6/9] GstElement: Add a more flexible way to get request pads.
+
+The new request_new_pad_full vmethod provides an additional caps field,
+which allows elements to take better decision process.
+
+Also, add a gst_element_request_pad() function to allow developers to be
+able to specify which pad template they want a pad of.
+
+Convert gstutils to use that new method instead of the old one when more
+efficient.
+
+This is useful for being able to request pads in a more flexible way,
+especially when the element can provide pads whose caps depend on
+runtime configuration and therefore can't provide pre-registered
+pad templates.
+
+API: GstElement::request_new_pad_full
+API: gst_element_request_pad
+
+https://bugzilla.gnome.org/show_bug.cgi?id=637300
+---
+ docs/gst/gstreamer-sections.txt |    1 +
+ gst/gstelement.c                |   48 ++++++++++++++++++++++++++++++++++----
+ gst/gstelement.h                |   16 ++++++++++++-
+ gst/gstutils.c                  |   28 ++++------------------
+ win32/common/libgstreamer.def   |    1 +
+ 5 files changed, 65 insertions(+), 29 deletions(-)
+
+diff --git a/docs/gst/gstreamer-sections.txt b/docs/gst/gstreamer-sections.txt
+index b5cbad2..7c92f83 100644
+--- a/docs/gst/gstreamer-sections.txt
++++ b/docs/gst/gstreamer-sections.txt
+@@ -518,6 +518,7 @@ gst_element_get_compatible_pad
+ gst_element_get_compatible_pad_template
+ gst_element_get_request_pad
+ gst_element_get_static_pad
++gst_element_request_pad
+ gst_element_no_more_pads
+ gst_element_release_request_pad
+ gst_element_remove_pad
+diff --git a/gst/gstelement.c b/gst/gstelement.c
+index 3d7daff..e1573df 100644
+--- a/gst/gstelement.c
++++ b/gst/gstelement.c
+@@ -963,15 +963,17 @@ gst_element_get_static_pad (GstElement * element, const gchar * name)
+ }
+ 
+ static GstPad *
+-gst_element_request_pad (GstElement * element, GstPadTemplate * templ,
+-    const gchar * name)
++_gst_element_request_pad (GstElement * element, GstPadTemplate * templ,
++    const gchar * name, const GstCaps * caps)
+ {
+   GstPad *newpad = NULL;
+   GstElementClass *oclass;
+ 
+   oclass = GST_ELEMENT_GET_CLASS (element);
+ 
+-  if (oclass->request_new_pad)
++  if (oclass->request_new_pad_full)
++    newpad = (oclass->request_new_pad_full) (element, templ, name, caps);
++  else if (oclass->request_new_pad)
+     newpad = (oclass->request_new_pad) (element, templ, name);
+ 
+   if (newpad)
+@@ -989,7 +991,11 @@ gst_element_request_pad (GstElement * element, GstPadTemplate * templ,
+  * request pads. The pad should be released with
+  * gst_element_release_request_pad().
+  *
+- * Returns: requested #GstPad if found, otherwise %NULL. Release after usage.
++ * This method is slow and will be deprecated in the future. New code should
++ * use gst_element_request_pad() with the requested template.
++ *
++ * Returns: (transfer full): requested #GstPad if found, otherwise %NULL.
++ *     Release after usage.
+  */
+ GstPad *
+ gst_element_get_request_pad (GstElement * element, const gchar * name)
+@@ -1062,12 +1068,44 @@ gst_element_get_request_pad (GstElement * element, const gchar * name)
+   if (!templ_found)
+     return NULL;
+ 
+-  pad = gst_element_request_pad (element, templ, req_name);
++  pad = _gst_element_request_pad (element, templ, req_name, NULL);
+ 
+   return pad;
+ }
+ 
+ /**
++ * gst_element_request_pad:
++ * @element: a #GstElement to find a request pad of.
++ * @templ: a #GstPadTemplate of which we want a pad of.
++ * @name: (transfer none) (allow-none): the name of the request #GstPad
++ * to retrieve. Can be %NULL.
++ * @caps: (transfer none) (allow-none): the caps of the pad we want to
++ * request. Can be %NULL.
++ *
++ * Retrieves a request pad from the element according to the provided template.
++ *
++ * If the @caps are specified and the element implements thew new
++ * request_new_pad_full virtual method, the element will use them to select
++ * which pad to create.
++ *
++ * The pad should be released with gst_element_release_request_pad().
++ *
++ * Returns: (transfer full): requested #GstPad if found, otherwise %NULL.
++ *     Release after usage.
++ *
++ * Since: 0.10.32
++ */
++GstPad *
++gst_element_request_pad (GstElement * element,
++    GstPadTemplate * templ, const gchar * name, const GstCaps * caps)
++{
++  g_return_val_if_fail (GST_IS_ELEMENT (element), NULL);
++  g_return_val_if_fail (templ != NULL, NULL);
++
++  return _gst_element_request_pad (element, templ, name, caps);
++}
++
++/**
+  * gst_element_get_pad:
+  * @element: a #GstElement.
+  * @name: the name of the pad to retrieve.
+diff --git a/gst/gstelement.h b/gst/gstelement.h
+index 6795f55..24c4953 100644
+--- a/gst/gstelement.h
++++ b/gst/gstelement.h
+@@ -599,6 +599,7 @@ struct _GstElement
+  * @send_event: send a #GstEvent to the element
+  * @get_query_types: get the supported #GstQueryType of this element
+  * @query: perform a #GstQuery on the element
++ * @request_new_pad_full: called when a new pad is requested. Since: 0.10.32.
+  *
+  * GStreamer element class. Override the vmethods to implement the element
+  * functionality.
+@@ -656,7 +657,17 @@ struct _GstElementClass
+   gboolean              (*query)                (GstElement *element, GstQuery *query);
+ 
+   /*< private >*/
+-  gpointer _gst_reserved[GST_PADDING];
++  /* FIXME-0.11: move up and replace details */
++  gpointer		meta_data;
++
++  /*< public >*/
++  /* Virtual method for subclasses (additions) */
++  /* FIXME-0.11 Make this the default behaviour */
++  GstPad*		(*request_new_pad_full) (GstElement *element, GstPadTemplate *templ,
++						 const gchar* name, const GstCaps *caps);
++
++  /*< private >*/
++  gpointer _gst_reserved[GST_PADDING-2];
+ };
+ 
+ /* element class pad templates */
+@@ -747,6 +758,9 @@ GstPad*                 gst_element_get_pad             (GstElement *element, co
+ #endif /* GST_DISABLE_DEPRECATED */
+ GstPad*                 gst_element_get_static_pad      (GstElement *element, const gchar *name);
+ GstPad*                 gst_element_get_request_pad     (GstElement *element, const gchar *name);
++GstPad*                 gst_element_request_pad         (GstElement *element,
++							 GstPadTemplate *templ,
++							 const gchar * name, const GstCaps *caps);
+ void                    gst_element_release_request_pad (GstElement *element, GstPad *pad);
+ 
+ GstIterator *           gst_element_iterate_pads        (GstElement * element);
+diff --git a/gst/gstutils.c b/gst/gstutils.c
+index 456d53b..b54e438 100644
+--- a/gst/gstutils.c
++++ b/gst/gstutils.c
+@@ -932,26 +932,6 @@ gst_element_get_compatible_pad_template (GstElement * element,
+   return newtempl;
+ }
+ 
+-static GstPad *
+-gst_element_request_pad (GstElement * element, GstPadTemplate * templ,
+-    const gchar * name)
+-{
+-  GstPad *newpad = NULL;
+-  GstElementClass *oclass;
+-
+-  oclass = GST_ELEMENT_GET_CLASS (element);
+-
+-  if (oclass->request_new_pad)
+-    newpad = (oclass->request_new_pad) (element, templ, name);
+-
+-  if (newpad)
+-    gst_object_ref (newpad);
+-
+-  return newpad;
+-}
+-
+-
+-
+ /**
+  * gst_element_get_pad_from_template:
+  * @element: a #GstElement.
+@@ -986,7 +966,7 @@ gst_element_get_pad_from_template (GstElement * element, GstPadTemplate * templ)
+       break;
+ 
+     case GST_PAD_REQUEST:
+-      ret = gst_element_request_pad (element, templ, NULL);
++      ret = gst_element_request_pad (element, templ, NULL, NULL);
+       break;
+   }
+ 
+@@ -1787,9 +1767,11 @@ gst_element_link_pads_full (GstElement * src, const gchar * srcpadname,
+             if (gst_caps_is_always_compatible (gst_pad_template_get_caps
+                     (srctempl), gst_pad_template_get_caps (desttempl))) {
+               srcpad =
+-                  gst_element_get_request_pad (src, srctempl->name_template);
++                  gst_element_request_pad (src, srctempl,
++                  srctempl->name_template, NULL);
+               destpad =
+-                  gst_element_get_request_pad (dest, desttempl->name_template);
++                  gst_element_request_pad (dest, desttempl,
++                  desttempl->name_template, NULL);
+               if (srcpad && destpad
+                   && pad_link_maybe_ghosting (srcpad, destpad, flags)) {
+                 GST_CAT_DEBUG (GST_CAT_ELEMENT_PADS,
+diff --git a/win32/common/libgstreamer.def b/win32/common/libgstreamer.def
+index d16775b..9078af3 100644
+--- a/win32/common/libgstreamer.def
++++ b/win32/common/libgstreamer.def
+@@ -332,6 +332,7 @@ EXPORTS
+ 	gst_element_register
+ 	gst_element_release_request_pad
+ 	gst_element_remove_pad
++	gst_element_request_pad
+ 	gst_element_requires_clock
+ 	gst_element_seek
+ 	gst_element_seek_simple
+-- 
+1.7.1
+

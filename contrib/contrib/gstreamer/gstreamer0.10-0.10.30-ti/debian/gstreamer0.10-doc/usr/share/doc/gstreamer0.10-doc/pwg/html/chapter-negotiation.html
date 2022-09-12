@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Caps negotiation</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Advanced Filter Concepts"
+HREF="part-advanced.html"><LINK
+REL="PREVIOUS"
+TITLE="Advanced Filter Concepts"
+HREF="part-advanced.html"><LINK
+REL="NEXT"
+TITLE="Fixed caps"
+HREF="section-nego-fixedcaps.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="part-advanced.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-nego-fixedcaps.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="chapter-negotiation"
+></A
+>Chapter 10. Caps negotiation</H1
+><P
+>&#13;    Caps negotiation is the process where elements configure themselves
+    and each other for streaming a particular media format over their pads.
+    Since different types of elements have different requirements for the
+    media formats they can negotiate to, it is important that this process
+    is generic and implements all those use cases correctly.
+  </P
+><P
+>&#13;    In this chapter, we will discuss downstream negotiation and upstream
+    negotiation from a pipeline perspective, implicating the responsibilities
+    of different types of elements in a pipeline, and we will introduce the
+    concept of <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>fixed caps</I
+></SPAN
+>.
+  </P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-nego-requirements"
+>10.1. Caps negotiation use cases</A
+></H1
+><P
+>&#13;      Let's take the case of a file source, linked to a demuxer, linked to a
+      decoder, linked to a converter with a caps filter and finally an audio
+      output. When data flow originally starts, the demuxer will parse the
+      file header (e.g. the Ogg headers), and notice that there is, for
+      example, a Vorbis stream in this Ogg file. Noticing that, it will
+      create an output pad for the Vorbis elementary stream and set a
+      Vorbis-caps on it. Lastly, it adds the pad. As of this point, the pad
+      is ready to be used to stream data, and so the Ogg demuxer is now done.
+      This pad is <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>not</I
+></SPAN
+> re-negotiable, since the type of
+      the data stream is embedded within the data.
+    </P
+><P
+>&#13;      The Vorbis decoder will decode the Vorbis headers and the Vorbis data
+      coming in on its sinkpad. Now, some decoders may be able to output in
+      multiple output formats, for example both 16-bit integer output and
+      floating-point output, whereas other decoders may be able to only decode
+      into one specific format, e.g. only floating-point (32-bit) audio. Those
+      two cases have consequences for how caps negotiation should be
+      implemented in this decoder element. In the one case, it is possible to
+      use fixed caps, and you're done. In the other case, however, you should
+      implement the possibility for <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>renegotiation</I
+></SPAN
+> in this
+      element, which is the possibility for the data format to be changed to
+      another format at some point in the future. We will discuss how to do
+      this in one of the sections further on in this chapter.
+    </P
+><P
+>&#13;      The filter can be used by applications to force, for example, a specific
+      channel configuration (5.1/surround or 2.0/stereo), on the pipeline, so
+      that the user can enjoy sound coming from all its speakers. The audio
+      sink, in this example, is a standard ALSA output element (alsasink).
+      The converter element supports any-to-any, and the filter will make sure
+      that only a specifically wanted channel configuration streams through
+      this link (as provided by the user's channel configuration preference).
+      By changing this preference while the pipeline is running, some elements
+      will have to renegotiate <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>while the pipeline is
+      running</I
+></SPAN
+>. This is done through upstream caps renegotiation.
+      That, too, will be discussed in detail in a section further below.
+    </P
+><P
+>&#13;      In order for caps negotiation on non-fixed links to work correctly,
+      pads can optionally implement a function that tells peer elements what
+      formats it supports and/or prefers. When upstream renegotiation is
+      triggered, this becomes important.
+    </P
+><P
+>&#13;      Downstream elements are notified of a newly set caps only when data
+      is actually passing their pad. This is because caps is attached to
+      buffers during data flow. So when the vorbis decoder sets a caps on
+      its source pad (to configure the output format), the converter will
+      not yet be notified. Instead, the converter will only be notified
+      when the decoder pushes a buffer over its source pad to the converter.
+      Right before calling the chain-function in the converter, <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>
+      will check whether the format that was previously negotiated still
+      applies to this buffer. If not, it first calls the setcaps-function
+      of the converter to configure it for the new format. Only after that
+      will it call the chain function of the converter.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="part-advanced.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-nego-fixedcaps.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Advanced Filter Concepts</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part-advanced.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Fixed caps</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

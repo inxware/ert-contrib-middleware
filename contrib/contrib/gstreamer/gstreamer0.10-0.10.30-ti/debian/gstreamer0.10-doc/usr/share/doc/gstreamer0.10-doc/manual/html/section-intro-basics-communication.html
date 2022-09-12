@@ -1,0 +1,249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Communication</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Foundations"
+HREF="chapter-intro-basics.html"><LINK
+REL="PREVIOUS"
+TITLE="Bins and pipelines"
+HREF="section-intro-basics-bins.html"><LINK
+REL="NEXT"
+TITLE="Building an Application"
+HREF="part-building.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-intro-basics-bins.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 3. Foundations</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="part-building.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-intro-basics-communication"
+>3.4. Communication</A
+></H1
+><P
+>&#13;      <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> provides several mechanisms for communication and data exchange
+      between the <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>application</I
+></SPAN
+> and the <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>pipeline</I
+></SPAN
+>.
+    </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;          <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>buffers</I
+></SPAN
+> are objects for passing streaming data
+          between elements in the pipeline. Buffers always travel from sources
+          to sinks (downstream).
+        </P
+></LI
+><LI
+><P
+>&#13;          <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>events</I
+></SPAN
+> are objects sent between elements or from
+          the application to elements. Events can travel upstream and downstream.
+          Downstream events can be synchronised to the data flow.
+        </P
+></LI
+><LI
+><P
+>&#13;          <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>messages</I
+></SPAN
+> are objects posted by elements on
+          the pipeline's message bus, where they will be held for collection
+          by the application. Messages can be intercepted synchronously from
+          the streaming thread context of the element posting the message, but
+          are usually handled asynchronously by the application from the
+          application's main thread. Messages are used to transmit information
+          such as errors, tags, state changes, buffering state, redirects etc.
+          from elements to the application in a thread-safe way.
+        </P
+></LI
+><LI
+><P
+>&#13;          <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>queries</I
+></SPAN
+> allow applications to request information
+          such as duration or current playback position from the pipeline.
+          Queries are always answered synchronously. Elements can also use
+          queries to request information from their peer elements (such as the
+          file size or duration). They can be used both ways within a pipeline,
+          but upstream queries are more common.
+        </P
+></LI
+></UL
+><DIV
+CLASS="figure"
+><A
+NAME="section-communication-img"
+></A
+><P
+><B
+>Figure 3-2. <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> pipeline with different communication flows</B
+></P
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="images/communication.png"></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-intro-basics-bins.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="part-building.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Bins and pipelines</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-intro-basics.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Building an Application</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

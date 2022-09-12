@@ -1,0 +1,1 @@
+/usr/share/pyshared/numpy/oldnumeric/alter_code1.py

@@ -1,0 +1,11 @@
+prefix=/home/pdrezet/workspace/inxware2.0-Release/INX/comp-lib-support/inx_build_scripts/../target_libs/arm-linux-gnu-glibc-2.12.1-ti-blaze-ubuntu-10_10-X/build
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libarchive
+Description: library that can create and read several streaming archive formats
+Version: 3.0.0a
+Cflags: -I${includedir}
+Libs: -L${libdir} -larchive
+Libs.private: -lz  

@@ -1,0 +1,11 @@
+speex_callbacks.lo speex_callbacks.o: speex_callbacks.c \
+  ../include/speex/speex_callbacks.h ../include/speex/speex.h \
+  ../include/speex/speex_bits.h misc.h
+
+../include/speex/speex_callbacks.h:
+
+../include/speex/speex.h:
+
+../include/speex/speex_bits.h:
+
+misc.h:

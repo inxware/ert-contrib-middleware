@@ -1,0 +1,5 @@
+QMAKE_PRL_BUILD_DIR = /build/buildd/qtwebkit-source-2.0.0/WebCore/
+QMAKE_PRO_INPUT = WebCore.pro
+QMAKE_PRL_TARGET = libQtWebKit.so.4.7.0
+QMAKE_PRL_CONFIG = include_source_dir lex yacc uic resources qt release incremental link_prl exceptions no_mocdepend release stl qt_no_framework building-libs depend_includepath standalone_package depend_includepath nostrip hide_symbols x11 link_pkgconfig create_pc create_prl x11lib x11inc moc thread dll
+QMAKE_PRL_VERSION = 4.7.0

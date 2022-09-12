@@ -1,0 +1,502 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Advanced Filter Concepts</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Building a Test Application"
+HREF="chapter-building-testapp.html"><LINK
+REL="NEXT"
+TITLE="Caps negotiation"
+HREF="chapter-negotiation.html"></HEAD
+><BODY
+CLASS="part"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-building-testapp.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-negotiation.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="PART"
+><A
+NAME="part-advanced"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>III. Advanced Filter Concepts</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN653"
+></A
+><P
+>&#13;        By now, you should be able to create basic filter elements that can
+        receive and send data. This is the simple model that <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> stands
+        for. But <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> can do much more than only this! In this chapter,
+        various advanced topics will be discussed, such as scheduling, special
+        pad types, clocking, events, interfaces, tagging and more. These topics
+        are the sugar that makes <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> so easy to use for applications.
+      </P
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+>10. <A
+HREF="chapter-negotiation.html"
+>Caps negotiation</A
+></DT
+><DD
+><DL
+><DT
+>10.1. <A
+HREF="chapter-negotiation.html#section-nego-requirements"
+>Caps negotiation use cases</A
+></DT
+><DT
+>10.2. <A
+HREF="section-nego-fixedcaps.html"
+>Fixed caps</A
+></DT
+><DT
+>10.3. <A
+HREF="section-nego-downstream.html"
+>Downstream caps negotiation</A
+></DT
+><DD
+><DL
+><DT
+>10.3.1. <A
+HREF="section-nego-downstream.html#section-nego-downstream-embed"
+>Negotiating caps embedded in input caps</A
+></DT
+><DT
+>10.3.2. <A
+HREF="section-nego-downstream.html#section-nego-downstream-parse"
+>Parsing and setting caps</A
+></DT
+></DL
+></DD
+><DT
+>10.4. <A
+HREF="section-nego-upstream.html"
+>Upstream caps (re)negotiation</A
+></DT
+><DT
+>10.5. <A
+HREF="section-nego-getcaps.html"
+>Implementing a getcaps function</A
+></DT
+></DL
+></DD
+><DT
+>11. <A
+HREF="chapter-scheduling.html"
+>Different scheduling modes</A
+></DT
+><DD
+><DL
+><DT
+>11.1. <A
+HREF="chapter-scheduling.html#section-scheduling-activation"
+>The pad activation stage</A
+></DT
+><DT
+>11.2. <A
+HREF="section-scheduling-loop.html"
+>Pads driving the pipeline</A
+></DT
+><DT
+>11.3. <A
+HREF="section-scheduling-randomxs.html"
+>Providing random access</A
+></DT
+></DL
+></DD
+><DT
+>12. <A
+HREF="chapter-building-types.html"
+>Types and Properties</A
+></DT
+><DD
+><DL
+><DT
+>12.1. <A
+HREF="chapter-building-types.html#section-types-test"
+>Building a Simple Format for Testing</A
+></DT
+><DT
+>12.2. <A
+HREF="section-types-typefind.html"
+>Typefind Functions and Autoplugging</A
+></DT
+><DT
+>12.3. <A
+HREF="section-types-definitions.html"
+>List of Defined Types</A
+></DT
+></DL
+></DD
+><DT
+>13. <A
+HREF="chapter-advanced-request.html"
+>Request and Sometimes pads</A
+></DT
+><DD
+><DL
+><DT
+>13.1. <A
+HREF="chapter-advanced-request.html#section-reqpad-sometimes"
+>Sometimes pads</A
+></DT
+><DT
+>13.2. <A
+HREF="section-reqpad-request.html"
+>Request pads</A
+></DT
+></DL
+></DD
+><DT
+>14. <A
+HREF="chapter-advanced-clock.html"
+>Clocking</A
+></DT
+><DD
+><DL
+><DT
+>14.1. <A
+HREF="chapter-advanced-clock.html#section-clock-time-types"
+>Types of time</A
+></DT
+><DT
+>14.2. <A
+HREF="section-clocks.html"
+>Clocks</A
+></DT
+><DT
+>14.3. <A
+HREF="section-time-data-flow.html"
+>Flow of data between elements and time</A
+></DT
+><DT
+>14.4. <A
+HREF="section-clock-obligations-of-each-element.html"
+>Obligations of each element.</A
+></DT
+><DD
+><DL
+><DT
+>14.4.1. <A
+HREF="section-clock-obligations-of-each-element.html#AEN1570"
+>Source elements</A
+></DT
+><DT
+>14.4.2. <A
+HREF="section-clock-obligations-of-each-element.html#AEN1574"
+>Sink elements</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>15. <A
+HREF="chapter-dparams.html"
+>Supporting Dynamic Parameters</A
+></DT
+><DD
+><DL
+><DT
+>15.1. <A
+HREF="chapter-dparams.html#section-dparam-start"
+>Getting Started</A
+></DT
+><DT
+>15.2. <A
+HREF="chapter-dparam-loop.html"
+>The Data Processing Loop</A
+></DT
+><DD
+><DL
+><DT
+>15.2.1. <A
+HREF="chapter-dparam-loop.html#chapter-dparam-loop-video"
+>The Data Processing Loop for Video Elements</A
+></DT
+><DT
+>15.2.2. <A
+HREF="chapter-dparam-loop.html#chapter-dparam-loop-audio"
+>The Data Processing Loop for Audio Elements</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>16. <A
+HREF="chapter-advanced-interfaces.html"
+>Interfaces</A
+></DT
+><DD
+><DL
+><DT
+>16.1. <A
+HREF="chapter-advanced-interfaces.html#section-iface-general"
+>How to Implement Interfaces</A
+></DT
+><DT
+>16.2. <A
+HREF="section-iface-uri.html"
+>URI interface</A
+></DT
+><DT
+>16.3. <A
+HREF="section-iface-mixer.html"
+>Mixer Interface</A
+></DT
+><DT
+>16.4. <A
+HREF="section-iface-tuner.html"
+>Tuner Interface</A
+></DT
+><DT
+>16.5. <A
+HREF="section-iface-colorbalance.html"
+>Color Balance Interface</A
+></DT
+><DT
+>16.6. <A
+HREF="section-iface-propprobe.html"
+>Property Probe Interface</A
+></DT
+><DT
+>16.7. <A
+HREF="section-iface-xoverlay.html"
+>X Overlay Interface</A
+></DT
+><DT
+>16.8. <A
+HREF="section-iface-navigation.html"
+>Navigation Interface</A
+></DT
+></DL
+></DD
+><DT
+>17. <A
+HREF="chapter-advanced-tagging.html"
+>Tagging (Metadata and Streaminfo)</A
+></DT
+><DD
+><DL
+><DT
+>17.1. <A
+HREF="chapter-advanced-tagging.html#section-tagging-overview"
+>Overview</A
+></DT
+><DT
+>17.2. <A
+HREF="section-tagging-read.html"
+>Reading Tags from Streams</A
+></DT
+><DT
+>17.3. <A
+HREF="section-tagging-write.html"
+>Writing Tags to Streams</A
+></DT
+></DL
+></DD
+><DT
+>18. <A
+HREF="chapter-advanced-events.html"
+>Events: Seeking, Navigation and More</A
+></DT
+><DD
+><DL
+><DT
+>18.1. <A
+HREF="chapter-advanced-events.html#section-events-downstream"
+>Downstream events</A
+></DT
+><DT
+>18.2. <A
+HREF="section-events-upstream.html"
+>Upstream events</A
+></DT
+><DT
+>18.3. <A
+HREF="section-events-definitions.html"
+>All Events Together</A
+></DT
+><DD
+><DL
+><DT
+>18.3.1. <A
+HREF="section-events-definitions.html#section-events-eos"
+>End of Stream (EOS)</A
+></DT
+><DT
+>18.3.2. <A
+HREF="section-events-definitions.html#section-events-flush-start"
+>Flush Start</A
+></DT
+><DT
+>18.3.3. <A
+HREF="section-events-definitions.html#section-events-flush-stop"
+>Flush Stop</A
+></DT
+><DT
+>18.3.4. <A
+HREF="section-events-definitions.html#section-events-newsegment"
+>New Segment</A
+></DT
+><DT
+>18.3.5. <A
+HREF="section-events-definitions.html#section-events-seek"
+>Seek Request</A
+></DT
+><DT
+>18.3.6. <A
+HREF="section-events-definitions.html#section-events-nav"
+>Navigation</A
+></DT
+><DT
+>18.3.7. <A
+HREF="section-events-definitions.html#section-events-tag"
+>Tag (metadata)</A
+></DT
+></DL
+></DD
+></DL
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-building-testapp.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-negotiation.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Building a Test Application</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Caps negotiation</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

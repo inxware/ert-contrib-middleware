@@ -1,0 +1,12 @@
+prefix=/home/pdrezet/workspace/inxware2.0-Release/INX/comp-lib-support/inx_build_scripts/../target_libs/i486-pc-linux-gnu-i686-pc-linux-gnu-4.2.4-gtk_vlc/build
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: cairo-xlib
+Description: Xlib surface backend for cairo graphics library
+Version: 1.10.0
+
+Requires: cairo x11
+Libs:  
+Cflags: -I${includedir}/cairo 

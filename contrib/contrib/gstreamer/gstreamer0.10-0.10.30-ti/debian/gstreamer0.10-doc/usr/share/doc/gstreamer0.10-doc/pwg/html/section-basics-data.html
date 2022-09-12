@@ -1,0 +1,353 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Data, Buffers and Events</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Foundations"
+HREF="chapter-intro-basics.html"><LINK
+REL="PREVIOUS"
+TITLE="Pads"
+HREF="section-basics-pads.html"><LINK
+REL="NEXT"
+TITLE="Mimetypes and Properties"
+HREF="section-basics-types.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-basics-pads.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 2. Foundations</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-basics-types.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-basics-data"
+>2.3. Data, Buffers and Events</A
+></H1
+><P
+>&#13;      All streams of data in <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> are chopped up into chunks that are
+      passed from a source pad on one element to a sink pad on another element.
+      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Data</I
+></SPAN
+> are structures used to hold these chunks of
+      data.
+    </P
+><P
+>&#13;      Data contains the following important types:
+      <P
+></P
+><UL
+><LI
+><P
+>&#13;            An exact type indicating what type of data (control, content, ...)
+            this Data is.
+          </P
+></LI
+><LI
+><P
+>&#13;            A reference count indicating the number of elements currently
+            holding a reference to the buffer. When the buffer reference count
+            falls to zero, the buffer will be unlinked, and its memory will be
+            freed in some sense (see below for more details).
+          </P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;      There are two types of data defined: events (control) and buffers
+      (content).
+    </P
+><P
+>&#13;      Buffers may contain any sort of data that the two linked pads
+      know how to handle. Normally, a buffer contains a chunk of some sort of
+      audio or video data that flows from one element to another.
+    </P
+><P
+>&#13;      Buffers also contain metadata describing the buffer's contents. Some of
+      the important types of metadata are:
+      <P
+></P
+><UL
+><LI
+><P
+>&#13;            A pointer to the buffer's data.
+          </P
+></LI
+><LI
+><P
+>&#13;            An integer indicating the size of the buffer's data.
+          </P
+></LI
+><LI
+><P
+>&#13;            A timestamp indicating the preferred display timestamp of the
+            content in the buffer.
+          </P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;      Events
+      contain information on the state of the stream flowing between the two
+      linked pads. Events will only be sent if the element explicitly supports
+      them, else the core will (try to) handle the events automatically. Events
+      are used to indicate, for example, a clock discontinuity, the end of a
+      media stream or that the cache should be flushed.
+    </P
+><P
+>&#13;      Events may contain several of the following items:
+      <P
+></P
+><UL
+><LI
+><P
+>&#13;            A subtype indicating the type of the contained event.
+          </P
+></LI
+><LI
+><P
+>&#13;            The other contents of the event depend on the specific event type.
+          </P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;      Events will be discussed extensively in <A
+HREF="chapter-advanced-events.html"
+>Chapter 18</A
+>.
+      Until then, the only event that will be used is the <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>EOS</I
+></SPAN
+>
+      event, which is used to indicate the end-of-stream (usually end-of-file).
+    </P
+><P
+>&#13;      See the <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>GStreamer Library Reference</I
+></SPAN
+> for the current implementation details of a <A
+HREF="../../gstreamer/html/gstreamer-GstMiniObject.html"
+TARGET="_top"
+><CODE
+CLASS="classname"
+>GstMiniObject</CODE
+></A
+>, <A
+HREF="../../gstreamer/html/gstreamer-GstBuffer.html"
+TARGET="_top"
+><CODE
+CLASS="classname"
+>GstBuffer</CODE
+></A
+> and <A
+HREF="../../gstreamer/html/gstreamer-GstEvent.html"
+TARGET="_top"
+><CODE
+CLASS="classname"
+>GstEvent</CODE
+></A
+>.
+    </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="sect2-buffer-allocation"
+>2.3.1. Buffer Allocation</A
+></H2
+><P
+>&#13;        Buffers are able to store chunks of memory of several different
+	types.  The most generic type of buffer contains memory allocated
+	by malloc().  Such buffers, although convenient, are not always
+	very fast, since data often needs to be specifically copied into
+	the buffer.
+      </P
+><P
+>&#13;	Many specialized elements create buffers that point to special
+	memory.  For example, the filesrc element usually
+	maps a file into the address space of the application (using mmap()),
+	and creates buffers that point into that address range.  These
+	buffers created by filesrc act exactly like generic buffers, except
+	that they are read-only.  The buffer freeing code automatically
+	determines the correct method of freeing the underlying memory.
+	Downstream elements that receive these kinds of buffers do not
+	need to do anything special to handle or unreference it.
+      </P
+><P
+>&#13;        Another way an element might get specialized buffers is to
+	request them from a downstream peer.  These are called
+	downstream-allocated buffers.  Elements can ask a
+	peer connected to a source pad to create an empty buffer of
+	a given size.  If a downstream element is able to create a
+	special buffer of the correct size, it will do so.  Otherwise
+	<SPAN
+CLASS="application"
+>GStreamer</SPAN
+> will automatically create a generic buffer instead.
+	The element that requested the buffer can then copy data into
+	the buffer, and push the buffer to the source pad it was
+	allocated from.
+      </P
+><P
+>&#13;        Many sink elements have accelerated methods for copying data
+	to hardware, or have direct access to hardware.  It is common
+	for these elements to be able to create downstream-allocated
+	buffers for their upstream peers.  One such example is
+	ximagesink.  It creates buffers that contain XImages.  Thus,
+	when an upstream peer copies data into the buffer, it is copying
+	directly into the XImage, enabling ximagesink to draw the
+	image directly to the screen instead of having to copy data
+	into an XImage first.
+      </P
+><P
+>&#13;        Filter elements often have the opportunity to either work on
+	a buffer in-place, or work while copying from a source buffer
+	to a destination buffer.  It is optimal to implement both
+	algorithms, since the <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> framework can choose the
+	fastest algorithm as appropriate.  Naturally, this only makes
+	sense for strict filters -- elements that have exactly the
+	same format on source and sink pads.
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-basics-pads.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-basics-types.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Pads</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-intro-basics.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Mimetypes and Properties</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

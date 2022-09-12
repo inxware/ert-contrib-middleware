@@ -1,0 +1,1 @@
+/usr/share/pyshared/numpy/compat/__init__.py

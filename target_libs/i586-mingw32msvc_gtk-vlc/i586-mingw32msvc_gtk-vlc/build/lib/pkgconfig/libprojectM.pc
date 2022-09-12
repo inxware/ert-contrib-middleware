@@ -1,0 +1,13 @@
+prefix=/usr/win32
+exec_prefix=/usr/win32
+libdir=/usr/win32/lib
+includedir=/usr/win32/include
+pkgdatadir=/usr/win32/Resources
+sysconfdir=/usr/win32/Resources
+
+Name: libprojectM
+Version: 2.0.0
+Description: projectM - OpenGL Milkdrop
+Requires:
+Libs: -L${libdir} -lprojectM -lMilkdropPresetFactory -lRenderer -lglu32 -lglew32 -lopengl32
+Cflags: -I${includedir} 

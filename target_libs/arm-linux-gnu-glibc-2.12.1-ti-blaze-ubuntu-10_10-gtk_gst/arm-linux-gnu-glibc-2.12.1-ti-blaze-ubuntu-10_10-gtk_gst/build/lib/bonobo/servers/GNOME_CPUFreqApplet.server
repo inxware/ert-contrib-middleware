@@ -1,0 +1,423 @@
+<?xml version="1.0"?>
+<oaf_info>
+
+<oaf_server ubuntu-gettext-domain="gnome-applets-2.0" iid="OAFIID:GNOME_CPUFreqApplet_Factory"
+	    type="exe"
+	    location="/usr/lib/gnome-applets/cpufreq-applet">
+
+	<oaf_attribute name="repo_ids" type="stringv">
+		<item value="IDL:Bonobo/GenericFactory:1.0"/>
+		<item value="IDL:Bonobo/Unknown:1.0"/>
+	</oaf_attribute>
+	<oaf_attribute name="name" type="string" value="CPU Frequency Scaling Monitor"/>
+	<oaf_attribute name="name-af" type="string" value="Monitor vir SVE-frekwensieskalering"/>
+	<oaf_attribute name="name-ar" type="string" value="مراقب تمديد تردد المعالج"/>
+	<oaf_attribute name="name-as" type="string" value="CPU Frequency Scaling Monitor"/>
+	<oaf_attribute name="name-ast" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-be" type="string" value="Назіральнік частаты працэсара"/>
+	<oaf_attribute name="name-be@latin" type="string" value="Manitor častaty pracesara"/>
+	<oaf_attribute name="name-bg" type="string" value="Датчик за скоростта на процесора"/>
+	<oaf_attribute name="name-bn" type="string" value="CPU ফ্রিকুয়েন্সি স্কেলিং মনিটর"/>
+	<oaf_attribute name="name-bn_IN" type="string" value="CPU ফ্রিকুয়েন্সি স্কেলিং মনিটর"/>
+	<oaf_attribute name="name-br" type="string" value="Hewel cheñchamantoù talm kewerier CPU"/>
+	<oaf_attribute name="name-ca" type="string" value="Monitor de l&apos;escalat de la freqüència de la CPU"/>
+	<oaf_attribute name="name-ca@valencia" type="string" value="Monitor de l&apos;escalat de la freqüència de la CPU"/>
+	<oaf_attribute name="name-crh" type="string" value="İşlemci Frekansı Seviyesi İzleyicisi"/>
+	<oaf_attribute name="name-cs" type="string" value="Sledování změny frekvence CPU"/>
+	<oaf_attribute name="name-cy" type="string" value="Monitor Gradd Amledd y CPU"/>
+	<oaf_attribute name="name-da" type="string" value="CPU-frekvensskalering"/>
+	<oaf_attribute name="name-de" type="string" value="Überwachen der Prozessortaktstufen"/>
+	<oaf_attribute name="name-dz" type="string" value="ལས་སྦྱོར་ལྟེ་བ་འབྱུང་ཐེངས་ཀྱི་ཆ་ཚད་འཇལ་ནིའི་ ལྟ་རྟོག"/>
+	<oaf_attribute name="name-el" type="string" value="Παρακολούθηση κλιμάκωσης συχνότητας CPU"/>
+	<oaf_attribute name="name-en@shaw" type="string" value="CPU 𐑓𐑮𐑰𐑒𐑢𐑩𐑯𐑕𐑰 𐑕𐑒𐑱𐑤𐑦𐑙 𐑥𐑪𐑯𐑦𐑑𐑼"/>
+	<oaf_attribute name="name-en_CA" type="string" value="CPU Frequency Scaling Monitor"/>
+	<oaf_attribute name="name-en_GB" type="string" value="CPU Frequency Scaling Monitor"/>
+	<oaf_attribute name="name-es" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_AR" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_CL" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_CO" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_CR" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_DO" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_EC" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_ES" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_GT" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_HN" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_MX" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_NI" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_PA" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_PE" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_PR" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_SV" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_UY" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_VE" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-et" type="string" value="Protsessori takti skaleerimise monitor"/>
+	<oaf_attribute name="name-eu" type="string" value="PUZ maiztasuna eskalatzeko monitorea"/>
+	<oaf_attribute name="name-fa" type="string" value="پایشگر میزان‌بندی بسامد واحد پردازش مرکزی"/>
+	<oaf_attribute name="name-fi" type="string" value="Prosessorin kellotaajuuden ilmaisin"/>
+	<oaf_attribute name="name-fr" type="string" value="Moniteur de changements de fréquence du processeur"/>
+	<oaf_attribute name="name-ga" type="string" value="Monatóir Scálaithe Mhinicíocht LAP"/>
+	<oaf_attribute name="name-gl" type="string" value="Monitor de escala de frecuencia da CPU"/>
+	<oaf_attribute name="name-gu" type="string" value="CPU આવૃત્તિ માપન મોનિટર"/>
+	<oaf_attribute name="name-he" type="string" value="מנטר התאמת תדירות המעבד"/>
+	<oaf_attribute name="name-hi" type="string" value="CPU आवृति स्केलिंग मॉनीटर"/>
+	<oaf_attribute name="name-hr" type="string" value="Preglednik promjene frekvencije procesora"/>
+	<oaf_attribute name="name-hu" type="string" value="CPU órajelváltozás-figyelő"/>
+	<oaf_attribute name="name-hy" type="string" value="Պրոցեսորի Հաճախականության Չափման Մոնիտոր"/>
+	<oaf_attribute name="name-id" type="string" value="Pemantau Skala Frekuensi CPU"/>
+	<oaf_attribute name="name-is" type="string" value="Vaktari tíðniskölunar örgjörva"/>
+	<oaf_attribute name="name-it" type="string" value="Variazione frequenza CPU"/>
+	<oaf_attribute name="name-ja" type="string" value="CPU 周波数の計測モニタ"/>
+	<oaf_attribute name="name-ka" type="string" value="CPU სიხშირის ცვლილების მონიტორი"/>
+	<oaf_attribute name="name-kn" type="string" value="CPU ಫ್ರೀಕ್ವೆನ್ಸಿ ಸ್ಕೇಲಿಂಗ್ ಮೇಲ್ವಿಚಾರಕ"/>
+	<oaf_attribute name="name-ko" type="string" value="CPU 클럭 스케일링 정보"/>
+	<oaf_attribute name="name-ku" type="string" value="Temaşekerê Asta Frekansa Xebatkerê"/>
+	<oaf_attribute name="name-ky" type="string" value="Процессордун жыштыгынын өзгөрүүсүнүн монитору"/>
+	<oaf_attribute name="name-lt" type="string" value="CPU dažnio mastelio stebėtuvas"/>
+	<oaf_attribute name="name-lv" type="string" value="CPU frekvences plašināšanas pārraugs"/>
+	<oaf_attribute name="name-mai" type="string" value="CPU आवृति मापन मॉनीटर"/>
+	<oaf_attribute name="name-mg" type="string" value="Mpanara-maso ny fampitomboana ny fatetiky ny processeur"/>
+	<oaf_attribute name="name-mk" type="string" value="Надгледувач на фрекфенцијата на процесорот"/>
+	<oaf_attribute name="name-ml" type="string" value="സി.പി.യു ഫ്രിക്വന്‍സി സ്കെയിലിങ് നിരീക്ഷകന്‍"/>
+	<oaf_attribute name="name-mr" type="string" value="CPU वारंवारता मापन मॉनिटर"/>
+	<oaf_attribute name="name-nb" type="string" value="Overvåking av CPU-frekvens"/>
+	<oaf_attribute name="name-ne" type="string" value="CPU आवृत्ति स्केलिङ मनिटर"/>
+	<oaf_attribute name="name-nl" type="string" value="Processorsnelheid"/>
+	<oaf_attribute name="name-nn" type="string" value="Overvakar for CPU-frekvenssskalering"/>
+	<oaf_attribute name="name-oc" type="string" value="Monitor d&apos;escala de la frequéncia de l&apos;UCP"/>
+	<oaf_attribute name="name-or" type="string" value="ସି.ପି.ୟୁ. ପୁନଃପୌନିକ ସଂଘଟନ ହାର ମାପକ ପ୍ରଦର୍ଶିକା"/>
+	<oaf_attribute name="name-pa" type="string" value="CPU ਫਰੀਕਿਊਂਸੀ ਸਕੇਲਿੰਗ ਮਾਨੀਟਰ"/>
+	<oaf_attribute name="name-pl" type="string" value="Monitor częstotliwości procesora"/>
+	<oaf_attribute name="name-pt" type="string" value="Monitor de Escala de Frequência do CPU"/>
+	<oaf_attribute name="name-pt_BR" type="string" value="Monitor de graduação da freqüência da CPU"/>
+	<oaf_attribute name="name-ro" type="string" value="Monitor pentru scalare frecvență CPU"/>
+	<oaf_attribute name="name-ru" type="string" value="Монитор изменения частоты процессора"/>
+	<oaf_attribute name="name-sk" type="string" value="Sledovanie škálovania frekvencie procesora"/>
+	<oaf_attribute name="name-sl" type="string" value="Nadzornik spreminjanja frekvence procesorja"/>
+	<oaf_attribute name="name-sq" type="string" value="Mbikqyrësi i Shkallëzimit të Frekuencës së CPU-së"/>
+	<oaf_attribute name="name-sr" type="string" value="Праћење промене фреквенције процесора"/>
+	<oaf_attribute name="name-sr@latin" type="string" value="Praćenje promene frekvencije procesora"/>
+	<oaf_attribute name="name-sv" type="string" value="Övervakare av processorfrekvensskalning"/>
+	<oaf_attribute name="name-ta" type="string" value="ஸிபியு அலைவரிசை அளவிடும் கண்காணி"/>
+	<oaf_attribute name="name-te" type="string" value="CPU పౌనఃపున్య కొలమాన దర్శిని"/>
+	<oaf_attribute name="name-th" type="string" value="ความถี่ซีพียู"/>
+	<oaf_attribute name="name-tr" type="string" value="İşlemci Frekansı Seviyesi İzleyicisi"/>
+	<oaf_attribute name="name-uk" type="string" value="Індикатор зміни частоти процесора"/>
+	<oaf_attribute name="name-vi" type="string" value="Bộ theo dõi cách quản lý tỷ lệ tần số CPU"/>
+	<oaf_attribute name="name-xh" type="string" value="iMonitha yobuNgakanani bokuPhindeka kwe-CPU"/>
+	<oaf_attribute name="name-zh_CN" type="string" value="CPU 频率范围监视器"/>
+	<oaf_attribute name="name-zh_HK" type="string" value="CPU 頻率調整監控程式"/>
+	<oaf_attribute name="name-zh_TW" type="string" value="CPU 頻率調整監控程式"/>
+	<oaf_attribute name="description" type="string" value="Monitor the CPU Frequency Scaling"/>
+	<oaf_attribute name="description-af" type="string" value="Monitor die SVE-frekwensieskalering"/>
+	<oaf_attribute name="description-ar" type="string" value="ارصد زيادة سرعة المعالج"/>
+	<oaf_attribute name="description-as" type="string" value="CPU&apos;ৰ ফ্ৰিকুয়েন্সি স্কেলিং নিৰীক্ষণ কৰোঁতে ব্যৱহৃত"/>
+	<oaf_attribute name="description-ast" type="string" value="Amosar l&apos;escaláu de frecuencia de la CPU"/>
+	<oaf_attribute name="description-be" type="string" value="Назірае за частатой працэсара"/>
+	<oaf_attribute name="description-be@latin" type="string" value="Sačy za źmienami častaty pracy pracesara"/>
+	<oaf_attribute name="description-bg" type="string" value="Наблюдение на скоростта на процесора"/>
+	<oaf_attribute name="description-bn" type="string" value="CPU&apos;র ফ্রিকুয়েন্সি স্কেলিং নিরীক্ষণ করতে ব্যবহৃত"/>
+	<oaf_attribute name="description-bn_IN" type="string" value="CPU&apos;র ফ্রিকুয়েন্সি স্কেলিং নিরীক্ষণ করতে ব্যবহৃত"/>
+	<oaf_attribute name="description-br" type="string" value="Hewel cheñchamantoù talm kewerier CPU"/>
+	<oaf_attribute name="description-ca" type="string" value="Fes un seguiment de l&apos;escalat de la freqüència de la CPU"/>
+	<oaf_attribute name="description-ca@valencia" type="string" value="Fes un seguiment de l&apos;escalat de la freqüència de la CPU"/>
+	<oaf_attribute name="description-crh" type="string" value="İşlemci Frekans Seviyesi İzleyicisi"/>
+	<oaf_attribute name="description-cs" type="string" value="Sleduje změny frekvence CPU"/>
+	<oaf_attribute name="description-cy" type="string" value="Monitro beth yw amledd y CPU"/>
+	<oaf_attribute name="description-da" type="string" value="Overvåg CPU-frekvensskaleringen"/>
+	<oaf_attribute name="description-de" type="string" value="Überwacht die Taktstufen eines Prozessors"/>
+	<oaf_attribute name="description-dz" type="string" value="ལས་སྦྱོར་ལྟེ་བའི་འབྱུང་ཐེངས་ཀྱི་ཆ་ཚད་འཇལ་ནི་ལུ་ བལྟ་རྟོག་འབད།"/>
+	<oaf_attribute name="description-el" type="string" value="Παρακολούθηση της κλιμάκωσης συχνότητας CPU"/>
+	<oaf_attribute name="description-en@shaw" type="string" value="𐑥𐑪𐑯𐑦𐑑𐑼 𐑞 CPU 𐑓𐑮𐑰𐑒𐑢𐑩𐑯𐑕𐑰 𐑕𐑒𐑱𐑤𐑦𐑙"/>
+	<oaf_attribute name="description-en_CA" type="string" value="Monitor the CPU Frequency Scaling"/>
+	<oaf_attribute name="description-en_GB" type="string" value="Monitor the CPU Frequency Scaling"/>
+	<oaf_attribute name="description-es" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_AR" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_CL" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_CO" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_CR" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_DO" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_EC" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_ES" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_GT" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_HN" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_MX" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_NI" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_PA" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_PE" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_PR" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_SV" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_UY" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_VE" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-et" type="string" value="Protsessori takti skaleerimise monitor"/>
+	<oaf_attribute name="description-eu" type="string" value="Monitorizatu PUZ maiztasuna eskalatzea"/>
+	<oaf_attribute name="description-fa" type="string" value="پایش میزان‌بندی بسامد واحد پردازش مرکزی"/>
+	<oaf_attribute name="description-fi" type="string" value="Tarkkaile prosessorin kellotaajuuden muutoksia"/>
+	<oaf_attribute name="description-fr" type="string" value="Surveille les changements de fréquence du processeur"/>
+	<oaf_attribute name="description-ga" type="string" value="Déan monatóireacht ar Scálú Mhinicíocht LAP"/>
+	<oaf_attribute name="description-gl" type="string" value="Monitorizar a escala de frecuencia da CPU"/>
+	<oaf_attribute name="description-gu" type="string" value="CPU આવૃત્તિ માપનનું ધ્યાન રાખો"/>
+	<oaf_attribute name="description-he" type="string" value="נטר את התאמת תדירות המעבד"/>
+	<oaf_attribute name="description-hi" type="string" value="CPU आवृति स्केलिंग मॉनीटर करें"/>
+	<oaf_attribute name="description-hr" type="string" value="Nadziranje promjene frekvencije procesora"/>
+	<oaf_attribute name="description-hu" type="string" value="A CPU órajelének változásait figyeli"/>
+	<oaf_attribute name="description-hy" type="string" value="Դիտել Պրոցեսորի Հաճախականության Փոփոխությունները"/>
+	<oaf_attribute name="description-id" type="string" value="Pantau Penskalaan Frekuensi CPU"/>
+	<oaf_attribute name="description-is" type="string" value="Vakta tíðniskölun örgjörvans"/>
+	<oaf_attribute name="description-it" type="string" value="Monitorizza la variazione della frequenza della CPU"/>
+	<oaf_attribute name="description-ja" type="string" value="CPU 周波数を計測してモニターします"/>
+	<oaf_attribute name="description-ka" type="string" value="თვალყურს ადევენებს CPU-ს სიხშირეს"/>
+	<oaf_attribute name="description-kn" type="string" value="CPU ಫ್ರೀಕ್ವೆನ್ಸಿ ಸ್ಕೇಲಿಂಗ್ ಅನ್ನು ನೋಡಿಕೊಳ್ಳುತ್ತದೆ"/>
+	<oaf_attribute name="description-ko" type="string" value="CPU 클럭 스케일링을 봅니다"/>
+	<oaf_attribute name="description-ku" type="string" value="Temaşevanê Asta Frekansa CPU"/>
+	<oaf_attribute name="description-ky" type="string" value="Процессордун жыштыгынын өзгөрүүсүн байкайт"/>
+	<oaf_attribute name="description-lt" type="string" value="Stebėti CPU dažnio mastelį"/>
+	<oaf_attribute name="description-lv" type="string" value="Pārrauga CPU frekvences plašināšanu"/>
+	<oaf_attribute name="description-mai" type="string" value="CPU आवृति मापन मॉनीटर करू"/>
+	<oaf_attribute name="description-mg" type="string" value="Manara-maso ny fampitomboana ny fatetiky ny processeur"/>
+	<oaf_attribute name="description-mk" type="string" value="Надгледувајте ја промената на фрекфенцијата на процесорот"/>
+	<oaf_attribute name="description-ml" type="string" value="സി.പി.യു ഫ്രിക്വന്‍സി സ്കെയിലിങ് നിരീക്ഷിക്കുക"/>
+	<oaf_attribute name="description-mr" type="string" value="CPU वारंवारता मापनास मॉनिटर करा"/>
+	<oaf_attribute name="description-nb" type="string" value="Overvåk skalering av CPU-frekvens"/>
+	<oaf_attribute name="description-ne" type="string" value="CPU आवृत्ति स्केलिङ अनुगमन गर्नुहोस्"/>
+	<oaf_attribute name="description-nl" type="string" value="Processorsnelheid weergeven en wijzigen"/>
+	<oaf_attribute name="description-nn" type="string" value="Overvåk CPU-frekvensskaleringa"/>
+	<oaf_attribute name="description-oc" type="string" value="Gerís l&apos;escala de la frequéncia de l&apos;UCP"/>
+	<oaf_attribute name="description-or" type="string" value="ସି.ପି.ୟୁ. ପୁନଃପୌନିକ ସଂଘଟନ ହାର ମାପକ ଉପରେ ଦ୍ରୁଷ୍ଟି ରଖନ୍ତୁ"/>
+	<oaf_attribute name="description-pa" type="string" value="CPU ਫਰੀਕਿਊਂਸੀ ਸਕੇਲਿੰਗ ਲਈ ਮਾਨੀਟਰ"/>
+	<oaf_attribute name="description-pl" type="string" value="Śledzi zmiany częstotliwość pracy procesora"/>
+	<oaf_attribute name="description-pt" type="string" value="Monitoriza a Escala de Frequência do CPU"/>
+	<oaf_attribute name="description-pt_BR" type="string" value="Monitora a graduação da freqüência da CPU"/>
+	<oaf_attribute name="description-ro" type="string" value="Monitorizează scalarea în frecvență pentru CPU"/>
+	<oaf_attribute name="description-ru" type="string" value="Отслеживает изменение частоты процессора"/>
+	<oaf_attribute name="description-sk" type="string" value="Sledovať škálovanie frekvencie procesora"/>
+	<oaf_attribute name="description-sl" type="string" value="Nadzoruje spreminjanje frekvence procesorja"/>
+	<oaf_attribute name="description-sq" type="string" value="Mbikqyr Shkallëzimin e Frekuencën së CPU-së"/>
+	<oaf_attribute name="description-sr" type="string" value="Праћење промене фреквенције процесора"/>
+	<oaf_attribute name="description-sr@latin" type="string" value="Praćenje promene frekvencije procesora"/>
+	<oaf_attribute name="description-sv" type="string" value="Övervaka processorfrekvensskalningen"/>
+	<oaf_attribute name="description-ta" type="string" value="ஸிபியு அலைவரிசை அளவிடுதலை கண்காணிக்கவும்"/>
+	<oaf_attribute name="description-te" type="string" value="CPU పౌనఃపున్య కొలమాన దర్శనము"/>
+	<oaf_attribute name="description-th" type="string" value="ติดตามการปรับความถี่ของซีพียู"/>
+	<oaf_attribute name="description-tr" type="string" value="İşlemci Frekans Seviyesi İzleyicisi"/>
+	<oaf_attribute name="description-uk" type="string" value="Відслідковує зміну частоти процесора"/>
+	<oaf_attribute name="description-vi" type="string" value="Theo dõi cách quản lý tỷ lệ tần số CPU"/>
+	<oaf_attribute name="description-xh" type="string" value="Hlola ubuNgakanani bokuPhindeka kwe-CPU"/>
+	<oaf_attribute name="description-zh_CN" type="string" value="监视 CPU 频率范围"/>
+	<oaf_attribute name="description-zh_HK" type="string" value="監控 CPU 頻率的調整"/>
+	<oaf_attribute name="description-zh_TW" type="string" value="監控 CPU 頻率的調整"/>
+
+</oaf_server>
+
+<oaf_server ubuntu-gettext-domain="gnome-applets-2.0" iid="OAFIID:GNOME_CPUFreqApplet"
+	    type="factory" 
+	    location="OAFIID:GNOME_CPUFreqApplet_Factory">
+
+	<oaf_attribute name="repo_ids" type="stringv">
+		<item value="IDL:GNOME/Vertigo/PanelAppletShell:1.0"/>
+		<item value="IDL:Bonobo/Control:1.0"/>
+		<item value="IDL:Bonobo/Unknown:1.0"/>
+	</oaf_attribute>
+	<oaf_attribute name="name" type="string" value="CPU Frequency Scaling Monitor"/>
+	<oaf_attribute name="name-af" type="string" value="Monitor vir SVE-frekwensieskalering"/>
+	<oaf_attribute name="name-ar" type="string" value="مراقب تمديد تردد المعالج"/>
+	<oaf_attribute name="name-as" type="string" value="CPU Frequency Scaling Monitor"/>
+	<oaf_attribute name="name-ast" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-be" type="string" value="Назіральнік частаты працэсара"/>
+	<oaf_attribute name="name-be@latin" type="string" value="Manitor častaty pracesara"/>
+	<oaf_attribute name="name-bg" type="string" value="Датчик за скоростта на процесора"/>
+	<oaf_attribute name="name-bn" type="string" value="CPU ফ্রিকুয়েন্সি স্কেলিং মনিটর"/>
+	<oaf_attribute name="name-bn_IN" type="string" value="CPU ফ্রিকুয়েন্সি স্কেলিং মনিটর"/>
+	<oaf_attribute name="name-br" type="string" value="Hewel cheñchamantoù talm kewerier CPU"/>
+	<oaf_attribute name="name-ca" type="string" value="Monitor de l&apos;escalat de la freqüència de la CPU"/>
+	<oaf_attribute name="name-ca@valencia" type="string" value="Monitor de l&apos;escalat de la freqüència de la CPU"/>
+	<oaf_attribute name="name-crh" type="string" value="İşlemci Frekansı Seviyesi İzleyicisi"/>
+	<oaf_attribute name="name-cs" type="string" value="Sledování změny frekvence CPU"/>
+	<oaf_attribute name="name-cy" type="string" value="Monitor Gradd Amledd y CPU"/>
+	<oaf_attribute name="name-da" type="string" value="CPU-frekvensskalering"/>
+	<oaf_attribute name="name-de" type="string" value="Überwachen der Prozessortaktstufen"/>
+	<oaf_attribute name="name-dz" type="string" value="ལས་སྦྱོར་ལྟེ་བ་འབྱུང་ཐེངས་ཀྱི་ཆ་ཚད་འཇལ་ནིའི་ ལྟ་རྟོག"/>
+	<oaf_attribute name="name-el" type="string" value="Παρακολούθηση κλιμάκωσης συχνότητας CPU"/>
+	<oaf_attribute name="name-en@shaw" type="string" value="CPU 𐑓𐑮𐑰𐑒𐑢𐑩𐑯𐑕𐑰 𐑕𐑒𐑱𐑤𐑦𐑙 𐑥𐑪𐑯𐑦𐑑𐑼"/>
+	<oaf_attribute name="name-en_CA" type="string" value="CPU Frequency Scaling Monitor"/>
+	<oaf_attribute name="name-en_GB" type="string" value="CPU Frequency Scaling Monitor"/>
+	<oaf_attribute name="name-es" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_AR" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_CL" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_CO" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_CR" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_DO" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_EC" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_ES" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_GT" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_HN" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_MX" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_NI" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_PA" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_PE" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_PR" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_SV" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_UY" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-es_VE" type="string" value="Monitor de frecuencia de la CPU"/>
+	<oaf_attribute name="name-et" type="string" value="Protsessori takti skaleerimise monitor"/>
+	<oaf_attribute name="name-eu" type="string" value="PUZ maiztasuna eskalatzeko monitorea"/>
+	<oaf_attribute name="name-fa" type="string" value="پایشگر میزان‌بندی بسامد واحد پردازش مرکزی"/>
+	<oaf_attribute name="name-fi" type="string" value="Prosessorin kellotaajuuden ilmaisin"/>
+	<oaf_attribute name="name-fr" type="string" value="Moniteur de changements de fréquence du processeur"/>
+	<oaf_attribute name="name-ga" type="string" value="Monatóir Scálaithe Mhinicíocht LAP"/>
+	<oaf_attribute name="name-gl" type="string" value="Monitor de escala de frecuencia da CPU"/>
+	<oaf_attribute name="name-gu" type="string" value="CPU આવૃત્તિ માપન મોનિટર"/>
+	<oaf_attribute name="name-he" type="string" value="מנטר התאמת תדירות המעבד"/>
+	<oaf_attribute name="name-hi" type="string" value="CPU आवृति स्केलिंग मॉनीटर"/>
+	<oaf_attribute name="name-hr" type="string" value="Preglednik promjene frekvencije procesora"/>
+	<oaf_attribute name="name-hu" type="string" value="CPU órajelváltozás-figyelő"/>
+	<oaf_attribute name="name-hy" type="string" value="Պրոցեսորի Հաճախականության Չափման Մոնիտոր"/>
+	<oaf_attribute name="name-id" type="string" value="Pemantau Skala Frekuensi CPU"/>
+	<oaf_attribute name="name-is" type="string" value="Vaktari tíðniskölunar örgjörva"/>
+	<oaf_attribute name="name-it" type="string" value="Variazione frequenza CPU"/>
+	<oaf_attribute name="name-ja" type="string" value="CPU 周波数の計測モニタ"/>
+	<oaf_attribute name="name-ka" type="string" value="CPU სიხშირის ცვლილების მონიტორი"/>
+	<oaf_attribute name="name-kn" type="string" value="CPU ಫ್ರೀಕ್ವೆನ್ಸಿ ಸ್ಕೇಲಿಂಗ್ ಮೇಲ್ವಿಚಾರಕ"/>
+	<oaf_attribute name="name-ko" type="string" value="CPU 클럭 스케일링 정보"/>
+	<oaf_attribute name="name-ku" type="string" value="Temaşekerê Asta Frekansa Xebatkerê"/>
+	<oaf_attribute name="name-ky" type="string" value="Процессордун жыштыгынын өзгөрүүсүнүн монитору"/>
+	<oaf_attribute name="name-lt" type="string" value="CPU dažnio mastelio stebėtuvas"/>
+	<oaf_attribute name="name-lv" type="string" value="CPU frekvences plašināšanas pārraugs"/>
+	<oaf_attribute name="name-mai" type="string" value="CPU आवृति मापन मॉनीटर"/>
+	<oaf_attribute name="name-mg" type="string" value="Mpanara-maso ny fampitomboana ny fatetiky ny processeur"/>
+	<oaf_attribute name="name-mk" type="string" value="Надгледувач на фрекфенцијата на процесорот"/>
+	<oaf_attribute name="name-ml" type="string" value="സി.പി.യു ഫ്രിക്വന്‍സി സ്കെയിലിങ് നിരീക്ഷകന്‍"/>
+	<oaf_attribute name="name-mr" type="string" value="CPU वारंवारता मापन मॉनिटर"/>
+	<oaf_attribute name="name-nb" type="string" value="Overvåking av CPU-frekvens"/>
+	<oaf_attribute name="name-ne" type="string" value="CPU आवृत्ति स्केलिङ मनिटर"/>
+	<oaf_attribute name="name-nl" type="string" value="Processorsnelheid"/>
+	<oaf_attribute name="name-nn" type="string" value="Overvakar for CPU-frekvenssskalering"/>
+	<oaf_attribute name="name-oc" type="string" value="Monitor d&apos;escala de la frequéncia de l&apos;UCP"/>
+	<oaf_attribute name="name-or" type="string" value="ସି.ପି.ୟୁ. ପୁନଃପୌନିକ ସଂଘଟନ ହାର ମାପକ ପ୍ରଦର୍ଶିକା"/>
+	<oaf_attribute name="name-pa" type="string" value="CPU ਫਰੀਕਿਊਂਸੀ ਸਕੇਲਿੰਗ ਮਾਨੀਟਰ"/>
+	<oaf_attribute name="name-pl" type="string" value="Monitor częstotliwości procesora"/>
+	<oaf_attribute name="name-pt" type="string" value="Monitor de Escala de Frequência do CPU"/>
+	<oaf_attribute name="name-pt_BR" type="string" value="Monitor de graduação da freqüência da CPU"/>
+	<oaf_attribute name="name-ro" type="string" value="Monitor pentru scalare frecvență CPU"/>
+	<oaf_attribute name="name-ru" type="string" value="Монитор изменения частоты процессора"/>
+	<oaf_attribute name="name-sk" type="string" value="Sledovanie škálovania frekvencie procesora"/>
+	<oaf_attribute name="name-sl" type="string" value="Nadzornik spreminjanja frekvence procesorja"/>
+	<oaf_attribute name="name-sq" type="string" value="Mbikqyrësi i Shkallëzimit të Frekuencës së CPU-së"/>
+	<oaf_attribute name="name-sr" type="string" value="Праћење промене фреквенције процесора"/>
+	<oaf_attribute name="name-sr@latin" type="string" value="Praćenje promene frekvencije procesora"/>
+	<oaf_attribute name="name-sv" type="string" value="Övervakare av processorfrekvensskalning"/>
+	<oaf_attribute name="name-ta" type="string" value="ஸிபியு அலைவரிசை அளவிடும் கண்காணி"/>
+	<oaf_attribute name="name-te" type="string" value="CPU పౌనఃపున్య కొలమాన దర్శిని"/>
+	<oaf_attribute name="name-th" type="string" value="ความถี่ซีพียู"/>
+	<oaf_attribute name="name-tr" type="string" value="İşlemci Frekansı Seviyesi İzleyicisi"/>
+	<oaf_attribute name="name-uk" type="string" value="Індикатор зміни частоти процесора"/>
+	<oaf_attribute name="name-vi" type="string" value="Bộ theo dõi cách quản lý tỷ lệ tần số CPU"/>
+	<oaf_attribute name="name-xh" type="string" value="iMonitha yobuNgakanani bokuPhindeka kwe-CPU"/>
+	<oaf_attribute name="name-zh_CN" type="string" value="CPU 频率范围监视器"/>
+	<oaf_attribute name="name-zh_HK" type="string" value="CPU 頻率調整監控程式"/>
+	<oaf_attribute name="name-zh_TW" type="string" value="CPU 頻率調整監控程式"/>
+	<oaf_attribute name="description" type="string" value="Monitor the CPU Frequency Scaling"/>
+	<oaf_attribute name="description-af" type="string" value="Monitor die SVE-frekwensieskalering"/>
+	<oaf_attribute name="description-ar" type="string" value="ارصد زيادة سرعة المعالج"/>
+	<oaf_attribute name="description-as" type="string" value="CPU&apos;ৰ ফ্ৰিকুয়েন্সি স্কেলিং নিৰীক্ষণ কৰোঁতে ব্যৱহৃত"/>
+	<oaf_attribute name="description-ast" type="string" value="Amosar l&apos;escaláu de frecuencia de la CPU"/>
+	<oaf_attribute name="description-be" type="string" value="Назірае за частатой працэсара"/>
+	<oaf_attribute name="description-be@latin" type="string" value="Sačy za źmienami častaty pracy pracesara"/>
+	<oaf_attribute name="description-bg" type="string" value="Наблюдение на скоростта на процесора"/>
+	<oaf_attribute name="description-bn" type="string" value="CPU&apos;র ফ্রিকুয়েন্সি স্কেলিং নিরীক্ষণ করতে ব্যবহৃত"/>
+	<oaf_attribute name="description-bn_IN" type="string" value="CPU&apos;র ফ্রিকুয়েন্সি স্কেলিং নিরীক্ষণ করতে ব্যবহৃত"/>
+	<oaf_attribute name="description-br" type="string" value="Hewel cheñchamantoù talm kewerier CPU"/>
+	<oaf_attribute name="description-ca" type="string" value="Fes un seguiment de l&apos;escalat de la freqüència de la CPU"/>
+	<oaf_attribute name="description-ca@valencia" type="string" value="Fes un seguiment de l&apos;escalat de la freqüència de la CPU"/>
+	<oaf_attribute name="description-crh" type="string" value="İşlemci Frekans Seviyesi İzleyicisi"/>
+	<oaf_attribute name="description-cs" type="string" value="Sleduje změny frekvence CPU"/>
+	<oaf_attribute name="description-cy" type="string" value="Monitro beth yw amledd y CPU"/>
+	<oaf_attribute name="description-da" type="string" value="Overvåg CPU-frekvensskaleringen"/>
+	<oaf_attribute name="description-de" type="string" value="Überwacht die Taktstufen eines Prozessors"/>
+	<oaf_attribute name="description-dz" type="string" value="ལས་སྦྱོར་ལྟེ་བའི་འབྱུང་ཐེངས་ཀྱི་ཆ་ཚད་འཇལ་ནི་ལུ་ བལྟ་རྟོག་འབད།"/>
+	<oaf_attribute name="description-el" type="string" value="Παρακολούθηση της κλιμάκωσης συχνότητας CPU"/>
+	<oaf_attribute name="description-en@shaw" type="string" value="𐑥𐑪𐑯𐑦𐑑𐑼 𐑞 CPU 𐑓𐑮𐑰𐑒𐑢𐑩𐑯𐑕𐑰 𐑕𐑒𐑱𐑤𐑦𐑙"/>
+	<oaf_attribute name="description-en_CA" type="string" value="Monitor the CPU Frequency Scaling"/>
+	<oaf_attribute name="description-en_GB" type="string" value="Monitor the CPU Frequency Scaling"/>
+	<oaf_attribute name="description-es" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_AR" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_CL" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_CO" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_CR" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_DO" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_EC" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_ES" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_GT" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_HN" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_MX" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_NI" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_PA" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_PE" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_PR" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_SV" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_UY" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-es_VE" type="string" value="Monitoriza el escalado de frecuencia de la CPU"/>
+	<oaf_attribute name="description-et" type="string" value="Protsessori takti skaleerimise monitor"/>
+	<oaf_attribute name="description-eu" type="string" value="Monitorizatu PUZ maiztasuna eskalatzea"/>
+	<oaf_attribute name="description-fa" type="string" value="پایش میزان‌بندی بسامد واحد پردازش مرکزی"/>
+	<oaf_attribute name="description-fi" type="string" value="Tarkkaile prosessorin kellotaajuuden muutoksia"/>
+	<oaf_attribute name="description-fr" type="string" value="Surveille les changements de fréquence du processeur"/>
+	<oaf_attribute name="description-ga" type="string" value="Déan monatóireacht ar Scálú Mhinicíocht LAP"/>
+	<oaf_attribute name="description-gl" type="string" value="Monitorizar a escala de frecuencia da CPU"/>
+	<oaf_attribute name="description-gu" type="string" value="CPU આવૃત્તિ માપનનું ધ્યાન રાખો"/>
+	<oaf_attribute name="description-he" type="string" value="נטר את התאמת תדירות המעבד"/>
+	<oaf_attribute name="description-hi" type="string" value="CPU आवृति स्केलिंग मॉनीटर करें"/>
+	<oaf_attribute name="description-hr" type="string" value="Nadziranje promjene frekvencije procesora"/>
+	<oaf_attribute name="description-hu" type="string" value="A CPU órajelének változásait figyeli"/>
+	<oaf_attribute name="description-hy" type="string" value="Դիտել Պրոցեսորի Հաճախականության Փոփոխությունները"/>
+	<oaf_attribute name="description-id" type="string" value="Pantau Penskalaan Frekuensi CPU"/>
+	<oaf_attribute name="description-is" type="string" value="Vakta tíðniskölun örgjörvans"/>
+	<oaf_attribute name="description-it" type="string" value="Monitorizza la variazione della frequenza della CPU"/>
+	<oaf_attribute name="description-ja" type="string" value="CPU 周波数を計測してモニターします"/>
+	<oaf_attribute name="description-ka" type="string" value="თვალყურს ადევენებს CPU-ს სიხშირეს"/>
+	<oaf_attribute name="description-kn" type="string" value="CPU ಫ್ರೀಕ್ವೆನ್ಸಿ ಸ್ಕೇಲಿಂಗ್ ಅನ್ನು ನೋಡಿಕೊಳ್ಳುತ್ತದೆ"/>
+	<oaf_attribute name="description-ko" type="string" value="CPU 클럭 스케일링을 봅니다"/>
+	<oaf_attribute name="description-ku" type="string" value="Temaşevanê Asta Frekansa CPU"/>
+	<oaf_attribute name="description-ky" type="string" value="Процессордун жыштыгынын өзгөрүүсүн байкайт"/>
+	<oaf_attribute name="description-lt" type="string" value="Stebėti CPU dažnio mastelį"/>
+	<oaf_attribute name="description-lv" type="string" value="Pārrauga CPU frekvences plašināšanu"/>
+	<oaf_attribute name="description-mai" type="string" value="CPU आवृति मापन मॉनीटर करू"/>
+	<oaf_attribute name="description-mg" type="string" value="Manara-maso ny fampitomboana ny fatetiky ny processeur"/>
+	<oaf_attribute name="description-mk" type="string" value="Надгледувајте ја промената на фрекфенцијата на процесорот"/>
+	<oaf_attribute name="description-ml" type="string" value="സി.പി.യു ഫ്രിക്വന്‍സി സ്കെയിലിങ് നിരീക്ഷിക്കുക"/>
+	<oaf_attribute name="description-mr" type="string" value="CPU वारंवारता मापनास मॉनिटर करा"/>
+	<oaf_attribute name="description-nb" type="string" value="Overvåk skalering av CPU-frekvens"/>
+	<oaf_attribute name="description-ne" type="string" value="CPU आवृत्ति स्केलिङ अनुगमन गर्नुहोस्"/>
+	<oaf_attribute name="description-nl" type="string" value="Processorsnelheid weergeven en wijzigen"/>
+	<oaf_attribute name="description-nn" type="string" value="Overvåk CPU-frekvensskaleringa"/>
+	<oaf_attribute name="description-oc" type="string" value="Gerís l&apos;escala de la frequéncia de l&apos;UCP"/>
+	<oaf_attribute name="description-or" type="string" value="ସି.ପି.ୟୁ. ପୁନଃପୌନିକ ସଂଘଟନ ହାର ମାପକ ଉପରେ ଦ୍ରୁଷ୍ଟି ରଖନ୍ତୁ"/>
+	<oaf_attribute name="description-pa" type="string" value="CPU ਫਰੀਕਿਊਂਸੀ ਸਕੇਲਿੰਗ ਲਈ ਮਾਨੀਟਰ"/>
+	<oaf_attribute name="description-pl" type="string" value="Śledzi zmiany częstotliwość pracy procesora"/>
+	<oaf_attribute name="description-pt" type="string" value="Monitoriza a Escala de Frequência do CPU"/>
+	<oaf_attribute name="description-pt_BR" type="string" value="Monitora a graduação da freqüência da CPU"/>
+	<oaf_attribute name="description-ro" type="string" value="Monitorizează scalarea în frecvență pentru CPU"/>
+	<oaf_attribute name="description-ru" type="string" value="Отслеживает изменение частоты процессора"/>
+	<oaf_attribute name="description-sk" type="string" value="Sledovať škálovanie frekvencie procesora"/>
+	<oaf_attribute name="description-sl" type="string" value="Nadzoruje spreminjanje frekvence procesorja"/>
+	<oaf_attribute name="description-sq" type="string" value="Mbikqyr Shkallëzimin e Frekuencën së CPU-së"/>
+	<oaf_attribute name="description-sr" type="string" value="Праћење промене фреквенције процесора"/>
+	<oaf_attribute name="description-sr@latin" type="string" value="Praćenje promene frekvencije procesora"/>
+	<oaf_attribute name="description-sv" type="string" value="Övervaka processorfrekvensskalningen"/>
+	<oaf_attribute name="description-ta" type="string" value="ஸிபியு அலைவரிசை அளவிடுதலை கண்காணிக்கவும்"/>
+	<oaf_attribute name="description-te" type="string" value="CPU పౌనఃపున్య కొలమాన దర్శనము"/>
+	<oaf_attribute name="description-th" type="string" value="ติดตามการปรับความถี่ของซีพียู"/>
+	<oaf_attribute name="description-tr" type="string" value="İşlemci Frekans Seviyesi İzleyicisi"/>
+	<oaf_attribute name="description-uk" type="string" value="Відслідковує зміну частоти процесора"/>
+	<oaf_attribute name="description-vi" type="string" value="Theo dõi cách quản lý tỷ lệ tần số CPU"/>
+	<oaf_attribute name="description-xh" type="string" value="Hlola ubuNgakanani bokuPhindeka kwe-CPU"/>
+	<oaf_attribute name="description-zh_CN" type="string" value="监视 CPU 频率范围"/>
+	<oaf_attribute name="description-zh_HK" type="string" value="監控 CPU 頻率的調整"/>
+	<oaf_attribute name="description-zh_TW" type="string" value="監控 CPU 頻率的調整"/>
+	<oaf_attribute name="panel:icon" type="string" value="gnome-cpu-frequency-applet"/>
+	<oaf_attribute name="bugzilla:bugzilla" type="string" value="GNOME"/>
+	<oaf_attribute name="bugzilla:product" type="string" value="gnome-applets"/>
+	<oaf_attribute name="bugzilla:component" type="string" value="cpufreq"/>
+
+</oaf_server>
+
+</oaf_info>

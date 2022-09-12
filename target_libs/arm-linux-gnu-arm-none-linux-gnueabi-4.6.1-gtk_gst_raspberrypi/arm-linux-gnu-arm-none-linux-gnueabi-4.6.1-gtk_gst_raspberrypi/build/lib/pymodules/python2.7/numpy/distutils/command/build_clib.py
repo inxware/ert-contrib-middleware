@@ -1,0 +1,1 @@
+/usr/share/pyshared/numpy/distutils/command/build_clib.py

@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Fixed caps</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Caps negotiation"
+HREF="chapter-negotiation.html"><LINK
+REL="PREVIOUS"
+TITLE="Caps negotiation"
+HREF="chapter-negotiation.html"><LINK
+REL="NEXT"
+TITLE="Downstream caps negotiation"
+HREF="section-nego-downstream.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-negotiation.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 10. Caps negotiation</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-nego-downstream.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-nego-fixedcaps"
+>10.2. Fixed caps</A
+></H1
+><P
+>&#13;      The simplest way in which to do caps negotiation is setting a fixed
+      caps on a pad. After a fixed caps has been set, the pad can not be
+      renegotiated from the outside. The only way to reconfigure the pad
+      is for the element owning the pad to set a new fixed caps on the pad.
+      Fixed caps is a setup property for pads, called when creating the pad:
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;[..]
+  pad = gst_pad_new_from_template (..);
+  gst_pad_use_fixed_caps (pad);
+[..]
+    </PRE
+><P
+>&#13;      The fixed caps can then be set on the pad by calling
+      <CODE
+CLASS="function"
+>gst_pad_set_caps ()</CODE
+>.
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;[..]
+  caps = gst_caps_new_simple ("audio/x-raw-float",
+      "width", G_TYPE_INT, 32,
+      "endianness", G_TYPE_INT, G_BYTE_ORDER,
+      "buffer-frames", G_TYPE_INT, &#60;bytes-per-frame&#62;,
+      "rate", G_TYPE_INT, &#60;samplerate&#62;,
+      "channels", G_TYPE_INT, &#60;num-channels&#62;, NULL);
+  if (!gst_pad_set_caps (pad, caps)) {
+    GST_ELEMENT_ERROR (element, CORE, NEGOTIATION, (NULL),
+        ("Some debug information here"));
+    return GST_FLOW_ERROR;
+  }
+[..]
+    </PRE
+><P
+>&#13;      Elements that could implement fixed caps (on their source pads) are,
+      in general, all elements that are not renegotiable. Examples include:
+    </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;          A typefinder, since the type found is part of the actual data stream
+          and can thus not be re-negotiated.
+        </P
+></LI
+><LI
+><P
+>&#13;          Pretty much all demuxers, since the contained elementary data
+          streams are defined in the file headers, and thus not
+          renegotiable.
+        </P
+></LI
+><LI
+><P
+>&#13;          Some decoders, where the format is embedded in the data stream
+          and not part of the peercaps <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>and</I
+></SPAN
+> where the
+          decoder itself is not reconfigurable, too.
+        </P
+></LI
+></UL
+><P
+>&#13;      All other elements that need to be configured for the format should
+      implement full caps negotiation, which will be explained in the next
+      few sections.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-negotiation.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-nego-downstream.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Caps negotiation</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-negotiation.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Downstream caps negotiation</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

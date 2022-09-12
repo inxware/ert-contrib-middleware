@@ -1,0 +1,940 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>GStreamer Application Development Manual (0.10.30)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="NEXT"
+TITLE="Foreword"
+HREF="f40.html"></HEAD
+><BODY
+CLASS="book"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="index"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+><A
+NAME="AEN2"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</A
+></H1
+><H3
+CLASS="author"
+><A
+NAME="AEN4"
+></A
+>Wim Taymans</H3
+><H3
+CLASS="author"
+><A
+NAME="AEN10"
+></A
+>Steve Baker</H3
+><H3
+CLASS="author"
+><A
+NAME="AEN16"
+></A
+>Andy Wingo</H3
+><H3
+CLASS="author"
+><A
+NAME="AEN22"
+></A
+>Ronald S. Bultje</H3
+><H3
+CLASS="author"
+><A
+NAME="AEN29"
+></A
+>Stefan Kost</H3
+><DIV
+CLASS="legalnotice"
+><P
+></P
+><A
+NAME="misc-legalnotice"
+></A
+><P
+>&#13;      This material may be distributed only subject to the terms and
+      conditions set forth in the Open Publication License, v1.0 or later (the
+      latest version is presently available at <A
+HREF="       http://www.opencontent.org/opl.shtml"
+TARGET="_top"
+>http://www.opencontent.org/opl.shtml</A
+>).
+    </P
+><P
+></P
+></DIV
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="f40.html"
+>Foreword</A
+></DT
+><DT
+><A
+HREF="f49.html"
+>Introduction</A
+></DT
+><DD
+><DL
+><DT
+>1. <A
+HREF="f49.html#section-intro-who"
+>Who should read this manual?</A
+></DT
+><DT
+>2. <A
+HREF="section-intro-reading.html"
+>Preliminary reading</A
+></DT
+><DT
+>3. <A
+HREF="section-intro-structure.html"
+>Structure of this manual</A
+></DT
+></DL
+></DD
+><DT
+>I. <A
+HREF="part-introduction.html"
+>About GStreamer</A
+></DT
+><DD
+><DL
+><DT
+>1. <A
+HREF="chapter-gstreamer.html"
+>What is <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>?</A
+></DT
+><DT
+>2. <A
+HREF="chapter-motivation.html"
+>Design principles</A
+></DT
+><DD
+><DL
+><DT
+>2.1. <A
+HREF="chapter-motivation.html#section-goals-clean"
+>Clean and powerful</A
+></DT
+><DT
+>2.2. <A
+HREF="section-goals-object.html"
+>Object oriented</A
+></DT
+><DT
+>2.3. <A
+HREF="section-goals-extensible.html"
+>Extensible</A
+></DT
+><DT
+>2.4. <A
+HREF="section-goals-binary.html"
+>Allow binary-only plugins</A
+></DT
+><DT
+>2.5. <A
+HREF="section-goals-performance.html"
+>High performance</A
+></DT
+><DT
+>2.6. <A
+HREF="section-goals-separation.html"
+>Clean core/plugins separation</A
+></DT
+><DT
+>2.7. <A
+HREF="section-goals-testbed.html"
+>Provide a framework for codec experimentation</A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="chapter-intro-basics.html"
+>Foundations</A
+></DT
+><DD
+><DL
+><DT
+>3.1. <A
+HREF="chapter-intro-basics.html#section-intro-basics-elements"
+>Elements</A
+></DT
+><DT
+>3.2. <A
+HREF="section-intro-basics-pads.html"
+>Pads</A
+></DT
+><DT
+>3.3. <A
+HREF="section-intro-basics-bins.html"
+>Bins and pipelines</A
+></DT
+><DT
+>3.4. <A
+HREF="section-intro-basics-communication.html"
+>Communication</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>II. <A
+HREF="part-building.html"
+>Building an Application</A
+></DT
+><DD
+><DL
+><DT
+>4. <A
+HREF="chapter-init.html"
+>Initializing <SPAN
+CLASS="application"
+>GStreamer</SPAN
+></A
+></DT
+><DD
+><DL
+><DT
+>4.1. <A
+HREF="chapter-init.html#section-init-c"
+>Simple initialization</A
+></DT
+><DT
+>4.2. <A
+HREF="x347.html"
+>The GOption interface</A
+></DT
+></DL
+></DD
+><DT
+>5. <A
+HREF="chapter-elements.html"
+>Elements</A
+></DT
+><DD
+><DL
+><DT
+>5.1. <A
+HREF="chapter-elements.html#section-elements-design"
+>What are elements?</A
+></DT
+><DT
+>5.2. <A
+HREF="section-elements-create.html"
+>Creating a <CODE
+CLASS="classname"
+>GstElement</CODE
+></A
+></DT
+><DT
+>5.3. <A
+HREF="section-elements-properties.html"
+>Using an element as a <CODE
+CLASS="classname"
+>GObject</CODE
+></A
+></DT
+><DT
+>5.4. <A
+HREF="section-elements-factories.html"
+>More about element factories</A
+></DT
+><DT
+>5.5. <A
+HREF="section-elements-link.html"
+>Linking elements</A
+></DT
+><DT
+>5.6. <A
+HREF="section-elements-states.html"
+>Element States</A
+></DT
+></DL
+></DD
+><DT
+>6. <A
+HREF="chapter-bins.html"
+>Bins</A
+></DT
+><DD
+><DL
+><DT
+>6.1. <A
+HREF="chapter-bins.html#section-bins"
+>What are bins</A
+></DT
+><DT
+>6.2. <A
+HREF="section-bin-create.html"
+>Creating a bin</A
+></DT
+><DT
+>6.3. <A
+HREF="section-bin-custom.html"
+>Custom bins</A
+></DT
+></DL
+></DD
+><DT
+>7. <A
+HREF="chapter-bus.html"
+>Bus</A
+></DT
+><DD
+><DL
+><DT
+>7.1. <A
+HREF="chapter-bus.html#section-bus-howto"
+>How to use a bus</A
+></DT
+><DT
+>7.2. <A
+HREF="section-bus-message-types.html"
+>Message types</A
+></DT
+></DL
+></DD
+><DT
+>8. <A
+HREF="chapter-pads.html"
+>Pads and capabilities</A
+></DT
+><DD
+><DL
+><DT
+>8.1. <A
+HREF="chapter-pads.html#section-pads"
+>Pads</A
+></DT
+><DT
+>8.2. <A
+HREF="section-caps.html"
+>Capabilities of a pad</A
+></DT
+><DT
+>8.3. <A
+HREF="section-caps-api.html"
+>What capabilities are used for</A
+></DT
+><DT
+>8.4. <A
+HREF="section-pads-ghost.html"
+>Ghost pads</A
+></DT
+></DL
+></DD
+><DT
+>9. <A
+HREF="chapter-data.html"
+>Buffers and Events</A
+></DT
+><DD
+><DL
+><DT
+>9.1. <A
+HREF="chapter-data.html#section-buffers"
+>Buffers</A
+></DT
+><DT
+>9.2. <A
+HREF="section-events.html"
+>Events</A
+></DT
+></DL
+></DD
+><DT
+>10. <A
+HREF="chapter-helloworld.html"
+>Your first application</A
+></DT
+><DD
+><DL
+><DT
+>10.1. <A
+HREF="chapter-helloworld.html#section-helloworld"
+>Hello world</A
+></DT
+><DT
+>10.2. <A
+HREF="section-helloworld-compilerun.html"
+>Compiling and Running helloworld.c</A
+></DT
+><DT
+>10.3. <A
+HREF="section-hello-world-conclusion.html"
+>Conclusion</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>III. <A
+HREF="part-advanced.html"
+>Advanced <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> concepts</A
+></DT
+><DD
+><DL
+><DT
+>11. <A
+HREF="chapter-queryevents.html"
+>Position tracking and seeking</A
+></DT
+><DD
+><DL
+><DT
+>11.1. <A
+HREF="chapter-queryevents.html#section-querying"
+>Querying: getting the position or length of a stream</A
+></DT
+><DT
+>11.2. <A
+HREF="section-eventsseek.html"
+>Events: seeking (and more)</A
+></DT
+></DL
+></DD
+><DT
+>12. <A
+HREF="chapter-metadata.html"
+>Metadata</A
+></DT
+><DD
+><DL
+><DT
+>12.1. <A
+HREF="chapter-metadata.html#section-tags-read"
+>Metadata reading</A
+></DT
+><DT
+>12.2. <A
+HREF="section-tags-write.html"
+>Tag writing</A
+></DT
+></DL
+></DD
+><DT
+>13. <A
+HREF="chapter-interfaces.html"
+>Interfaces</A
+></DT
+><DD
+><DL
+><DT
+>13.1. <A
+HREF="chapter-interfaces.html#section-interfaces-uri"
+>The URI interface</A
+></DT
+><DT
+>13.2. <A
+HREF="section-interfaces-mixer.html"
+>The Mixer interface</A
+></DT
+><DT
+>13.3. <A
+HREF="section-interfaces-tuner.html"
+>The Tuner interface</A
+></DT
+><DT
+>13.4. <A
+HREF="section-interfaces-colorbalance.html"
+>The Color Balance interface</A
+></DT
+><DT
+>13.5. <A
+HREF="section-interfaces-proprobe.html"
+>The Property Probe interface</A
+></DT
+><DT
+>13.6. <A
+HREF="section-interfaces-xoverlay.html"
+>The X Overlay interface</A
+></DT
+></DL
+></DD
+><DT
+>14. <A
+HREF="chapter-clocks.html"
+>Clocks in GStreamer</A
+></DT
+><DD
+><DL
+><DT
+>14.1. <A
+HREF="chapter-clocks.html#section-clocks-providers"
+>Clock providers</A
+></DT
+><DT
+>14.2. <A
+HREF="section-clocks-slaves.html"
+>Clock slaves</A
+></DT
+></DL
+></DD
+><DT
+>15. <A
+HREF="chapter-dparams.html"
+>Dynamic Controllable Parameters</A
+></DT
+><DD
+><DL
+><DT
+>15.1. <A
+HREF="chapter-dparams.html#section-dparams-getting-started"
+>Getting Started</A
+></DT
+><DT
+>15.2. <A
+HREF="section-dparams-parameters.html"
+>Setting up parameter control</A
+></DT
+></DL
+></DD
+><DT
+>16. <A
+HREF="chapter-threads.html"
+>Threads</A
+></DT
+><DD
+><DL
+><DT
+>16.1. <A
+HREF="chapter-threads.html#section-threads-uses"
+>When would you want to force a thread?</A
+></DT
+><DT
+>16.2. <A
+HREF="section-threads-scheduling.html"
+>Scheduling in <SPAN
+CLASS="application"
+>GStreamer</SPAN
+></A
+></DT
+></DL
+></DD
+><DT
+>17. <A
+HREF="chapter-autoplugging.html"
+>Autoplugging</A
+></DT
+><DD
+><DL
+><DT
+>17.1. <A
+HREF="chapter-autoplugging.html#section-mime"
+>MIME-types as a way to identity streams</A
+></DT
+><DT
+>17.2. <A
+HREF="section-typefinding.html"
+>Media stream type detection</A
+></DT
+><DT
+>17.3. <A
+HREF="section-dynamic.html"
+>Plugging together dynamic pipelines</A
+></DT
+></DL
+></DD
+><DT
+>18. <A
+HREF="chapter-dataaccess.html"
+>Pipeline manipulation</A
+></DT
+><DD
+><DL
+><DT
+>18.1. <A
+HREF="chapter-dataaccess.html#section-data-probe"
+>Data probing</A
+></DT
+><DT
+>18.2. <A
+HREF="section-data-spoof.html"
+>Manually adding or removing data from/to a pipeline</A
+></DT
+><DT
+>18.3. <A
+HREF="section-data-manager.html"
+>Embedding static elements in your application</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>IV. <A
+HREF="part-highlevel.html"
+>Higher-level interfaces for <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> applications</A
+></DT
+><DD
+><DL
+><DT
+>19. <A
+HREF="chapter-components.html"
+>Components</A
+></DT
+><DD
+><DL
+><DT
+>19.1. <A
+HREF="chapter-components.html#section-components-playbin"
+>Playbin</A
+></DT
+><DT
+>19.2. <A
+HREF="section-components-decodebin.html"
+>Decodebin</A
+></DT
+></DL
+></DD
+><DT
+>20. <A
+HREF="chapter-xml.html"
+>XML in <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> (deprecated)</A
+></DT
+></DL
+></DD
+><DT
+>V. <A
+HREF="part-appendices.html"
+>Appendices</A
+></DT
+><DD
+><DL
+><DT
+>21. <A
+HREF="chapter-checklist-element.html"
+>Things to check when writing an application</A
+></DT
+><DD
+><DL
+><DT
+>21.1. <A
+HREF="chapter-checklist-element.html#section-checklist-programming"
+>Good programming habits</A
+></DT
+><DT
+>21.2. <A
+HREF="section-checklist-debug.html"
+>Debugging</A
+></DT
+><DT
+>21.3. <A
+HREF="section-checklist-conversion.html"
+>Conversion plugins</A
+></DT
+><DT
+>21.4. <A
+HREF="section-checklist-applications.html"
+>Utility applications provided with <SPAN
+CLASS="application"
+>GStreamer</SPAN
+></A
+></DT
+></DL
+></DD
+><DT
+>22. <A
+HREF="chapter-porting.html"
+>Porting 0.8 applications to 0.10</A
+></DT
+><DD
+><DL
+><DT
+>22.1. <A
+HREF="chapter-porting.html#section-porting-objects"
+>List of changes</A
+></DT
+></DL
+></DD
+><DT
+>23. <A
+HREF="chapter-intgration.html"
+>Integration</A
+></DT
+><DD
+><DL
+><DT
+>23.1. <A
+HREF="chapter-intgration.html#section-integration-nix"
+>Linux and UNIX-like operating systems</A
+></DT
+><DT
+>23.2. <A
+HREF="section-integration-gnome.html"
+>GNOME desktop</A
+></DT
+><DT
+>23.3. <A
+HREF="section-integration-kde.html"
+>KDE desktop</A
+></DT
+><DT
+>23.4. <A
+HREF="section-integration-osx.html"
+>OS X</A
+></DT
+><DT
+>23.5. <A
+HREF="section-integration-win32.html"
+>Windows</A
+></DT
+></DL
+></DD
+><DT
+>24. <A
+HREF="chapter-licensing.html"
+>Licensing advisory</A
+></DT
+><DD
+><DL
+><DT
+>24.1. <A
+HREF="chapter-licensing.html#section-application-licensing"
+>How to license the applications you build with <SPAN
+CLASS="application"
+>GStreamer</SPAN
+></A
+></DT
+></DL
+></DD
+><DT
+>25. <A
+HREF="chapter-quotes.html"
+>Quotes from the Developers</A
+></DT
+></DL
+></DD
+></DL
+></DIV
+><DIV
+CLASS="LOT"
+><DL
+CLASS="LOT"
+><DT
+><B
+>List of Figures</B
+></DT
+><DT
+>1-1. <A
+HREF="chapter-gstreamer.html#section-gstreamer-img"
+>Gstreamer overview</A
+></DT
+><DT
+>3-1. <A
+HREF="section-intro-basics-bins.html#section-pipeline-img"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> pipeline for a simple ogg player</A
+></DT
+><DT
+>3-2. <A
+HREF="section-intro-basics-communication.html#section-communication-img"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> pipeline with different communication flows</A
+></DT
+><DT
+>5-1. <A
+HREF="chapter-elements.html#section-element-srcimg"
+>Visualisation of a source element</A
+></DT
+><DT
+>5-2. <A
+HREF="chapter-elements.html#section-element-filterimg"
+>Visualisation of a filter element</A
+></DT
+><DT
+>5-3. <A
+HREF="chapter-elements.html#section-element-multifilterimg"
+>Visualisation of a filter element with
+	  more than one output pad</A
+></DT
+><DT
+>5-4. <A
+HREF="chapter-elements.html#section-element-sinkimg"
+>Visualisation of a sink element</A
+></DT
+><DT
+>5-5. <A
+HREF="section-elements-link.html#section-link"
+>Visualisation of three linked elements</A
+></DT
+><DT
+>6-1. <A
+HREF="chapter-bins.html#section-bin-img"
+>Visualisation of a bin with some elements in it</A
+></DT
+><DT
+>8-1. <A
+HREF="section-pads-ghost.html#section-bin-noghost-img"
+>Visualisation of a <A
+HREF="../../gstreamer/html/GstBin.html"
+TARGET="_top"
+><CODE
+CLASS="classname"
+>GstBin</CODE
+></A
+>
+      element without ghost pads</A
+></DT
+><DT
+>8-2. <A
+HREF="section-pads-ghost.html#section-bin-ghost-img"
+>Visualisation of a <A
+HREF="../../gstreamer/html/GstBin.html"
+TARGET="_top"
+><CODE
+CLASS="classname"
+>GstBin</CODE
+></A
+>
+      element with a ghost pad</A
+></DT
+><DT
+>10-1. <A
+HREF="chapter-helloworld.html#section-hello-img"
+>The "hello world" pipeline</A
+></DT
+><DT
+>14-1. <A
+HREF="chapter-clocks.html#chapter-clock-img"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> clock and various times</A
+></DT
+><DT
+>16-1. <A
+HREF="chapter-threads.html#section-thread-buffering-img"
+>Data buffering, from a networked source</A
+></DT
+><DT
+>16-2. <A
+HREF="chapter-threads.html#section-thread-synchronizing-img"
+>Synchronizing audio and video sinks</A
+></DT
+><DT
+>17-1. <A
+HREF="chapter-autoplugging.html#section-mime-img"
+>The Hello world pipeline with MIME types</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="LOT"
+><DL
+CLASS="LOT"
+><DT
+><B
+>List of Examples</B
+></DT
+><DT
+>4-1. <A
+HREF="chapter-init.html#ex-init-c"
+>Initializing GStreamer</A
+></DT
+><DT
+>4-2. <A
+HREF="x347.html#ex-goption-c"
+>Initialisation using the GOption interface</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="f40.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Foreword</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

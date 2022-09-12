@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>High performance</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Design principles"
+HREF="chapter-motivation.html"><LINK
+REL="PREVIOUS"
+TITLE="Allow binary-only plugins"
+HREF="section-goals-binary.html"><LINK
+REL="NEXT"
+TITLE="Clean core/plugins separation"
+HREF="section-goals-separation.html"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-goals-binary.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 2. Design principles</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-goals-separation.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="section-goals-performance"
+>2.5. High performance</A
+></H1
+><P
+> 
+        High performance is obtained by:
+      </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;	    using GLib's <CODE
+CLASS="classname"
+>GSlice</CODE
+> allocator
+	  </P
+></LI
+><LI
+><P
+>&#13;	    extremely light-weight links between plugins. Data can travel
+	    the pipeline with minimal overhead. Data passing between
+            plugins only involves a pointer dereference in a typical
+            pipeline.
+	  </P
+></LI
+><LI
+><P
+>&#13;	    providing a mechanism to directly work on the target memory.
+            A plugin can for example directly write to the X server's
+            shared memory space. Buffers can also point to arbitrary
+            memory, such as a sound card's internal hardware buffer.
+	  </P
+></LI
+><LI
+><P
+>&#13;	    refcounting and copy on write minimize usage of memcpy.
+	    Sub-buffers efficiently split buffers into manageable pieces.
+	  </P
+></LI
+><LI
+><P
+>&#13;	    dedicated streaming threads, with scheduling handled by the kernel.
+	  </P
+></LI
+><LI
+><P
+>&#13;	    allowing hardware acceleration by using specialized plugins.
+	  </P
+></LI
+><LI
+><P
+>&#13;	    using a plugin registry with the specifications of the plugins so 
+	    that the plugin loading can be delayed until the plugin is actually
+	    used.
+	  </P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-goals-binary.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-goals-separation.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Allow binary-only plugins</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-motivation.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Clean core/plugins separation</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

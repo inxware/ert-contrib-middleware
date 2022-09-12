@@ -1,0 +1,88 @@
+=head1 NAME
+
+Gnome2::DruidPage - wrapper for GnomeDruidPage
+
+=cut
+
+=head1 HIERARCHY
+
+  Glib::Object
+  +----Glib::InitiallyUnowned
+       +----Gtk2::Object
+            +----Gtk2::Widget
+                 +----Gtk2::Container
+                      +----Gtk2::Bin
+                           +----Gnome2::DruidPage
+
+
+
+=cut
+
+=head1 INTERFACES
+
+  Glib::Object::_Unregistered::AtkImplementorIface
+  Gtk2::Buildable
+
+
+
+=cut
+
+
+=head1 METHODS
+
+=head2 widget = Gnome2::DruidPage-E<gt>B<new> 
+
+=head2 boolean = $druid_page-E<gt>B<back> 
+
+=head2 boolean = $druid_page-E<gt>B<cancel> 
+
+=head2 $druid_page-E<gt>B<finish> 
+
+=head2 boolean = $druid_page-E<gt>B<next> 
+
+=head2 $druid_page-E<gt>B<prepare> 
+
+
+
+=cut
+
+
+=head1 SIGNALS
+
+=over
+
+=item boolean = B<next> (Gnome2::DruidPage, Gtk2::Widget)
+
+=item B<prepare> (Gnome2::DruidPage, Gtk2::Widget)
+
+=item boolean = B<back> (Gnome2::DruidPage, Gtk2::Widget)
+
+=item B<finish> (Gnome2::DruidPage, Gtk2::Widget)
+
+=item boolean = B<cancel> (Gnome2::DruidPage, Gtk2::Widget)
+
+=back
+
+
+
+=cut
+
+
+=head1 SEE ALSO
+
+L<Gnome2>, L<Glib::Object>, L<Glib::InitiallyUnowned>, L<Gtk2::Object>, L<Gtk2::Widget>, L<Gtk2::Container>, L<Gtk2::Bin>
+
+
+=cut
+
+
+=head1 COPYRIGHT
+
+Copyright (C) 2003-2004 by the gtk2-perl team.
+
+This software is licensed under the LGPL.  See L<Gnome2> for a full notice.
+
+
+
+=cut
+

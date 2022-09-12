@@ -1,0 +1,15 @@
+prefix=/home/pdrezet/workspace/inxware2.0-Release/INX/comp-lib-support/inx_build_scripts/../target_libs/i486-pc-linux-gnu-i686-pc-linux-gnu-4.2.4-gtk_vlc/build
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+svgz_supported=true
+css_supported=false
+
+Name: librsvg
+Description: library that renders svg files
+Version: 2.32.0
+Requires: glib-2.0 gio-2.0 gdk-pixbuf-2.0 cairo
+Requires.private:
+Libs: -L${libdir} -lrsvg-2 -lm
+Cflags: -I${includedir}/librsvg-2.0

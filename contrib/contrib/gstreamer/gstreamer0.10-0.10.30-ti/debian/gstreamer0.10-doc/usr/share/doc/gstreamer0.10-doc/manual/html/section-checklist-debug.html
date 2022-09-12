@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Debugging</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Things to check when writing an application"
+HREF="chapter-checklist-element.html"><LINK
+REL="PREVIOUS"
+TITLE="Things to check when writing an application"
+HREF="chapter-checklist-element.html"><LINK
+REL="NEXT"
+TITLE="Conversion plugins"
+HREF="section-checklist-conversion.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-checklist-element.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 21. Things to check when writing an application</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-checklist-conversion.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-checklist-debug"
+>21.2. Debugging</A
+></H1
+><P
+>&#13;      Applications can make use of the extensive <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> debugging system
+      to debug pipeline problems. Elements will write output to this system
+      to log what they're doing. It's not used for error reporting, but it
+      is very useful for tracking what an element is doing exactly, which
+      can come in handy when debugging application issues (such as failing
+      seeks, out-of-sync media, etc.).
+    </P
+><P
+>&#13;      Most <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>-based applications accept the commandline option
+      <CODE
+CLASS="option"
+>--gst-debug=LIST</CODE
+> and related family members. The
+      list consists of a comma-separated list of category/level pairs,
+      which can set the debugging level for a specific debugging category.
+      For example, <CODE
+CLASS="option"
+>--gst-debug=oggdemux:5</CODE
+> would turn
+      on debugging for the Ogg demuxer element. You can use wildcards as
+      well. A debugging level of 0 will turn off all debugging, and a level
+      of 5 will turn on all debugging. Intermediate values only turn on
+      some debugging (based on message severity; 2, for example, will only
+      display errors and warnings). Here's a list of all available options:
+    </P
+><P
+>&#13;     <P
+></P
+><UL
+><LI
+><P
+>&#13;          <CODE
+CLASS="option"
+>--gst-debug-help</CODE
+> will print available debug
+          categories and exit.
+         </P
+></LI
+><LI
+><P
+>&#13;          <CODE
+CLASS="option"
+>--gst-debug-level=<TT
+CLASS="replaceable"
+><I
+>LEVEL</I
+></TT
+></CODE
+> 
+	  will set the default debug level (which can range from 0 (no
+          output) to 5 (everything)).
+         </P
+></LI
+><LI
+><P
+>&#13;          <CODE
+CLASS="option"
+>--gst-debug=<TT
+CLASS="replaceable"
+><I
+>LIST</I
+></TT
+></CODE
+> 
+	  takes a comma-separated list of category_name:level pairs to
+          set specific levels for the individual categories. Example:
+          <CODE
+CLASS="option"
+>GST_AUTOPLUG:5,avidemux:3</CODE
+>. Alternatively, you
+          can also set the <CODE
+CLASS="classname"
+>GST_DEBUG</CODE
+> environment
+          variable, which has the same effect.
+         </P
+></LI
+><LI
+><P
+>&#13;          <CODE
+CLASS="option"
+>--gst-debug-no-color</CODE
+> will disable color debugging.
+          You can also set the GST_DEBUG_NO_COLOR environment variable to 1
+          if you want to disable colored debug output permanently. Note that
+          if you are disabling color purely to avoid messing up your pager
+          output, try using <B
+CLASS="command"
+>less -R</B
+>.
+         </P
+></LI
+><LI
+><P
+>&#13;          <CODE
+CLASS="option"
+>--gst-debug-disable</CODE
+> disables debugging altogether.
+         </P
+></LI
+><LI
+><P
+>&#13;          <CODE
+CLASS="option"
+>--gst-plugin-spew</CODE
+> enables printout of errors while
+          loading <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> plugins.
+         </P
+></LI
+></UL
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-checklist-element.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-checklist-conversion.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Things to check when writing an application</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-checklist-element.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Conversion plugins</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

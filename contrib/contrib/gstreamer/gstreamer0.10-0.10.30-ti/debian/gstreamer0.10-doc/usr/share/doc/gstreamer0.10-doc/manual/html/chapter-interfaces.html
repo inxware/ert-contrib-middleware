@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Interfaces</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Advanced GStreamer concepts"
+HREF="part-advanced.html"><LINK
+REL="PREVIOUS"
+TITLE="Tag writing"
+HREF="section-tags-write.html"><LINK
+REL="NEXT"
+TITLE="The Mixer interface"
+HREF="section-interfaces-mixer.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-tags-write.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-interfaces-mixer.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="chapter-interfaces"
+></A
+>Chapter 13. Interfaces</H1
+><P
+>&#13;    In <A
+HREF="section-elements-properties.html"
+>Section 5.3</A
+>, you have learned how
+    to use <CODE
+CLASS="classname"
+>GObject</CODE
+> properties as a simple way to do
+    interaction between applications and elements. This method suffices for
+    the simple'n'straight settings, but fails for anything more complicated
+    than a getter and setter. For the more complicated use cases, <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>
+    uses interfaces based on the Glib <CODE
+CLASS="classname"
+>GInterface</CODE
+> type.
+  </P
+><P
+>&#13;    Most of the interfaces handled here will not contain any example code.
+    See the API references for details. Here, we will just describe the
+    scope and purpose of each interface.
+  </P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-interfaces-uri"
+>13.1. The URI interface</A
+></H1
+><P
+>&#13;      In all examples so far, we have only supported local files through the
+      <SPAN
+CLASS="QUOTE"
+>"filesrc"</SPAN
+> element. <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>, obviously, supports many
+      more location sources. However, we don't want applications to need to
+      know any particular element implementation details, such as element
+      names for particular network source types and so on. Therefore, there
+      is a URI interface, which can be used to get the source element that
+      supports a particular URI type. There is no strict rule for URI naming,
+      but in general we follow naming conventions that others use, too. For
+      example, assuming you have the correct plugins installed, <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>
+      supports <SPAN
+CLASS="QUOTE"
+>"file:///&#60;path&#62;/&#60;file&#62;"</SPAN
+>,
+      <SPAN
+CLASS="QUOTE"
+>"http://&#60;host&#62;/&#60;path&#62;/&#60;file&#62;"</SPAN
+>,
+      <SPAN
+CLASS="QUOTE"
+>"mms://&#60;host&#62;/&#60;path&#62;/&#60;file&#62;"</SPAN
+>, and so on.
+    </P
+><P
+>&#13;      In order to get the source or sink element supporting a particular URI,
+      use <CODE
+CLASS="function"
+>gst_element_make_from_uri ()</CODE
+>, with the URI
+      type being either <CODE
+CLASS="classname"
+>GST_URI_SRC</CODE
+> for a source
+      element, or <CODE
+CLASS="classname"
+>GST_URI_SINK</CODE
+> for a sink element.
+    </P
+><P
+>&#13;      You can convert filenames to and from URIs using GLib's
+      <CODE
+CLASS="function"
+>g_filename_to_uri ()</CODE
+> and
+      <CODE
+CLASS="function"
+>g_uri_to_filename ()</CODE
+>.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-tags-write.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-interfaces-mixer.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Tag writing</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part-advanced.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The Mixer interface</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

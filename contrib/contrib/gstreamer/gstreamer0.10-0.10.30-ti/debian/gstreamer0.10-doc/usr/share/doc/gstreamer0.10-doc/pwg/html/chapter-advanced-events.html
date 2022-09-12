@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Events: Seeking, Navigation and More</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Advanced Filter Concepts"
+HREF="part-advanced.html"><LINK
+REL="PREVIOUS"
+TITLE="Writing Tags to Streams"
+HREF="section-tagging-write.html"><LINK
+REL="NEXT"
+TITLE="Upstream events"
+HREF="section-events-upstream.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-tagging-write.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-events-upstream.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="chapter-advanced-events"
+></A
+>Chapter 18. Events: Seeking, Navigation and More</H1
+><P
+>&#13;    There are many different event types but only two ways they can travel in
+    the pipeline: downstream or upstream. It is very important to understand
+    how both of these methods work because if one element in the pipeline is not
+    handling them correctly the whole event system of the pipeline is broken.
+    We will try to explain here how these methods work and how elements are 
+    supposed to implement them.
+  </P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-events-downstream"
+>18.1. Downstream events</A
+></H1
+><P
+>&#13;      Downstream events are received through the sink pad's event handler,
+      as set using <CODE
+CLASS="function"
+>gst_pad_set_event_function ()</CODE
+> when
+      the pad was created.
+    </P
+><P
+>&#13;      Downstream events can travel in two ways: they can be in-band (serialised
+      with the buffer flow) or out-of-band (travelling through the pipeline
+      instantly, possibly not in the same thread as the streaming thread that
+      is processing the buffers, skipping ahead of buffers being processed
+      or queued in the pipeline). The most common downstream events
+      (NEWSEGMENT, EOS, TAG) are all serialised with the buffer flow.
+    </P
+><P
+>&#13;      Here is a typical event function:
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;static gboolean
+gst_my_filter_sink_event (GstPad  *pad, GstEvent * event)
+{
+  GstMyFilter *filter;
+  gboolean ret;
+
+  filter = GST_MY_FILTER (gst_pad_get_parent (pad));
+  ...
+
+  switch (GST_EVENT_TYPE (event)) {
+    case GST_EVENT_NEWSEGMENT:
+      /* maybe save and/or update the current segment (e.g. for output
+       * clipping) or convert the event into one in a different format
+       * (e.g. BYTES to TIME) or drop it and set a flag to send a newsegment
+       * event in a different format later */
+      ret = gst_pad_push_event (filter-&#62;src_pad, event);
+      break;
+    case GST_EVENT_EOS:
+      /* end-of-stream, we should close down all stream leftovers here */
+      gst_my_filter_stop_processing (filter);
+      ret = gst_pad_push_event (filter-&#62;src_pad, event);
+      break;
+    case GST_EVENT_FLUSH_STOP:
+      gst_my_filter_clear_temporary_buffers (filter);
+      ret = gst_pad_push_event (filter-&#62;src_pad, event);
+      break;      
+    default:
+      ret = gst_pad_event_default (pad, event);
+      break;
+  }
+
+  ...
+  gst_object_unref (filter);
+  return ret;
+}
+    </PRE
+><P
+>&#13;    If your element is chain-based, you will almost always have to implement
+    a sink event function, since that is how you are notified about
+    new segments and the end of the stream.
+  </P
+><P
+>&#13;    If your element is exclusively loop-based, you may or may not want a
+    sink event function (since the element is driving the pipeline it will
+    know the length of the stream in advance or be notified by the flow
+    return value of <CODE
+CLASS="function"
+>gst_pad_pull_range()</CODE
+>. In some cases
+    even loop-based element may receive events from upstream though (for
+    example audio decoders with an id3demux or apedemux element in front of
+    them, or demuxers that are being fed input from sources that send
+    additional information about the stream in custom events, as DVD sources
+    do).
+  </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-tagging-write.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-events-upstream.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Writing Tags to Streams</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part-advanced.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Upstream events</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

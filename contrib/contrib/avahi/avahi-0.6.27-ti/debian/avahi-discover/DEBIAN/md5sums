@@ -1,0 +1,7 @@
+3abce2d67e003a4aa5a90e49629a4087  usr/bin/avahi-discover
+c7fae5e660b50abd84548895201e0913  usr/share/applications/avahi-discover.desktop
+4736acf64a076c1c66205a0212d152e9  usr/share/avahi/interfaces/avahi-discover.ui
+026515c317e1591092392844df5f1ee0  usr/share/doc/avahi-discover/copyright
+2c93d6e0dc58e3b8bfcdebd59a634e3b  usr/share/man/man1/avahi-discover.1.gz
+dbedd2be23c016976a80829c791e2ed1  usr/share/pyshared/avahi_discover/__init__.py
+a74594bf0bb4d8c30d12439a23403d11  usr/share/python-support/avahi-discover.public
