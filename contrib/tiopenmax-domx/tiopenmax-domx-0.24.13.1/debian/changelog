@@ -1,0 +1,88 @@
+tiopenmax-domx (0.24.13.1-0ubuntu1) maverick; urgency=low
+
+  * New upstream release, based on DOMX subset of OMX tree, commit 12540953
+    (git://git.omapzoom.org/platform/hardware/ti/omx.git)
+  * Rebased debian/patches on upstream.
+
+ -- Olivier Naudan <o-naudan@ti.com>  Fri, 13 May 2011 11:00:00 +0100
+
+tiopenmax-domx (0.24.12.1-0ubuntu2) maverick; urgency=low
+
+  * Added several patches:
+    - to turn some error traces into warnings.
+    - to fix OMX library SONAME.
+
+ -- Olivier Naudan <o-naudan@ti.com>  Wed, 13 Apr 2011 14:00:00 +0100
+ 
+tiopenmax-domx (0.24.12.1-0ubuntu1) maverick; urgency=low
+
+  * New upstream release, based on DOMX subset of OMX tree, commit 7f433ffd3
+  * The library and headers were renamed, thus the debian package as well.
+  * Updated dependencies in debian/control.
+  * Removed obsolete patches.
+  * Added several patches :
+    - to fix a compiler warning about an unused variable.
+    - to fix RPC_MemAlloc/Free() function prototype.
+    - to add a missing #include.
+    - to take into account Tiler library renaming.
+
+ -- Olivier Naudan <o-naudan@ti.com>  Thu, 31 Mar 2011 16:00:00 +0100
+
+tiopenmax-domx (0.24.11-0ubuntu2) maverick; urgency=low
+
+  * Removed OMX Wrapper header file - Android only 
+
+ -- David Bercovitz <d-bercovitz@ti.com>  Fri, 26 Nov 2010 14:06:30 +0100
+
+tiopenmax-domx (0.24.11-0ubuntu1) maverick; urgency=low
+
+  * Update to github L24.11 official tag 
+
+ -- David Bercovitz <d-bercovitz@ti.com>  Fri, 12 Nov 2010 14:56:52 +0100
+
+tiopenmax-domx (0.24.11~rc1.19.1+2-0ubuntu1) maverick; urgency=low
+
+  * Update to github 3a748bdd795c88ad7b7310e98baf55726bd2f9a4
+
+ -- David Bercovitz <d-bercovitz@ti.com>  Wed, 10 Nov 2010 18:53:41 +0100
+
+tiopenmax-domx (0.24.11~rc1.19.1+1-0ubuntu1) maverick; urgency=low
+
+  * Update to upstream 7170f1d75e6717d98121ac2405807591b028cf81
+
+ -- David Bercovitz <d-bercovitz@ti.com>  Wed, 10 Nov 2010 12:23:07 +0100
+
+tiopenmax-domx (0.24.11~rc1.19.1-0ubuntu1) maverick; urgency=low
+
+  * Update to upstream e916e05208132af03d8631f27a802616603516c3
+
+ -- David Bercovitz <d-bercovitz@ti.com>  Mon, 08 Nov 2010 18:13:24 +0100
+
+tiopenmax-domx (0.24.11~rc1-0ubuntu3) maverick; urgency=low
+
+  * adding missing khronos extentions headers
+  * adding DOMX required patches for Ducati 1.19
+
+ -- David Bercovitz <d-bercovitz@ti.com>  Thu, 04 Nov 2010 19:54:24 +0100
+
+tiopenmax-domx (0.24.11~rc1-0ubuntu1) maverick; urgency=low
+
+  * Updated dep versions in debian/control file
+  * Updated to l24.11-rc1 (Ducati 1.19.0.0 release) 
+
+ -- David Bercovitz <d-bercovitz@ti.com>  Thu, 04 Nov 2010 13:26:55 +0100
+
+tiopenmax-domx (0.24.10.1-0ubuntu4) maverick; urgency=low
+
+  * Added [armel] arch spec in control file 
+  * Removed un-needed binary deps in control file 
+  * Update to upstream version L24.10-p1 
+  * Update to DUCATI 01.18 Release
+
+ -- David Bercovitz <d-bercovitz@ti.com>  Wed, 20 Oct 2010 11:49:56 +0200
+
+tiopenmax-domx (0.24.9.1-0ubuntu1) maverick; urgency=low
+
+  * Initial Ubuntu release for TI OMAP4 OpenMax DOMX package 
+
+ -- David Bercovitz <d-bercovitz@ti.com>  Thu, 09 Sep 2010 11:24:45 +0200

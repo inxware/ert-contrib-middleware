@@ -1,0 +1,402 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Advanced GStreamer concepts</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Conclusion"
+HREF="section-hello-world-conclusion.html"><LINK
+REL="NEXT"
+TITLE="Position tracking and seeking"
+HREF="chapter-queryevents.html"></HEAD
+><BODY
+CLASS="part"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-hello-world-conclusion.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-queryevents.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="PART"
+><A
+NAME="part-advanced"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>III. Advanced <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> concepts</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN929"
+></A
+><P
+>&#13;        In this part we will cover the more advanced features of <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>.
+	With the basics you learned in the previous part you should be 
+	able to create a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>simple</I
+></SPAN
+> application. However,
+        <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> provides much more candy than just the basics of playing
+        back audio files. In this chapter, you will learn more of the
+	low-level features and internals of <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>.
+      </P
+><P
+>&#13;        Some parts of this part will serve mostly as an explanation of
+        how <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> works internally; they are not actually needed for
+        actual application development. This includes chapter such as the
+        ones covering scheduling, autoplugging and synchronization. Other
+        chapters, however, discuss more advanced ways of
+        pipeline-application interaction, and can turn out to be very useful
+        for certain applications. This includes the chapters on metadata,
+        querying and events, interfaces, dynamic parameters and pipeline
+        data manipulation.
+      </P
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+>11. <A
+HREF="chapter-queryevents.html"
+>Position tracking and seeking</A
+></DT
+><DD
+><DL
+><DT
+>11.1. <A
+HREF="chapter-queryevents.html#section-querying"
+>Querying: getting the position or length of a stream</A
+></DT
+><DT
+>11.2. <A
+HREF="section-eventsseek.html"
+>Events: seeking (and more)</A
+></DT
+></DL
+></DD
+><DT
+>12. <A
+HREF="chapter-metadata.html"
+>Metadata</A
+></DT
+><DD
+><DL
+><DT
+>12.1. <A
+HREF="chapter-metadata.html#section-tags-read"
+>Metadata reading</A
+></DT
+><DT
+>12.2. <A
+HREF="section-tags-write.html"
+>Tag writing</A
+></DT
+></DL
+></DD
+><DT
+>13. <A
+HREF="chapter-interfaces.html"
+>Interfaces</A
+></DT
+><DD
+><DL
+><DT
+>13.1. <A
+HREF="chapter-interfaces.html#section-interfaces-uri"
+>The URI interface</A
+></DT
+><DT
+>13.2. <A
+HREF="section-interfaces-mixer.html"
+>The Mixer interface</A
+></DT
+><DT
+>13.3. <A
+HREF="section-interfaces-tuner.html"
+>The Tuner interface</A
+></DT
+><DT
+>13.4. <A
+HREF="section-interfaces-colorbalance.html"
+>The Color Balance interface</A
+></DT
+><DT
+>13.5. <A
+HREF="section-interfaces-proprobe.html"
+>The Property Probe interface</A
+></DT
+><DT
+>13.6. <A
+HREF="section-interfaces-xoverlay.html"
+>The X Overlay interface</A
+></DT
+></DL
+></DD
+><DT
+>14. <A
+HREF="chapter-clocks.html"
+>Clocks in GStreamer</A
+></DT
+><DD
+><DL
+><DT
+>14.1. <A
+HREF="chapter-clocks.html#section-clocks-providers"
+>Clock providers</A
+></DT
+><DT
+>14.2. <A
+HREF="section-clocks-slaves.html"
+>Clock slaves</A
+></DT
+></DL
+></DD
+><DT
+>15. <A
+HREF="chapter-dparams.html"
+>Dynamic Controllable Parameters</A
+></DT
+><DD
+><DL
+><DT
+>15.1. <A
+HREF="chapter-dparams.html#section-dparams-getting-started"
+>Getting Started</A
+></DT
+><DT
+>15.2. <A
+HREF="section-dparams-parameters.html"
+>Setting up parameter control</A
+></DT
+></DL
+></DD
+><DT
+>16. <A
+HREF="chapter-threads.html"
+>Threads</A
+></DT
+><DD
+><DL
+><DT
+>16.1. <A
+HREF="chapter-threads.html#section-threads-uses"
+>When would you want to force a thread?</A
+></DT
+><DT
+>16.2. <A
+HREF="section-threads-scheduling.html"
+>Scheduling in <SPAN
+CLASS="application"
+>GStreamer</SPAN
+></A
+></DT
+></DL
+></DD
+><DT
+>17. <A
+HREF="chapter-autoplugging.html"
+>Autoplugging</A
+></DT
+><DD
+><DL
+><DT
+>17.1. <A
+HREF="chapter-autoplugging.html#section-mime"
+>MIME-types as a way to identity streams</A
+></DT
+><DT
+>17.2. <A
+HREF="section-typefinding.html"
+>Media stream type detection</A
+></DT
+><DT
+>17.3. <A
+HREF="section-dynamic.html"
+>Plugging together dynamic pipelines</A
+></DT
+></DL
+></DD
+><DT
+>18. <A
+HREF="chapter-dataaccess.html"
+>Pipeline manipulation</A
+></DT
+><DD
+><DL
+><DT
+>18.1. <A
+HREF="chapter-dataaccess.html#section-data-probe"
+>Data probing</A
+></DT
+><DT
+>18.2. <A
+HREF="section-data-spoof.html"
+>Manually adding or removing data from/to a pipeline</A
+></DT
+><DD
+><DL
+><DT
+>18.2.1. <A
+HREF="section-data-spoof.html#section-spoof-handoff"
+>Inserting or grabbing data</A
+></DT
+><DT
+>18.2.2. <A
+HREF="section-data-spoof.html#section-spoof-format"
+>Forcing a format</A
+></DT
+><DT
+>18.2.3. <A
+HREF="section-data-spoof.html#section-spoof-example"
+>Example application</A
+></DT
+></DL
+></DD
+><DT
+>18.3. <A
+HREF="section-data-manager.html"
+>Embedding static elements in your application</A
+></DT
+></DL
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-hello-world-conclusion.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-queryevents.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Conclusion</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Position tracking and seeking</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,344 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Downstream caps negotiation</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Caps negotiation"
+HREF="chapter-negotiation.html"><LINK
+REL="PREVIOUS"
+TITLE="Fixed caps"
+HREF="section-nego-fixedcaps.html"><LINK
+REL="NEXT"
+TITLE="Upstream caps (re)negotiation"
+HREF="section-nego-upstream.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-nego-fixedcaps.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 10. Caps negotiation</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-nego-upstream.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-nego-downstream"
+>10.3. Downstream caps negotiation</A
+></H1
+><P
+>&#13;      Downstream negotiation takes place when a format needs to be set on a
+      source pad to configure the output format, but this element allows
+      renegotiation because its format is configured on the sinkpad caps,
+      or because it supports multiple formats. The requirements for doing
+      the actual negotiation differ slightly.
+    </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="section-nego-downstream-embed"
+>10.3.1. Negotiating caps embedded in input caps</A
+></H2
+><P
+>&#13;        Many elements, particularly effects and converters, will be able
+        to parse the format of the stream from their input caps, and decide
+        the output format right at that time already. When renegotiation
+        takes place, some may merely need to "forward" the renegotiation
+        backwards upstream (more on that later). For those elements, all
+        (downstream) caps negotiation can be done in something that we
+        call the <CODE
+CLASS="function"
+>_setcaps ()</CODE
+> function. This function is
+        called when a buffer is pushed over a pad, but the format on this
+        buffer is not the same as the format that was previously negotiated
+        (or, similarly, no format was negotiated yet so far).
+      </P
+><P
+>&#13;        In the <CODE
+CLASS="function"
+>_setcaps ()</CODE
+>-function, the element can
+        forward the caps to the next element and, if that pad accepts the
+        format too, the element can parse the relevant parameters from the
+        caps and configure itself internally. The caps passed to this function
+        is <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>always</I
+></SPAN
+> a subset of the template caps, so
+        there's no need for extensive safety checking. The following example
+        should give a clear indication of how such a function can be
+        implemented:
+      </P
+><PRE
+CLASS="programlisting"
+>&#13;
+static gboolean
+gst_my_filter_setcaps (GstPad  *pad,
+		       GstCaps *caps)
+{
+  GstMyFilter *filter = GST_MY_FILTER (GST_OBJECT_PARENT (pad));
+  GstStructure *s;
+
+  /* forward-negotiate */
+  if (!gst_pad_set_caps (filter-&#62;srcpad, caps))
+    return FALSE;
+
+  /* negotiation succeeded, so now configure ourselves */
+  s = gst_caps_get_structure (caps, 0);
+  gst_structure_get_int (s, "rate", &#38;filter-&#62;samplerate);
+  gst_structure_get_int (s, "channels", &#38;filter-&#62;channels);
+
+  return TRUE;
+}
+
+</PRE
+><P
+>&#13;        There may also be cases where the filter actually is able to
+        <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>change</I
+></SPAN
+> the format of the stream. In those cases,
+        it will negotiate a new format. Obviously, the element should first
+        attempt to configure <SPAN
+CLASS="QUOTE"
+>"pass-through"</SPAN
+>, which means that
+        it does not change the stream's format. However, if that fails,
+        then it should call <CODE
+CLASS="function"
+>gst_pad_get_allowed_caps ()</CODE
+>
+        on its sourcepad to get a list of supported formats on the outputs,
+        and pick the first. The return value of that function is guaranteed
+        to be a subset of the template caps.
+      </P
+><P
+>&#13;        Let's look at the example of an element that can convert between
+        samplerates, so where input and output samplerate don't have to be
+        the same:
+      </P
+><PRE
+CLASS="programlisting"
+>&#13;
+static gboolean
+gst_my_filter_setcaps (GstPad  *pad,
+		       GstCaps *caps)
+{
+  GstMyFilter *filter = GST_MY_FILTER (GST_OBJECT_PARENT (pad));
+
+  if (gst_pad_set_caps (filter-&#62;sinkpad, caps)) {
+    filter-&#62;passthrough = TRUE;
+  } else {
+    GstCaps *othercaps, *newcaps;
+    GstStructure *s = gst_caps_get_structure (caps, 0), *others;
+
+    /* no passthrough, setup internal conversion */
+    gst_structure_get_int (s, "channels", &#38;filter-&#62;channels);
+    othercaps = gst_pad_get_allowed_caps (filter-&#62;srcpad);
+    others = gst_caps_get_structure (othercaps, 0);
+    gst_structure_set (others,
+        "channels", G_TYPE_INT, filter-&#62;channels, NULL);
+
+    /* now, the samplerate value can optionally have multiple values, so
+     * we "fixate" it, which means that one fixed value is chosen */
+    newcaps = gst_caps_copy_nth (othercaps, 0);
+    gst_caps_unref (othercaps);
+    gst_pad_fixate_caps (filter-&#62;srcpad, newcaps);
+    if (!gst_pad_set_caps (filter-&#62;srcpad, newcaps))
+      return FALSE;
+
+    /* we are now set up, configure internally */
+    filter-&#62;passthrough = FALSE;
+    gst_structure_get_int (s, "rate", &#38;filter-&#62;from_samplerate);
+    others = gst_caps_get_structure (newcaps, 0);
+    gst_structure_get_int (others, "rate", &#38;filter-&#62;to_samplerate);
+  }
+
+  return TRUE;
+}
+
+static GstFlowReturn
+gst_my_filter_chain (GstPad    *pad,
+		     GstBuffer *buf)
+{
+  GstMyFilter *filter = GST_MY_FILTER (GST_OBJECT_PARENT (pad));
+  GstBuffer *out;
+
+  /* push on if in passthrough mode */
+  if (filter-&#62;passthrough)
+    return gst_pad_push (filter-&#62;srcpad, buf);
+
+  /* convert, push */
+  out = gst_my_filter_convert (filter, buf);
+  gst_buffer_unref (buf);
+
+  return gst_pad_push (filter-&#62;srcpad, out);
+}
+
+</PRE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="section-nego-downstream-parse"
+>10.3.2. Parsing and setting caps</A
+></H2
+><P
+>&#13;        Other elements, such as certain types of decoders, will not be able
+        to parse the caps from their input, simply because the input format
+        does not contain the information required to know the output format
+        yet; rather, the data headers need to be parsed, too. In many cases,
+        fixed-caps will be enough, but in some cases, particularly in cases
+        where such decoders are renegotiable, it is also possible to use
+        full caps negotiation.
+      </P
+><P
+>&#13;        Fortunately, the code required to do so is very similar to the last
+        code example in <A
+HREF="section-nego-downstream.html#section-nego-downstream-embed"
+>Negotiating caps embedded in input caps</A
+>, with
+        the difference being that the caps is selected in the <CODE
+CLASS="function"
+>_chain
+        ()</CODE
+>-function rather than in the <CODE
+CLASS="function"
+>_setcaps
+        ()</CODE
+>-function. The rest, as for getting all allowed caps from
+        the source pad, fixating and such, is all the same. Re-negotiation,
+        which will be handled in the next section, is very different for such
+        elements, though.
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-nego-fixedcaps.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-nego-upstream.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Fixed caps</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-negotiation.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Upstream caps (re)negotiation</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
