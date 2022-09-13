@@ -1,0 +1,5 @@
+bits.lo bits.o: bits.c ../include/speex/speex_bits.h misc.h
+
+../include/speex/speex_bits.h:
+
+misc.h:

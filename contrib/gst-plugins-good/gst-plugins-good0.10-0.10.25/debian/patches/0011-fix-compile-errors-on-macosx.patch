@@ -1,0 +1,30 @@
+From 9cee45ddf60da912a9c6eb646c59327308b5f054 Mon Sep 17 00:00:00 2001
+From: Rob Clark <rob@ti.com>
+Date: Fri, 17 Dec 2010 19:19:35 -0600
+Subject: [PATCH 11/44] fix compile errors on macosx
+
+with i686-apple-darwin10-gcc-4.2.1:
+
+gstv4l2object.c: In function 'gst_v4l2_object_get_nearest_size':
+gstv4l2object.c:1988: warning: format '%u' expects type 'unsigned int', but argument 12 has type 'gint *'
+gstv4l2object.c:1988: warning: format '%u' expects type 'unsigned int', but argument 13 has type 'gint *'
+---
+ sys/v4l2/gstv4l2object.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/sys/v4l2/gstv4l2object.c b/sys/v4l2/gstv4l2object.c
+index 8653573..4abdb10 100644
+--- a/sys/v4l2/gstv4l2object.c
++++ b/sys/v4l2/gstv4l2object.c
+@@ -1987,7 +1987,7 @@ gst_v4l2_object_get_nearest_size (GstV4l2Object * v4l2object,
+     default:
+       GST_WARNING_OBJECT (v4l2object->element,
+           "Unsupported field type for %" GST_FOURCC_FORMAT "@%ux%u",
+-          GST_FOURCC_ARGS (pixelformat), width, height);
++          GST_FOURCC_ARGS (pixelformat), *width, *height);
+       return FALSE;
+   }
+ 
+-- 
+1.7.1
+

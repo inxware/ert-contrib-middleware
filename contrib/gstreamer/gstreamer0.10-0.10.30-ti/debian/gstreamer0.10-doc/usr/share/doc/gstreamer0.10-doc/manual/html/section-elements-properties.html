@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Using an element as a GObject</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Elements"
+HREF="chapter-elements.html"><LINK
+REL="PREVIOUS"
+TITLE="Creating a GstElement"
+HREF="section-elements-create.html"><LINK
+REL="NEXT"
+TITLE="More about element factories"
+HREF="section-elements-factories.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-elements-create.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 5. Elements</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-elements-factories.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-elements-properties"
+>5.3. Using an element as a <CODE
+CLASS="classname"
+>GObject</CODE
+></A
+></H1
+><P
+> 
+      A <A
+HREF="http://gstreamer.freedesktop.org/data/doc/gstreamer/stable/gstreamer/html/GstElement.html"
+TARGET="_top"
+><CODE
+CLASS="classname"
+>GstElement</CODE
+></A
+>
+      can have several properties which are implemented using standard
+      <CODE
+CLASS="classname"
+>GObject</CODE
+> properties. The usual
+      <CODE
+CLASS="classname"
+>GObject</CODE
+> methods to query, set and get
+      property values and <CODE
+CLASS="classname"
+>GParamSpecs</CODE
+> are
+      therefore supported.
+    </P
+><P
+> 
+      Every <CODE
+CLASS="classname"
+>GstElement</CODE
+> inherits at least one
+      property from its parent <CODE
+CLASS="classname"
+>GstObject</CODE
+>: the
+      "name" property. This is the name you provide to the functions
+      <CODE
+CLASS="function"
+>gst_element_factory_make ()</CODE
+> or
+      <CODE
+CLASS="function"
+>gst_element_factory_create ()</CODE
+>. You can get
+      and set this property using the functions 
+      <CODE
+CLASS="function"
+>gst_object_set_name</CODE
+> and
+      <CODE
+CLASS="function"
+>gst_object_get_name</CODE
+> or use the
+      <CODE
+CLASS="classname"
+>GObject</CODE
+> property mechanism as shown below.
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;#include &#60;gst/gst.h&#62;
+
+int
+main (int   argc,
+      char *argv[])
+{
+  GstElement *element;
+  gchar *name;
+
+  /* init GStreamer */
+  gst_init (&#38;argc, &#38;argv);
+
+  /* create element */
+  element = gst_element_factory_make ("fakesrc", "source");
+
+  /* get name */
+  g_object_get (G_OBJECT (element), "name", &#38;name, NULL);
+  g_print ("The name of the element is '%s'.\n", name);
+  g_free (name);
+
+  gst_object_unref (GST_OBJECT (element));
+
+  return 0;
+}
+    </PRE
+><P
+> 
+      Most plugins provide additional properties to provide more information
+      about their configuration or to configure the element. 
+      <B
+CLASS="command"
+>gst-inspect</B
+> is a useful tool to query the properties
+      of a particular element, it will also use property introspection to give
+      a short explanation about the function of the property and about the
+      parameter types and ranges it supports. See the appendix for details
+      about <B
+CLASS="command"
+>gst-inspect</B
+>.
+    </P
+><P
+> 
+      For more information about <CODE
+CLASS="classname"
+>GObject</CODE
+>
+      properties we recommend you read the <A
+HREF="http://developer.gnome.org/doc/API/2.0/gobject/index.html"
+TARGET="_top"
+>GObject manual</A
+> and an introduction to <A
+HREF="http://developer.gnome.org/doc/API/2.0/gobject/pr01.html"
+TARGET="_top"
+>&#13;	The Glib Object system</A
+>.
+    </P
+><P
+>&#13;      A <A
+HREF="http://gstreamer.freedesktop.org/data/doc/gstreamer/stable/gstreamer/html/gstreamer/html/GstElementFactory.html"
+TARGET="_top"
+>&#13;      <CODE
+CLASS="classname"
+>GstElement</CODE
+></A
+> also provides various 
+      <CODE
+CLASS="classname"
+>GObject</CODE
+> signals that can be used as a flexible
+      callback mechanism. Here, too, you can use <B
+CLASS="command"
+>gst-inspect</B
+>
+      to see which signals a specific element supports. Together, signals
+      and properties are the most basic way in which elements and
+      applications interact.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-elements-create.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-elements-factories.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Creating a <CODE
+CLASS="classname"
+>GstElement</CODE
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-elements.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>More about element factories</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

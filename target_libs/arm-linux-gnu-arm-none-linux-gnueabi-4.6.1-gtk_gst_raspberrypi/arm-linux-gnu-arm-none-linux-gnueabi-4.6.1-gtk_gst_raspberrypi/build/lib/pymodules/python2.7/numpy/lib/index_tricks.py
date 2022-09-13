@@ -1,0 +1,1 @@
+/usr/share/pyshared/numpy/lib/index_tricks.py

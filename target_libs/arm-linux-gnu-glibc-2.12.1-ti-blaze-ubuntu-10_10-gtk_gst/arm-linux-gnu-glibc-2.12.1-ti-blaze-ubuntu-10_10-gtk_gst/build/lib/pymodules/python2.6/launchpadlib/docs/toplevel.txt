@@ -1,0 +1,71 @@
+The launchpad web service's top-level collections provide access to
+Launchpad-wide objects like projects and people.
+
+    >>> import httplib2
+    >>> httplib2.debuglevel = 1
+
+    >>> from launchpadlib.testing.helpers import salgado_with_full_permissions
+    >>> launchpad = salgado_with_full_permissions.login()
+    connect: ...
+    ...
+
+It's possible to do key-based lookups on the top-level
+collections. The bug collection does lookups by bug ID.
+
+    >>> bug = launchpad.bugs[1]
+
+For most top-level collections, simply looking up an object will not
+trigger an HTTP request. The HTTP request happens when you try to
+access one of the object's properties.
+
+    >>> print bug.id
+    send: 'GET /.../bugs/1 ...'
+    ...
+    1
+
+Let's look at some more collections. The project collection does
+lookups by project name.
+
+    >>> project = launchpad.projects['firefox']
+    >>> print project.name
+    send: 'GET /.../firefox ...'
+    ...
+    firefox
+
+The project group collection does lookups by project group name.
+
+    >>> group = launchpad.project_groups['gnome']
+    >>> print group.name
+    send: 'GET /.../gnome ...'
+    ...
+    gnome
+
+The distribution collection does lookups by distribution name.
+
+    >>> distribution = launchpad.distributions['ubuntu']
+    >>> print distribution.name
+    send: 'GET /.../ubuntu ...'
+    ...
+    ubuntu
+
+The person collection does lookups by a person's Launchpad
+name. Looking up a person from the top-level collection of people
+*does* trigger an HTTP request, since there's no other way to tell
+whether a given person should be represented by a 'person' object or a
+'team' object.
+
+    >>> person = launchpad.people['salgado']
+    send: 'GET /.../~salgado ...'
+    ...
+    >>> print person.name
+    salgado
+
+    >>> team = launchpad.people['rosetta-admins']
+    send: 'GET /1.0/~rosetta-admins ...'
+    ...
+    >>> print team.name
+    rosetta-admins
+
+Cleanup.
+
+    >>> httplib2.debuglevel = None

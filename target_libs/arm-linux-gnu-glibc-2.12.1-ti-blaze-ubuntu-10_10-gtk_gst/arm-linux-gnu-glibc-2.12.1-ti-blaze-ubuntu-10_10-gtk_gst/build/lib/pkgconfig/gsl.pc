@@ -1,0 +1,10 @@
+prefix=/usr
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include
+
+Name: GSL
+Description: GNU Scientific Library
+Version: 1.14
+Libs: -L/usr/lib -lgsl -lgslcblas -lm 
+Cflags: -I/usr/include

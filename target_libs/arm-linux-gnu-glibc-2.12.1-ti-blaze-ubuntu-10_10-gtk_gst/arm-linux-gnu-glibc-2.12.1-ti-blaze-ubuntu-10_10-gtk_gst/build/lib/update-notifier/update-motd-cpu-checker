@@ -1,0 +1,11 @@
+#!/bin/sh -e
+#
+# check if the BIOS settings need attention
+
+CMD="/usr/bin/check-bios-nx"
+if [ -x "$CMD" ] && ! "$CMD"; then
+    echo ""
+    echo "Your CPU appears to be lacking expected security protections."
+    echo "Please check your BIOS settings, or for more information, run:"
+    echo "  $CMD --verbose"
+fi

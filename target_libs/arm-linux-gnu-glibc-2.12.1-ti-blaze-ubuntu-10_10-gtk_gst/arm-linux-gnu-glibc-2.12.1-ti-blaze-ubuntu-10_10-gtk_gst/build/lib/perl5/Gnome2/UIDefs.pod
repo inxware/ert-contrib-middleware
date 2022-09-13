@@ -1,0 +1,134 @@
+=head1 NAME
+
+Gnome2::UIDefs
+
+=cut
+
+
+=head1 METHODS
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_clear> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_close> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_close_window> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_copy> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_cut> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_find> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_find_again> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_new> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_new_game> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_new_window> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_open> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_paste> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_pause_game> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_print> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_print_setup> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_quit> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_redo> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_redo_move> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_replace> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_save> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_save_as> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_select_all> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_undo> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_mod_undo_move> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_clear> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_close> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_close_window> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_copy> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_cut> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_find> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_find_again> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_new> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_new_game> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_new_window> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_open> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_paste> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_pause_game> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_print> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_print_setup> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_quit> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_redo> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_redo_move> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_replace> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_save> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_save_as> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_select_all> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_undo> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<key_name_undo_move> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<pad> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<pad_big> 
+
+=head2 scalar = Gnome2::UIDefs-E<gt>B<pad_small> 
+
+
+
+=cut
+
+
+=head1 SEE ALSO
+
+L<Gnome2>
+
+
+=cut
+
+
+=head1 COPYRIGHT
+
+Copyright (C) 2003-2004 by the gtk2-perl team.
+
+This software is licensed under the LGPL.  See L<Gnome2> for a full notice.
+
+
+
+=cut
+

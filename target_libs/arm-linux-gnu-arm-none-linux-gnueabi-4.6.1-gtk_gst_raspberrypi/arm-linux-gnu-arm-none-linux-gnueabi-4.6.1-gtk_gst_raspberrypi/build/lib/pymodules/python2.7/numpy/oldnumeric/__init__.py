@@ -1,0 +1,1 @@
+/usr/share/pyshared/numpy/oldnumeric/__init__.py

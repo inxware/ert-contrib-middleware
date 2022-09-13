@@ -1,0 +1,1 @@
+/usr/share/pyshared/numpy/distutils/tests/swig_ext/setup.py

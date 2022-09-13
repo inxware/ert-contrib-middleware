@@ -1,0 +1,372 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>What are states?</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Building a Plugin"
+HREF="part-building.html"><LINK
+REL="PREVIOUS"
+TITLE="The chain function"
+HREF="chapter-building-chainfn.html"><LINK
+REL="NEXT"
+TITLE="Adding Arguments"
+HREF="chapter-building-args.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-building-chainfn.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-building-args.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="chapter-statemanage-states"
+></A
+>Chapter 6. What are states?</H1
+><P
+>&#13;    A state describes whether the element instance is initialized, whether it
+    is ready to transfer data and whether it is currently handling data. There
+    are four states defined in <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>:
+  </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;        <CODE
+CLASS="symbol"
+>GST_STATE_NULL</CODE
+>
+      </P
+></LI
+><LI
+><P
+>&#13;        <CODE
+CLASS="symbol"
+>GST_STATE_READY</CODE
+>
+      </P
+></LI
+><LI
+><P
+>&#13;        <CODE
+CLASS="symbol"
+>GST_STATE_PAUSED</CODE
+>
+      </P
+></LI
+><LI
+><P
+>&#13;        <CODE
+CLASS="symbol"
+>GST_STATE_PLAYING</CODE
+>
+      </P
+></LI
+></UL
+><P
+>&#13;    which will from now on be referred to simply as <SPAN
+CLASS="QUOTE"
+>"NULL"</SPAN
+>,
+    <SPAN
+CLASS="QUOTE"
+>"READY"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"PAUSED"</SPAN
+> and <SPAN
+CLASS="QUOTE"
+>"PLAYING"</SPAN
+>.
+  </P
+><P
+>&#13;    <CODE
+CLASS="symbol"
+>GST_STATE_NULL</CODE
+> is the default state of an element. In this state, it
+    has not allocated any runtime resources, it has not loaded any runtime
+    libraries and it can obviously not handle data.
+  </P
+><P
+>&#13;    <CODE
+CLASS="symbol"
+>GST_STATE_READY</CODE
+> is the next state that an element can be in. In the
+    READY state, an element has all default resources (runtime-libraries,
+    runtime-memory) allocated. However, it has not yet allocated or defined
+    anything that is stream-specific. When going from NULL to READY state
+    (<CODE
+CLASS="symbol"
+>GST_STATE_CHANGE_NULL_TO_READY</CODE
+>), an element should
+    allocate any non-stream-specific resources and should load runtime-loadable
+    libraries (if any). When going the other way around (from READY to NULL,
+    <CODE
+CLASS="symbol"
+>GST_STATE_CHANGE_READY_TO_NULL</CODE
+>), an element should unload
+    these libraries and free all allocated resources. Examples of such
+    resources are hardware devices. Note that files are generally streams,
+    and these should thus be considered as stream-specific resources; therefore,
+    they should <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>not</I
+></SPAN
+> be allocated in this state.
+  </P
+><P
+>&#13;    <CODE
+CLASS="symbol"
+>GST_STATE_PAUSED</CODE
+> is the state in which an element is 
+    ready to accept and handle data. For most elements this state is the same
+    as PLAYING. The only exception to this rule are sink elements. Sink
+    elements only accept one single buffer of data and then block. At this
+    point the pipeline is 'prerolled' and ready to render data immediately.
+  </P
+><P
+>&#13;    <CODE
+CLASS="symbol"
+>GST_STATE_PLAYING</CODE
+> is the highest state that an element
+    can be in. For most elements this state is exactly the same as PAUSED,
+    they accept and process events and buffers with data. Only sink elements
+    need to differentiate between PAUSED and PLAYING state. In PLAYING state,
+    sink elements actually render incoming data, e.g. output audio to a sound
+    card or render video pictures to an image sink.
+  </P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-statemanage-filters"
+>6.1. Managing filter state</A
+></H1
+><P
+>&#13;    If at all possible, your element should derive from one of the new base 
+    classes (<A
+HREF="chapter-other-base.html"
+>Pre-made base classes</A
+>). There are ready-made 
+    general purpose base classes for different types of sources, sinks and
+    filter/transformation elements. In addition to those, specialised base 
+    classes exist for audio and video elements and others.
+  </P
+><P
+>&#13;    If you use a base class, you will rarely have to handle state changes 
+    yourself. All you have to do is override the base class's start() and
+    stop() virtual functions (might be called differently depending on the
+    base class) and the base class will take care of everything for you.
+  </P
+><P
+>&#13;    If, however, you do not derive from a ready-made base class, but from 
+    GstElement or some other class not built on top of a base class, you 
+    will most likely have to implement your own state change function to
+    be notified of state changes. This is definitively necessary if your
+    plugin is a decoder or an encoder, as there are no base classes for
+    decoders or encoders yet.
+  </P
+><P
+>&#13;    An element can be notified of state changes through a virtual function
+    pointer. Inside this function, the element can initialize any sort of
+    specific data needed by the element, and it can optionally fail to
+    go from one state to another.
+  </P
+><P
+>&#13;    Do not g_assert for unhandled state changes; this is taken care of by
+    the GstElement base class.
+  </P
+><PRE
+CLASS="programlisting"
+>&#13;static GstStateChangeReturn
+gst_my_filter_change_state (GstElement *element, GstStateChange transition);
+
+static void
+gst_my_filter_class_init (GstMyFilterClass *klass)
+{
+  GstElementClass *element_class = GST_ELEMENT_CLASS (klass);
+
+  element_class-&#62;change_state = gst_my_filter_change_state;
+}
+
+
+
+static GstStateChangeReturn
+gst_my_filter_change_state (GstElement *element, GstStateChange transition)
+{
+  GstStateChangeReturn ret = GST_STATE_CHANGE_SUCCESS;
+  GstMyFilter *filter = GST_MY_FILTER (element);
+
+  switch (transition) {
+    case GST_STATE_CHANGE_NULL_TO_READY:
+      if (!gst_my_filter_allocate_memory (filter))
+        return GST_STATE_CHANGE_FAILURE;
+      break;
+    default:
+      break;
+  }
+
+  ret = GST_ELEMENT_CLASS (parent_class)-&#62;change_state (element, transition);
+  if (ret == GST_STATE_CHANGE_FAILURE)
+    return ret;
+
+  switch (transition) {
+    case GST_STATE_CHANGE_READY_TO_NULL:
+      gst_my_filter_free_memory (filter);
+      break;
+    default:
+      break;
+  }
+
+  return ret;
+}
+
+</PRE
+><P
+>&#13;    Note that upwards (NULL=&#62;READY, READY=&#62;PAUSED, PAUSED=&#62;PLAYING)
+    and downwards (PLAYING=&#62;PAUSED, PAUSED=&#62;READY, READY=&#62;NULL) state
+    changes are handled in two separate blocks with the downwards state change
+    handled only after we have chained up to the parent class's state
+    change function. This is necessary in order to safely handle concurrent
+    access by multiple threads.
+  </P
+><P
+>&#13;    The reason for this is that in the case of downwards state changes
+    you don't want to destroy allocated resources while your plugin's 
+    chain function (for example) is still accessing those resources in
+    another thread. Whether your chain function might be running or not
+    depends on the state of your plugin's pads, and the state of those
+    pads is closely linked to the state of the element. Pad states are
+    handled in the GstElement class's state change function, including
+    proper locking, that's why it is essential to chain up before
+    destroying allocated resources.
+  </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-building-chainfn.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-building-args.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The chain function</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part-building.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Adding Arguments</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

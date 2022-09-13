@@ -1,0 +1,40 @@
+Source: tisyslink-d2cmap
+Section: libs
+Priority: extra
+Maintainer: TI OMAP Developers <tiomap-dev@lists.launchpad.net>
+Build-Depends: cdbs, debhelper (>= 7),
+               quilt, libtool,
+               libtimemmgr-dev (>= 0.24.12) [armel],
+               libtisyslink-dev (>= 0.24.12) [armel]
+Standards-Version: 3.9.1
+Homepage: http://git.omapzoom.org/platform/hardware/ti/syslink.git
+Vcs-Git: git://git.omapzoom.org/platform/hardware/ti/syslink.git
+
+Package: libd2cmap1
+Section: libs
+Architecture: armel
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Replaces:  libtisyslink-d2cmap0
+Conflicts: libtisyslink-d2cmap0
+Description: TI Ducati2Chiron Map Library
+ TI Ducati2Chiron Map Library for OMAP Processors
+
+Package: libd2cmap-dev
+Section: libdevel
+Architecture: armel
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         libd2cmap1 (= ${binary:Version}),
+         pkg-config
+Description: TI Ducati2Chiron Map Library development files.
+ Contains all the necessary header files and libs.
+
+Package: d2cmap-tests
+Section: utils
+Architecture: armel
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         libd2cmap1 (= ${binary:Version}),
+Description: TI Ducati2Chiron Map Library test applications and tools.
+ This package is required for testing the d2cmap library.

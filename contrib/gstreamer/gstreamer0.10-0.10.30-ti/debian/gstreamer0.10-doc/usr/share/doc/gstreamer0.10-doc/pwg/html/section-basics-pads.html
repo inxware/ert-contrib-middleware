@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Pads</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Foundations"
+HREF="chapter-intro-basics.html"><LINK
+REL="PREVIOUS"
+TITLE="Foundations"
+HREF="chapter-intro-basics.html"><LINK
+REL="NEXT"
+TITLE="Data, Buffers and Events"
+HREF="section-basics-data.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-intro-basics.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 2. Foundations</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-basics-data.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-basics-pads"
+>2.2. Pads</A
+></H1
+><P
+>&#13;      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Pads</I
+></SPAN
+> are used to negotiate links and data flow
+      between elements in <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>. A pad can be viewed as a
+      <SPAN
+CLASS="QUOTE"
+>"place"</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"port"</SPAN
+> on an element where
+      links may be made with other elements, and through which data can
+      flow to or from those elements.  Pads have specific data handling
+      capabilities: A pad can restrict the type of data that flows
+      through it.  Links are only allowed between two pads when the
+      allowed data types of the two pads are compatible.
+    </P
+><P
+>&#13;      An analogy may be helpful here. A pad is similar to a plug or jack on a
+      physical device. Consider, for example, a home theater system consisting
+      of an amplifier, a DVD player, and a (silent) video projector. Linking
+      the DVD player to the amplifier is allowed because both devices have audio
+      jacks, and linking the projector to the DVD player is allowed because
+      both devices have compatible video jacks. Links between the
+      projector and the amplifier may not be made because the projector and
+      amplifier have different types of jacks. Pads in <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> serve the
+      same purpose as the jacks in the home theater system.
+    </P
+><P
+>&#13;      For the most part, all data in <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> flows one way through a link
+      between elements. Data flows out of one element through one or more
+      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>source pads</I
+></SPAN
+>, and elements accept incoming data through
+      one or more <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>sink pads</I
+></SPAN
+>. Source and sink elements have
+      only source and sink pads, respectively.
+    </P
+><P
+>&#13;      See the <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>GStreamer Library Reference</I
+></SPAN
+> for the current implementation details of a <A
+HREF="../../gstreamer/html/GstPad.html"
+TARGET="_top"
+><CODE
+CLASS="classname"
+>GstPad</CODE
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-intro-basics.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-basics-data.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Foundations</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-intro-basics.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Data, Buffers and Events</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

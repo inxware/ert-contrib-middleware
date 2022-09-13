@@ -1,0 +1,62 @@
+=head1 NAME
+
+Gnome2::VFS::Mime::Monitor - functions for getting information about applications and components associated with MIME types
+
+=cut
+
+=head1 HIERARCHY
+
+  Glib::Object
+  +----Gnome2::VFS::Mime::Monitor
+
+
+
+=cut
+
+=for object Gnome2::VFS::Mime::Monitor - functions for getting information about applications and components associated with MIME types
+
+=cut
+
+
+
+
+=head1 METHODS
+
+=head2 monitor = Gnome2::VFS::Mime::Monitor-E<gt>B<get> 
+
+
+
+=cut
+
+
+=head1 SIGNALS
+
+=over
+
+=item B<data-changed> (Gnome2::VFS::Mime::Monitor)
+
+=back
+
+
+
+=cut
+
+
+=head1 SEE ALSO
+
+L<Gnome2::VFS>, L<Glib::Object>
+
+
+=cut
+
+
+=head1 COPYRIGHT
+
+Copyright (C) 2003-2007 by the gtk2-perl team.
+
+This software is licensed under the LGPL.  See L<Gnome2::VFS> for a full notice.
+
+
+
+=cut
+

@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Property Probe Interface</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Interfaces"
+HREF="chapter-advanced-interfaces.html"><LINK
+REL="PREVIOUS"
+TITLE="Color Balance Interface"
+HREF="section-iface-colorbalance.html"><LINK
+REL="NEXT"
+TITLE="X Overlay Interface"
+HREF="section-iface-xoverlay.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-iface-colorbalance.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 16. Interfaces</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-iface-xoverlay.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-iface-propprobe"
+>16.6. Property Probe Interface</A
+></H1
+><P
+>&#13;      Property probing is a generic solution to the problem that properties'
+      value lists in an enumeration are static. We've shown enumerations in
+      <A
+HREF="chapter-building-args.html"
+>Adding Arguments</A
+>. Property probing tries to accomplish
+      a goal similar to enumeration lists: to have a limited, explicit list of
+      allowed values for a property. There are two differences between
+      enumeration lists and probing. Firstly, enumerations only allow strings
+      as values; property probing works for any value type. Secondly, the
+      contents of a probed list of allowed values may change during the life
+      of an element. The contents of an enumeration list are static. Currently,
+      property probing is being used for detection of devices (e.g. for OSS
+      elements, Video4linux elements, etc.). It could - in theory - be used
+      for any property, though.
+    </P
+><P
+>&#13;      Property probing stores the list of allowed (or recommended) values in a
+      <CODE
+CLASS="classname"
+>GValueArray</CODE
+> and returns that to the user.
+      <CODE
+CLASS="symbol"
+>NULL</CODE
+> is a valid return value, too. The process of
+      property probing is separated over two virtual functions: one for probing
+      the property to create a <CODE
+CLASS="classname"
+>GValueArray</CODE
+>, and one to
+      retrieve the current <CODE
+CLASS="classname"
+>GValueArray</CODE
+>. Those two are
+      separated because probing might take a long time (several seconds). Also,
+      this simplifies interface implementation in elements. For the application,
+      there are functions that wrap those two. For more information on this,
+      have a look at the API reference for the
+      
+      <CODE
+CLASS="classname"
+>GstPropertyProbe</CODE
+> interface.
+    </P
+><P
+>&#13;      Below is a example of property probing for the audio filter element; it
+      will probe for allowed values for the <SPAN
+CLASS="QUOTE"
+>"silent"</SPAN
+> property.
+      Indeed, this value is a <SPAN
+CLASS="type"
+>gboolean</SPAN
+> so it doesn't
+      make much sense. Then again, it's only an example.
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;#include &#60;gst/propertyprobe/propertyprobe.h&#62;
+
+static void	gst_my_filter_probe_interface_init	(GstPropertyProbeInterface *iface);
+
+GType
+gst_my_filter_get_type (void)
+{
+[..]
+    static const GInterfaceInfo probe_interface_info = {
+      (GInterfaceInitFunc) gst_my_filter_probe_interface_init,
+      NULL,
+      NULL
+    };
+[..]
+    g_type_add_interface_static (my_filter_type,
+				 GST_TYPE_PROPERTY_PROBE,
+				 &#38;probe_interface_info);
+[..]
+}
+
+static const GList *
+gst_my_filter_probe_get_properties (GstPropertyProbe *probe)
+{
+  GObjectClass *klass = G_OBJECT_GET_CLASS (probe);
+  static GList *props = NULL;
+
+  if (!props) {
+    GParamSpec *pspec;
+
+    pspec = g_object_class_find_property (klass, "silent");
+    props = g_list_append (props, pspec);
+  }
+
+  return props;
+}
+
+static gboolean
+gst_my_filter_probe_needs_probe (GstPropertyProbe *probe,
+				 guint             prop_id,
+				 const GParamSpec *pspec)
+{
+  gboolean res = FALSE;
+
+  switch (prop_id) {
+    case ARG_SILENT:
+      res = FALSE;
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (probe, prop_id, pspec);
+      break;
+  }
+
+  return res;
+}
+
+static void
+gst_my_filter_probe_probe_property (GstPropertyProbe *probe,
+				    guint             prop_id,
+				    const GParamSpec *pspec)
+{
+  switch (prop_id) {
+    case ARG_SILENT:
+      /* don't need to do much here... */
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (probe, prop_id, pspec);
+      break;
+  }
+}
+
+static GValueArray *
+gst_my_filter_get_silent_values (GstMyFilter *filter)
+{
+  GValueArray *array = g_value_array_new (2);
+  GValue value = { 0 };
+
+  g_value_init (&#38;value, G_TYPE_BOOLEAN);
+
+  /* add TRUE */
+  g_value_set_boolean (&#38;value, TRUE);
+  g_value_array_append (array, &#38;value);
+
+  /* add FALSE */
+  g_value_set_boolean (&#38;value, FALSE);
+  g_value_array_append (array, &#38;value);
+
+  g_value_unset (&#38;value);
+
+  return array;
+}
+
+static GValueArray *
+gst_my_filter_probe_get_values (GstPropertyProbe *probe,
+				guint             prop_id,
+				const GParamSpec *pspec)
+{
+  GstMyFilter *filter = GST_MY_FILTER (probe);
+  GValueArray *array = NULL;
+
+  switch (prop_id) {
+    case ARG_SILENT:
+      array = gst_my_filter_get_silent_values (filter);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (probe, prop_id, pspec);
+      break;
+  }
+
+  return array;
+}
+
+static void
+gst_my_filter_probe_interface_init (GstPropertyProbeInterface *iface)
+{
+  iface-&#62;get_properties = gst_my_filter_probe_get_properties;
+  iface-&#62;needs_probe    = gst_my_filter_probe_needs_probe;
+  iface-&#62;probe_property = gst_my_filter_probe_probe_property;
+  iface-&#62;get_values     = gst_my_filter_probe_get_values;
+}
+    </PRE
+><P
+>&#13;      You don't need to support any functions for getting or setting values.
+      All that is handled via the standard <CODE
+CLASS="classname"
+>GObject</CODE
+>
+      <CODE
+CLASS="function"
+>_set_property ()</CODE
+> and <CODE
+CLASS="function"
+>_get_property ()</CODE
+>
+      functions.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-iface-colorbalance.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-iface-xoverlay.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Color Balance Interface</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-advanced-interfaces.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>X Overlay Interface</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

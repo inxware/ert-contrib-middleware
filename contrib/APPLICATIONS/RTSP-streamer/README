@@ -1,0 +1,17 @@
+Run the file run-me-test-video.sh to start streaming and announce the service on bonjour. This package is intended for PC simulation. and streams the file accompanying the package.
+
+The service is announced using the test information in the first two arguments of the start script. 
+
+To change the edit run-me-test-video.sh and change the text in the square backets below
+
+./inx-bonjour-rtsp-streamer-x86  [desired port number] "Devide ID"] ["Some arbitary text"] "filesrc location=testvid_baseline_128.mpeg4 ! qtdemux ! rtph264pay pt=96 name=pay0 "
+
+The stream mount point is RAYMARINEMFD for direct access.
+
+To change the encoding the parameters edit the run-me-test-video.sh file, which uses 
+the gst-launch pipe paramaters (see man page http://linux.die.net/man/1/gst-launch-0.10)
+
+help - p.drezet@inx-systems.com
+
+
+

@@ -1,0 +1,53 @@
+<!-- ##### SECTION Title ##### -->
+signature
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### MACRO SIGNATURE_CHECK ##### -->
+<para>
+
+</para>
+
+@fn: 
+@ret: 
+@args: 
+
+
+<!-- ##### MACRO SIGNATURE_CHECK1 ##### -->
+<para>
+
+</para>
+
+@fn: 
+@ret: 
+@args: 
+@id: 
+
+
+<!-- ##### MACRO SIGNATURE_CHECK2 ##### -->
+<para>
+
+</para>
+
+@fn: 
+@ret: 
+@args: 
+@id: 
+
+

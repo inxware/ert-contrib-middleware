@@ -1,0 +1,1 @@
+/usr/share/pyshared/numpy/distutils/command/config_compiler.py

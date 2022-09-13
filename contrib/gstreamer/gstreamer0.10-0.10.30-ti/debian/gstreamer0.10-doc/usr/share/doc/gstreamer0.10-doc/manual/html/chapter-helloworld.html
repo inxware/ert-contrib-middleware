@@ -1,0 +1,437 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Your first application</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Building an Application"
+HREF="part-building.html"><LINK
+REL="PREVIOUS"
+TITLE="Events"
+HREF="section-events.html"><LINK
+REL="NEXT"
+TITLE="Compiling and Running helloworld.c"
+HREF="section-helloworld-compilerun.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-events.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-helloworld-compilerun.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="chapter-helloworld"
+></A
+>Chapter 10. Your first application</H1
+><P
+>&#13;    This chapter will summarize everything you've learned in the previous
+    chapters. It describes all aspects of a simple <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> application,
+    including initializing libraries, creating elements, packing elements
+    together in a pipeline and playing this pipeline. By doing all this,
+    you will be able to build a simple Ogg/Vorbis audio player.
+  </P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-helloworld"
+>10.1. Hello world</A
+></H1
+><P
+>&#13;      We're going to create a simple first application, a simple Ogg/Vorbis
+      command-line audio player. For this, we will use only standard
+      <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> components. The player will read a file specified on
+      the command-line. Let's get started!
+    </P
+><P
+>&#13;      We've learned, in <A
+HREF="chapter-init.html"
+>Chapter 4</A
+>, that the first thing
+      to do in your application is to initialize <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> by calling
+      <CODE
+CLASS="function"
+>gst_init ()</CODE
+>. Also, make sure that the application
+      includes <TT
+CLASS="filename"
+>gst/gst.h</TT
+> so all function names and
+      objects are properly defined. Use <CODE
+CLASS="function"
+>#include
+      &#60;gst/gst.h&#62;</CODE
+> to do that.
+    </P
+><P
+>&#13;      Next, you'll want to create the different elements using
+      <CODE
+CLASS="function"
+>gst_element_factory_make ()</CODE
+>. For an Ogg/Vorbis
+      audio player, we'll need a source element that reads files from a
+      disk. <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> includes this element under the name
+      <SPAN
+CLASS="QUOTE"
+>"filesrc"</SPAN
+>. Next, we'll need something to parse the
+      file and decode it into raw audio. <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> has two elements
+      for this: the first parses Ogg streams into elementary streams (video,
+      audio) and is called <SPAN
+CLASS="QUOTE"
+>"oggdemux"</SPAN
+>. The second is a Vorbis
+      audio decoder, it's conveniently called <SPAN
+CLASS="QUOTE"
+>"vorbisdec"</SPAN
+>.
+      Since <SPAN
+CLASS="QUOTE"
+>"oggdemux"</SPAN
+> creates dynamic pads for each elementary
+      stream, you'll need to set a <SPAN
+CLASS="QUOTE"
+>"pad-added"</SPAN
+> event handler
+      on the <SPAN
+CLASS="QUOTE"
+>"oggdemux"</SPAN
+> element, like you've learned in
+      <A
+HREF="chapter-pads.html#section-pads-dynamic"
+>Section 8.1.1</A
+>, to link the Ogg demuxer and
+      the Vorbis decoder elements together. At last, we'll also need an
+      audio output element, we will use <SPAN
+CLASS="QUOTE"
+>"autoaudiosink"</SPAN
+>, which
+      automatically detects your audio device.
+    </P
+><P
+>&#13;      The last thing left to do is to add all elements into a container
+      element, a <CODE
+CLASS="classname"
+>GstPipeline</CODE
+>, and iterate this
+      pipeline until we've played the whole song. We've previously
+      learned how to add elements to a container bin in <A
+HREF="chapter-bins.html"
+>Chapter 6</A
+>, and we've learned about element states
+      in <A
+HREF="section-elements-states.html"
+>Section 5.6</A
+>. We will also attach
+      a message handler to the pipeline bus so we can retrieve errors
+      and detect the end-of-stream.
+    </P
+><P
+>&#13;      Let's now add all the code together to get our very first audio
+      player:
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;
+#include &#60;gst/gst.h&#62;
+#include &#60;glib.h&#62;
+
+
+static gboolean
+bus_call (GstBus     *bus,
+          GstMessage *msg,
+          gpointer    data)
+{
+  GMainLoop *loop = (GMainLoop *) data;
+
+  switch (GST_MESSAGE_TYPE (msg)) {
+
+    case GST_MESSAGE_EOS:
+      g_print ("End of stream\n");
+      g_main_loop_quit (loop);
+      break;
+
+    case GST_MESSAGE_ERROR: {
+      gchar  *debug;
+      GError *error;
+
+      gst_message_parse_error (msg, &#38;error, &#38;debug);
+      g_free (debug);
+
+      g_printerr ("Error: %s\n", error-&#62;message);
+      g_error_free (error);
+
+      g_main_loop_quit (loop);
+      break;
+    }
+    default:
+      break;
+  }
+
+  return TRUE;
+}
+
+
+static void
+on_pad_added (GstElement *element,
+              GstPad     *pad,
+              gpointer    data)
+{
+  GstPad *sinkpad;
+  GstElement *decoder = (GstElement *) data;
+
+  /* We can now link this pad with the vorbis-decoder sink pad */
+  g_print ("Dynamic pad created, linking demuxer/decoder\n");
+
+  sinkpad = gst_element_get_static_pad (decoder, "sink");
+
+  gst_pad_link (pad, sinkpad);
+
+  gst_object_unref (sinkpad);
+}
+
+
+
+int
+main (int   argc,
+      char *argv[])
+{
+  GMainLoop *loop;
+
+  GstElement *pipeline, *source, *demuxer, *decoder, *conv, *sink;
+  GstBus *bus;
+
+  /* Initialisation */
+  gst_init (&#38;argc, &#38;argv);
+
+  loop = g_main_loop_new (NULL, FALSE);
+
+
+  /* Check input arguments */
+  if (argc != 2) {
+    g_printerr ("Usage: %s &#60;Ogg/Vorbis filename&#62;\n", argv[0]);
+    return -1;
+  }
+
+
+  /* Create gstreamer elements */
+  pipeline = gst_pipeline_new ("audio-player");
+  source   = gst_element_factory_make ("filesrc",       "file-source");
+  demuxer  = gst_element_factory_make ("oggdemux",      "ogg-demuxer");
+  decoder  = gst_element_factory_make ("vorbisdec",     "vorbis-decoder");
+  conv     = gst_element_factory_make ("audioconvert",  "converter");
+  sink     = gst_element_factory_make ("autoaudiosink", "audio-output");
+
+  if (!pipeline || !source || !demuxer || !decoder || !conv || !sink) {
+    g_printerr ("One element could not be created. Exiting.\n");
+    return -1;
+  }
+
+  /* Set up the pipeline */
+
+  /* we set the input filename to the source element */
+  g_object_set (G_OBJECT (source), "location", argv[1], NULL);
+
+  /* we add a message handler */
+  bus = gst_pipeline_get_bus (GST_PIPELINE (pipeline));
+  gst_bus_add_watch (bus, bus_call, loop);
+  gst_object_unref (bus);
+
+  /* we add all elements into the pipeline */
+  /* file-source | ogg-demuxer | vorbis-decoder | converter | alsa-output */
+  gst_bin_add_many (GST_BIN (pipeline),
+                    source, demuxer, decoder, conv, sink, NULL);
+
+  /* we link the elements together */
+  /* file-source -&#62; ogg-demuxer ~&#62; vorbis-decoder -&#62; converter -&#62; alsa-output */
+  gst_element_link (source, demuxer);
+  gst_element_link_many (decoder, conv, sink, NULL);
+  g_signal_connect (demuxer, "pad-added", G_CALLBACK (on_pad_added), decoder);
+
+  /* note that the demuxer will be linked to the decoder dynamically.
+     The reason is that Ogg may contain various streams (for example
+     audio and video). The source pad(s) will be created at run time,
+     by the demuxer when it detects the amount and nature of streams.
+     Therefore we connect a callback function which will be executed
+     when the "pad-added" is emitted.*/
+
+
+  /* Set the pipeline to "playing" state*/
+  g_print ("Now playing: %s\n", argv[1]);
+  gst_element_set_state (pipeline, GST_STATE_PLAYING);
+
+
+  /* Iterate */
+  g_print ("Running...\n");
+  g_main_loop_run (loop);
+
+
+  /* Out of the main loop, clean up nicely */
+  g_print ("Returned, stopping playback\n");
+  gst_element_set_state (pipeline, GST_STATE_NULL);
+
+  g_print ("Deleting pipeline\n");
+  gst_object_unref (GST_OBJECT (pipeline));
+
+  return 0;
+}
+
+    </PRE
+><P
+>&#13;      We now have created a complete pipeline.  We can visualise the
+      pipeline as follows:
+    </P
+><DIV
+CLASS="figure"
+><A
+NAME="section-hello-img"
+></A
+><P
+><B
+>Figure 10-1. The "hello world" pipeline</B
+></P
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="images/hello-world.png"></P
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-events.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-helloworld-compilerun.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Events</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part-building.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Compiling and Running helloworld.c</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

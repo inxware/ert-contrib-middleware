@@ -1,0 +1,24 @@
+Package: gstreamer0.10-plugins-base-dbg
+Source: gst-plugins-base0.10
+Version: 0.10.30-2+ti0.24.12.2+2
+Architecture: armel
+Maintainer: Maintainers of GStreamer packages <pkg-gstreamer-maintainers@lists.alioth.debian.org>
+Installed-Size: 6472
+Depends: gstreamer0.10-alsa (= 0.10.30-2+ti0.24.12.2+2), gstreamer0.10-plugins-base (= 0.10.30-2+ti0.24.12.2+2), gstreamer0.10-x (= 0.10.30-2+ti0.24.12.2+2), libgstreamer-plugins-base0.10-0 (= 0.10.30-2+ti0.24.12.2+2)
+Suggests: gstreamer0.10-gnomevfs (= 0.10.30-2+ti0.24.12.2+2)
+Replaces: gstreamer0.10-plugins-bad-dbg (<< 0.10.3+cvs20060814-0ubuntu4)
+Section: debug
+Priority: extra
+Homepage: http://gstreamer.freedesktop.org
+Description: GStreamer plugins from the "base" set
+ GStreamer is a streaming media framework, based on graphs of filters
+ which operate on media data.  Applications using this library can do
+ anything from real-time sound processing to playing videos, and just
+ about anything else media-related.  Its plugin-based architecture means
+ that new data types or processing capabilities can be added simply by
+ installing new plug-ins.
+ .
+ This package contains unstripped shared libraries. It is provided primarily
+ to provide a backtrace with names in a debugger, this makes it somewhat
+ easier to interpret core dumps. The libraries are installed in
+ /usr/lib/debug and are automatically used by gdb.

@@ -1,0 +1,63 @@
+
+=head1 NAME
+
+Gnome2::VFS - API Reference Pod Index
+
+=head1 PAGES
+
+=over
+
+=item L<Gnome2::VFS::Address>
+
+=item L<Gnome2::VFS::Application>
+
+=item L<Gnome2::VFS::ApplicationRegistry>
+
+=item L<Gnome2::VFS::Async>
+
+=item L<Gnome2::VFS::Async::Handle>
+
+=item L<Gnome2::VFS::DNSSD>
+
+=item L<Gnome2::VFS::DNSSD::Browse::Handle>
+
+=item L<Gnome2::VFS::DNSSD::Resolve::Handle>
+
+=item L<Gnome2::VFS::Directory>
+
+=item L<Gnome2::VFS::Directory::Handle>
+
+=item L<Gnome2::VFS::Drive>
+
+=item L<Gnome2::VFS::FileInfo>
+
+=item L<Gnome2::VFS::Mime>
+
+=item L<Gnome2::VFS::Mime::Application>
+
+=item L<Gnome2::VFS::Mime::Monitor>
+
+=item L<Gnome2::VFS::Mime::Type>
+
+=item L<Gnome2::VFS::Monitor>
+
+=item L<Gnome2::VFS::Monitor::Handle>
+
+=item L<Gnome2::VFS::Resolve>
+
+=item L<Gnome2::VFS::Resolve::Handle>
+
+=item L<Gnome2::VFS::URI>
+
+=item L<Gnome2::VFS::Volume>
+
+=item L<Gnome2::VFS::VolumeMonitor>
+
+=item L<Gnome2::VFS::Xfer>
+
+=item L<Gnome2::VFS::main>
+
+=item L<read,>
+
+=back
+

@@ -1,0 +1,3 @@
+patching file omx/gstomx_camera.c
+patching file omx/gstomx_camera_parameters.c
+patching file omx/timer-32k.h

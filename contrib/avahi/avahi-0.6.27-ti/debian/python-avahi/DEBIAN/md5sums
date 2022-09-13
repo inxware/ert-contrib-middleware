@@ -1,0 +1,8 @@
+1d0801cb141dbe1d87c980e6d701c909  usr/share/doc/python-avahi/NEWS.gz
+359847954ee1f4e9970c4afd10ce796b  usr/share/doc/python-avahi/README
+af6c686018c717f4a5c95d6cf07f7949  usr/share/doc/python-avahi/changelog.Debian.gz
+026515c317e1591092392844df5f1ee0  usr/share/doc/python-avahi/copyright
+b8d051f1e1b13bbd3bed340ea63dfe3a  usr/share/doc/python-avahi/examples/avahi-bookmarks.gz
+5e0def1f9d10e8de26a06e9ed02412bf  usr/share/pyshared/avahi/ServiceTypeDatabase.py
+f900378bb069ca1766ecc7d323cbee6d  usr/share/pyshared/avahi/__init__.py
+2a0e280cf435da37996733fc65e8dd92  usr/share/python-support/python-avahi.public

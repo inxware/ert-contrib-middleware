@@ -1,0 +1,11 @@
+#!/bin/sh -e
+# /usr/lib/emacsen-common/packages/remove/gtk-doc-tools
+
+FLAVOR=$1
+PACKAGE=gtk-doc-tools
+
+if [ ${FLAVOR} != emacs ]; then
+
+    echo remove/${PACKAGE}: purging byte-compiled files for ${FLAVOR}
+    rm -rf /usr/share/${FLAVOR}/site-lisp/${PACKAGE}
+fi

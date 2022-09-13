@@ -1,0 +1,12 @@
+prefix=/home/pdrezet/INX_SOURCE_LINK/comp-lib-support/inx_build_scripts/../target_libs/arm-linux-gnu-glibc-2.12.2-gtk_gst/build
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: FreeType 2
+Description: A free, high-quality, and portable font engine.
+Version: 12.1.6
+Requires:
+Libs: -L${libdir} -lfreetype
+Libs.private: -lz 
+Cflags: -I${includedir}/freetype2 -I${includedir}

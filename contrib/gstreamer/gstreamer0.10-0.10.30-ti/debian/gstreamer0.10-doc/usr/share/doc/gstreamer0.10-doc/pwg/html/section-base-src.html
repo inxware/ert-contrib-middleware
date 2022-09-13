@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Writing a source</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Pre-made base classes"
+HREF="chapter-other-base.html"><LINK
+REL="PREVIOUS"
+TITLE="Pre-made base classes"
+HREF="chapter-other-base.html"><LINK
+REL="NEXT"
+TITLE="Writing a transformation element"
+HREF="section-base-transform.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-other-base.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 19. Pre-made base classes</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-base-transform.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-base-src"
+>19.2. Writing a source</A
+></H1
+><P
+>&#13;      In the previous part, particularly <A
+HREF="section-scheduling-randomxs.html"
+>Providing random access</A
+>, we have learned that some types
+      of elements can provide random access. This applies most definitely to
+      source elements reading from a randomly seekable location, such as file
+      sources. However, other source elements may be better described as a
+      live source element, such as a camera source, an audio card source and
+      such; those are not seekable and do not provide byte-exact access. For
+      all such use cases, <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> provides two base classes:
+      <CODE
+CLASS="classname"
+>GstBaseSrc</CODE
+> for the basic source functionality, and
+      <CODE
+CLASS="classname"
+>GstPushSrc</CODE
+>, which is a non-byte exact source
+      base-class. The pushsource base class itself derives from basesource as
+      well, and thus all statements about the basesource apply to the
+      pushsource, too.
+    </P
+><P
+>&#13;      The basesrc class does several things automatically for derived classes,
+      so they no longer have to worry about it:
+    </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;          Fixes to <CODE
+CLASS="classname"
+>GstBaseSrc</CODE
+> apply to all derived
+          classes automatically.
+        </P
+></LI
+><LI
+><P
+>&#13;          Automatic pad activation handling, and task-wrapping in case we get
+          assigned to start a task ourselves.
+        </P
+></LI
+></UL
+><P
+>&#13;      The <CODE
+CLASS="classname"
+>GstBaseSrc</CODE
+> may not be suitable for all cases,
+      though; it has limitations:
+    </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;          There is one and only one sourcepad. Source elements requiring
+          multiple sourcepads cannot use this base-class.
+        </P
+></LI
+><LI
+><P
+>&#13;          Since the base-class owns the pad and derived classes can only
+          control it as far as the virtual functions allow, you are limited
+          to the functionality provided by the virtual functions. If you need
+          more, you cannot use this base-class.
+        </P
+></LI
+></UL
+><P
+>&#13;      It is possible to use special memory, such as X server memory pointers
+      or <CODE
+CLASS="function"
+>mmap ()</CODE
+>'ed memory areas, as data pointers in
+      buffers returned from the <CODE
+CLASS="function"
+>create()</CODE
+> virtual function.
+      In almost all cases, you will want to subclass
+      <CODE
+CLASS="classname"
+>GstBuffer</CODE
+> so that your own set of functions can
+      be called when the buffer is destroyed.
+    </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="section-base-audiosrc"
+>19.2.1. Writing an audio source</A
+></H2
+><P
+>&#13;        An audio source is nothing more but a special case of a pushsource.
+        Audio sources would be anything that reads audio, such as a source
+        reading from a soundserver, a kernel interface (such as ALSA) or a
+        test sound / signal generator. <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> provides two base classes,
+        similar to the two audiosinks described in <A
+HREF="chapter-other-base.html#section-base-audiosink"
+>Writing an audio sink</A
+>; one is ringbuffer-based, and
+        requires the derived class to take care of its own scheduling,
+        synchronization and such. The other is based on this
+        <CODE
+CLASS="classname"
+>GstBaseAudioSrc</CODE
+> and is called
+        <CODE
+CLASS="classname"
+>GstAudioSrc</CODE
+>, and provides a simple
+        <CODE
+CLASS="function"
+>open ()</CODE
+>, <CODE
+CLASS="function"
+>close ()</CODE
+> and
+        <CODE
+CLASS="function"
+>read ()</CODE
+> interface, which is rather simple to
+        implement and will suffice for most soundserver sources and audio
+        interfaces (e.g. ALSA or OSS) out there.
+      </P
+><P
+>&#13;        The <CODE
+CLASS="classname"
+>GstAudioSrc</CODE
+> base-class has several benefits
+        for derived classes, on top of the benefits of the
+        <CODE
+CLASS="classname"
+>GstPushSrc</CODE
+> base-class that it is based on:
+      </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;            Does syncronization and provides a clock.
+          </P
+></LI
+><LI
+><P
+>&#13;            New features can be added to it and will apply to all derived
+            classes automatically.
+          </P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-other-base.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-base-transform.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Pre-made base classes</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-other-base.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Writing a transformation element</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,4 @@
+pyversions=2.4-
+
+/usr/share/pyshared/avahi/ServiceTypeDatabase.py
+/usr/share/pyshared/avahi/__init__.py

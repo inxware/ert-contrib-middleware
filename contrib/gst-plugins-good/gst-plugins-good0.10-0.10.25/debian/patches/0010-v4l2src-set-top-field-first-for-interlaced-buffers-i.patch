@@ -1,0 +1,39 @@
+From fd2872a02c748f86e4ba8d487c980104d2fbdeb2 Mon Sep 17 00:00:00 2001
+From: Janne Grunau <janne.grunau@collabora.co.uk>
+Date: Thu, 4 Nov 2010 19:31:45 +0100
+Subject: [PATCH 10/44] v4l2src: set top field first for interlaced buffers if v4l2 exports it
+
+https://bugzilla.gnome.org/show_bug.cgi?id=634393
+---
+ sys/v4l2/gstv4l2bufferpool.c |    8 ++++++++
+ 1 files changed, 8 insertions(+), 0 deletions(-)
+
+diff --git a/sys/v4l2/gstv4l2bufferpool.c b/sys/v4l2/gstv4l2bufferpool.c
+index c13bb1e..b8c61ba 100644
+--- a/sys/v4l2/gstv4l2bufferpool.c
++++ b/sys/v4l2/gstv4l2bufferpool.c
+@@ -30,6 +30,8 @@
+ #include <string.h>
+ #include <unistd.h>
+ 
++#include "gst/video/video.h"
++
+ #include <gstv4l2bufferpool.h>
+ #include "gstv4l2src.h"
+ #include "gstv4l2sink.h"
+@@ -545,6 +547,12 @@ gst_v4l2_buffer_pool_dqbuf (GstV4l2BufferPool * pool)
+ 
+     GST_V4L2_BUFFER_POOL_UNLOCK (pool);
+ 
++    /* set top/bottom field first if v4l2_buffer has the information */
++    if (buffer.field == V4L2_FIELD_INTERLACED_TB)
++      GST_BUFFER_FLAG_SET (pool_buffer, GST_VIDEO_BUFFER_TFF);
++    if (buffer.field == V4L2_FIELD_INTERLACED_BT)
++      GST_BUFFER_FLAG_UNSET (pool_buffer, GST_VIDEO_BUFFER_TFF);
++
+     /* this can change at every frame, esp. with jpeg */
+     GST_BUFFER_SIZE (pool_buffer) = buffer.bytesused;
+ 
+-- 
+1.7.1
+

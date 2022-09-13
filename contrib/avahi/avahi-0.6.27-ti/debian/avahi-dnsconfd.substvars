@@ -1,0 +1,2 @@
+misc:Depends=upstart-job
+shlibs:Depends=libavahi-common3 (>= 0.6.16), libc6 (>= 2.4), libdaemon0 (>= 0.10)

@@ -1,0 +1,3 @@
+version=3
+
+http://people.fedoraproject.org/~jwrdegoede/libv4l-([\d\.]*)\.tar\.gz

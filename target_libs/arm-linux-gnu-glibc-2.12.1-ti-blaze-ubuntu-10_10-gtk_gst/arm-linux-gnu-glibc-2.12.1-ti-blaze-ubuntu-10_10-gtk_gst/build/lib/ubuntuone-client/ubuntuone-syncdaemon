@@ -1,0 +1,189 @@
+#!/usr/bin/python
+
+# ubuntuone-syncdaemon - Ubuntu One storage synchronization daemon
+#
+# Author: Guillermo Gonzalez <guillermo.gonzalez@canonical.com>
+#
+# Copyright 2009 Canonical Ltd.
+#
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License version 3, as published
+# by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranties of
+# MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR
+# PURPOSE.  See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+from twisted.internet import glib2reactor
+glib2reactor.install()
+
+import atexit
+import dbus
+import dbus.mainloop.glib
+import gobject
+import os
+import signal
+import sys
+import shutil
+
+from ubuntuone.syncdaemon import dbus_interface, logger, config
+from ubuntuone.syncdaemon.config import (
+    get_config_files,
+)
+
+from ubuntuone.syncdaemon.main import Main
+
+from twisted.internet import reactor
+from xdg.BaseDirectory import (
+    xdg_cache_home, 
+    xdg_data_home, 
+)
+
+dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+
+
+def is_already_running(): 
+    """ check if there is another instance registered in DBus """
+    bus = dbus.SessionBus()
+    request = bus.request_name(dbus_interface.DBUS_IFACE_UNIQUE_NAME, 
+                               dbus.bus.NAME_FLAG_DO_NOT_QUEUE)
+    return request == dbus.bus.REQUEST_NAME_REPLY_EXISTS
+
+
+def die(msg):
+    logger.root_logger.warning(msg)
+    sys.stderr.write(msg + '\n')
+    sys.exit(1)
+
+
+def main(argv):
+    """ client entry point. """
+    args = argv[1:]
+    usage = "Usage: %prog [config file] [extra config files] [options] "
+    configs = []
+    while len(args) > 0 and not args[0].startswith('-'):
+        configs.append(args.pop(0))
+    if len(configs) == 0:
+        configs.extend(get_config_files())
+    (parser, options, argv) = config.configglue(file(configs[0]), *configs[1:],
+                               args=args, usage=usage)
+
+    if options.debug:
+        logger.set_debug('stdout file')
+    else:
+        logger.configure_logging(options.logging_level, 
+                                 options.logging_file_size,
+                                 options.logging_backup_count)
+
+    # check we're not running as root, or have explicitely and in
+    # length expressed our desire to do so
+    if not (os.geteuid()
+            or options.im_ok_with_being_root_pretty_please_let_me_be_root):
+        die("Please don't run the syncdaemon as root.")
+
+    # check if there is another instance running
+    if is_already_running():
+        die('Another instance is running')
+
+    # check if the user disabled files sync
+    if not config.get_user_config().get_files_sync_enabled():
+        die('Files synchronization is disabled.')
+
+    # check if we are using xdg_data_home and it doesn't exists
+    if xdg_data_home in options.data_dir and \
+       not os.path.exists(options.data_dir):
+        # if we have metadata in the old xdg_cache, move it!
+        old_data_dir = options.data_dir.replace(xdg_data_home, xdg_cache_home)
+        if os.path.exists(old_data_dir):
+            parent = os.path.dirname(options.data_dir) 
+            if os.path.exists(parent) and not os.access(parent, os.W_OK):
+                # make the parent dir writable
+                os.chmod(parent, 0775)
+            elif not os.path.exists(parent):
+                # if it don't exits
+                os.makedirs(parent)
+            shutil.move(old_data_dir, options.data_dir)
+    if not os.path.exists(options.data_dir):
+        parent = os.path.dirname(options.data_dir)
+        if os.path.exists(parent) and not os.access(parent, os.W_OK):
+            # make the parent dir writable
+            os.chmod(parent, 0775)
+        os.makedirs(options.data_dir)
+
+    # create the partials_dir
+    partials_dir = os.path.join(xdg_cache_home, 'ubuntuone', 'partials')
+    if not os.path.exists(partials_dir):
+        os.makedirs(partials_dir)
+
+    logger.rotate_logs()
+    main = Main(options.root_dir, options.shares_dir, options.data_dir,
+                partials_dir, host=options.host, port=int(options.port),
+                dns_srv=options.dns_srv, ssl=True,
+                disable_ssl_verify=options.disable_ssl_verify,
+                mark_interval=options.mark_interval,
+                dbus_events=options.send_events_over_dbus,
+                handshake_timeout=options.handshake_timeout,
+                shares_symlink_name='Shared With Me',
+                read_limit=options.bandwidth_throttling_read_limit,
+                write_limit=options.bandwidth_throttling_write_limit,
+                throttling_enabled=options.bandwidth_throttling_on,
+                ignore_files=options.ignore)
+    if options.oauth:
+        values = options.oauth.split(':')
+        if len(values) == 4 or len(values) == 2:
+            main.dbus_iface.oauth_credentials = values
+        else:
+            msg = "--oauth requires a key and secret together in the form " \
+                  "[CONSUMER_KEY:CONSUMER_SECRET:]KEY:SECRET"
+            parser.error(msg)
+
+    # override the reactor default signal handlers in order to 
+    # shutdown properly
+    atexit.register(reactor.callFromThread, main.quit)
+    def install_handlers():
+        """ install our custom signal handler. """
+        def handler(signum, frame):
+            logger.root_logger.debug("Signal received %s ", str(signum))
+            reactor.callFromThread(main.quit)
+        signal.signal(signal.SIGHUP, handler)
+        signal.signal(signal.SIGTERM, handler)
+        signal.signal(signal.SIGINT, handler)
+
+    reactor.callWhenRunning(install_handlers)
+    # set the application name
+    gobject.set_application_name('ubuntuone-syncdaemon')
+
+    # check if we should start the heapy monitor
+    if options.debug_heapy_monitor:
+        try:
+            import guppy.heapy.RM
+        except ImportError:
+            logger.root_logger.warning('guppy-pe/heapy not available, remote '
+                                       'monitor thread not started')
+        else:
+            guppy.heapy.RM.on()
+
+    main.start()
+    if options.debug_lsprof_file:
+        try:
+            from bzrlib.lsprof import profile
+            ret, stats = profile(reactor.run)
+            stats.save(options.debug_lsprof_file)
+        except ImportError:
+            logger.root_logger.warning('bzrlib.lsprof not available')
+            reactor.run()
+    else:
+        reactor.run()
+
+
+if __name__ == '__main__':
+    try:
+        main(sys.argv)
+    except Exception:
+        logger.root_logger.exception('Unexpected error')
+        raise
+

@@ -1,0 +1,24 @@
+From c9a2d374d19427a5e8aafec684c4fb731901bd08 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Tim-Philipp=20M=C3=BCller?= <tim.muller@collabora.co.uk>
+Date: Thu, 20 Jan 2011 00:07:33 +0000
+Subject: [PATCH 33/44] v4l2sink: fix accidental breakage of navigation interface support
+
+---
+ sys/v4l2/gstv4l2sink.c |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/sys/v4l2/gstv4l2sink.c b/sys/v4l2/gstv4l2sink.c
+index f3eba3b..aa6785c 100644
+--- a/sys/v4l2/gstv4l2sink.c
++++ b/sys/v4l2/gstv4l2sink.c
+@@ -103,6 +103,7 @@ gst_v4l2sink_iface_supported (GstImplementsInterface * iface, GType iface_type)
+ 
+ #ifdef HAVE_XVIDEO
+   g_assert (iface_type == GST_TYPE_X_OVERLAY ||
++      iface_type == GST_TYPE_NAVIGATION ||
+       iface_type == GST_TYPE_COLOR_BALANCE ||
+       iface_type == GST_TYPE_VIDEO_ORIENTATION);
+ #else
+-- 
+1.7.1
+

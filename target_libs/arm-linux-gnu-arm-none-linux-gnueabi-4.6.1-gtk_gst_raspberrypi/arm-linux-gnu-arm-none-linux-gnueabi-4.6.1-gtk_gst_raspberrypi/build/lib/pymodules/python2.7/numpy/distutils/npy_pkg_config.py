@@ -1,0 +1,1 @@
+/usr/share/pyshared/numpy/distutils/npy_pkg_config.py

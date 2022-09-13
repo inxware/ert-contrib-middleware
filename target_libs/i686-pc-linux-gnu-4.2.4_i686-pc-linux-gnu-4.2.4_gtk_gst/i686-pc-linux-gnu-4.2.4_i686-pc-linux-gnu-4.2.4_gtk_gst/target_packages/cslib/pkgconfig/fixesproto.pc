@@ -1,0 +1,10 @@
+prefix=/home/pdrezet/workspace/inxware2.0-Release/INX/comp-lib-support/inx_build_scripts/../target_libs/i486-pc-linux-gnu-i686-pc-linux-gnu-4.2.4-gtk_gst/build
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: FixesProto
+Description: X Fixes extension headers
+Version: 4.1.1
+Cflags: -I${includedir}
+Requires: xextproto >= 7.0.99.1

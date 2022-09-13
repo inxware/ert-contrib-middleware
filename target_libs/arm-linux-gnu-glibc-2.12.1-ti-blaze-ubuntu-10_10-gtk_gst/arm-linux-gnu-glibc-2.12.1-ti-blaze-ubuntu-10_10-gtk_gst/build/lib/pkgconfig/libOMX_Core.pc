@@ -1,0 +1,12 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libOMX_Core
+Description: OMX Core
+Version: 1.0.0
+Requires: 
+Libs: -L${libdir} -lOMX_Core -ldl
+Cflags: -I${includedir}/omx -DKHRONOS_1_2
+

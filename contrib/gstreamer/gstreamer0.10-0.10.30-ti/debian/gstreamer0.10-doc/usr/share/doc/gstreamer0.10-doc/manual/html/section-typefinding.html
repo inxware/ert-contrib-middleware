@@ -1,0 +1,274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Media stream type detection</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Autoplugging"
+HREF="chapter-autoplugging.html"><LINK
+REL="PREVIOUS"
+TITLE="Autoplugging"
+HREF="chapter-autoplugging.html"><LINK
+REL="NEXT"
+TITLE="Plugging together dynamic pipelines"
+HREF="section-dynamic.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-autoplugging.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 17. Autoplugging</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-dynamic.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-typefinding"
+>17.2. Media stream type detection</A
+></H1
+><P
+>&#13;      Usually, when loading a media stream, the type of the stream is not
+      known. This means that before we can choose a pipeline to decode the
+      stream, we first need to detect the stream type. <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> uses the
+      concept of typefinding for this. Typefinding is a normal part of a
+      pipeline, it will read data for as long as the type of a stream is
+      unknown. During this period, it will provide data to all plugins
+      that implement a typefinder. When one of the typefinders recognizes
+      the stream, the typefind element will emit a signal and act as a
+      passthrough module from that point on. If no type was found, it will
+      emit an error and further media processing will stop.
+    </P
+><P
+>&#13;      Once the typefind element has found a type, the application can
+      use this to plug together a pipeline to decode the media stream.
+      This will be discussed in the next section.
+    </P
+><P
+>&#13;      Plugins in <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> can, as mentioned before, implement typefinder
+      functionality. A plugin implementing this functionality will submit
+      a mimetype, optionally a set of file extensions commonly used for this
+      media type, and a typefind function. Once this typefind function inside
+      the plugin is called, the plugin will see if the data in this media
+      stream matches a specific pattern that marks the media type identified
+      by that mimetype. If it does, it will notify the typefind element of
+      this fact, telling which mediatype was recognized and how certain we
+      are that this stream is indeed that mediatype. Once this run has been
+      completed for all plugins implementing a typefind functionality, the
+      typefind element will tell the application what kind of media stream
+      it thinks to have recognized.
+    </P
+><P
+>&#13;      The following code should explain how to use the typefind element.
+      It will print the detected media type, or tell that the media type
+      was not found. The next section will introduce more useful behaviours,
+      such as plugging together a decoding pipeline.
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;#include &#60;gst/gst.h&#62;
+
+[.. my_bus_callback goes here ..]
+
+static gboolean
+idle_exit_loop (gpointer data)
+{
+  g_main_loop_quit ((GMainLoop *) data);
+
+  /* once */
+  return FALSE;
+}
+
+static void
+cb_typefound (GstElement *typefind,
+	      guint       probability,
+	      GstCaps    *caps,
+	      gpointer    data)
+{
+  GMainLoop *loop = data;
+  gchar *type;
+
+  type = gst_caps_to_string (caps);
+  g_print ("Media type %s found, probability %d%%\n", type, probability);
+  g_free (type);
+
+  /* since we connect to a signal in the pipeline thread context, we need
+   * to set an idle handler to exit the main loop in the mainloop context.
+   * Normally, your app should not need to worry about such things. */
+  g_idle_add (idle_exit_loop, loop);
+}
+
+gint 
+main (gint   argc,
+      gchar *argv[])
+{
+  GMainLoop *loop;
+  GstElement *pipeline, *filesrc, *typefind, *fakesink;
+  GstBus *bus;
+
+  /* init GStreamer */
+  gst_init (&#38;argc, &#38;argv);
+  loop = g_main_loop_new (NULL, FALSE);
+
+  /* check args */
+  if (argc != 2) {
+    g_print ("Usage: %s &#60;filename&#62;\n", argv[0]);
+    return -1;
+  }
+
+  /* create a new pipeline to hold the elements */
+  pipeline = gst_pipeline_new ("pipe");
+
+  bus = gst_pipeline_get_bus (GST_PIPELINE (pipeline));
+  gst_bus_add_watch (bus, my_bus_callback, NULL);
+  gst_object_unref (bus);
+
+  /* create file source and typefind element */
+  filesrc = gst_element_factory_make ("filesrc", "source");
+  g_object_set (G_OBJECT (filesrc), "location", argv[1], NULL);
+  typefind = gst_element_factory_make ("typefind", "typefinder");
+  g_signal_connect (typefind, "have-type", G_CALLBACK (cb_typefound), loop);
+  fakesink = gst_element_factory_make ("fakesink", "sink");
+
+  /* setup */
+  gst_bin_add_many (GST_BIN (pipeline), filesrc, typefind, fakesink, NULL);
+  gst_element_link_many (filesrc, typefind, fakesink, NULL);
+  gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_PLAYING);
+  g_main_loop_run (loop);
+
+  /* unset */
+  gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_NULL);
+  gst_object_unref (GST_OBJECT (pipeline));
+
+  return 0;
+}
+    </PRE
+><P
+>&#13;      Once a media type has been detected, you can plug an element (e.g. a
+      demuxer or decoder) to the source pad of the typefind element, and
+      decoding of the media stream will start right after.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-autoplugging.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-dynamic.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Autoplugging</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-autoplugging.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Plugging together dynamic pipelines</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

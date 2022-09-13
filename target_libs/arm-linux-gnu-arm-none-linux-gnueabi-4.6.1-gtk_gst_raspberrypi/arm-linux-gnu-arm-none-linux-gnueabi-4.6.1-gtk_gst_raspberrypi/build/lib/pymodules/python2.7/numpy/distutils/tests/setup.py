@@ -1,0 +1,1 @@
+/usr/share/pyshared/numpy/distutils/tests/setup.py

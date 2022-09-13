@@ -1,0 +1,1320 @@
+
+
+
+
+
+
+
+
+
+
+           XX1111RR66 SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk
+
+
+
+
+                       _K_a_t_s_u_h_i_s_a _Y_a_n_o
+                    TOSHIBA Corporation
+
+                      _Y_o_s_h_i_o _H_o_r_i_u_c_h_i
+                         IBM Japan
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Copyright © 1994 by TOSHIBA Corporation
+Copyright © 1994 by IBM Corporation
+
+Permission to use, copy, modify, and distribute this docu‐
+mentation for any purpose and without fee is hereby granted,
+provided that the above copyright notice and this permission
+notice appear in all copies.  TOSHIBA Corporation and IBM
+Corporation make no representations about the suitability
+for any purpose of the information in this document.  This
+documentation is provided as is without express or implied
+warranty.
+
+
+
+
+
+Copyright © 1994 X Consortium
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documenta‐
+tion files (the ‘‘Software’’), to deal in the Software with‐
+out restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to
+whom the Software is furnished to do so, subject to the fol‐
+lowing conditions:
+
+The above copyright notice and this permission notice shall
+be included in all copies or substantial portions of the
+Software.
+
+THE SOFTWARE IS PROVIDED ‘‘AS IS’’, WITHOUT WARRANTY OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PUR‐
+POSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE X CONSOR‐
+TIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+
+
+
+
+
+
+
+
+
+
+
+
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+OR OTHER DEALINGS IN THE SOFTWARE.
+
+Except as contained in this notice, the name of the X Con‐
+sortium shall not be used in advertising or otherwise to
+promote the sale, use or other dealings in this Software
+without prior written authorization from the X Consortium.
+
+
+
+_X _W_i_n_d_o_w _S_y_s_t_e_m is a trademark of The Open Group.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+11..  PPrreeffaaccee
+
+This document proposes to define the structures, methods and
+their signatures that are expected to be common to all
+locale dependent functions within the Xlib sample implemen‐
+tation.  The following illustration (Fig.1) is proposed to
+outline the separating of the components within the sample
+implementation.
+
+    ... 0.237 5.796 5.24 10.14 ... 0.000i 4.344i 5.003i
+    0.000i
+
+              │___________________________________│
+              │______________A_p_p_l_i_c_a_t_i_o_n___________│
+                  ││         ││       ││         ││
+                  ││         ││      │││        │││
+                  │         │      ││        ││
+       <<  ANSI/MSE API ><><  XLib API  >>  <<  ANSI/MSE API >>
+         (X Contrib)        (X Core)        (X Contrib)
+       _______________  _______________   _______________
+       ││Locale Library││ ││ Input ││Output││  ││C Library     ││
+       │   non‐AnSI im│pl│. Method│Method│  │      ANSI imp│l.
+       │_______________│ │_________│______│  │_______________│
+           ││            │ <Locl. Serv. │API>          ││
+           │            │  X Locale Obj│ect           │
+           │            │_______________│             │
+           │                    ││                    │
+           │      ___________   │ ___________        │
+           │      ││             │             ││      │
+       ___│_│_│______│_│___  ________│_│______   ___│_│_│______│_│___
+       ││  ││      │   ││ ││       │      ││  ││  ││      │   ││
+       │XLC_XLOCALE   │ │ XLC_FONTSET  │  │localedef DB  │
+       │‐ MB_CUR_MAX  │ │ ‐ fonset info│  │‐ MB_CUR_MAX  │
+       │‐ codeset info│ │ ‐ charset info│  │‐ codeset info│
+       │o char/charset│ │ ‐ font/charset│  │o char/charset│
+       │_o__c_o_n_v_/_c_h_a_r_s_e_t_│ │__‐__X_L_F_D_,__G_L_/_G_R_│  │_o__c_o_n_v_/_c_h_a_r_s_e_t_│
+
+        ______________________________     ____________
+            XLocale Source (X Core)    System LOcale Source
+
+
+     Fig.1 : Frame Work of Locale Service API Proposal
+
+Generally speaking, the internationalized portion of Xlib
+(Locale Dependent X, LDX) consists of three objects; locale
+(LC) , input method (IM) and output method (OM).  The LC
+provides a set of information that depends on user’s lan‐
+guage environment.  The IM manages text inputing, and the OM
+manages text drawing.  Both IM and OM highly depend on LC
+data.
+
+In X11R5, there are two sample implementations, Ximp and
+Xsi, for Xlib internationalization.  But in both implementa‐
+tions, IM and OM actually refer the private extension of LC.
+
+
+
+                              11
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+It breaks coexistence of these two sample implementations.
+For example, if a user creates a new OM for special purpose
+as a part of Ximp, it will not work with Xsi.
+
+As a solution of this problem, we propose to define the
+standard APIs between these three objects, and define the
+structure that are common to these objects.
+
+
+22..  OObbjjeeccttiivvee
+
+
+·    Explain the current X11R6 sample implementation
+
+·    Document the common set of locale dependent interfaces
+
+·    Provide more flexible pluggable layer
+
+
+33..  LLooccaallee OObbjjeecctt BBiinnddiinngg FFuunnccttiioonnss
+
+This chapter describes functions related locale object bind‐
+ing for implementing the pluggable layer.
+
+A locale loader is an entry point for locale object, which
+instantiates XLCd object and binds locale methods with spec‐
+ified locale name. The behavior of loader is implementation
+dependent.  And, what kind of loaders are available is also
+implementation dependent.
+
+The loader is called in ___X_O_p_e_n_L_C_, but caller of ___X_O_p_e_n_L_C
+does not need to care about its inside.  For example, if the
+loader is implemented with dynamic load functions, and the
+dynamic module is expected to be unloaded when the corre‐
+sponding XLCd is freed, close methods of XLCdMethods should
+handle unloading.
+
+
+IInniittiiaalliizziinngg aa llooccaallee llooaaddeerr lliisstt
+
+
+void _XlcInitLoader()
+
+The ___X_l_c_I_n_i_t_L_o_a_d_e_r function initializes the locale loader
+list with vendor specific manner.  Each loader is registered
+with calling ___X_l_c_A_d_d_L_o_a_d_e_r_. The number of loaders and their
+order in the loader list is implementation dependent.
+
+
+AAdddd aa llooaaddeerr
+
+
+typedef XLCd (*XLCdLoadProc)(_n_a_m_e);
+      char _*_n_a_m_e;
+
+
+
+                              22
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+typedef int XlcPosition;
+
+
+#define   XlcHead                 0
+#define   XlcTail                ‐1
+
+
+
+Bool _XlcAddLoader(_p_r_o_c_, _p_o_s_i_t_i_o_n)
+      XLCdLoadProc _p_r_o_c;
+      XlcPosition _p_o_s_i_t_i_o_n;
+
+
+The ___X_l_c_A_d_d_L_o_a_d_e_r function registers the specified locale
+loader ‘‘_p_r_o_c’’ to the internal loader list.  The position
+specifies that the loader ‘‘_p_r_o_c’’ should be placed in the
+top of the loader list(XlcHead) or last(XlcTail).
+
+The object loader is called from the top of the loader list
+in order, when calling time.
+
+
+RReemmoovvee aa llooaaddeerr
+
+
+void _XlcRemoveLoader(_p_r_o_c)
+      XLCdLoadProc _p_r_o_c;
+
+
+The ___X_l_c_R_e_m_o_v_e_L_o_a_d_e_r function removes the locale loader
+specified by ‘‘_p_r_o_c’’ from the loader list.
+
+Current implementation provides following locale loaders;
+
+     ___X_l_c_D_e_f_a_u_l_t_L_o_a_d_e_r
+     ___X_l_c_G_e_n_e_r_i_c_L_o_a_d_e_r
+     ___X_l_c_E_u_c_L_o_a_d_e_r
+     ___X_l_c_S_j_i_s_L_o_a_d_e_r
+     ___X_l_c_U_t_f_L_o_a_d_e_r
+     ___X_a_i_x_O_s_D_y_n_a_m_i_c_L_o_a_d
+
+
+
+44..  LLooccaallee MMeetthhoodd IInntteerrffaaccee
+
+This chapter describes the locale method API, which is a set
+of accessible functions from both IM and OM parts.  The
+locale method API provides the functionalities;  obtaining
+locale dependent information, handling charset, converting
+text, etc.
+
+As a result of using these APIs instead of accessing vender
+private extension of the locale object, we can keep locale,
+IM and OM independently each other.
+
+
+
+                              33
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+55..  LLooccaallee MMeetthhoodd FFuunnccttiioonnss
+
+OOppeenn aa LLooccaallee MMeetthhoodd
+
+
+XLCd _XOpenLC(_n_a_m_e)
+      char _*_n_a_m_e;
+
+
+The ___X_O_p_e_n_L_C function opens a locale method which corre‐
+sponds to the specified locale name.  ___X_O_p_e_n_L_C calls a
+locale object loader, which is registered via
+___X_l_c_A_d_d_L_o_a_d_e_rinto is valid and successfully opens a locale,
+___X_O_p_e_n_L_C returns the XLCd.  If the loader is invalid or
+failed to open a locale, ___X_O_p_e_n_L_C calls the next loader.  If
+all registered loaders cannot open a locale, ___X_O_p_e_n_L_C
+returns NULL.
+
+
+XLCd _XlcCurrentLC()
+
+
+The ___X_l_c_C_u_r_r_e_n_t_L_C function returns an XLCd that are bound to
+current locale.
+
+
+CClloossee aa LLooccaallee MMeetthhoodd
+
+
+void _XCloseLC(_l_c_d)
+      XLCd _l_c_d;
+
+
+The ___X_C_l_o_s_e_L_C function close a locale method the specified
+lcd.
+
+
+OObbttaaiinn LLooccaallee MMeetthhoodd vvaalluueess
+
+
+char * _XGetLCValues(_l_c_d, ...)
+      XLCd _l_c_d;
+
+
+The ___X_G_e_t_L_C_V_a_l_u_e_s function returns NULL if no error
+occurred; otherwise, it returns the name of the first argu‐
+ment that could not be obtained.  The following values are
+defined as standard arguments. Other values are implementa‐
+tion dependent.
+
+
+
+
+
+
+
+
+                              44
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+────────────────────────────────────────────────────────────────────────
+NNaammee                         TTyyppee    DDeessccrriippttiioonn
+────────────────────────────────────────────────────────────────────────
+XlcNCodeset                  char*   codeset part of locale name
+XlcNDefaultString            char*   XDefaultString()
+XlcNEncodingName             char*   encoding name
+XlcNLanguage                 char*   language part of locale name
+XlcNMbCurMax                 int     ANSI C MB_CUR_MAX
+XlcNStateDependentEncoding   Bool    is state‐dependent encoding or not
+XlcNTerritory                char*   territory part of locale name
+────────────────────────────────────────────────────────────────────────
+
+
+
+66..  CChhaarrsseett ffuunnccttiioonnss
+
+The XlcCharSet is an identifier which represents a subset of
+characters (character set) in the locale object.
+
+
+typedef enum {
+      XlcUnknown, XlcC0, XlcGL, XlcC1, XlcGR, XlcGLGR, XlcOther
+} XlcSide;
+
+typedef struct _XlcCharSetRec *XlcCharSet;
+
+typedef struct {
+      char *name;
+      XPointer value;
+} XlcArg, *XlcArgList;
+
+typedef char* (*XlcGetCSValuesProc)(_c_h_a_r_s_e_t, _a_r_g_s, _n_u_m___a_r_g_s);
+      XlcCharSet _c_h_a_r_s_e_t;
+      XlcArgList _a_r_g_s;
+      int _n_u_m___a_r_g_s;
+
+typedef struct _XlcCharSetRec {
+      char *name;
+      XrmQuark xrm_name;
+      char *encoding_name;
+      XrmQuark xrm_encoding_name;
+      XlcSide side;
+      int char_size;
+      int set_size;
+      char *ct_sequence;
+      XlcGetCSValuesProc get_values;
+} XlcCharSetRec;
+
+
+
+GGeett aann XXllccCChhaarrSSeett
+
+
+
+
+
+
+                              55
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+XlcCharSet _XlcGetCharSet(_n_a_m_e)
+      char _*_n_a_m_e;
+
+
+The ___X_l_c_G_e_t_C_h_a_r_S_e_t function gets an XlcCharSet which corre‐
+sponds to the charset name specified by ‘‘_n_a_m_e’’.
+___X_l_c_G_e_t_C_h_a_r_S_e_t returns NULL, if no XlcCharSet bound to spec‐
+ified ‘‘_n_a_m_e’’.
+
+The following character sets are pre‐registered.
+
+
+───────────────────────────────────────────────────────────────────────
+NNaammee                 DDeessccrriippttiioonn
+───────────────────────────────────────────────────────────────────────
+ISO8859‐1:GL         7‐bit ASCII graphics (ANSI X3.4‐1968),
+                     Left half of ISO 8859 sets
+JISX0201.1976‐0:GL   Left half of JIS X0201‐1976 (reaffirmed 1984),
+                     8‐Bit Alphanumeric‐Katakana Code
+
+ISO8859‐1:GR         Right half of ISO 8859‐1, Latin alphabet No. 1
+ISO8859‐2:GR         Right half of ISO 8859‐2, Latin alphabet No. 2
+ISO8859‐3:GR         Right half of ISO 8859‐3, Latin alphabet No. 3
+ISO8859‐4:GR         Right half of ISO 8859‐4, Latin alphabet No. 4
+ISO8859‐7:GR         Right half of ISO 8859‐7, Latin/Greek alphabet
+ISO8859‐6:GR         Right half of ISO 8859‐6, Latin/Arabic alphabet
+ISO8859‐8:GR         Right half of ISO 8859‐8, Latin/Hebrew alphabet
+ISO8859‐5:GR         Right half of ISO 8859‐5, Latin/Cyrillic alphabet
+ISO8859‐9:GR         Right half of ISO 8859‐9, Latin alphabet No. 5
+JISX0201.1976‐0:GR   Right half of JIS X0201‐1976 (reaffirmed 1984),
+                     8‐Bit Alphanumeric‐Katakana Code
+
+GB2312.1980‐0:GL     GB2312‐1980, China (PRC) Hanzi defined as GL
+GB2312.1980‐0:GR     GB2312‐1980, China (PRC) Hanzi defined as GR
+JISX0208.1983‐0:GL   JIS X0208‐1983, Japanese Graphic Character Set
+                     defined as GL
+JISX0208.1983‐0:GR   JIS X0208‐1983, Japanese Graphic Character Set
+                     defined as GR
+KSC5601.1987‐0:GL    KS C5601‐1987, Korean Graphic Character Set
+                     defined as GL
+KSC5601.1987‐0:GR    KS C5601‐1987, Korean Graphic Character Set
+                     defined as GR
+JISX0212.1990‐0:GL   JIS X0212‐1990, Japanese Graphic Character Set
+                     defined as GL
+JISX0212.1990‐0:GR   JIS X0212‐1990, Japanese Graphic Character Set
+                     defined as GR
+───────────────────────────────────────────────────────────────────────
+
+
+
+AAdddd aann XXllccCChhaarrSSeett
+
+
+
+
+
+
+                              66
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+Bool _XlcAddCharSet(_c_h_a_r_s_e_t)
+      XlcCharSet _c_h_a_r_s_e_t;
+
+
+The ___X_l_c_A_d_d_C_h_a_r_S_e_t function registers XlcCharSet specified
+by ‘‘_c_h_a_r_s_e_t’’.
+
+
+OObbttaaiinn CChhaarraacctteerr SSeett vvaalluueess
+
+
+char * _XlcGetCSValues(_c_h_a_r_s_e_t, ...)
+      XlcCharSet _c_h_a_r_s_e_t;
+
+
+The ___X_l_c_G_e_t_C_S_V_a_l_u_e_s function returns NULL if no error
+occurred; otherwise, it returns the name of the first argu‐
+ment that could not be obtained.  The following values are
+defined as standard arguments.  Other values are implementa‐
+tion dependent.
+
+
+───────────────────────────────────────────────────────────────────
+NNaammee                  TTyyppee      DDeessccrriippttiioonn
+───────────────────────────────────────────────────────────────────
+XlcNName              char*     charset name
+XlcNEncodingName      char*     XLFD CharSet Registry and Encoding
+XlcNSide              XlcSide   charset side (GL, GR, ...)
+XlcNCharSize          int       number of octets per character
+XlcNSetSize           int       number of character sets
+XlcNControlSequence   char*     control sequence of Compound Text
+───────────────────────────────────────────────────────────────────
+
+
+
+77..  CCoonnvveerrtteerr FFuunnccttiioonnss
+
+We provide a set of the common converter APIs, that are
+independent from both of source and destination text type.
+
+
+typedef struct _XlcConvRec *XlcConv;
+
+typedef void (*XlcCloseConverterProc)(_c_o_n_v);
+      XlcConv _c_o_n_v;
+
+typedef int (*XlcConvertProc)(_c_o_n_v, _f_r_o_m, _f_r_o_m___l_e_f_t, _t_o, _t_o___l_e_f_t, _a_r_g_s, _n_u_m___a_r_g_s);
+      XlcConv _c_o_n_v;
+      XPointer _*_f_r_o_m;
+      int _*_f_r_o_m___l_e_f_t;
+      XPointer _*_t_o;
+      int _*_t_o___l_e_f_t;
+      XPointer _*_a_r_g_s;
+      int _n_u_m___a_r_g_s;
+
+
+
+                              77
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+typedef void (*XlcResetConverterProc)(_c_o_n_v);
+      XlcConv _c_o_n_v;
+
+typedef struct _XlcConvMethodsRec {
+      XlcCloseConverterProc close;
+      XlcConvertProc convert;
+      XlcResetConverterProc reset;
+} XlcConvMethodsRec, *XlcConvMethods;
+
+typedef struct _XlcConvRec {
+    XlcConvMethods methods;
+    XPointer state;
+} XlcConvRec;
+
+
+
+OOppeenn aa ccoonnvveerrtteerr
+
+
+XlcConv _XlcOpenConverter(_f_r_o_m___l_c_d, _f_r_o_m___t_y_p_e, _t_o___l_c_d, _t_o___t_y_p_e)
+      XLCd _f_r_o_m___l_c_d;
+      char _*_f_r_o_m___t_y_p_e;
+      XLCd _t_o___l_c_d;
+      char _*_t_o___t_y_p_e;
+
+
+___X_l_c_O_p_e_n_C_o_n_v_e_r_t_e_r function opens the converter which con‐
+verts a text from specified ‘‘_f_r_o_m___t_y_p_e’’ to specified
+‘‘_t_o___t_y_p_e’’ encoding.  If the function cannot find proper
+converter or cannot open a corresponding converter, it
+returns NULL.  Otherwise, it returns the conversion descrip‐
+tor.
+
+The following types are pre‐defined. Other types are imple‐
+mentation dependent.
+
+
+───────────────────────────────────────────────────────────
+NNaammee               TTyyppee        DDeessccrriippttiioonn      AArrgguummeennttss
+───────────────────────────────────────────────────────────
+XlcNMultiByte      char *      multibyte        ‐
+XlcNWideChar       wchar_t *   wide character   ‐
+XlcNCompoundText   char *      COMPOUND_TEXT    ‐
+XlcNString         char *      STRING           ‐
+XlcNCharSet        char *      per charset      XlcCharSet
+XlcNChar           char *      per character    XlcCharSet
+───────────────────────────────────────────────────────────
+
+
+
+CClloossee aa ccoonnvveerrtteerr
+
+
+
+
+
+
+                              88
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+void _XlcCloseConverter(_c_o_n_v)
+      XlcConv _c_o_n_v;
+
+
+The ___X_l_c_C_l_o_s_e_C_o_n_v_e_r_t_e_r function closes the specified con‐
+verter ‘‘_c_o_n_v’’.
+
+
+CCooddee ccoonnvveerrssiioonn
+
+
+int _XlcConvert(_c_o_n_v, _f_r_o_m, _f_r_o_m___l_e_f_t, _t_o, _t_o___l_e_f_t, _a_r_g_s, _n_u_m___a_r_g_s)
+      XlcConv _c_o_n_v;
+      XPointer _*_f_r_o_m;
+      int _*_f_r_o_m___l_e_f_t;
+      XPointer _*_t_o;
+      int _*_t_o___l_e_f_t;
+      XPointer _*_a_r_g_s;
+      int _n_u_m___a_r_g_s;
+
+
+The ___X_l_c_C_o_n_v_e_r_t function converts a sequence of characters
+from one type, in the array specified by ‘‘_f_r_o_m’’, into a
+sequence of corresponding characters in another type, in the
+array specified by ‘‘_t_o’’.  The types are those specified in
+the ___X_l_c_O_p_e_n_C_o_n_v_e_r_t_e_r_(_) call that returned the conversion
+descriptor, ‘‘_c_o_n_v’’.  The arguments ‘‘_f_r_o_m’’,
+‘‘_f_r_o_m___l_e_f_t’’, ‘‘_t_o’’ and ‘‘_t_o___l_e_f_t’’ have the same specifi‐
+cation of XPG4 iconv function.
+
+For state‐dependent encodings, the conversion descriptor
+‘‘_c_o_n_v’’ is placed into its initial shift state by a call
+for which ‘‘_f_r_o_m’’ is a NULL pointer, or for which ‘‘_f_r_o_m’’
+points to a null pointer.
+
+The following 2 converters prepared by locale returns appro‐
+priate charset (XlcCharSet) in an area pointed by args[0].
+
+
+─────────────────────────────────────────────────────────
+FFrroomm            TToo            DDeessccrriippttiioonn
+─────────────────────────────────────────────────────────
+XlcNMultiByte   XlcNCharSet   Segmentation (Decomposing)
+XlcNWideChar    XlcNCharSet   Segmentation (Decomposing)
+─────────────────────────────────────────────────────────
+
+
+The conversion, from XlcNMultiByte/XlcNWideChar to XlcN‐
+CharSet, extracts a segment which has same charset encoding
+characters.  More than one segment cannot be converted in a
+call.
+
+
+RReesseett aa ccoonnvveerrtteerr
+
+
+
+                              99
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+void _XlcResetConverter(_c_o_n_v)
+      XlcConv _c_o_n_v;
+
+
+The ___X_l_c_R_e_s_e_t_C_o_n_v_e_r_t_e_r function reset the specified con‐
+verter ‘‘_c_o_n_v’’.
+
+
+RReeggiisstteerr aa ccoonnvveerrtteerr
+
+
+typedef XlcConv (*XlcOpenConverterProc)(_f_r_o_m___l_c_d, _f_r_o_m___t_y_p_e, _t_o___l_c_d, _t_o___t_y_p_e);
+      XLCd _f_r_o_m___l_c_d;
+      char _*_f_r_o_m___t_y_p_e;
+      XLCd _t_o___l_c_d;
+      char _*_t_o___t_y_p_e;
+
+
+
+Bool _XlcSetConverter(_f_r_o_m___l_c_d, _f_r_o_m, _t_o___l_c_d, _t_o, _c_o_n_v_e_r_t_e_r)
+      XLCd _f_r_o_m___l_c_d;
+      char _*_f_r_o_m;
+      XLCd _t_o___l_c_d;
+      char _*_t_o;
+      XlcOpenConverterProc _c_o_n_v_e_r_t_e_r;
+
+
+The XXllccSSeettCCoonnvveerrtteerr function registers a converter which
+convert from ‘‘_f_r_o_m___t_y_p_e’’ to ‘‘_t_o___t_y_p_e’’ into the converter
+list (in the specified XLCd).
+
+
+88..  XX LLooccaallee DDaattaabbaassee ffuunnccttiioonnss
+
+X Locale Database contains the subset of user’s environment
+that depends on language.  The following APIs are provided
+for accessing X Locale Database and other locale relative
+files.
+
+For more detail about  X Locale Database, please refer X
+Locale Database Definition document.
+
+
+GGeett aa rreessoouurrccee ffrroomm ddaattaabbaassee
+
+
+void _XlcGetResource(_l_c_d, _c_a_t_e_g_o_r_y, _c_l_a_s_s, _v_a_l_u_e, _c_o_u_n_t)
+      XLCd _l_c_d;
+      char _*_c_a_t_e_g_o_r_y;
+      char _*_c_l_a_s_s;
+      char _*_*_*_v_a_l_u_e;
+      int _*_c_o_u_n_t;
+
+
+
+
+
+                             1100
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+The ___X_l_c_G_e_t_R_e_s_o_u_r_c_e function obtains a locale dependent data
+which is associated with the locale of specified ‘‘_l_c_d’’.
+The locale data is provided by system locale or by X Locale
+Database file, and what kind of data is available is imple‐
+mentation dependent.
+
+The specified ‘‘_c_a_t_e_g_o_r_y’’ and ‘‘_c_l_a_s_s’’ are used for find‐
+ing out the objective locale data.
+
+The returned  value is returned in value argument in string
+list form, and the returned count shows the number of
+strings in the value.
+
+The returned value is owned by locale method, and should not
+be modified or freed by caller.
+
+
+GGeett aa llooccaallee rreellaattiivvee ffiillee nnaammee
+
+
+char * _XlcFileName(_l_c_d, _c_a_t_e_g_o_r_y)
+      XLCd _l_c_d;
+      char _*_c_a_t_e_g_o_r_y;
+
+
+The ___X_l_c_F_i_l_e_N_a_m_e functions returns a file name which is
+bound to the specified ‘‘_l_c_d’’ and ‘‘_c_a_t_e_g_o_r_y’’, as a null‐
+terminated string.  If no file name can be found, or there
+is no readable file for the found file name, ___X_l_c_F_i_l_e_N_a_m_e
+returns NULL.  The returned file name should be freed by
+caller.
+
+The rule for searching a file name is implementation depen‐
+dent.  In current implementation, ___X_l_c_F_i_l_e_N_a_m_e uses ‘‘{cate‐
+gory}.dir’’ file as mapping table, which has pairs of
+strings, a full locale name and a corresponding file name.
+
+
+99..  UUttiilliittyy FFuunnccttiioonnss
+
+CCoommppaarree LLaattiinn‐‐11 ssttrriinnggss
+
+
+int _XlcCompareISOLatin1(_s_t_r_1, _s_t_r_2)
+      char _*_s_t_r_1, _*_s_t_r_2;
+
+
+int _XlcNCompareISOLatin1(_s_t_r_1, _s_t_r_2, _l_e_n)
+      char _*_s_t_r_1, _*_s_t_r_2;
+      int _l_e_n;
+
+
+The ___X_l_c_C_o_m_p_a_r_e_I_s_o_L_a_t_i_n_1 function to compares two ISO‐8859‐1
+strings.  Bytes representing ASCII lower case letters are
+
+
+
+                             1111
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+converted to upper case before making the comparison.  The
+value returned is an integer less than, equal to, or greater
+than zero, depending on whether ‘‘_s_t_r_1’’ is lexicographicly
+less than, equal to, or greater than ‘‘_s_t_r_2’’.
+
+The ___X_l_c_N_C_o_m_p_a_r_e_I_s_o_L_a_t_i_n_1 function is identical to ___X_l_c_C_o_m_‐
+_p_a_r_e_I_S_O_L_a_t_i_n_1_, except that at most ‘‘_l_e_n’’ bytes are com‐
+pared.
+
+
+RReessoouurrccee UUttiilliittyy
+
+
+int XlcNumber(_a_r_r_a_y)
+      ArrayType _a_r_r_a_y;
+
+
+Similar to XtNumber.
+
+
+void _XlcCopyFromArg(_s_r_c, _d_s_t, _s_i_z_e)
+      char _*_s_r_c;
+      char _*_d_s_t;
+      int _s_i_z_e;
+
+
+void _XlcCopyToArg(_s_r_c, _d_s_t, _s_i_z_e)
+      char _*_s_r_c;
+      char _*_*_d_s_t;
+      int _s_i_z_e;
+
+
+Similar to ___X_t_C_o_p_y_F_r_o_m_A_r_g and ___X_t_C_o_p_y_T_o_A_r_g_.
+
+
+void _XlcCountVaList(_v_a_r, _c_o_u_n_t___r_e_t)
+      va_list _v_a_r;
+      int _*_c_o_u_n_t___r_e_t;
+
+
+Similar to ___X_t_C_o_u_n_t_V_a_L_i_s_t_.
+
+
+void _XlcVaToArgList(_v_a_r, _c_o_u_n_t, _a_r_g_s___r_e_t)
+      va_list _v_a_r;
+      int _c_o_u_n_t;
+      XlcArgList _*_a_r_g_s___r_e_t;
+
+
+Similar to ___X_t_V_a_T_o_A_r_g_L_i_s_t_.
+
+
+typedef struct _XlcResource {
+      char *name;
+
+
+
+                             1122
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+      XrmQuark xrm_name;
+      int size;
+      int offset;
+      unsigned long mask;
+} XlcResource, *XlcResourceList;
+
+
+
+#define   XlcCreateMask          (1L<<0)
+#define   XlcDefaultMask         (1L<<1)
+#define   XlcGetMask             (1L<<2)
+#define   XlcSetMask             (1L<<3)
+#define   XlcIgnoreMask          (1L<<4)
+
+
+
+void _XlcCompileResourceList(_r_e_s_o_u_r_c_e_s, _n_u_m___r_e_s_o_u_r_c_e_s)
+      XlcResourceList _r_e_s_o_u_r_c_e_s;
+      int _n_u_m___r_e_s_o_u_r_c_e_s;
+
+
+Similar to ___X_t_C_o_m_p_i_l_e_R_e_s_o_u_r_c_e_L_i_s_t_.
+
+
+char * _XlcGetValues(_b_a_s_e, _r_e_s_o_u_r_c_e_s, _n_u_m___r_e_s_o_u_r_c_e_s, _a_r_g_s, _n_u_m___a_r_g_s, _m_a_s_k)
+      XPointer _b_a_s_e;
+      XlcResourceList _r_e_s_o_u_r_c_e_s;
+      int _n_u_m___r_e_s_o_u_r_c_e_s;
+      XlcArgList _a_r_g_s;
+      int _n_u_m___a_r_g_s;
+      unsigned long _m_a_s_k;
+
+
+Similar to XtGetSubvalues.
+
+
+char * _XlcSetValues(_b_a_s_e, _r_e_s_o_u_r_c_e_s, _n_u_m___r_e_s_o_u_r_c_e_s, _a_r_g_s, _n_u_m___a_r_g_s, _m_a_s_k)
+      XPointer _b_a_s_e;
+      XlcResourceList _r_e_s_o_u_r_c_e_s;
+      int _n_u_m___r_e_s_o_u_r_c_e_s;
+      XlcArgList _a_r_g_s;
+      int _n_u_m___a_r_g_s;
+      unsigned long _m_a_s_k;
+
+
+Similar to XtSetSubvalues.
+
+
+AANNSSII CC CCoommppaattiibbllee FFuunnccttiioonnss
+
+The following are ANSI C/MSE Compatible Functions for non‐
+ANSI C environment.
+
+
+
+
+
+                             1133
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+int _Xmblen(_s_t_r, _l_e_n)
+      char _*_s_t_r;
+      int _l_e_n;
+
+
+The ___X_m_b_l_e_n function returns the number of characters
+pointed to by ‘‘_s_t_r’’.  Only ‘‘_l_e_n’’ bytes in ‘‘_s_t_r’’ are
+used in determining the character count returned.  ‘‘_S_t_r’’
+may point at characters from any valid codeset in the cur‐
+rent locale.
+
+The call ___X_m_b_l_e_n is equivalent to
+     _Xmbtowc(_Xmbtowc((_w_c_h_a_r___t_*)NULL, _s_t_r, _l_e_n))
+
+
+int _Xmbtowc(_w_s_t_r, _s_t_r, _l_e_n)
+      wchar_t _*_w_s_t_r;
+      char _*_s_t_r;
+      int _l_e_n;
+
+
+The ___X_m_b_t_o_w_c function converts the character(s) pointed to
+by ‘‘_s_t_r’’ to their wide character representation(s) pointed
+to by ‘‘_w_s_t_r’’.  ‘‘_L_e_n’’ is the number of bytes in ‘‘_s_t_r’’
+to be converted.  The return value is the number of charac‐
+ters converted.
+
+The call ___X_m_b_t_o_w_c is equivalent to
+     _Xlcmbtowc((XLCd)NULL, _w_s_t_r, _s_t_r, _l_e_n)
+
+
+int _Xlcmbtowc(_l_c_d, _w_s_t_r, _s_t_r, _l_e_n)
+      XLCd _l_c_d;
+      wchar_t _*_w_s_t_r;
+      char _*_s_t_r;
+      int _l_e_n;
+
+
+The ___X_l_c_m_b_t_o_w_c function is identical to ___X_m_b_t_o_w_c_, except
+that it requires the ‘‘_l_c_d’’ argument.  If ‘‘_l_c_d’’ is (XLCd)
+NULL, ___X_l_c_m_b_t_o_w_c_, calls ___X_l_c_C_u_r_r_e_n_t_L_C to determine the cur‐
+rent locale.
+
+
+int _Xwctomb(_s_t_r, _w_c)
+      char _*_s_t_r;
+      wchar_t _w_c;
+
+
+The ___X_w_c_t_o_m_b function converts a single wide character
+pointed to by ‘‘_w_c’’ to its multibyte representation pointed
+to by ‘‘_s_t_r’’.  On success, the return value is 1.
+
+
+
+
+
+                             1144
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+The call ___X_w_c_t_o_m_b is equivalent to
+     _Xlcwctomb((XLCd)NULL, _s_t_r, _w_s_t_r)
+
+
+int _Xlcwctomb(_l_c_d, _s_t_r, _w_c)
+      XLCd _l_c_d;
+      char _*_s_t_r;
+      wchar_t _w_c;
+
+
+The ___X_l_c_w_c_t_o_m_b function is identical to _Xwctomb, except
+that it requires the ‘‘_l_c_d’’ argument.  If ‘‘_l_c_d’’ is (XLCd)
+NULL, ___X_l_c_w_c_t_o_m_b_, calls ___X_l_c_C_u_r_r_e_n_t_L_C to determine the cur‐
+rent locale.
+
+
+int _Xmbstowcs(_w_s_t_r, _s_t_r, _l_e_n)
+      wchar_t _*_w_s_t_r;
+      char _*_s_t_r;
+      int _l_e_n;
+
+
+The ___X_m_b_s_t_o_w_c_s function converts the NULL‐terminated string
+pointed to by ‘‘_s_t_r’’ to its wide character string represen‐
+tation pointed to by ‘‘_w_s_t_r’’.  ‘‘_L_e_n’’ is the number of
+characters in ‘‘_s_t_r’’ to be converted.
+
+The call ___X_m_b_s_t_o_w_c_s is equivalent to
+     _Xlcmbstowcs((XLCd)NULL, _w_s_t_r, _s_t_r, _l_e_n)
+
+
+int _Xlcmbstowcs(_l_c_d, _w_s_t_r, _s_t_r, _l_e_n)
+      XLCd _l_c_d;
+      wchar_t _*_w_s_t_r;
+      char _*_s_t_r;
+      int _l_e_n;
+
+
+The ___X_l_c_m_b_s_t_o_w_c_s function is identical to _Xmbstowcs, except
+that it requires the ‘‘_l_c_d’’ argument.  If ‘‘_l_c_d’’ is (XLCd)
+NULL, ___X_l_c_m_b_s_t_o_w_c_s_, calls ___X_l_c_C_u_r_r_e_n_t_L_C to determine the
+current locale.
+
+
+int _Xwcstombs(_s_t_r, _w_s_t_r, _l_e_n)
+      char _*_s_t_r;
+      wchar_t _*_w_s_t_r;
+      int _l_e_n;
+
+
+The ___X_w_c_s_t_o_m_b_s function converts the (wchar_t) NULL termi‐
+nated wide character string pointed to by ‘‘_w_s_t_r’’ to the
+NULL terminated multibyte string pointed to by ‘‘_s_t_r’’.
+
+
+
+
+                             1155
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+The call ___X_w_c_s_t_o_m_b_s is equivalent to
+     _Xlcwcstombs((XLCd)NULL, _s_t_r, _w_s_t_r, _l_e_n)
+
+
+int _Xlcwcstombs(_l_c_d, _s_t_r, _w_s_t_r, _l_e_n)
+      XLCd _l_c_d;
+      char _*_s_t_r;
+      wchar_t _*_w_s_t_r;
+      int _l_e_n;
+
+
+The ___X_l_c_w_c_s_t_o_m_b_s function is identical to _Xwcstombs, except
+that it requires the ‘‘_l_c_d’’ argument.  If ‘‘_l_c_d’’ is (XLCd)
+NULL, ___X_l_c_w_c_s_t_o_m_b_s_, calls ___X_l_c_C_u_r_r_e_n_t_L_C to determine the
+current locale.
+
+
+int _Xwcslen(_w_s_t_r)
+      wchar_t _*_w_s_t_r;
+
+
+The ___X_w_c_s_l_e_n function returns the count of wide characters
+in the (wchar_t) NULL terminated wide character string
+pointed to by ‘‘_w_s_t_r’’.
+
+
+wchar_t * _Xwcscpy(_w_s_t_r_1, _w_s_t_r_2)
+      wchar_t _*_w_s_t_r_1, _*_w_s_t_r_2;
+
+
+wchar_t * _Xwcsncpy(_w_s_t_r_1, _w_s_t_r_2, _l_e_n)
+      wchar_t _*_w_s_t_r_1, _*_w_s_t_r_2;
+      int _l_e_n;
+
+
+The ___X_w_c_s_c_p_y function copies the (wchar_t) NULL terminated
+wide character string pointed to by ‘‘_w_s_t_r_2’’ to the object
+pointed at by ‘‘_w_s_t_r_1’’.  ‘‘_W_s_t_r_1’’ is (wchar_t) NULL termi‐
+nated.  The return value is a pointer to ‘‘_w_s_t_r_1’’.
+
+The ___X_w_c_s_n_c_p_y function is identical to ___X_w_c_s_c_p_y_, except that
+it copies ‘‘_l_e_n’’ wide characters from the object pointed to
+by ‘‘_w_s_t_r_2’’ to the object pointed to ‘‘_w_s_t_r_1’’.
+
+
+int _Xwcscmp(_w_s_t_r_1, _w_s_t_r_2)
+      wchar_t _*_w_s_t_r_1, _*_w_s_t_r_2;
+
+
+int _Xwcsncmp(_w_s_t_r_1, _w_s_t_r_2, _l_e_n)
+      wchar_t _*_w_s_t_r_1, _*_w_s_t_r_2;
+      int _l_e_n;
+
+
+
+
+
+                             1166
+
+
+
+
+
+SSaammppllee IImmpplleemmeennttaattiioonn FFrraammee WWoorrkk                lliibbXX1111 11..33..22
+
+
+The ___X_w_c_s_c_m_p function  compares two (wchar_t) NULL termi‐
+nated wide character strings.  The value returned is an
+integer less than, equal to, or greater than zero, depending
+on whether ‘‘_w_s_t_r_1’’ is lexicographicly less then, equal to,
+or greater than ‘‘_s_t_r_2’’.
+
+The ___X_w_c_s_n_c_m_p function is identical to ___X_l_c_C_o_m_p_a_r_e_I_S_O_L_a_t_i_n_1_,
+except that at most ‘‘_l_e_n’’ wide characters are compared.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                             1177
+
+

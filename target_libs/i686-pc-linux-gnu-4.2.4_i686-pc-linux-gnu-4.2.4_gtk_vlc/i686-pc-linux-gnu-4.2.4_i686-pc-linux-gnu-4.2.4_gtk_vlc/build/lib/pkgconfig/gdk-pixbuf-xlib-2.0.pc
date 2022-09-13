@@ -1,0 +1,11 @@
+prefix=/home/pdrezet/workspace/inxware2.0-Release/INX/comp-lib-support/inx_build_scripts/../target_libs/i486-pc-linux-gnu-i686-pc-linux-gnu-4.2.4-gtk_vlc/build
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: GdkPixbuf Xlib
+Description: GdkPixbuf rendering for Xlib
+Version: 2.22.0
+Requires: gobject-2.0,gmodule-no-export-2.0,gdk-pixbuf-2.0
+Libs: -L${libdir} -lgdk_pixbuf_xlib-2.0
+Cflags: -I${includedir}

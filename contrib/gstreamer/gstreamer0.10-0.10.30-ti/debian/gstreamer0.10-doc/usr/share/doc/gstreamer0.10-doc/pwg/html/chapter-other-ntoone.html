@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Writing a N-to-1 Element or Muxer</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Creating special element types"
+HREF="part-other.html"><LINK
+REL="PREVIOUS"
+TITLE="Writing a Demuxer or Parser"
+HREF="chapter-other-oneton.html"><LINK
+REL="NEXT"
+TITLE="Writing a Manager"
+HREF="chapter-other-manager.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-other-oneton.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-other-manager.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="chapter-other-ntoone"
+></A
+>Chapter 21. Writing a N-to-1 Element or Muxer</H1
+><P
+>&#13;    N-to-1 elements have been previously mentioned and discussed in both
+    <A
+HREF="chapter-advanced-request.html"
+>Chapter 13</A
+> and in
+    <A
+HREF="chapter-scheduling.html"
+>Different scheduling modes</A
+>. The main noteworthy thing
+    about N-to-1 elements is that each pad is push-based in its own thread,
+    and the N-to-1 element synchronizes those streams by
+    expected-timestamp-based logic. This means it lets all streams wait
+    except for the one that provides the earliest next-expected timestamp.
+    When that stream has passwed one buffer, the next
+    earliest-expected-timestamp is calculated, and we start back where we
+    were, until all streams have reached EOS. There is a helper base class,
+    called <CODE
+CLASS="classname"
+>GstCollectPads</CODE
+>, that will help you to do
+    this.
+  </P
+><P
+>&#13;    Note, however, that this helper class will only help you with grabbing
+    a buffer from each input and giving you the one with earliest timestamp.
+    If you need anything more difficult, such as "don't-grab-a-new-buffer
+    until a given timestamp" or something like that, you'll need to do this
+    yourself.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-other-oneton.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-other-manager.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Writing a Demuxer or Parser</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part-other.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Writing a Manager</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

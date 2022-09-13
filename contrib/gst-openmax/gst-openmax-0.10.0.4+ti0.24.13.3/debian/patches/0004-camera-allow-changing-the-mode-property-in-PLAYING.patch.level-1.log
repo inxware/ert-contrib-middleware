@@ -1,0 +1,5 @@
+patching file omx/gstomx_camera.c
+Hunk #2 succeeded at 808 (offset 13 lines).
+Hunk #3 succeeded at 840 with fuzz 2 (offset 25 lines).
+Hunk #4 succeeded at 877 (offset 25 lines).
+patching file omx/gstomx_camera_parameters.c

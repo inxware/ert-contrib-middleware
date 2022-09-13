@@ -1,0 +1,41 @@
+================
+NEWS for wadllib
+================
+
+1.1.4 (2009-09-15)
+==================
+
+- Fixed a bug that crashed wadllib unless all parameters of a
+  multipart representation were provided.
+
+1.1.3 (2009-08-26)
+==================
+
+- Remove unnecessary build dependencies.
+
+- Add missing dependencies to setup file.
+
+- Remove sys.path hack from setup.py.
+
+1.1.2 (2009-08-20)
+==================
+
+- Consistently handle different versions of simplejson.
+
+1.1.1 (2009-07-14)
+==================
+
+- Make wadllib aware of the <option> tags that go beneath <param> tags.
+
+1.1 (2009-07-09)
+================
+
+- Make wadllib capable of recognizing and generating
+  multipart/form-data representations, including representations that
+  incorporate binary parameters.
+
+
+1.0 (2009-03-23)
+================
+
+- Initial release on PyPI
