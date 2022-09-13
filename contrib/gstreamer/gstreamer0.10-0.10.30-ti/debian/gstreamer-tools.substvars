@@ -1,2 +1,0 @@
-shlibs:Depends=libc6 (>= 2.4), libglib2.0-0 (>= 2.20)
-misc:Depends=

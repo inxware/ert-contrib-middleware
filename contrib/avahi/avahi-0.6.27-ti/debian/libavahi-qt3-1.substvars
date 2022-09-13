@@ -1,2 +1,0 @@
-shlibs:Depends=libaudio2, libavahi-common3 (>= 0.6.16), libc6 (>= 2.4), libfontconfig1 (>= 2.8.0), libfreetype6 (>= 2.2.1), libgcc1 (>= 1:4.4.0), libice6 (>= 1:1.0.0), libjpeg62, libpng12-0 (>= 1.2.13-4), libqt3-mt (>= 3:3.3.8-b), libsm6, libstdc++6 (>= 4.4.0), libx11-6, libxcursor1 (>> 1.1.2), libxext6, libxft2 (>> 2.1.1), libxi6, libxinerama1, libxrandr2, libxrender1, libxt6, zlib1g (>= 1:1.1.4)
-misc:Depends=

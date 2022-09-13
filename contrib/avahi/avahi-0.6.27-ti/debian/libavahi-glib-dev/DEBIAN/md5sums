@@ -1,6 +1,0 @@
-e5d9f85036b1bb6fe07c6facce7cfcfe  usr/include/avahi-glib/glib-malloc.h
-3b25d1129b6485751dc427c2ff1dbe63  usr/include/avahi-glib/glib-watch.h
-a46639c5521653596c5412dd39ef52bd  usr/lib/libavahi-glib.a
-dbb9a273028174b28ce367b62e4a6505  usr/lib/libavahi-glib.la
-d8f8bb2ca3492151f4d017f533a80eb9  usr/lib/pkgconfig/avahi-glib.pc
-026515c317e1591092392844df5f1ee0  usr/share/doc/libavahi-glib-dev/copyright

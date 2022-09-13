@@ -1,5 +1,0 @@
-debian/tmp/usr/lib/*.*a
-debian/tmp/usr/lib/*.so
-debian/tmp/usr/include/omx/mmosal/*.h
-debian/tmp/usr/include/omx/*.h
-debian/tmp/usr/lib/pkgconfig/*.pc

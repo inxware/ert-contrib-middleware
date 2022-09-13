@@ -1,1 +1,0 @@
-fix_OMX_Core_c_libname.patch fixed the OMX_Core library names. Previously was using symlink name instead of SONAME.

@@ -1,5 +1,0 @@
-gstreamer:Version=0.10
-gstreamer:Elements=alsamixer, alsasink, alsasrc
-gstreamer:Provides=gstreamer0.10-audiosink, gstreamer0.10-audiosource
-shlibs:Depends=libasound2 (>> 1.0.24.1), libc6 (>= 2.4), libglib2.0-0 (>= 2.24.0), libgstreamer0.10-0 (>= 0.10.30)
-misc:Depends=

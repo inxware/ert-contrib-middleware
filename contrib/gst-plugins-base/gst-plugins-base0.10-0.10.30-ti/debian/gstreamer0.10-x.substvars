@@ -1,5 +1,0 @@
-gstreamer:Version=0.10
-gstreamer:Elements=clockoverlay, textoverlay, textrender, timeoverlay, ximagesink, xvimagesink
-gstreamer:Provides=gstreamer0.10-videosink
-shlibs:Depends=libc6 (>= 2.4), libcairo2 (>= 1.2.4), libglib2.0-0 (>= 2.20.0), libgstreamer0.10-0 (>= 0.10.30), libpango1.0-0 (>= 1.18.0), libx11-6, libxext6, libxv1
-misc:Depends=

@@ -1,3 +1,0 @@
-lpc.lo lpc.o: lpc.c lpc.h
-
-lpc.h:

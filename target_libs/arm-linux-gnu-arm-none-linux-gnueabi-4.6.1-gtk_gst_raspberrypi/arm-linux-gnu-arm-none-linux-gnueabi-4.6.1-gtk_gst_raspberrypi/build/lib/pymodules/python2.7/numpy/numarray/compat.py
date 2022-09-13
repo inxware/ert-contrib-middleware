@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/numarray/compat.py

@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/f2py/common_rules.py

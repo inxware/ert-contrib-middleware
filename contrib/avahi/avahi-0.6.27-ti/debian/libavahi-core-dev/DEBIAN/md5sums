@@ -1,9 +1,0 @@
-59071e059d3ef6939590d65ee42a6de4  usr/include/avahi-core/core.h
-92ade44af91a1470eaf5a6a3a6a4d987  usr/include/avahi-core/log.h
-8e296bc6a3e58ec82b33bcbda6c513f8  usr/include/avahi-core/lookup.h
-61a5bce7ea245fbc58279d55883fce27  usr/include/avahi-core/publish.h
-df3d103e63e1d60f17191a267f098d56  usr/include/avahi-core/rr.h
-22f0c73a6352e0d549d81c7e2dda32ea  usr/lib/libavahi-core.a
-ede846a46f9c4cc0e0d2b6f39f0f2ae5  usr/lib/libavahi-core.la
-72c2cc47e444b076b5d9e59e65d56af1  usr/lib/pkgconfig/avahi-core.pc
-026515c317e1591092392844df5f1ee0  usr/share/doc/libavahi-core-dev/copyright

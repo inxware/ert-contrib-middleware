@@ -1,2 +1,0 @@
-gir:Depends=gir1.0-freedesktop, gir1.0-glib-2.0, gir1.0-gstreamer-0.10, libgstreamer-plugins-base0.10-0 (>= 0.10.30-2+ti0.24.12.2+1+cm1)
-misc:Depends=

@@ -1,3 +1,0 @@
-vq.lo vq.o: vq.c vq.h
-
-vq.h:

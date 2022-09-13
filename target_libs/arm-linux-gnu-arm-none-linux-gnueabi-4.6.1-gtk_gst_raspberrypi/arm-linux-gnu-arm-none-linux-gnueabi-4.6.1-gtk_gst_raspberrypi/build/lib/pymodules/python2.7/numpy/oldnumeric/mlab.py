@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/oldnumeric/mlab.py

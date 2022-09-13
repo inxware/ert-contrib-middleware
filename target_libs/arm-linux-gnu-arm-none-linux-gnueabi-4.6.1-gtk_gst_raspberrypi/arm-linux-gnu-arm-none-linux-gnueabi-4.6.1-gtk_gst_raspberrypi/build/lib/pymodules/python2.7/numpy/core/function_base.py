@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/core/function_base.py

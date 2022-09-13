@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/distutils/tests/test_misc_util.py

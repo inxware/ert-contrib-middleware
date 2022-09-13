@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/distutils/tests/gen_ext/setup.py

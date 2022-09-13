@@ -1,2 +1,0 @@
-shlibs:Depends=libc6 (>= 2.7), libglib2.0-0 (>= 2.24.0), libgstreamer0.10-0 (>= 0.10.30)
-misc:Depends=

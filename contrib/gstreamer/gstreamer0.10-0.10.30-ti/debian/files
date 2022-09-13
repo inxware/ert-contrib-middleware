@@ -1,7 +1,0 @@
-gstreamer0.10-doc_0.10.30-1+ti0.24.12.2+2_all.deb doc optional
-libgstreamer0.10-0_0.10.30-1+ti0.24.12.2+2_armel.deb libs optional
-libgstreamer0.10-0-dbg_0.10.30-1+ti0.24.12.2+2_armel.deb debug extra
-libgstreamer0.10-dev_0.10.30-1+ti0.24.12.2+2_armel.deb libdevel optional
-gstreamer0.10-tools_0.10.30-1+ti0.24.12.2+2_armel.deb utils optional
-gstreamer-tools_0.10.30-1+ti0.24.12.2+2_armel.deb utils optional
-gir1.0-gstreamer-0.10_0.10.30-1+ti0.24.12.2+2_armel.deb libs optional

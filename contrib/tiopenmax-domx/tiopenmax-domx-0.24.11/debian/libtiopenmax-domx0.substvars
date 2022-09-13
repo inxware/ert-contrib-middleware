@@ -1,2 +1,0 @@
-shlibs:Depends=libc6 (>= 2.7), libtiopenmax-domx0, libtisyslink-d2cmap0, libtisyslink0, libtitiler-memmgr0
-misc:Depends=

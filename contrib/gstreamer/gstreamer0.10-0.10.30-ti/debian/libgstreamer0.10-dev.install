@@ -1,9 +1,0 @@
-debian/tmp/usr/include
-debian/tmp/usr/lib/*.{a,la,so}
-debian/tmp/usr/lib/gstreamer-0.10/*.{a,la}
-debian/tmp/usr/lib/pkgconfig
-debian/tmp/usr/share/aclocal
-debian/tmp/usr/share/gir-*
-debian/tmp/usr/bin/gst-codec-info-0.10
-debian/dh_gstscancodecs usr/bin
-debian/tmp/usr/share/man/man1/dh_gstscancodecs.1

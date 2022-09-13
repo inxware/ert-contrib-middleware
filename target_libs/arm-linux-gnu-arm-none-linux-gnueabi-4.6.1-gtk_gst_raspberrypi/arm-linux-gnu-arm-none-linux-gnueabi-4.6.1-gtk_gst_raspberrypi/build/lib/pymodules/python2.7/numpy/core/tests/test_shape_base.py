@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/core/tests/test_shape_base.py

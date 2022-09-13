@@ -1,3 +1,0 @@
-debian/tmp/etc/avahi/services/ssh.service
-debian/tmp/etc/avahi/services/sftp-ssh.service
-avahi-daemon/example.service
