@@ -31,13 +31,6 @@ TOOLCHAIN_BIN_PREFIX="xtensa-esp32-elf-"
 source ./source-scripts/inx-xbuilder-source-me-espidf.sh
 
 
-
-
-
-
-
-
-
 ########################################################################################################
 ## Components to build
 ##
@@ -143,6 +136,7 @@ build_component esp-idf -4.4.1 wear_levelling
 build_component esp-idf -4.4.1 wifi_provisioning
 build_component esp-idf -4.4.1 wpa_supplicant
 build_component esp-idf -4.4.1 xtensa
+build_component esp-idf -4.4.1 esp_littlefs
 
 build_prepare_kconfig_files esp-idf -4.4.1 prepare_kconfig_files
 fi
@@ -163,6 +157,8 @@ cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/build/include/* ${USRLIB_INC
 cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/soc/esp32/include/* ${USRLIB_INCLUDE_PATH}/
 cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/xtensa/esp32/include/* ${USRLIB_INCLUDE_PATH}/
 cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/hal/esp32/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/fatfs/vfs/*.h ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/fatfs/src/*.h ${USRLIB_INCLUDE_PATH}/
 
 #copy the libraries & linker files
 cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/esp_rom/esp32/ld/* ${USRLIB_LIBRARY_PATH}/

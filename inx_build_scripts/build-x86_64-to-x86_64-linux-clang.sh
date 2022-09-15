@@ -1,6 +1,7 @@
 #!/bin/bash
 #set -e
 
+#Set the docker image name to build this in
 IMAGE_NAME=inxware/inx-debian10-clang10
 
 echo "source 1"
@@ -20,7 +21,7 @@ INX_GLIBC_VERSION=""
 EXIT_ON_FAIL=true
 # This is the variant & version of the compiler as defined by ls  ../inx-core-uspace/toolchains/
 # Leave blank for using the default host compiler
-TOOLCHAIN_VERSION="x86_64-linux-gnu_clang10ubuntu18"
+TOOLCHAIN_VERSION="clang10"
 
 #Optional: prefix for the compiler of not just gcc. 
 TOOLCHAIN_BIN_PREFIX=""
@@ -49,13 +50,8 @@ source ./source-scripts/inx-xbuilder-source-me.sh
 # todo add make clean
 
 #set to false if you don't want to rebuild the components, but copy artefacts to the build directory
-if [ 1 = 1 ];then
-build_component libxml2 .X "--with-sysroot=${SYSROOT}"
-#this has deprecated stuff clang10 doesn't like in it so bumping up the version: build_component libarchive -3.0.0a "--with-sysroot=${SYSROOT}"
-build_component libarchive -3.6.1 "--with-sysroot=${SYSROOT}"
-fi
 
-build_component curl -7.21.2 " --without-random"
+
 build_aws_c_common
 build_aws_lc
 build_aws_s2n
@@ -64,10 +60,22 @@ build_aws_c_io
 build_aws_c_compression
 build_aws_c_http
 build_aws_c_mqtt
-build_component expat -2.0.1
+
+
+#These are needed only if we want to build from scratch rather than using debian lib*-dev packages.
+if [ 1 = 0 ];then
+#build_component expat -2.0.1
 #build_component libidn -1.33
 
 if [ 1 = 1 ];then
+build_component curl -7.21.2 " --without-random"
+
+build_component libxml2 .X "--with-sysroot=${SYSROOT}"
+#this has deprecated stuff clang10 doesn't like in it so bumping up the version: build_component libarchive -3.0.0a "--with-sysroot=${SYSROOT}"
+build_component libarchive -3.6.1 "--with-sysroot=${SYSROOT}"
+fi
+
+
 build_component util-macros -1.10.1
 build_component renderproto -0.11.1
 build_component xproto -7.0.13
