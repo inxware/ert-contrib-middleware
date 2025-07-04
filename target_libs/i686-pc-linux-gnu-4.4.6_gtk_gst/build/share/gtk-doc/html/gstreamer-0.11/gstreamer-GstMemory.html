@@ -1,0 +1,1142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GstMemory</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="GStreamer 0.11 Core Reference Manual">
+<link rel="up" href="libgstreamer.html" title="GStreamer Core Library">
+<link rel="prev" href="gstreamer-GstIterator.html" title="GstIterator">
+<link rel="next" href="gstreamer-GstMessage.html" title="GstMessage">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="gstreamer-GstIterator.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libgstreamer.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GStreamer 0.11 Core Reference Manual</th>
+<td><a accesskey="n" href="gstreamer-GstMessage.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#gstreamer-GstMemory.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#gstreamer-GstMemory.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="gstreamer-GstMemory"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gstreamer-GstMemory.top_of_page"></a>GstMemory</span></h2>
+<p>GstMemory — refcounted wrapper for memory blocks</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="gstreamer-GstMemory.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;gst/gst.h&gt;
+
+struct              <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory">GstMemory</a>;
+struct              <a class="link" href="gstreamer-GstMemory.html#GstMemoryInfo" title="struct GstMemoryInfo">GstMemoryInfo</a>;
+                    <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator">GstAllocator</a>;
+#define             <a class="link" href="gstreamer-GstMemory.html#GST-MEMORY-IS-WRITABLE:CAPS" title="GST_MEMORY_IS_WRITABLE()">GST_MEMORY_IS_WRITABLE</a>              (mem)
+enum                <a class="link" href="gstreamer-GstMemory.html#GstMemoryFlags" title="enum GstMemoryFlags">GstMemoryFlags</a>;
+enum                <a class="link" href="gstreamer-GstMemory.html#GstMapFlags" title="enum GstMapFlags">GstMapFlags</a>;
+#define             <a class="link" href="gstreamer-GstMemory.html#GST-MAP-READWRITE:CAPS" title="GST_MAP_READWRITE">GST_MAP_READWRITE</a>
+<a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         (<a class="link" href="gstreamer-GstMemory.html#GstMemoryAllocFunction" title="GstMemoryAllocFunction ()">*GstMemoryAllocFunction</a>)           (<em class="parameter"><code>const <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="type">GstAllocator</span></a> *allocator</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> maxsize</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> align</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>               (<a class="link" href="gstreamer-GstMemory.html#GstMemoryGetSizesFunction" title="GstMemoryGetSizesFunction ()">*GstMemoryGetSizesFunction</a>)        (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *maxsize</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="gstreamer-GstMemory.html#GstMemoryResizeFunction" title="GstMemoryResizeFunction ()">*GstMemoryResizeFunction</a>)          (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gssize"><span class="type">gssize</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            (<a class="link" href="gstreamer-GstMemory.html#GstMemoryMapFunction" title="GstMemoryMapFunction ()">*GstMemoryMapFunction</a>)             (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *size</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *maxsize</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMapFlags" title="enum GstMapFlags"><span class="type">GstMapFlags</span></a> flags</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="gstreamer-GstMemory.html#GstMemoryUnmapFunction" title="GstMemoryUnmapFunction ()">*GstMemoryUnmapFunction</a>)           (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="gstreamer-GstMemory.html#GstMemoryFreeFunction" title="GstMemoryFreeFunction ()">*GstMemoryFreeFunction</a>)            (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>);
+<a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         (<a class="link" href="gstreamer-GstMemory.html#GstMemoryCopyFunction" title="GstMemoryCopyFunction ()">*GstMemoryCopyFunction</a>)            (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gssize"><span class="type">gssize</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);
+<a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         (<a class="link" href="gstreamer-GstMemory.html#GstMemoryShareFunction" title="GstMemoryShareFunction ()">*GstMemoryShareFunction</a>)           (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gssize"><span class="type">gssize</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="gstreamer-GstMemory.html#GstMemoryIsSpanFunction" title="GstMemoryIsSpanFunction ()">*GstMemoryIsSpanFunction</a>)          (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem2</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *offset</code></em>);
+extern gsize        <a class="link" href="gstreamer-GstMemory.html#gst-memory-alignment" title="gst_memory_alignment">gst_memory_alignment</a>;
+<a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         <a class="link" href="gstreamer-GstMemory.html#gst-allocator-alloc" title="gst_allocator_alloc ()">gst_allocator_alloc</a>                 (<em class="parameter"><code>const <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="type">GstAllocator</span></a> *allocator</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> maxsize</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> align</code></em>);
+<a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         <a class="link" href="gstreamer-GstMemory.html#gst-memory-new-wrapped" title="gst_memory_new_wrapped ()">gst_memory_new_wrapped</a>              (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemoryFlags" title="enum GstMemoryFlags"><span class="type">GstMemoryFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Miscellaneous-Utility-Functions.html#GFreeFunc"><span class="type">GFreeFunc</span></a> free_func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> maxsize</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);
+<a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         <a class="link" href="gstreamer-GstMemory.html#gst-memory-ref" title="gst_memory_ref ()">gst_memory_ref</a>                      (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstMemory.html#gst-memory-unref" title="gst_memory_unref ()">gst_memory_unref</a>                    (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>               <a class="link" href="gstreamer-GstMemory.html#gst-memory-get-sizes" title="gst_memory_get_sizes ()">gst_memory_get_sizes</a>                (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *maxsize</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstMemory.html#gst-memory-resize" title="gst_memory_resize ()">gst_memory_resize</a>                   (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gssize"><span class="type">gssize</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="gstreamer-GstMemory.html#gst-memory-map" title="gst_memory_map ()">gst_memory_map</a>                      (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *size</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *maxsize</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMapFlags" title="enum GstMapFlags"><span class="type">GstMapFlags</span></a> flags</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstMemory.html#gst-memory-unmap" title="gst_memory_unmap ()">gst_memory_unmap</a>                    (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);
+<a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         <a class="link" href="gstreamer-GstMemory.html#gst-memory-copy" title="gst_memory_copy ()">gst_memory_copy</a>                     (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gssize"><span class="type">gssize</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);
+<a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         <a class="link" href="gstreamer-GstMemory.html#gst-memory-share" title="gst_memory_share ()">gst_memory_share</a>                    (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gssize"><span class="type">gssize</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="gstreamer-GstMemory.html#gst-memory-is-span" title="gst_memory_is_span ()">gst_memory_is_span</a>                  (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem2</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *offset</code></em>);
+#define             <a class="link" href="gstreamer-GstMemory.html#GST-ALLOCATOR-SYSMEM:CAPS" title="GST_ALLOCATOR_SYSMEM">GST_ALLOCATOR_SYSMEM</a>
+const <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="returnvalue">GstAllocator</span></a> * <a class="link" href="gstreamer-GstMemory.html#gst-allocator-find" title="gst_allocator_find ()">gst_allocator_find</a>                 (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+const <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="returnvalue">GstAllocator</span></a> * <a class="link" href="gstreamer-GstMemory.html#gst-allocator-register" title="gst_allocator_register ()">gst_allocator_register</a>             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="gstreamer-GstMemory.html#GstMemoryInfo" title="struct GstMemoryInfo"><span class="type">GstMemoryInfo</span></a> *info</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="gstreamer-GstMemory.html#gst-allocator-set-default" title="gst_allocator_set_default ()">gst_allocator_set_default</a>           (<em class="parameter"><code>const <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="type">GstAllocator</span></a> *allocator</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstMemory.description"></a><h2>Description</h2>
+<p>
+GstMemory is a lightweight refcounted object that wraps a region of memory.
+They are typically used to manage the data of a <a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a>.
+</p>
+<p>
+Memory is usually created by allocators with a <a class="link" href="gstreamer-GstMemory.html#gst-allocator-alloc" title="gst_allocator_alloc ()"><code class="function">gst_allocator_alloc()</code></a>
+method call. When NULL is used as the allocator, the default allocator will
+be used.
+</p>
+<p>
+New allocators can be registered with <a class="link" href="gstreamer-GstMemory.html#gst-allocator-register" title="gst_allocator_register ()"><code class="function">gst_allocator_register()</code></a>.
+Allocators are identified by name and can be retrieved with
+<a class="link" href="gstreamer-GstMemory.html#gst-allocator-find" title="gst_allocator_find ()"><code class="function">gst_allocator_find()</code></a>.
+</p>
+<p>
+New memory can be created with <a class="link" href="gstreamer-GstMemory.html#gst-memory-new-wrapped" title="gst_memory_new_wrapped ()"><code class="function">gst_memory_new_wrapped()</code></a> that wraps the memory
+allocated elsewhere.
+</p>
+<p>
+Refcounting of the memory block is performed with <a class="link" href="gstreamer-GstMemory.html#gst-memory-ref" title="gst_memory_ref ()"><code class="function">gst_memory_ref()</code></a> and
+<a class="link" href="gstreamer-GstMemory.html#gst-memory-unref" title="gst_memory_unref ()"><code class="function">gst_memory_unref()</code></a>.
+</p>
+<p>
+The size of the memory can be retrieved and changed with
+<a class="link" href="gstreamer-GstMemory.html#gst-memory-get-sizes" title="gst_memory_get_sizes ()"><code class="function">gst_memory_get_sizes()</code></a> and <a class="link" href="gstreamer-GstMemory.html#gst-memory-resize" title="gst_memory_resize ()"><code class="function">gst_memory_resize()</code></a> respectively.
+</p>
+<p>
+Getting access to the data of the memory is performed with <a class="link" href="gstreamer-GstMemory.html#gst-memory-map" title="gst_memory_map ()"><code class="function">gst_memory_map()</code></a>.
+After the memory access is completed, <a class="link" href="gstreamer-GstMemory.html#gst-memory-unmap" title="gst_memory_unmap ()"><code class="function">gst_memory_unmap()</code></a> should be called.
+</p>
+<p>
+Memory can be copied with <a class="link" href="gstreamer-GstMemory.html#gst-memory-copy" title="gst_memory_copy ()"><code class="function">gst_memory_copy()</code></a>, which will returnn a writable
+copy. <a class="link" href="gstreamer-GstMemory.html#gst-memory-share" title="gst_memory_share ()"><code class="function">gst_memory_share()</code></a> will create a new memory block that shares the
+memory with an existing memory block at a custom offset and with a custom
+size.
+</p>
+<p>
+Memory can be efficiently merged when <a class="link" href="gstreamer-GstMemory.html#gst-memory-is-span" title="gst_memory_is_span ()"><code class="function">gst_memory_is_span()</code></a> returns TRUE.
+</p>
+<p>
+Last reviewed on 2011-06-08 (0.11.0)
+</p>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstMemory.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="GstMemory"></a><h3>struct GstMemory</h3>
+<pre class="programlisting">struct GstMemory {
+  const GstAllocator *allocator;
+
+  GstMemoryFlags  flags;
+  gint            refcount;
+  GstMemory      *parent;
+};
+</pre>
+<p>
+Base structure for memory implementations. Custom memory will put this structure
+as the first member of their structure.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term">const <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="type">GstAllocator</span></a> *<em class="structfield"><code><a name="GstMemory.allocator"></a>allocator</code></em>;</span></p></td>
+<td>pointer to the <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="type">GstAllocator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMemory.html#GstMemoryFlags" title="enum GstMemoryFlags"><span class="type">GstMemoryFlags</span></a> <em class="structfield"><code><a name="GstMemory.flags"></a>flags</code></em>;</span></p></td>
+<td>memory flags</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="GstMemory.refcount"></a>refcount</code></em>;</span></p></td>
+<td>refcount</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *<em class="structfield"><code><a name="GstMemory.parent"></a>parent</code></em>;</span></p></td>
+<td>parent memory block</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMemoryInfo"></a><h3>struct GstMemoryInfo</h3>
+<pre class="programlisting">struct GstMemoryInfo {
+  GstMemoryAllocFunction    alloc;
+  GstMemoryGetSizesFunction get_sizes;
+  GstMemoryResizeFunction   resize;
+  GstMemoryMapFunction      map;
+  GstMemoryUnmapFunction    unmap;
+  GstMemoryFreeFunction     free;
+
+  GstMemoryCopyFunction     copy;
+  GstMemoryShareFunction    share;
+  GstMemoryIsSpanFunction   is_span;
+
+  gpointer user_data;
+};
+</pre>
+<p>
+The <a class="link" href="gstreamer-GstMemory.html#GstMemoryInfo" title="struct GstMemoryInfo"><span class="type">GstMemoryInfo</span></a> is used to register new memory allocators and contain
+the implementations for various memory operations.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMemory.html#GstMemoryAllocFunction" title="GstMemoryAllocFunction ()"><span class="type">GstMemoryAllocFunction</span></a> <em class="structfield"><code><a name="GstMemoryInfo.alloc"></a>alloc</code></em>;</span></p></td>
+<td>the implementation of the GstMemoryAllocFunction</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMemory.html#GstMemoryGetSizesFunction" title="GstMemoryGetSizesFunction ()"><span class="type">GstMemoryGetSizesFunction</span></a> <em class="structfield"><code><a name="GstMemoryInfo.get-sizes"></a>get_sizes</code></em>;</span></p></td>
+<td>the implementation of the GstMemoryGetSizesFunction</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMemory.html#GstMemoryResizeFunction" title="GstMemoryResizeFunction ()"><span class="type">GstMemoryResizeFunction</span></a> <em class="structfield"><code><a name="GstMemoryInfo.resize"></a>resize</code></em>;</span></p></td>
+<td>the implementation of the GstMemoryResizeFunction</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMemory.html#GstMemoryMapFunction" title="GstMemoryMapFunction ()"><span class="type">GstMemoryMapFunction</span></a> <em class="structfield"><code><a name="GstMemoryInfo.map"></a>map</code></em>;</span></p></td>
+<td>the implementation of the GstMemoryMapFunction</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMemory.html#GstMemoryUnmapFunction" title="GstMemoryUnmapFunction ()"><span class="type">GstMemoryUnmapFunction</span></a> <em class="structfield"><code><a name="GstMemoryInfo.unmap"></a>unmap</code></em>;</span></p></td>
+<td>the implementation of the GstMemoryUnmapFunction</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMemory.html#GstMemoryFreeFunction" title="GstMemoryFreeFunction ()"><span class="type">GstMemoryFreeFunction</span></a> <em class="structfield"><code><a name="GstMemoryInfo.free"></a>free</code></em>;</span></p></td>
+<td>the implementation of the GstMemoryFreeFunction</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMemory.html#GstMemoryCopyFunction" title="GstMemoryCopyFunction ()"><span class="type">GstMemoryCopyFunction</span></a> <em class="structfield"><code><a name="GstMemoryInfo.copy"></a>copy</code></em>;</span></p></td>
+<td>the implementation of the GstMemoryCopyFunction</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMemory.html#GstMemoryShareFunction" title="GstMemoryShareFunction ()"><span class="type">GstMemoryShareFunction</span></a> <em class="structfield"><code><a name="GstMemoryInfo.share"></a>share</code></em>;</span></p></td>
+<td>the implementation of the GstMemoryShareFunction</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="gstreamer-GstMemory.html#GstMemoryIsSpanFunction" title="GstMemoryIsSpanFunction ()"><span class="type">GstMemoryIsSpanFunction</span></a> <em class="structfield"><code><a name="GstMemoryInfo.is-span"></a>is_span</code></em>;</span></p></td>
+<td>the implementation of the GstMemoryIsSpanFunction</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> <em class="structfield"><code><a name="GstMemoryInfo.user-data"></a>user_data</code></em>;</span></p></td>
+<td>generic user data for the allocator</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAllocator"></a><h3>GstAllocator</h3>
+<pre class="programlisting">typedef struct _GstAllocator GstAllocator;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-MEMORY-IS-WRITABLE:CAPS"></a><h3>GST_MEMORY_IS_WRITABLE()</h3>
+<pre class="programlisting">#define             GST_MEMORY_IS_WRITABLE(mem)</pre>
+<p>
+Check if <em class="parameter"><code>mem</code></em> is writable.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMemoryFlags"></a><h3>enum GstMemoryFlags</h3>
+<pre class="programlisting">typedef enum {
+  GST_MEMORY_FLAG_READONLY = (1 &lt;&lt; 0),
+  GST_MEMORY_FLAG_NO_SHARE = (1 &lt;&lt; 1),
+
+  GST_MEMORY_FLAG_LAST = (1 &lt;&lt; 24)
+} GstMemoryFlags;
+</pre>
+<p>
+Flags for wrapped memory.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-MEMORY-FLAG-READONLY:CAPS"></a><span class="term"><code class="literal">GST_MEMORY_FLAG_READONLY</code></span></p></td>
+<td>memory is readonly. It is not allowed to map the
+memory with <a class="link" href="gstreamer-GstMemory.html#GST-MAP-WRITE:CAPS"><span class="type">GST_MAP_WRITE</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-MEMORY-FLAG-NO-SHARE:CAPS"></a><span class="term"><code class="literal">GST_MEMORY_FLAG_NO_SHARE</code></span></p></td>
+<td>memory must not be shared. Copies will have to be
+made when this memory needs to be shared between buffers.
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-MEMORY-FLAG-LAST:CAPS"></a><span class="term"><code class="literal">GST_MEMORY_FLAG_LAST</code></span></p></td>
+<td>first flag that can be used for custom purposes
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMapFlags"></a><h3>enum GstMapFlags</h3>
+<pre class="programlisting">typedef enum {
+  GST_MAP_READ =  (1 &lt;&lt; 0),
+  GST_MAP_WRITE = (1 &lt;&lt; 1),
+} GstMapFlags;
+</pre>
+<p>
+Flags used when mapping memory
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="GST-MAP-READ:CAPS"></a><span class="term"><code class="literal">GST_MAP_READ</code></span></p></td>
+<td>map for read access
+</td>
+</tr>
+<tr>
+<td><p><a name="GST-MAP-WRITE:CAPS"></a><span class="term"><code class="literal">GST_MAP_WRITE</code></span></p></td>
+<td>map for write access
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-MAP-READWRITE:CAPS"></a><h3>GST_MAP_READWRITE</h3>
+<pre class="programlisting">#define GST_MAP_READWRITE      (GST_MAP_READ | GST_MAP_WRITE)
+</pre>
+<p>
+Map for readwrite access
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMemoryAllocFunction"></a><h3>GstMemoryAllocFunction ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         (*GstMemoryAllocFunction)           (<em class="parameter"><code>const <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="type">GstAllocator</span></a> *allocator</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> maxsize</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> align</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>
+Allocate a new <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> from <em class="parameter"><code>allocator</code></em> that can hold at least <em class="parameter"><code>maxsize</code></em> bytes
+and is aligned to (<em class="parameter"><code>align</code></em> + 1) bytes.
+</p>
+<p>
+<em class="parameter"><code>user_data</code></em> is the data that was used when registering <em class="parameter"><code>allocator</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>allocator</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="type">GstAllocator</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>maxsize</code></em> :</span></p></td>
+<td>the maxsize</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>align</code></em> :</span></p></td>
+<td>the alignment</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly allocated <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>. Free with <a class="link" href="gstreamer-GstMemory.html#gst-memory-unref" title="gst_memory_unref ()"><code class="function">gst_memory_unref()</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMemoryGetSizesFunction"></a><h3>GstMemoryGetSizesFunction ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>               (*GstMemoryGetSizesFunction)        (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *maxsize</code></em>);</pre>
+<p>
+Retrieve the size, offset and maxsize of <em class="parameter"><code>mem</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>result pointer for offset</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>maxsize</code></em> :</span></p></td>
+<td>result pointer for maxsize</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the size of <em class="parameter"><code>mem</code></em>, the offset and the maximum allocated size in <em class="parameter"><code>maxsize</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMemoryResizeFunction"></a><h3>GstMemoryResizeFunction ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*GstMemoryResizeFunction)          (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gssize"><span class="type">gssize</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);</pre>
+<p>
+Adjust the size and offset of <em class="parameter"><code>mem</code></em>. <em class="parameter"><code>offset</code></em> bytes will be adjusted from the
+current first byte in <em class="parameter"><code>mem</code></em> as retrieved with <a class="link" href="gstreamer-GstMemory.html#gst-memory-map" title="gst_memory_map ()"><code class="function">gst_memory_map()</code></a> and the new
+size will be set to <em class="parameter"><code>size</code></em>.
+</p>
+<p>
+<em class="parameter"><code>size</code></em> can be set to -1, which will only adjust the offset.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>the offset adjustement</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>the new size</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMemoryMapFunction"></a><h3>GstMemoryMapFunction ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            (*GstMemoryMapFunction)             (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *size</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *maxsize</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMapFlags" title="enum GstMapFlags"><span class="type">GstMapFlags</span></a> flags</code></em>);</pre>
+<p>
+Get the memory of <em class="parameter"><code>mem</code></em> that can be accessed according to the mode specified
+in <em class="parameter"><code>flags</code></em>. <em class="parameter"><code>size</code></em> and <em class="parameter"><code>maxsize</code></em> will respectively contain the current amount of
+valid bytes in the returned memory and the maximum allocated memory.
+<em class="parameter"><code>size</code></em> and <em class="parameter"><code>maxsize</code></em> can optionally be set to NULL.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>pointer for the size</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>maxsize</code></em> :</span></p></td>
+<td>pointer for the maxsize</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>access mode for the memory</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a pointer to memory. <em class="parameter"><code>size</code></em> bytes are currently used from the
+returned pointer and <em class="parameter"><code>maxsize</code></em> bytes can potentially be used.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMemoryUnmapFunction"></a><h3>GstMemoryUnmapFunction ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*GstMemoryUnmapFunction)           (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);</pre>
+<p>
+Return the pointer previously retrieved with <a class="link" href="gstreamer-GstMemory.html#gst-memory-map" title="gst_memory_map ()"><code class="function">gst_memory_map()</code></a> and adjust the
+size of the memory with <em class="parameter"><code>size</code></em>. <em class="parameter"><code>size</code></em> can optionally be set to -1 to not
+modify the size.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>the data pointer</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>the new size</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMemoryFreeFunction"></a><h3>GstMemoryFreeFunction ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*GstMemoryFreeFunction)            (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>);</pre>
+<p>
+Free the memory used by <em class="parameter"><code>mem</code></em>. This function is usually called when the
+refcount of the <em class="parameter"><code>mem</code></em> has reached 0.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMemoryCopyFunction"></a><h3>GstMemoryCopyFunction ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         (*GstMemoryCopyFunction)            (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gssize"><span class="type">gssize</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);</pre>
+<p>
+Copy <em class="parameter"><code>size</code></em> bytes from <em class="parameter"><code>mem</code></em> starting at <em class="parameter"><code>offset</code></em> and return them wrapped in a
+new GstMemory object.
+If <em class="parameter"><code>size</code></em> is set to -1, all bytes starting at <em class="parameter"><code>offset</code></em> are copied.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>an offset</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>a size</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> object wrapping a copy of the requested region in
+<em class="parameter"><code>mem</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMemoryShareFunction"></a><h3>GstMemoryShareFunction ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         (*GstMemoryShareFunction)           (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gssize"><span class="type">gssize</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);</pre>
+<p>
+Share <em class="parameter"><code>size</code></em> bytes from <em class="parameter"><code>mem</code></em> starting at <em class="parameter"><code>offset</code></em> and return them wrapped in a
+new GstMemory object. If <em class="parameter"><code>size</code></em> is set to -1, all bytes starting at <em class="parameter"><code>offset</code></em> are
+shared. This function does not make a copy of the bytes in <em class="parameter"><code>mem</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>an offset</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>a size</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> object sharing the requested region in <em class="parameter"><code>mem</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstMemoryIsSpanFunction"></a><h3>GstMemoryIsSpanFunction ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*GstMemoryIsSpanFunction)          (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem2</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *offset</code></em>);</pre>
+<p>
+Check if <em class="parameter"><code>mem1</code></em> and <em class="parameter"><code>mem2</code></em> occupy contiguous memory and return the offset of
+<em class="parameter"><code>mem1</code></em> in the parent buffer in <em class="parameter"><code>offset</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem1</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem2</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>a result offset</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>mem1</code></em> and <em class="parameter"><code>mem2</code></em> are in contiguous memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-memory-alignment"></a><h3>gst_memory_alignment</h3>
+<pre class="programlisting">extern gsize gst_memory_alignment;
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-allocator-alloc"></a><h3>gst_allocator_alloc ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         gst_allocator_alloc                 (<em class="parameter"><code>const <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="type">GstAllocator</span></a> *allocator</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> maxsize</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> align</code></em>);</pre>
+<p>
+Use <em class="parameter"><code>allocator</code></em> to allocate a new memory block with memory that is at least
+<em class="parameter"><code>maxsize</code></em> big and has the given alignment.
+</p>
+<p>
+When <em class="parameter"><code>allocator</code></em> is NULL, the default allocator will be used.
+</p>
+<p>
+<em class="parameter"><code>align</code></em> is given as a bitmask so that <em class="parameter"><code>align</code></em> + 1 equals the amount of bytes to
+align to. For example, to align to 8 bytes, use an alignment of 7.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>allocator</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="type">GstAllocator</span></a> to use</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>maxsize</code></em> :</span></p></td>
+<td>allocated size of <em class="parameter"><code>data</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>align</code></em> :</span></p></td>
+<td>alignment for the data</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-memory-new-wrapped"></a><h3>gst_memory_new_wrapped ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         gst_memory_new_wrapped              (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemoryFlags" title="enum GstMemoryFlags"><span class="type">GstMemoryFlags</span></a> flags</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Miscellaneous-Utility-Functions.html#GFreeFunc"><span class="type">GFreeFunc</span></a> free_func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> maxsize</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);</pre>
+<p>
+Allocate a new memory block that wraps the given <em class="parameter"><code>data</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td><a class="link" href="gstreamer-GstMemory.html#GstMemoryFlags" title="enum GstMemoryFlags"><span class="type">GstMemoryFlags</span></a></td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data to wrap</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>free_func</code></em> :</span></p></td>
+<td>function to free <em class="parameter"><code>data</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>maxsize</code></em> :</span></p></td>
+<td>allocated size of <em class="parameter"><code>data</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>offset in <em class="parameter"><code>data</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>size of valid data</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-memory-ref"></a><h3>gst_memory_ref ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         gst_memory_ref                      (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>);</pre>
+<p>
+Increases the refcount of <em class="parameter"><code>mem</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<em class="parameter"><code>mem</code></em> with increased refcount</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-memory-unref"></a><h3>gst_memory_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_memory_unref                    (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>);</pre>
+<p>
+Decreases the refcount of <em class="parameter"><code>mem</code></em>. When the refcount reaches 0, the free
+function of <em class="parameter"><code>mem</code></em> will be called.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-memory-get-sizes"></a><h3>gst_memory_get_sizes ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>               gst_memory_get_sizes                (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *maxsize</code></em>);</pre>
+<p>
+Get the current <em class="parameter"><code>size</code></em>, <em class="parameter"><code>offset</code></em> and <em class="parameter"><code>maxsize</code></em> of <em class="parameter"><code>mem</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>pointer to offset</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>maxsize</code></em> :</span></p></td>
+<td>pointer to maxsize</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the current sizes of <em class="parameter"><code>mem</code></em>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-memory-resize"></a><h3>gst_memory_resize ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_memory_resize                   (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gssize"><span class="type">gssize</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);</pre>
+<p>
+Resize the memory region. <em class="parameter"><code>mem</code></em> should be writable and offset + size should be
+less than the maxsize of <em class="parameter"><code>mem</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>a new offset</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>a new size</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-memory-map"></a><h3>gst_memory_map ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            gst_memory_map                      (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *size</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *maxsize</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMapFlags" title="enum GstMapFlags"><span class="type">GstMapFlags</span></a> flags</code></em>);</pre>
+<p>
+Get a pointer to the memory of <em class="parameter"><code>mem</code></em> that can be accessed according to <em class="parameter"><code>flags</code></em>.
+</p>
+<p>
+<em class="parameter"><code>size</code></em> and <em class="parameter"><code>maxsize</code></em> will contain the size of the memory and the maximum
+allocated memory of <em class="parameter"><code>mem</code></em> respectively. They can be set to NULL.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>pointer for size</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>maxsize</code></em> :</span></p></td>
+<td>pointer for maxsize</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>mapping flags</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a pointer to the memory of <em class="parameter"><code>mem</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-memory-unmap"></a><h3>gst_memory_unmap ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_memory_unmap                    (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);</pre>
+<p>
+Release the memory pointer obtained with <a class="link" href="gstreamer-GstMemory.html#gst-memory-map" title="gst_memory_map ()"><code class="function">gst_memory_map()</code></a> and set the size of
+the memory to <em class="parameter"><code>size</code></em>. <em class="parameter"><code>size</code></em> can be set to -1 when the size should not be
+updated.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data to unmap</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>new size of <em class="parameter"><code>mem</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE when the memory was release successfully.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-memory-copy"></a><h3>gst_memory_copy ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         gst_memory_copy                     (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gssize"><span class="type">gssize</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);</pre>
+<p>
+Return a copy of <em class="parameter"><code>size</code></em> bytes from <em class="parameter"><code>mem</code></em> starting from <em class="parameter"><code>offset</code></em>. This copy is
+guaranteed to be writable. <em class="parameter"><code>size</code></em> can be set to -1 to return a copy all bytes
+from <em class="parameter"><code>offset</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>an offset to copy</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>size to copy</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-memory-share"></a><h3>gst_memory_share ()</h3>
+<pre class="programlisting"><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="returnvalue">GstMemory</span></a> *         gst_memory_share                    (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gssize"><span class="type">gssize</span></a> offset</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>);</pre>
+<p>
+Return a shared copy of <em class="parameter"><code>size</code></em> bytes from <em class="parameter"><code>mem</code></em> starting from <em class="parameter"><code>offset</code></em>. No memory
+copy is performed and the memory region is simply shared. The result is
+guaranteed to be not-writable. <em class="parameter"><code>size</code></em> can be set to -1 to return a share all bytes
+from <em class="parameter"><code>offset</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>an offset to share</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
+<td>size to share</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-memory-is-span"></a><h3>gst_memory_is_span ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            gst_memory_is_span                  (<em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a> *mem2</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *offset</code></em>);</pre>
+<p>
+Check if <em class="parameter"><code>mem1</code></em> and mem2 share the memory with a common parent memory object
+and that the memory is contiguous.
+</p>
+<p>
+If this is the case, the memory of <em class="parameter"><code>mem1</code></em> and <em class="parameter"><code>mem2</code></em> can be merged
+efficiently by performing <a class="link" href="gstreamer-GstMemory.html#gst-memory-share" title="gst_memory_share ()"><code class="function">gst_memory_share()</code></a> on the parent object from
+the returned <em class="parameter"><code>offset</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem1</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mem2</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstMemory" title="struct GstMemory"><span class="type">GstMemory</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>offset</code></em> :</span></p></td>
+<td>a pointer to a result offset</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the memory is contiguous and of a common parent.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GST-ALLOCATOR-SYSMEM:CAPS"></a><h3>GST_ALLOCATOR_SYSMEM</h3>
+<pre class="programlisting">#define GST_ALLOCATOR_SYSMEM   "SystemMemory"
+</pre>
+<p>
+The allocator name for the default system memory allocator
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-allocator-find"></a><h3>gst_allocator_find ()</h3>
+<pre class="programlisting">const <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="returnvalue">GstAllocator</span></a> * gst_allocator_find                 (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>
+Find a previously registered allocator with <em class="parameter"><code>name</code></em>. When <em class="parameter"><code>name</code></em> is NULL, the
+default allocator will be returned.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the name of the allocator</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="type">GstAllocator</span></a> or NULL when the allocator with <em class="parameter"><code>name</code></em> was not
+registered.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-allocator-register"></a><h3>gst_allocator_register ()</h3>
+<pre class="programlisting">const <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="returnvalue">GstAllocator</span></a> * gst_allocator_register             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="gstreamer-GstMemory.html#GstMemoryInfo" title="struct GstMemoryInfo"><span class="type">GstMemoryInfo</span></a> *info</code></em>);</pre>
+<p>
+Registers the memory allocator with <em class="parameter"><code>name</code></em> and implementation functions
+<em class="parameter"><code>info</code></em>.
+</p>
+<p>
+All functions in <em class="parameter"><code>info</code></em> are mandatory exept the copy and is_span
+functions, which will have a default implementation when left NULL.
+</p>
+<p>
+The user_data field in <em class="parameter"><code>info</code></em> will be passed to all calls of the alloc
+function.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the name of the allocator</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td><a class="link" href="gstreamer-GstMemory.html#GstMemoryInfo" title="struct GstMemoryInfo"><span class="type">GstMemoryInfo</span></a></td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="type">GstAllocator</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gst-allocator-set-default"></a><h3>gst_allocator_set_default ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                gst_allocator_set_default           (<em class="parameter"><code>const <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="type">GstAllocator</span></a> *allocator</code></em>);</pre>
+<p>
+Set the default allocator.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>allocator</code></em> :</span></p></td>
+<td>a <a class="link" href="gstreamer-GstMemory.html#GstAllocator" title="GstAllocator"><span class="type">GstAllocator</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gstreamer-GstMemory.see-also"></a><h2>See Also</h2>
+<a class="link" href="gstreamer-GstBuffer.html#GstBuffer" title="struct GstBuffer"><span class="type">GstBuffer</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>
