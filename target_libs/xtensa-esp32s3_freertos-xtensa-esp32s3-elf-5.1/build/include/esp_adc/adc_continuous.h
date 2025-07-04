@@ -11,6 +11,7 @@
 #include "esp_err.h"
 #include "sdkconfig.h"
 #include "hal/adc_types.h"
+#include "freertos/portmacro.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -156,6 +157,18 @@ esp_err_t adc_continuous_register_event_callbacks(adc_continuous_handle_t handle
  *         - ESP_OK                On success
  */
 esp_err_t adc_continuous_start(adc_continuous_handle_t handle);
+
+/**
+ * @brief Clear the current conversion frame in ISR
+ *
+ * @param[in]  handle              ADC continuous mode driver handle
+ * @param[in]  size                Maximum size of bytes to be read. Extracted from the `edata->size`
+ * @param[out] pxHigherPriorityTaskWoken Whether the returned task needs to be yielded
+ *
+ * @return
+ *        - ESP_OK:                On success
+ */
+esp_err_t adc_continuous_clear_frame_in_ISR(adc_continuous_handle_t handle, size_t size, BaseType_t *pxHigherPriorityTaskWoken);
 
 /**
  * @brief Read bytes from ADC under continuous mode.
