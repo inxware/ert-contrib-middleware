@@ -1,4 +1,0 @@
-libdconfsettings.so: gsettings-backend
-libgvfsdbus.so: gio-vfs,gio-volume-monitor
-libgioremote-volume-monitor.so: gio-native-volume-monitor,gio-volume-monitor
-libgiogconf.so: gio-desktop-app-info-lookup

@@ -20,7 +20,7 @@ echo "# if you want to carry on regardless set to 'false'"
 echo "EXIT_ON_FAIL=true"
 echo "#this is the variant & version of the compiler as defined by ls  ../inx-core-uspace/toolchains/ "
 echo "#leave blank for using the default host compiler"
-echo "TOOLCHAIN_VERSION=gcc-4.3.3-i686-pc-linux-gnu"
+echo "TOOLCHAIN_VERSION=....."
 echo "#Optional: prefix for the compiler of not just gcc. "
 echo "TOOLCHAIN_BIN_PREFIX=i686-pc-linux-gnu-"
 echo ""
@@ -60,9 +60,6 @@ test -z ${INX_PROJECT_NAME} && INX_PROJECT_NAME="" && echo "** Warning INX_PROJE
 #Set the Default GLIB version we are using
 test -z ${TARGET} && TARGET=i686-linux-gnu  && echo "** Warning TARGET not set. Setting to ${TARGET} **" 
 
-#Set a default GLIBC version
-test -z  ${INX_GLIBC_VERSION} && INX_GLIBC_VERSION=${TOOLCHAIN_VERSION}   && echo "** Warning INX_GLIBC_VERSION not set. Setting to ${INX_GLIBC_VERSION} **" 
-
 #Set a default component build failure behaviour 
 test -z ${EXIT_ON_FAIL} && EXIT_ON_FAIL="true"  
 
@@ -71,8 +68,13 @@ test -z ${EXIT_ON_FAIL} && EXIT_ON_FAIL="true"
 test "${REMAKE}" != "true" -a "${REMAKE}" != "false"  && REMAKE="true" 
 
 #set a default version of gcc
-test -z ${TOOLCHAIN_VERSION} && TOOLCHAIN_VERSION="" && echo "** Warning TOOLCHAIN_VERSION not set. Setting to ${TOOLCHAIN_VERSION} **" 
+test -z ${TOOLCHAIN_VERSION} && TOOLCHAIN_VERSION="unknown" && echo "** Warning TOOLCHAIN_VERSION not set. Setting to ${TOOLCHAIN_VERSION} **" 
 #gcc-4.3.3-i686-pc-linux-gnu
+
+test -z ${OS_VERSION} && OS_VERSION="unknown" && echo "** Warning TOOLCHAIN_VERSION not set. Setting to ${TOOLCHAIN_VERSION} **" 
+
+#Set a default GLIBC version
+test -z  ${INX_GLIBC_VERSION} && INX_GLIBC_VERSION=${OS_VERSION}   && echo "** Warning INX_GLIBC_VERSION not set. Setting to ${INX_GLIBC_VERSION} **" 
 
 #set a default prefix
 if [ -z ${TOOLCHAIN_BIN_PREFIX} ];then
@@ -101,7 +103,11 @@ test -z ${CLIBTARGET_OVERRIDE} && CLIBTARGET=${TARGET}${INX_GLIBC_VERSION} || CL
 #Path to the component Library
 # The following must match the EHS build paths defined by:
 #$(EHS_GNU_ARCH)-$(EHS_GNU_OS)_$(TOOLCHAIN_PATH)_$(EHS_GNU_OS_VERSION)_$(COMPONENT_VARIANT)
-test  -z ${INX_PROJECT_NAME} && OUTTARGET=${TARGET}_${TOOLCHAIN_VERSION}_${INX_GLIBC_VERSION} || OUTTARGET=${TARGET}-${TOOLCHAIN_VERSION}_${INX_GLIBC_VERSION}_${INX_PROJECT_NAME}
+if -z ${INX_PROJECT_NAME}; then
+	OUTTARGET=${TARGET}_${TOOLCHAIN_VERSION}_${INX_GLIBC_VERSION} 
+else 
+	OUTTARGET=${TARGET}-${TOOLCHAIN_VERSION}_${INX_GLIBC_VERSION}_${INX_PROJECT_NAME}
+fi
 export OUTTARGET
 export CLIBTARGET
 #export these as they maybe used the target tree constructor script
@@ -119,18 +125,23 @@ export CORELIB_LIBRARY_PATH=${TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR}/${BUILD_I
 export CORELIB_KERNEL_HEADERS_PATH=${TEMP_PWD}/../../ert-build-support/kernel-dependencies/${KERNEL_HEADERS}
 ###############################################################################
 ## SetUp some global environment variables that autotools build trees typically use.
-##
+## Defaults to plain gcc
 if [ -z "${INX_CC}" ]; then
 	INX_CC=${TOOLCHAIN_BIN_PREFIX}gcc
 fi
 if [ -z "${INX_CXX}" ]; then
 	INX_CXX=${TOOLCHAIN_BIN_PREFIX}g++
 fi
- export CC=${INX_CC}
- export LD=${TOOLCHAIN_BIN_PREFIX}ld
- export CXX=${INX_CXX}  
- export AR=${TOOLCHAIN_BIN_PREFIX}ar
- export RANLIB=${TOOLCHAIN_BIN_PREFIX}ranlib
+if [ -z "${INX_LD}" ]; then
+	INX_LD=${TOOLCHAIN_BIN_PREFIX}ld
+fi
+
+export CC=${INX_CC}
+export CXX=${INX_CXX}
+export LD=${INX_LD}
+
+export AR=${TOOLCHAIN_BIN_PREFIX}ar
+export RANLIB=${TOOLCHAIN_BIN_PREFIX}ranlib
 
 
 # Some belt and braces to capture our target path if configure doesn't do it 
@@ -148,9 +159,9 @@ export LD_LIBRARY_PATH="${TEMP_PWD}/../../ert-build-support/toolchains/${INX_HOS
 export TOOLCHAINBASE="${TEMP_PWD}/../../ert-build-support/toolchains/${INX_HOST_ARCH}/${TOOLCHAIN_VERSION}"
 
 if [ -n $HOST_BUILD ]; then
-echo "***********************************************************************************************************************"
-echo "                    !!! Using the host compiler $CC !!!"
-echo "**************************************************************************"
+	echo "***********************************************************************************************************************"
+	echo "                    !!! Using the host compiler $CC !!!"
+	echo "**************************************************************************"
 else
 if test -e  "${TOOLCHAINBASE}/sysroot"
 then
@@ -189,19 +200,20 @@ unset PKG_CONFIG_PATH
  export PKG_CONFIG_PATH=$USRLIB_LIBRARY_PATH/pkgconfig:$USRLIB_BUILD_ROOT/share/pkgconfig # te core library are references above if they provide pkg config - which they generally don't
 if [ -n "${SYSROOT}" ];then
  export CFLAGS=" --sysroot=${SYSROOT} -I${USRLIB_INCLUDE_PATH} -I${CORELIB_INCLUDE_PATH}/ -I${CORELIB_KERNEL_HEADERS_PATH} " 
-#-I${SYSROOT}/usr/include ${CFLAGS} "
-#export LDFLAGS=" --sysroot=${SYSROOT} -L${USRLIB_LIBRARY_PATH}  -L${CORELIB_LIBRARY_PATH} -L${SYSROOT}/usr/lib -lc_nonshared ${LDFLAGS} "
-export LDFLAGS=" --sysroot=${SYSROOT} -L${USRLIB_LIBRARY_PATH}  -L${CORELIB_LIBRARY_PATH} -L${SYSROOT}/usr/lib  -L${SYSROOT}/usr/lib/${TARGET}/ ${LDFLAGS}"
-#The followinf is required for cc1's dependency on dynamic gloog  etc. 
+ #-I${SYSROOT}/usr/include ${CFLAGS} "
+ #export LDFLAGS=" --sysroot=${SYSROOT} -L${USRLIB_LIBRARY_PATH}  -L${CORELIB_LIBRARY_PATH} -L${SYSROOT}/usr/lib -lc_nonshared ${LDFLAGS} "
+ export LDFLAGS=" --sysroot=${SYSROOT} -L${USRLIB_LIBRARY_PATH}  -L${CORELIB_LIBRARY_PATH} -L${SYSROOT}/usr/lib  -L${SYSROOT}/usr/lib/${TARGET}/ ${LDFLAGS}"
+ #The followinf is required for cc1's dependency on dynamic gloog  etc. 
 else
- export  CFLAGS="-I${USRLIB_INCLUDE_PATH} -I${CORELIB_INCLUDE_PATH}/ -I${CORELIB_KERNEL_HEADERS_PATH} " 
+ export  CFLAGS="${CFLAGS} -I${USRLIB_INCLUDE_PATH} -I${CORELIB_INCLUDE_PATH}/ -I${CORELIB_KERNEL_HEADERS_PATH} " 
+ export  CXXFLAGS="${CXXFLAGS} -I${USRLIB_INCLUDE_PATH} -I${CORELIB_INCLUDE_PATH}/ -I${CORELIB_KERNEL_HEADERS_PATH} " 
  #export  LDFLAGS="-L${USRLIB_LIBRARY_PATH}  -L${CORELIB_LIBRARY_PATH} -lc_nonshared ${LDFLAGS} "
- export  LDFLAGS="-L${USRLIB_LIBRARY_PATH}  -L${CORELIB_LIBRARY_PATH}  -L${USRLIB_LIBRARY_PATH}/../usr/lib/${TARGET}/ ${LDFLAGS}"
+ export  LDFLAGS="${LDFLAGS} -L${USRLIB_LIBRARY_PATH}  -L${CORELIB_LIBRARY_PATH}  -L${USRLIB_LIBRARY_PATH}/../usr/lib/${TARGET}/ ${LDFLAGS}"
 fi
 
 ## Report what we're doing:
  echo -e "Building with: \n     CC=$CC\n     AR=$AR\n RANLIB=$RANLIB\n CFLAGS=$CFLAGS\nLDFLAGS=$LDFLAGS"
- echo -e "Toolchain bin [${TEMP_PWD}/../../ert-build-support/toolchains/${TOOLCHAIN_VERSION}/bin/${TOOLCHAIN_BIN_PREFIX}*] =\n"
+ echo -e "Toolchain bin [${TEMP_PWD}/../../ert-build-support/toolchains/${INX_HOST_ARCH}/${TOOLCHAIN_VERSION}/bin/${TOOLCHAIN_BIN_PREFIX}*] =\n"
  echo    "Installing target to $OUTTARGET"
  echo -e "LDFLAGS=${LDFLAGS}"
  echo "***********************************************************************************************************************"
@@ -229,47 +241,53 @@ pwd
 	export EXTRA_INSTALL_FLAGS=$5
 	export MAKE_REL_PATH=$6 # if make is not in root of package give the directory name here
 	echo "############# Making $COMPONENTNAME${COMPONENTVERSION} ############################################"
-if [ "${BUILD_OPTIONS}" != "SKIP_MAKE" ];then	
+if [ "${BUILD_OPTIONS}" != "SKIP_MAKE" ]; then	
 	cd ${TEMP_PWD}/../contrib/${COMPONENTNAME}/${COMPONENTNAME}${COMPONENTVERSION} || exit
-
-     if [ "${REMAKE}" = "true" ]; then
-	echo "cleaning source tree X"
-	make -s clean ||:
-# - this cocks up distclean sometimes...
-	#make -s distclean ||:
-###--	fi
-	if [  -n "${CONFIG_CACHE}" ]; then
-		echo -e ${CONFIG_CACHE} > config-${TARGET}.cache
-		CACHE_FILE=--cache-file=config-${TARGET}.cache 
-	else 
-		CACHE_FILE=""
-	fi
-	echo " Ready to try a build...."
-#NM-nm is needed for glibc - there is a bug in this version affecting  older toolchains.
-	if ! test -e ./configure
-	then
-	echo "!! No configure found!! Running the ./bootstrap or autogen.sh scripts " 
-	./bootstrap.sh  || ./autogen.sh --noconfigure # || or we will fail the next bit with a descriptive error prompt
-	fi
-	if [ "${CONFIG_CACHE}" == "NO_AUTOTOOLS_CROSS_COMPILE_HINTS" ] ;then
-		echo "Running ./configure..."
-		./configure ${CONFIGPARMS}   --prefix=${USRLIB_BUILD_ROOT}  || exit #--build=i386-linux --program-prefix=${TOOLCHAIN_BIN_PREFIX}	
-	else
-		echo "./configure ${CONFIGPARMS}   --prefix=${USRLIB_BUILD_ROOT} --host=${TARGET} ${CACHE_FILE} --build=${INX_HOST_ARCH}-linux"
-		NM=nm ./configure ${CONFIGPARMS}   --prefix=${USRLIB_BUILD_ROOT} --host=${TARGET} ${CACHE_FILE} --build=${INX_HOST_ARCH}-linux  || exit #--build=i386-linux --program-prefix=${TOOLCHAIN_BIN_PREFIX}
-	fi
-###--     
-fi	
-echo "XXXXXXXXXXXXXXXXXXXXXXXXXX finished configure XXXXXXXXXXXXXXXXXXXXXXXXXXX"
-#read -n 1
+    pwd
+    if [ "${REMAKE}" = "true" ]; then
+		echo "cleaning source tree X"
+		make -s clean ||:
+	# - this cocks up distclean sometimes...
+		#make -s distclean ||:
+	###--	fi
+		if [  -n "${CONFIG_CACHE}" ]; then
+			echo -e ${CONFIG_CACHE} > config-${TARGET}.cache
+			CACHE_FILE=--cache-file=config-${TARGET}.cache 
+		else 
+			CACHE_FILE=""
+		fi
+		echo " Ready to try a build...."
+	#NM-nm is needed for glibc - there is a bug in this version affecting  older toolchains.
+		if [ ! -e ./configure ] && [ ! -e ./Configure ]; then
+			echo "!! No configure found!! Running the ./bootstrap or autogen.sh scripts " 
+			./bootstrap.sh  || ./autogen.sh --noconfigure # || or we will fail the next bit with a descriptive error prompt
+		fi
+		if [ "${CONFIG_CACHE}" == "NO_AUTOTOOLS_CROSS_COMPILE_HINTS" ] ;then
+			echo "Running ./configure..."
+			./configure ${CONFIGPARMS}   --prefix=${USRLIB_BUILD_ROOT}  || exit #--build=i386-linux --program-prefix=${TOOLCHAIN_BIN_PREFIX}	
+		else
+			if [ -e ./configure ]; then
+				echo "./configure ${CONFIGPARMS}   --prefix=${USRLIB_BUILD_ROOT} --host=${TARGET} ${CACHE_FILE} --build=${INX_HOST_ARCH}-linux"
+				NM=nm ./configure ${CONFIGPARMS}   --prefix=${USRLIB_BUILD_ROOT} --host=${TARGET} ${CACHE_FILE} --build=${INX_HOST_ARCH}-linux  || exit 
+			else 
+				if [ -e ./Configure ]; then
+					echo "./Configure ${CONFIGPARMS}   --prefix=${USRLIB_BUILD_ROOT} --host=${TARGET} ${CACHE_FILE} --build=${INX_HOST_ARCH}-linux"
+					NM=nm ./Configure ${CONFIGPARMS}   --prefix=${USRLIB_BUILD_ROOT} --host=${TARGET} ${CACHE_FILE} --build=${INX_HOST_ARCH}-linux  || exit 
+				fi
+			fi
+	###--     
+		fi
+	fi # remake test
+		echo "XXXXXXXXXXXXXXXXXXXXXXXXXX finished configure XXXXXXXXXXXXXXXXXXXXXXXXXXX"
 	test ! -z ${MAKE_REL_PATH} && cd ./${MAKE_REL_PATH} #in case we have a specific make directory 
 	echo "Making in $PWD - tried XX->$MAKE_REL_PATH <-XX"
 	make -s clean ||: #do this again if we changed directories or we had some dregs but no Makefile from a configure	
 	if [ $PROCESSORS -gt 1 ]; then	# seperate call if make -j 1 is troublesome
-	    make -s -j $PROCESSORS || exit
+		make -s -j $PROCESSORS || exit
 	else 
-	    make -s  || exit #-j $PROCESSORS
+		make -s  || exit #-j $PROCESSORS
 	fi
+
 #now we are ready to run make install to the prefix location
 	make install
 	if [ "${REMAKE}" = "true" ]; then
@@ -277,9 +295,9 @@ echo "XXXXXXXXXXXXXXXXXXXXXXXXXX finished configure XXXXXXXXXXXXXXXXXXXXXXXXXXX"
 		make -s distclean ||:
 	fi
 fi
+# end skip make
 	cd ${TEMP_PWD}
 }
-
 
 #################################### SPECIALS #######################################################
 # Non autoconf:
@@ -303,9 +321,12 @@ if [ "${BUILD_OPTIONS}" != "SKIP_MAKE" ];then
 #NM-nm is needed for glibc - there is a bug in this version affecting  older toolchains.
 #	./Configure ${CONFIGPARMS}   --prefix=${USRLIB_BUILD_ROOT} --openssldir=${USRLIB_BUILD_ROOT} -I${USRLIB_INCLUDE_PATH}/ -I${CORELIB_INCLUDE_PATH}/ -I${CORELIB_KERNEL_HEADERS_PATH} -I${SYSROOT}/usr/include -D_REENTRANT \
 #	-L${USRLIB_LIBRARY_PATH}/  -L${CORELIB_LIBRARY_PATH} -L${SYSROOT}/usr/lib -lc_nonshared  dist threads\
-	./Configure ${CONFIGPARMS}   --prefix=${USRLIB_BUILD_ROOT} --openssldir=${USRLIB_BUILD_ROOT}/ssl -I${USRLIB_INCLUDE_PATH}/ -I${CORELIB_INCLUDE_PATH}/ -I${CORELIB_KERNEL_HEADERS_PATH} -I${SYSROOT}/usr/include -D_REENTRANT \
-	-L${USRLIB_LIBRARY_PATH}/  -L${CORELIB_LIBRARY_PATH} -L${SYSROOT}/usr/lib dist threads\
+	./Configure ${CONFIGPARMS}   \
   	|| exit #--build=i386-linux --program-prefix=${TOOLCHAIN_BIN_PREFIX}
+	#todo we need to add a path to bits/libc-header-start.h for this type of build.
+###	--prefix=${USRLIB_BUILD_ROOT} --openssldir=${USRLIB_BUILD_ROOT}/ssl -I${USRLIB_INCLUDE_PATH}/ -I${CORELIB_INCLUDE_PATH}/ \
+### -I${CORELIB_KERNEL_HEADERS_PATH} -I${SYSROOT}/usr/include -D_REENTRANT \
+###	-L${USRLIB_LIBRARY_PATH}/  -L${CORELIB_LIBRARY_PATH} -L${SYSROOT}/usr/lib dist threads\
      fi	
 #echo XXXXXXXXXXXXXXXXXXXXXXXXXX
 #read -n 1
@@ -320,14 +341,17 @@ fi
 	cd ${TEMP_PWD}
 }
 
+#todo2022 - all of these should be one function that takes the package name as the argument
+
 build_aws_c_common() {
+	INX_CMAKE_ARGS=${1}
 	pushd ../contrib/aws-c-common
 	rm -rf ./build
 	mkdir build
 	cd build
-	cmake -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make -j 2
-	#DESTDIR=${USRLIB_BUILD_ROOT}
+	cmake ${INX_CMAKE_ARGS} -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
+	make VERBOSE=1 -j 6
+	DESTDIR=${USRLIB_BUILD_ROOT}
 	make install
 	cd ..
 	popd
@@ -339,8 +363,9 @@ build_aws_lc () {
 	rm -rf build
 	mkdir build
 	cd build
+	#cmake ${INX_CMAKE_ARGS} -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
 	cmake ${INX_CMAKE_ARGS} -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make -j 2
+	make VERBOSE=1 -j 6
 	# {USRLIB_BUILD_ROOT}
 	make install
 	cd ..
@@ -348,12 +373,13 @@ build_aws_lc () {
 }
 
 build_aws_s2n () {
+	INX_CMAKE_ARGS=${1}
 	pushd ../contrib/s2n-tls
 	rm -rf build
 	mkdir build
 	cd build
-	cmake -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make -j 2
+	cmake ${INX_CMAKE_ARGS} -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
+	make VERBOSE=1 -j 6
 	make install
 	cd ..
 	popd
@@ -365,7 +391,7 @@ build_aws_c_io () {
 	mkdir build
 	cd build
 	cmake -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make -j 2
+	make -j 6
 	make install
 	cd ..
 	popd
@@ -377,7 +403,7 @@ build_aws_c_cal () {
 	mkdir build
 	cd build
 	cmake -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make -j 2
+	make -j 6
 	make install
 	cd ..
 	popd
@@ -401,7 +427,7 @@ build_aws_c_http() {
 	mkdir build
 	cd build
 	cmake -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make -j 2
+	make -j 6
 	make install
 	cd ..
 	popd
@@ -413,7 +439,7 @@ build_aws_c_mqtt() {
 	mkdir build
 	cd build
 	cmake -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make -j 2
+	make -j 6
 	make install
 	cd ..
 	popd

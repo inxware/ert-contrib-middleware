@@ -1,3 +1,4 @@
+wheel
 bitstring==3.1.9
 Brotli==1.0.9
 certifi==2022.5.18.1
@@ -13,10 +14,10 @@ Flask==0.12.5
 Flask-Compress==1.12
 Flask-SocketIO==2.9.6
 future==0.18.2
-gdbgui==0.13.2.0
-gevent==1.5.0
-greenlet==1.1.2
-idf-component-manager==1.1.1
+gdbgui #==0.13.2.0
+gevent==22.10.2 #==1.5.0
+greenlet #==1.1.2
+idf-component-manager #==1.1.1
 idna==3.3
 itsdangerous==2.0.1
 Jinja2==3.0.3

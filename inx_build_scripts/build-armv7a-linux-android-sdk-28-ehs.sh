@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#Set the docker image name to build this in
+#IMAGE_NAME=inxware/ubuntu22.04-build-essential
+
+#source ./source-scripts/inx-dockersetup-source-me.sh 
+#check_and_run_docker $IMAGE_NAME
+
 #project name - appended to target variant and version info
 INX_PROJECT_NAME=android-native-sdk28
 # todo remove this should be identified in sourced script
@@ -15,10 +21,12 @@ OS=linux
 EXIT_ON_FAIL=true
 #this is the variant & version of the compiler as defined by ls  ../inx-core-uspace/toolchains/ 
 #leave blank for using the default host compiler
-TOOLCHAIN_VERSION="x86_64/linux-android-armv7a"
+TOOLCHAIN_VERSION="armv7a-linux-android"
 #gcc-4.3.3-i686-pc-linux-gnu
 #Optional: prefix for the compiler of not just gcc. 
 TOOLCHAIN_BIN_PREFIX="arm-linux-androideabi-28-"
+
+#todo - change the above to arm-linux-androideabi-30-
 
 source ./source-scripts/inx-xbuilder-source-me.sh
 ## on

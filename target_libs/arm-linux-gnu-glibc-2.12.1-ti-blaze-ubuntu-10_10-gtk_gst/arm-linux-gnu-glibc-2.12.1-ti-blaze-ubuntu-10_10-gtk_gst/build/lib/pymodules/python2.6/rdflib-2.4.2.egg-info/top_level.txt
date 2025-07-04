@@ -1,3 +1,0 @@
-test
-rdflib
-rdflib_tools

@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -e
+set -e
 
 #Set the docker image name to build this in
 IMAGE_NAME=inxware/inx-debian10-clang10
@@ -35,9 +35,15 @@ INX_CC=clang
 INX_CXX=clang++
 INX_LD=clang
 
+#seems new ubuntu uses fpic as he default, which stops the libs linking as it adds a Global offset table.
+#export CFLAGS=-fno-pic
+#export CXXFLAGS=-fno-pic
+
+
 #TOOLCHAIN_BIN_PREFIX=""
 #i686-pc-linux-gnu-
 KERNEL_HEADERS="linux/2.6.35.30"
+
 
 source ./source-scripts/inx-xbuilder-source-me.sh
 ########################################################################################################
@@ -46,14 +52,13 @@ source ./source-scripts/inx-xbuilder-source-me.sh
 ## build_component [package_name] [version] [optional: config parameters]  [optional: target directory] [optional envirionment variables to set]
 #########################################################################################################
 
+
 # note to do a make clean we need to drop into each component
 # todo add make clean
 
 #set to false if you don't want to rebuild the components, but copy artefacts to the build directory
-
-
-build_aws_c_common
 build_aws_lc
+build_aws_c_common
 build_aws_s2n
 build_aws_c_cal
 build_aws_c_io

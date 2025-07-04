@@ -234,7 +234,7 @@ else
 ####################################################################################################################################
 #skip pythopn install?
 
-read -n 1 -p "NOt running in Docker - do you want to try to install esp32 dependencies on you host (y/n)" doinstall
+read -n 1 -p "Not running in Docker - do you want to try to install esp32 dependencies on you host (y/n)" doinstall
 
 if [ "$doinstall" = "yes" ];then
 
@@ -264,15 +264,15 @@ set -e
 ## https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
 #export OLD_PATH=$PATH
 _PATH="${TOOLCHAIN_PATH}/bin"
-
+#todo-we should considerif we need a nother temporary directory for tools that are built per host machine (TARHGET_TREES is not very descriptive)
+export IDF_PYTHON_ENV_BASE="../../TARGET_TREES/esp32_venv/"
 ## Create python virtual environment, install requirements and export it to PATH
-python3 -m venv "${TOOLCHAIN_PATH}/espressif-4.4.1/python_env/venv" > /dev/null
-export IDF_PYTHON_ENV_PATH="${TOOLCHAIN_PATH}/espressif-4.4.1/python_env/venv/bin"
+python3 -m venv ${IDF_PYTHON_ENV_BASE} > /dev/null
+export IDF_PYTHON_ENV_PATH="${IDF_PYTHON_ENV_BASE}/bin"
 
 #note the follwing paths are usally via a softlink from the specific compiler version to a shared folder with the common tools.
 #todo we want to remove the soft links and we can just use the hard path to the espressive-4.4.1 shared tools directory
 _PATH="${_PATH:+${_PATH}:}${TOOLCHAIN_PATH}/espressif-4.4.1/tools/openocd-esp32/v0.11.0-esp32-20211220/openocd-esp32/bin"
-#_PATH="${_PATH:+${_PATH}:}${TOOLCHAIN_PATH}/espressif-4.4.1/python_env/idf4.4_py3.8_env/bin"
 _PATH="${_PATH:+${_PATH}:}${IDF_PYTHON_ENV_PATH}"
 _PATH="${_PATH:+${_PATH}:}${TOOLCHAIN_PATH}/espressif-4.4.1/tools/esptool_py/esptool"
 _PATH="${_PATH:+${_PATH}:}${TOOLCHAIN_PATH}/espressif-4.4.1/tools/espcoredump"
@@ -395,7 +395,7 @@ export IDF_PATH=${TEMP_PWD}/../contrib/esp-idf/esp-idf$COMPONENT_VERSION
 	make $SUBCOMPONENTNAME
 	
 	
-	test -f  ${IDF_PATH}/build/partitions_singleapp.bin && cp ${IDF_PATH}/build/partitions_singleapp.bin ${TEMP_PWD}/../target_libs/xtensa-esp32_freertos-xtensa-esp32-elf-4.4.1/build/lib/
+	test -f  ${IDF_PATH}/build/partitions.bin && cp ${IDF_PATH}/build/partitions.bin ${TEMP_PWD}/../target_libs/xtensa-esp32_freertos-xtensa-esp32-elf-4.4.1/build/lib/partitions_singleapp.bin
 	popd
 }
 

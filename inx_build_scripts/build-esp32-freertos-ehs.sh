@@ -54,91 +54,91 @@ build_component esp-idf -4.4.1 bootloader_support
 build_component esp-idf -4.4.1 esp32
 #.... 
 
-build_component esp-idf -4.4.1 esp_common
-build_component esp-idf -4.4.1 mbedtls
-build_component esp-idf -4.4.1 openthread
-build_component esp-idf -4.4.1 lwip
-build_component esp-idf -4.4.1 esp_wifi
-build_component esp-idf -4.4.1 freertos
-build_component esp-idf -4.4.1 expat
+# build_component esp-idf -4.4.1 esp_common
+# build_component esp-idf -4.4.1 mbedtls
+# build_component esp-idf -4.4.1 openthread
+# build_component esp-idf -4.4.1 lwip
+# build_component esp-idf -4.4.1 esp_wifi
+# build_component esp-idf -4.4.1 freertos
+# build_component esp-idf -4.4.1 expat
 
-build_component esp-idf -4.4.1 app_trace
-build_component esp-idf -4.4.1 app_update
-build_component esp-idf -4.4.1 bt
-#build_component esp-idf -4.4.1 cbor # include path not exisit
-#build_component esp-idf -4.4.1 cmock #include path not exisit
-build_component esp-idf -4.4.1 coap
-build_component esp-idf -4.4.1 console
-build_component esp-idf -4.4.1 cxx # include path not exisit
-build_component esp-idf -4.4.1 driver
-build_component esp-idf -4.4.1 efuse
-build_component esp-idf -4.4.1 esp_adc_cal
-build_component esp-idf -4.4.1 esp_eth
-build_component esp-idf -4.4.1 esp_event
-build_component esp-idf -4.4.1 esp_gdbstub
-build_component esp-idf -4.4.1 esp_hid
-build_component esp-idf -4.4.1 esp_http_client
-build_component esp-idf -4.4.1 esp_http_server
-build_component esp-idf -4.4.1 esp_https_ota
-#build_component esp-idf -4.4.1 esp_https_server # include path not exisit
-build_component esp-idf -4.4.1 esp_hw_support
-build_component esp-idf -4.4.1 esp_ipc
-build_component esp-idf -4.4.1 esp_lcd
-build_component esp-idf -4.4.1 esp_local_ctrl
-build_component esp-idf -4.4.1 esp_netif
-build_component esp-idf -4.4.1 esp_phy
-build_component esp-idf -4.4.1 esp_pm
-build_component esp-idf -4.4.1 esp_ringbuf
-build_component esp-idf -4.4.1 esp_rom
-build_component esp-idf -4.4.1 esp_serial_slave_link
-build_component esp-idf -4.4.1 esp_system
-build_component esp-idf -4.4.1 esp_timer
-build_component esp-idf -4.4.1 esp-tls
-build_component esp-idf -4.4.1 esp_wifi
-build_component esp-idf -4.4.1 fatfs
-build_component esp-idf -4.4.1 freemodbus
-build_component esp-idf -4.4.1 freertos
-build_component esp-idf -4.4.1 hal
-build_component esp-idf -4.4.1 heap
-build_component esp-idf -4.4.1 idf_test
-#build_component esp-idf -4.4.1 ieee802154  #make: *** No rule to make target 'component-ieee802154-build'.  Stop.
-build_component esp-idf -4.4.1 jsmn
-build_component esp-idf -4.4.1 json
-build_component esp-idf -4.4.1 libsodium
-#build_component esp-idf -4.4.1 linux #make: *** No rule to make target 'component-linux-build'.  Stop.
-build_component esp-idf -4.4.1 log
-build_component esp-idf -4.4.1 mdns
-build_component esp-idf -4.4.1 mqtt
-build_component esp-idf -4.4.1 newlib
-build_component esp-idf -4.4.1 nghttp
-build_component esp-idf -4.4.1 nvs_flash
-build_component esp-idf -4.4.1 openssl
-build_component esp-idf -4.4.1 openthread
-#build_component esp-idf -4.4.1 partition_table # include path not exisit
-build_component esp-idf -4.4.1 perfmon
-build_component esp-idf -4.4.1 protobuf-c
-build_component esp-idf -4.4.1 protocomm
-build_component esp-idf -4.4.1 pthread
-#build_component esp-idf -4.4.1 riscv #make: *** No rule to make target 'component-riscv-build'.  Stop.
-build_component esp-idf -4.4.1 sdmmc
-build_component esp-idf -4.4.1 soc
-build_component esp-idf -4.4.1 spiffs
-build_component esp-idf -4.4.1 spi_flash
-build_component esp-idf -4.4.1 tcpip_adapter
-build_component esp-idf -4.4.1 tcp_transport
-#build_component esp-idf -4.4.1 tinyusb #make: *** No rule to make target 'component-tinyusb-build'.  Stop.
-#build_component esp-idf -4.4.1 touch_element #make: *** No rule to make target 'component-touch_element-build'.  Stop.
-build_component esp-idf -4.4.1 ulp
-build_component esp-idf -4.4.1 unity
-#build_component esp-idf -4.4.1 usb #make: *** No rule to make target 'component-usb-build'.  Stop.
-build_component esp-idf -4.4.1 vfs
-build_component esp-idf -4.4.1 wear_levelling
-build_component esp-idf -4.4.1 wifi_provisioning
-build_component esp-idf -4.4.1 wpa_supplicant
-build_component esp-idf -4.4.1 xtensa
-build_component esp-idf -4.4.1 esp_littlefs
+# build_component esp-idf -4.4.1 app_trace
+# build_component esp-idf -4.4.1 app_update
+# build_component esp-idf -4.4.1 bt
+# #build_component esp-idf -4.4.1 cbor # include path not exisit
+# #build_component esp-idf -4.4.1 cmock #include path not exisit
+# build_component esp-idf -4.4.1 coap
+# build_component esp-idf -4.4.1 console
+# build_component esp-idf -4.4.1 cxx # include path not exisit
+# build_component esp-idf -4.4.1 driver
+# build_component esp-idf -4.4.1 efuse
+# build_component esp-idf -4.4.1 esp_adc_cal
+# build_component esp-idf -4.4.1 esp_eth
+# build_component esp-idf -4.4.1 esp_event
+# build_component esp-idf -4.4.1 esp_gdbstub
+# build_component esp-idf -4.4.1 esp_hid
+# build_component esp-idf -4.4.1 esp_http_client
+# build_component esp-idf -4.4.1 esp_http_server
+# build_component esp-idf -4.4.1 esp_https_ota
+# #build_component esp-idf -4.4.1 esp_https_server # include path not exisit
+# build_component esp-idf -4.4.1 esp_hw_support
+# build_component esp-idf -4.4.1 esp_ipc
+# build_component esp-idf -4.4.1 esp_lcd
+# build_component esp-idf -4.4.1 esp_local_ctrl
+# build_component esp-idf -4.4.1 esp_netif
+# build_component esp-idf -4.4.1 esp_phy
+# build_component esp-idf -4.4.1 esp_pm
+# build_component esp-idf -4.4.1 esp_ringbuf
+# build_component esp-idf -4.4.1 esp_rom
+# build_component esp-idf -4.4.1 esp_serial_slave_link
+# build_component esp-idf -4.4.1 esp_system
+# build_component esp-idf -4.4.1 esp_timer
+# build_component esp-idf -4.4.1 esp-tls
+# build_component esp-idf -4.4.1 esp_wifi
+# build_component esp-idf -4.4.1 fatfs
+# build_component esp-idf -4.4.1 freemodbus
+# build_component esp-idf -4.4.1 freertos
+# build_component esp-idf -4.4.1 hal
+# build_component esp-idf -4.4.1 heap
+# build_component esp-idf -4.4.1 idf_test
+# #build_component esp-idf -4.4.1 ieee802154  #make: *** No rule to make target 'component-ieee802154-build'.  Stop.
+# build_component esp-idf -4.4.1 jsmn
+# build_component esp-idf -4.4.1 json
+# build_component esp-idf -4.4.1 libsodium
+# #build_component esp-idf -4.4.1 linux #make: *** No rule to make target 'component-linux-build'.  Stop.
+# build_component esp-idf -4.4.1 log
+# build_component esp-idf -4.4.1 mdns
+# build_component esp-idf -4.4.1 mqtt
+# build_component esp-idf -4.4.1 newlib
+# build_component esp-idf -4.4.1 nghttp
+# build_component esp-idf -4.4.1 nvs_flash
+# build_component esp-idf -4.4.1 openssl
+# build_component esp-idf -4.4.1 openthread
+# #build_component esp-idf -4.4.1 partition_table # include path not exisit
+# build_component esp-idf -4.4.1 perfmon
+# build_component esp-idf -4.4.1 protobuf-c
+# build_component esp-idf -4.4.1 protocomm
+# build_component esp-idf -4.4.1 pthread
+# #build_component esp-idf -4.4.1 riscv #make: *** No rule to make target 'component-riscv-build'.  Stop.
+# build_component esp-idf -4.4.1 sdmmc
+# build_component esp-idf -4.4.1 soc
+# build_component esp-idf -4.4.1 spiffs
+# build_component esp-idf -4.4.1 spi_flash
+# build_component esp-idf -4.4.1 tcpip_adapter
+# build_component esp-idf -4.4.1 tcp_transport
+# #build_component esp-idf -4.4.1 tinyusb #make: *** No rule to make target 'component-tinyusb-build'.  Stop.
+# #build_component esp-idf -4.4.1 touch_element #make: *** No rule to make target 'component-touch_element-build'.  Stop.
+# build_component esp-idf -4.4.1 ulp
+# build_component esp-idf -4.4.1 unity
+# #build_component esp-idf -4.4.1 usb #make: *** No rule to make target 'component-usb-build'.  Stop.
+# build_component esp-idf -4.4.1 vfs
+# build_component esp-idf -4.4.1 wear_levelling
+# build_component esp-idf -4.4.1 wifi_provisioning
+# build_component esp-idf -4.4.1 wpa_supplicant
+# build_component esp-idf -4.4.1 xtensa
+# build_component esp-idf -4.4.1 esp_littlefs
 
-build_prepare_kconfig_files esp-idf -4.4.1 prepare_kconfig_files
+# build_prepare_kconfig_files esp-idf -4.4.1 prepare_kconfig_files
 fi
 ###################################################################################################################################################
 
@@ -159,6 +159,17 @@ cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/xtensa/esp32/incl
 cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/hal/esp32/include/* ${USRLIB_INCLUDE_PATH}/
 cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/fatfs/vfs/*.h ${USRLIB_INCLUDE_PATH}/
 cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/fatfs/src/*.h ${USRLIB_INCLUDE_PATH}/
+# Copying stray mbedtls headers
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/mbedtls/mbedtls/include/* ${USRLIB_INCLUDE_PATH}/
+mkdir -p ${USRLIB_INCLUDE_PATH}/port/include
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/mbedtls/port/include/* ${USRLIB_INCLUDE_PATH}/port/include/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/mbedtls/port/include/mbedtls/esp_config.h ${USRLIB_INCLUDE_PATH}/esp_config.h
+#mqtt
+
+
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/mqtt/esp-mqtt/include/* ${USRLIB_INCLUDE_PATH}/
+#esp-tls
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/esp-tls/* ${USRLIB_INCLUDE_PATH}/
 
 #copy the libraries & linker files
 cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf-4.4.1/components/esp_rom/esp32/ld/* ${USRLIB_LIBRARY_PATH}/
