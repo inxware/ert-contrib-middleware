@@ -1,0 +1,12 @@
+prefix=
+exec_prefix=
+libdir=${pcfiledir}
+includedir=/home/pdrezet/workspace/inxware2.0-Release/INX/comp-lib-support/contrib/gst-ffmpeg/gst-ffmpeg-0.10.10/gst-libs/ext/ffmpeg
+
+Name: libavdevice
+Description: FFmpeg device handling library
+Version: 52.2.0
+Requires: libavformat = 52.52.0
+Conflicts:
+Libs: ${libdir}/libavdevice.a   -lz -lm
+Cflags: -I${includedir}

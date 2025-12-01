@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Linking elements</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Elements"
+HREF="chapter-elements.html"><LINK
+REL="PREVIOUS"
+TITLE="More about element factories"
+HREF="section-elements-factories.html"><LINK
+REL="NEXT"
+TITLE="Element States"
+HREF="section-elements-states.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-elements-factories.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 5. Elements</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-elements-states.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-elements-link"
+>5.5. Linking elements</A
+></H1
+><P
+>&#13;      By linking a source element with zero or more filter-like
+      elements and finally a sink element, you set up a media
+      pipeline. Data will flow through the elements. This is the
+      basic concept of media handling in <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>.
+    </P
+><DIV
+CLASS="figure"
+><A
+NAME="section-link"
+></A
+><P
+><B
+>Figure 5-5. Visualisation of three linked elements</B
+></P
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="images/linked-elements.png"></P
+></DIV
+></DIV
+><P
+>&#13;      By linking these three elements, we have created a very simple
+      chain of elements. The effect of this will be that the output of
+      the source element (<SPAN
+CLASS="QUOTE"
+>"element1"</SPAN
+>) will be used as input
+      for the filter-like element (<SPAN
+CLASS="QUOTE"
+>"element2"</SPAN
+>). The
+      filter-like element will do something with the data and send the
+      result to the final sink element (<SPAN
+CLASS="QUOTE"
+>"element3"</SPAN
+>).
+    </P
+><P
+>&#13;      Imagine the above graph as a simple Ogg/Vorbis audio decoder. The
+      source is a disk source which reads the file from disc. The second
+      element is a Ogg/Vorbis audio decoder. The sink element is your
+      soundcard, playing back the decoded audio data. We will use this
+      simple graph to construct an Ogg/Vorbis player later in this manual.
+    </P
+><P
+>&#13;      In code, the above graph is written like this:
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;#include &#60;gst/gst.h&#62;
+
+int
+main (int   argc,
+      char *argv[])
+{
+  GstElement *pipeline;
+  GstElement *source, *filter, *sink;
+
+  /* init */
+  gst_init (&#38;argc, &#38;argv);
+
+  /* create pipeline */
+  pipeline = gst_pipeline_new ("my-pipeline");
+
+  /* create elements */
+  source = gst_element_factory_make ("fakesrc", "source");
+  filter = gst_element_factory_make ("identity", "filter");
+  sink = gst_element_factory_make ("fakesink", "sink");
+
+  /* must add elements to pipeline before linking them */
+  gst_bin_add_many (GST_BIN (pipeline), source, filter, sink, NULL);
+
+  /* link */
+  if (!gst_element_link_many (source, filter, sink, NULL)) {
+    g_warning ("Failed to link elements!");
+  }
+
+[..]
+
+}
+    </PRE
+><P
+>&#13;      For more specific behaviour, there are also the functions
+      <CODE
+CLASS="function"
+>gst_element_link ()</CODE
+> and
+      <CODE
+CLASS="function"
+>gst_element_link_pads ()</CODE
+>. You can also obtain
+      references to individual pads and link those using various
+      <CODE
+CLASS="function"
+>gst_pad_link_* ()</CODE
+> functions. See the API
+      references for more details.
+    </P
+><P
+>&#13;      Important: you must add elements to a bin or pipeline
+      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>before</I
+></SPAN
+> linking them, since adding an element to
+      a bin will disconnect any already existing links. Also, you cannot
+      directly link elements that are not in the same bin or pipeline; if
+      you want to link elements or pads at different hierarchy levels, you
+      will need to use ghost pads (more about ghost pads later).
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-elements-factories.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-elements-states.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>More about element factories</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-elements.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Element States</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

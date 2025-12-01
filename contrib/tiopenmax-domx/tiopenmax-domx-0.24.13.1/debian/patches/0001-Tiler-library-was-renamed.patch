@@ -1,0 +1,25 @@
+From 425c1eea16f3e021719d01854f9a96185a19fcb3 Mon Sep 17 00:00:00 2001
+From: Olivier Naudan <o-naudan@ti.com>
+Date: Tue, 22 Mar 2011 14:39:09 +0100
+Subject: [PATCH 1/5] Tiler library was renamed
+
+---
+ configure.ac |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 294fe4d..db6bea4 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -45,7 +45,7 @@ dnl Check for syslink
+ PKG_CHECK_MODULES([SYSLINK], [syslink])
+ 
+ dnl Check for tiler memmgr
+-PKG_CHECK_MODULES([MEMMGR], [libmemmgr])
++PKG_CHECK_MODULES([MEMMGR], [libtimemmgr])
+ 
+ dnl Check for d2cmap
+ PKG_CHECK_MODULES([D2CMAP], [libd2cmap])
+-- 
+1.7.1
+

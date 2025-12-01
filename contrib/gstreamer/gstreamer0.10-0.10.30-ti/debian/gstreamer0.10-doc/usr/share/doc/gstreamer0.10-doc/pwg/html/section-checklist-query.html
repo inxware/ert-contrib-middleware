@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Querying, events and the like</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Things to check when writing an element"
+HREF="chapter-checklist-element.html"><LINK
+REL="PREVIOUS"
+TITLE="Debugging"
+HREF="section-checklist-debug.html"><LINK
+REL="NEXT"
+TITLE="Testing your element"
+HREF="section-checklist-testing.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-checklist-debug.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 23. Things to check when writing an element</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-checklist-testing.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-checklist-query"
+>23.3. Querying, events and the like</A
+></H1
+><P
+></P
+><UL
+><LI
+><P
+>&#13;          All elements to which it applies (sources, sinks, demuxers)
+          should implement query functions on their pads, so that
+          applications and neighbour elements can request the current
+          position, the stream length (if known) and so on.
+        </P
+></LI
+><LI
+><P
+>&#13;          Elements should make sure they forward events they do not
+          handle with gst_pad_event_default (pad, event) instead of
+          just dropping them. Events should never be dropped unless
+          specifically intended.
+        </P
+></LI
+><LI
+><P
+>&#13;          Elements should make sure they forward queries they do not
+          handle with gst_pad_query_default (pad, query) instead of
+          just dropping them.
+        </P
+></LI
+><LI
+><P
+>&#13;          Elements should use gst_pad_get_parent() in event and query
+          functions, so that they hold a reference to the element while they
+          are operating. Note that gst_pad_get_parent() increases the
+          reference count of the element, so you must be very careful to call
+          gst_object_unref (element) before returning from your query or
+          event function, otherwise you will leak memory.
+        </P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-checklist-debug.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-checklist-testing.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Debugging</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-checklist-element.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Testing your element</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

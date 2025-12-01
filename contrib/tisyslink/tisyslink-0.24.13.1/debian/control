@@ -1,0 +1,46 @@
+Source: tisyslink
+Section: libs
+Priority: extra
+Maintainer: TI OMAP Developers <tiomap-dev@lists.launchpad.net>
+Build-Depends: cdbs, debhelper (>= 7),
+               libtool,
+               libtimemmgr-dev (>= 0.24.12-0ubuntu1) [armel]
+Standards-Version: 3.9.1
+Homepage: http://git.omapzoom.org/platform/hardware/ti/syslink.git
+Vcs-Git: git://git.omapzoom.org/platform/hardware/ti/syslink.git
+
+Package: libtisyslink0
+Section: libs
+Architecture: armel
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Description: OMAP4 syslink user space library
+ Syslink-IPC library for TI OMAP Processors
+
+Package: libtisyslink-dev
+Section: libdevel
+Architecture: armel
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         pkg-config,
+	 libtisyslink0 (= ${binary:Version})
+Description: OMAP4 syslink user space development files.
+ Contains all the necessary header files and libs.
+
+Package: tisyslink-tests
+Section: utils
+Architecture: armel
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+	 libtisyslink0 (= ${binary:Version})
+Description: OMAP4 syslink user space library test applications and tools.
+ This package is required for testing the Syslink library.
+
+Package: tisyslink-utils
+Section: utils
+Architecture: armel
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+	 libtisyslink0 (= ${binary:Version})
+Description: OMAP4 syslink user space library firmware load app.
+ This package is required for using the ducati.

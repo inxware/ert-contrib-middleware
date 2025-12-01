@@ -1,0 +1,30 @@
+From a4d48b2a44e8eb877a2ec08ef3037bccec9e7e2f Mon Sep 17 00:00:00 2001
+From: Alessandro Decina <alessandro.decina@collabora.co.uk>
+Date: Thu, 19 May 2011 19:38:50 +0200
+Subject: [PATCH 5/7] port: g_omx_port_free_buffers don't leak GstBuffers
+
+Don't leak GstBuffers when g_omx_port_free_buffers is called and buffer sharing
+is in use.
+---
+ omx/gstomx_port.c |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
+
+diff --git a/omx/gstomx_port.c b/omx/gstomx_port.c
+index 6b5a86a..fc99927 100644
+--- a/omx/gstomx_port.c
++++ b/omx/gstomx_port.c
+@@ -282,6 +282,11 @@ g_omx_port_free_buffers (GOmxPort *port)
+             }
+ #endif
+ 
++            if (omx_buffer->pAppPrivate != NULL) {
++              gst_buffer_unref (GST_BUFFER_CAST (omx_buffer->pAppPrivate));
++              omx_buffer->pAppPrivate = NULL;
++            }
++
+             DEBUG (port, "OMX_FreeBuffer(%p)", omx_buffer);
+             OMX_FreeBuffer (port->core->omx_handle, port->port_index, omx_buffer);
+             port->buffers[i] = NULL;
+-- 
+1.7.1
+

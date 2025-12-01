@@ -1,0 +1,434 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Building GStreamer from git</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer FAQ (0.10.30)"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Troubleshooting GStreamer"
+HREF="chapter-troubleshooting.html"><LINK
+REL="NEXT"
+TITLE="Developing applications with GStreamer"
+HREF="chapter-developing.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GStreamer FAQ (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-troubleshooting.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-developing.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="chapter-git"
+>7. Building GStreamer from git</A
+></H1
+><DIV
+CLASS="qandaset"
+><DL
+><DT
+>Q: <A
+HREF="chapter-git.html#git-uninstalled"
+>&#13;Is there a way to test or develop against GStreamer from git without
+interfering with my system GStreamer installed from packages?
+        </A
+></DT
+><DT
+>Q: <A
+HREF="chapter-git.html#git-anon"
+>&#13;How do I check out GStreamer from git ?
+        </A
+></DT
+><DT
+>Q: <A
+HREF="chapter-git.html#git-developer"
+>&#13;How do I get developer access to GStreamer git ?
+        </A
+></DT
+><DT
+>Q: <A
+HREF="chapter-git.html#autogen-libtool"
+>I ran autogen.sh, but it fails with aclocal errors. What's wrong ?</A
+></DT
+><DT
+>Q: <A
+HREF="chapter-git.html#werror"
+>&#13;Why is "-Wall -Werror" being used ?
+        </A
+></DT
+></DL
+><DIV
+CLASS="qandaentry"
+><DIV
+CLASS="question"
+><P
+><A
+NAME="git-uninstalled"
+></A
+><B
+>Q: </B
+>
+Is there a way to test or develop against GStreamer from git without
+interfering with my system GStreamer installed from packages?
+        </P
+></DIV
+><DIV
+CLASS="answer"
+><P
+><B
+>A: </B
+>
+Yes! You have two options: you can either run GStreamer in an uninstalled setup
+(see <A
+HREF="chapter-developing.html#developing-uninstalled-gstreamer"
+>How do I develop against
+an uninstalled GStreamer copy ?</A
+>), or you can use GNOME's jhbuild.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><DIV
+CLASS="question"
+><P
+><A
+NAME="git-anon"
+></A
+><B
+>Q: </B
+>
+How do I check out GStreamer from git ?
+        </P
+></DIV
+><DIV
+CLASS="answer"
+><P
+><B
+>A: </B
+>
+GStreamer is hosted on Freedesktop.org.  GStreamer consists of various parts.
+In the beginning, you will be interested in the "gstreamer" module, containing
+the core, and "gst-plugins-base" and "gst-plugins-good", containing the basic
+set of plugins. Finally, you may also be interested in "gst-plugins-ugly",
+"gst-plugins-bad" and "gst-ffmpeg" for more comprehensive media format support.
+        </P
+><P
+>&#13;To check out the latest git version of the core and the basic modules, use
+<PRE
+CLASS="programlisting"
+>&#13; for module in gstreamer gst-plugins-base gst-plugins-good; do
+   git clone git://anongit.freedesktop.org/git/gstreamer/$module ;
+ done
+</PRE
+>
+This will create three directories in your current directory: "gstreamer",
+"gst-plugins-base", and "gst-plugins-good". If you want to get another module,
+use the above git clone command line and replace $module with the name of the
+module. Once you have checked out these modules, you will need to change into
+each directory and run ./autogen.sh, which will among other things checkout
+the common module underneath each module checkout.
+        </P
+><P
+>&#13;The <A
+HREF="http://gstreamer.freedesktop.org/modules/"
+TARGET="_top"
+>modules page</A
+>
+has a list of active ones together with a short description.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><DIV
+CLASS="question"
+><P
+><A
+NAME="git-developer"
+></A
+><B
+>Q: </B
+>
+How do I get developer access to GStreamer git ?
+        </P
+></DIV
+><DIV
+CLASS="answer"
+><P
+><B
+>A: </B
+>
+If you want to gain developer access to GStreamer git, you should ask for
+it on the development lists, or ask one of the maintainers directly. We will
+usually only consider requests by developers who have been active and
+competent GStreamer contributors for some time already. If you are not
+already a registered developer with a user account on Freedesktop.org,
+you will then have to provide them with:
+<P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>your desired unix username</P
+></LI
+><LI
+><P
+>your full name</P
+></LI
+><LI
+><P
+>your e-mail address</P
+></LI
+><LI
+><P
+>a copy of your public sshv2 identity.
+If you do not have this yet, you can generate it by running
+"ssh-keygen -t dsa".  The resulting public key
+will be in <TT
+CLASS="filename"
+>.ssh/id_dsa.pub</TT
+></P
+></LI
+><LI
+><P
+>your GPG fingerprint.  This would allow you to
+add and remove ssh keys to your account.
+</P
+></LI
+></OL
+>
+
+Once you have all these items, see <A
+HREF="http://freedesktop.org/wiki/AccountRequests"
+TARGET="_top"
+>http://freedesktop.org/wiki/AccountRequests</A
+> for what to do with them.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><DIV
+CLASS="question"
+><P
+><A
+NAME="autogen-libtool"
+></A
+><B
+>Q: </B
+>I ran autogen.sh, but it fails with aclocal errors. What's wrong ?</P
+><P
+>&#13;<PRE
+CLASS="programlisting"
+>&#13;+ running aclocal -I m4 -I common/m4 ...
+aclocal: configure.ac: 8: macro `AM_DISABLE_STATIC' not found in library
+aclocal: configure.ac: 17: macro `AM_PROG_LIBTOOL' not found in library
+aclocal failed
+</PRE
+>
+What's wrong ?
+        </P
+></DIV
+><DIV
+CLASS="answer"
+><P
+><B
+>A: </B
+>
+aclocal is unable to find two macros installed by libtool in a file called
+libtool.m4.  Normally this would indicate that you don't have libtool, but
+that would mean autogen.sh would have failed on not finding libtool.
+        </P
+><P
+>&#13;It is more likely that you installed automake (which provides aclocal) in
+a different prefix than libtool.  You can check this by examining in what
+prefix both aclocal and libtool are installed.
+        </P
+><P
+>&#13;You can do three things to fix this :
+<P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>install automake in the same prefix as libtool</P
+></LI
+><LI
+><P
+>force use of the automake installed in the same prefix as libtool
+by using the --with-automake option</P
+></LI
+><LI
+><P
+>figure out what prefix libtool has been installed to and point
+aclocal to the right location by running
+<PRE
+CLASS="programlisting"
+>&#13;export ACLOCAL_FLAGS="-I $(prefix)/share/aclocal"
+</PRE
+>
+where you replace prefix with the prefix where libtool was installed.
+</P
+></LI
+></OL
+>
+       </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><DIV
+CLASS="question"
+><P
+><A
+NAME="werror"
+></A
+><B
+>Q: </B
+>
+Why is "-Wall -Werror" being used ?
+        </P
+></DIV
+><DIV
+CLASS="answer"
+><P
+><B
+>A: </B
+>
+"-Wall" is being used because it finds a lot of possible problems with code.
+Not all of them are necessarily a problem, but it's better to have the compiler
+report some false positives and find a work-around than to spend time
+chasing a bug for days that the compiler was giving you hints about.
+        </P
+><P
+>&#13;"-Werror" is turned off for actual releases.  It's turned on by default for
+git and prereleases so that people actually notice and fix problems found by
+"-Wall".  We want people to actively hit and report or fix them.
+        </P
+><P
+>&#13;If for any reason you want to bypass these flags and you are certain it's the
+right thing to do, you can run
+<PRE
+CLASS="programlisting"
+>make ERROR_CFLAGS=""</PRE
+>
+to clear the CFLAGS for error checking.
+        </P
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-troubleshooting.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-developing.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Troubleshooting GStreamer</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Developing applications with GStreamer</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,11 @@
+prefix=/home/pdrezet/workspace/inxware2.0-Release/INX/comp-lib-support/inx_build_scripts/../target_libs/i686-linux-gnu-i686-pc-linux-gnu-4.4.6-gtk_gst/build
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: GIO unix specific APIs
+Description: unix specific headers for glib I/O library
+Version: 2.26.0
+Requires: gobject-2.0,gmodule-no-export-2.0,gio-2.0
+Libs: -L${libdir} -lgio-2.0
+Cflags: -I${includedir}/gio-unix-2.0/

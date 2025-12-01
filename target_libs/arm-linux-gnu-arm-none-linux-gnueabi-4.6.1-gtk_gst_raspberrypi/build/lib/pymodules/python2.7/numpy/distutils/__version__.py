@@ -1,0 +1,1 @@
+/usr/share/pyshared/numpy/distutils/__version__.py

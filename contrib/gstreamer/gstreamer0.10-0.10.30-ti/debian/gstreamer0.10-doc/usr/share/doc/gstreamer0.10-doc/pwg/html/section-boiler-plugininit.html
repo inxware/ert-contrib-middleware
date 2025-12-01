@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>The plugin_init function</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Constructing the Boilerplate"
+HREF="chapter-building-boiler.html"><LINK
+REL="PREVIOUS"
+TITLE="Constructor Functions"
+HREF="section-boiler-constructors.html"><LINK
+REL="NEXT"
+TITLE="Specifying the pads"
+HREF="chapter-building-pads.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-boiler-constructors.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 3. Constructing the Boilerplate</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-building-pads.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-boiler-plugininit"
+>3.7. The plugin_init function</A
+></H1
+><P
+>&#13;      Once we have written code defining all the parts of the plugin, we need to
+      write the plugin_init() function. This is a special function, which is
+      called as soon as the plugin is loaded, and should return TRUE or FALSE
+      depending on whether it loaded initialized any dependencies correctly.
+      Also, in this function, any supported element type in the plugin should
+      be registered.
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;static gboolean
+plugin_init (GstPlugin *plugin)
+{
+  return gst_element_register (plugin, "my_filter",
+			       GST_RANK_NONE,
+			       GST_TYPE_MY_FILTER);
+}
+
+GST_PLUGIN_DEFINE (
+  GST_VERSION_MAJOR,
+  GST_VERSION_MINOR,
+  "my_filter",
+  "My filter plugin",
+  plugin_init,
+  VERSION,
+  "LGPL",
+  "GStreamer",
+  "http://gstreamer.net/"
+)
+    </PRE
+><P
+>&#13;      Note that the information returned by the plugin_init() function will be
+      cached in a central registry. For this reason, it is important that the
+      same information is always returned by the function: for example, it 
+      must not make element factories available based on runtime conditions.
+      If an element can only work in certain conditions (for example, if the
+      soundcard is not being used by some other process) this must be reflected
+      by the element being unable to enter the READY state if unavailable,
+      rather than the plugin attempting to deny existence of the plugin.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-boiler-constructors.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-building-pads.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Constructor Functions</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-building-boiler.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Specifying the pads</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

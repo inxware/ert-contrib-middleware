@@ -1,0 +1,2 @@
+shlibs:Depends=libc6-udeb (>= 2.12)
+misc:Depends=

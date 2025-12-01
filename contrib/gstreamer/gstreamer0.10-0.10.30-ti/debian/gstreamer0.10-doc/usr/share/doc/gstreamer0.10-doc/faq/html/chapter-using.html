@@ -1,0 +1,526 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Using GStreamer</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer FAQ (0.10.30)"
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Getting GStreamer"
+HREF="chapter-getting.html"><LINK
+REL="NEXT"
+TITLE="Troubleshooting GStreamer"
+HREF="chapter-troubleshooting.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>GStreamer FAQ (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-getting.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-troubleshooting.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="chapter-using"
+>5. Using GStreamer</A
+></H1
+><DIV
+CLASS="qandaset"
+><DL
+><DT
+>Q: <A
+HREF="chapter-using.html#using-getting-started"
+>Ok, I've installed GStreamer.  What can I do next ?</A
+></DT
+><DT
+>Q: <A
+HREF="chapter-using.html#using-sound"
+>Can my system play sound through GStreamer ?</A
+></DT
+><DT
+>Q: <A
+HREF="chapter-using.html#using-gst-inspect"
+>How can I see what GStreamer plugins I have on my system ?</A
+></DT
+><DT
+>Q: <A
+HREF="chapter-using.html#using-bugs-where"
+>Where should I report bugs ?</A
+></DT
+><DT
+>Q: <A
+HREF="chapter-using.html#using-bugs-how"
+>How should I report bugs ?</A
+></DT
+><DT
+>Q: <A
+HREF="chapter-using.html#using-gst-launch"
+>How do I use the GStreamer command line interface ?</A
+></DT
+></DL
+><DIV
+CLASS="qandaentry"
+><DIV
+CLASS="question"
+><P
+><A
+NAME="using-getting-started"
+></A
+><B
+>Q: </B
+>Ok, I've installed GStreamer.  What can I do next ?</P
+></DIV
+><DIV
+CLASS="answer"
+><P
+><B
+>A: </B
+>
+First of all, verify that you have a working registry and that you can
+inspect them by typing
+<PRE
+CLASS="programlisting"
+>&#13;$ gst-inspect fakesrc
+</PRE
+>
+This should print out a bunch of information about this particular element.
+If this tells you that there is "no such element or plugin", you haven't
+installed GStreamer correctly.  Please check
+<A
+HREF="chapter-getting.html"
+>how to get GStreamer</A
+>
+If this fails with any other message, we would appreciate a
+<A
+HREF="chapter-using.html#using-bugs-where"
+>bug report</A
+>.
+        </P
+><P
+>&#13;It's time to try out a few things.  Start with gst-launch and two plug-ins
+that you really should have : fakesrc and fakesink.  They do nothing except
+pass empty buffers. Type this at the command-line :
+<PRE
+CLASS="programlisting"
+>&#13;$ gst-launch -v fakesrc num-buffers=3 ! fakesink
+</PRE
+>
+This will print out output that looks similar to this :
+<PRE
+CLASS="programlisting"
+>&#13;RUNNING pipeline ...
+fakesrc0: last-message = "get      ******* (fakesrc0:src)gt; (0 bytes, 0) 0x8057510"
+fakesink0: last-message = "chain   ******* (fakesink0:sink)lt; (0 bytes, 0) 0x8057510"
+fakesrc0: last-message = "get      ******* (fakesrc0:src)gt; (0 bytes, 1) 0x8057510"
+fakesink0: last-message = "chain   ******* (fakesink0:sink)lt; (0 bytes, 1) 0x8057510"
+fakesrc0: last-message = "get      ******* (fakesrc0:src)gt; (0 bytes, 2) 0x8057510"
+fakesink0: last-message = "chain   ******* (fakesink0:sink)lt; (0 bytes, 2) 0x8057510"
+execution ended after 5 iterations (sum 301479000 ns, average 60295800 ns, min 3000 ns, max 105482000 ns)
+</PRE
+>
+(Some parts of output have been removed for clarity)  If it looks similar, then
+GStreamer itself is running correctly.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><DIV
+CLASS="question"
+><P
+><A
+NAME="using-sound"
+></A
+><B
+>Q: </B
+>Can my system play sound through GStreamer ?</P
+></DIV
+><DIV
+CLASS="answer"
+><P
+><B
+>A: </B
+>
+You can test this by trying to play a sine tone.  For this, you need to
+link the audiotestsrc element to an output element that matches your hardware.
+A (non-complete) list of output plug-ins for audio is
+<P
+></P
+><UL
+><LI
+><P
+>osssink for OSS output</P
+></LI
+><LI
+><P
+>esdsink for ESound output</P
+></LI
+><LI
+><P
+>artsdsink for aRTs output (not ported to 0.10 yet)</P
+></LI
+><LI
+><P
+>alsasink for ALSA output</P
+></LI
+><LI
+><P
+>alsaspdifsink for ALSA S/PDIF output</P
+></LI
+><LI
+><P
+>jackaudiosink for JACK output</P
+></LI
+></UL
+>
+First of all, run gst-inspect on the output plug-in you want to use to
+make sure you have it installed.  For example, if you use OSS, run
+<PRE
+CLASS="programlisting"
+>&#13;$ gst-inspect osssink
+</PRE
+>
+and see if that prints out a bunch of properties for the plug-in.
+        </P
+><P
+>&#13;Then try to play the sine tone by running
+<PRE
+CLASS="programlisting"
+>&#13;$ gst-launch audiotestsrc ! audioconvert ! audioresample ! osssink
+</PRE
+>
+and see if you hear something.  Make sure your volume is turned up,
+but also make sure it is not too loud and you are not wearing your headphones.
+        </P
+><P
+>&#13;In GNOME, you can configure audio output for most applications by running
+<PRE
+CLASS="programlisting"
+>&#13;$ gstreamer-properties
+</PRE
+>
+which can also be found in the start menu (Applications -&#62; Preferences -&#62;
+Multimedia Systems Selector). In KDE, there is not yet a shared way of
+setting audio output for all applications; however, applications such
+as Amarok allow you to specify an audio output in their preferences dialog.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><DIV
+CLASS="question"
+><P
+><A
+NAME="using-gst-inspect"
+></A
+><B
+>Q: </B
+>How can I see what GStreamer plugins I have on my system ?</P
+></DIV
+><DIV
+CLASS="answer"
+><P
+><B
+>A: </B
+>
+To do this you use the gst-inspect
+command-line tool, which comes standard with GStreamer.
+Invoked without any arguments,
+<PRE
+CLASS="programlisting"
+>&#13;$ gst-inspect
+</PRE
+>
+will print out a listing of installed plugins.
+To learn more about a particular plugin, pass its name on the command line. 
+For example,
+<PRE
+CLASS="programlisting"
+>&#13;$ gst-inspect volume
+</PRE
+>
+will give you information about the volume plugin.
+        </P
+><P
+>&#13;Also, if you install the gst-editor package, you will have a graphical 
+plugin browser available, gst-inspect-gui.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><DIV
+CLASS="question"
+><P
+><A
+NAME="using-bugs-where"
+></A
+><B
+>Q: </B
+>Where should I report bugs ?</P
+></DIV
+><DIV
+CLASS="answer"
+><P
+><B
+>A: </B
+>
+Bug management is now hosted on GNOME's Bugzilla at
+<A
+HREF="http://bugzilla.gnome.org"
+TARGET="_top"
+>http://bugzilla.gnome.org</A
+>,
+under the product GStreamer. 
+Using bugzilla you can view past bug history, report new bugs, etc.
+Bugzilla requires you to make an account here, which might seem cumbersome,
+but allows us to at least have a chance at contacting you for further
+information, as we will most likely have to.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><DIV
+CLASS="question"
+><P
+><A
+NAME="using-bugs-how"
+></A
+><B
+>Q: </B
+>How should I report bugs ?</P
+></DIV
+><DIV
+CLASS="answer"
+><P
+><B
+>A: </B
+>
+When doing a bug report, you should at least describe
+<P
+></P
+><UL
+><LI
+><P
+>your distribution</P
+></LI
+><LI
+><P
+>&#13;how you installed GStreamer (from git, source, packages, which ?)</P
+></LI
+><LI
+><P
+>if you installed GStreamer before</P
+></LI
+></UL
+>
+        </P
+><P
+>&#13;It also is useful for us if you attach output of
+the gst-feedback command to your bug report.
+If you're having problem with a specific application (either one of ours,
+somebody else's, or your own), please also provide a log of gst-mask by
+running
+<PRE
+CLASS="programlisting"
+>&#13;myapp --gst-mask=-1 &#62; mask.log 2&#62;&#38;1
+gzip mask.log
+</PRE
+>
+(interrupting the program if it doesn't stop by itself)
+and attach mask.log.gz to your bug report.
+        </P
+><P
+>&#13;If the application you are having problems with is segfaulting, then
+provide us with the necessary gdb output.  See
+<A
+HREF="chapter-troubleshooting.html#troubleshooting-segfault"
+><I
+><I
+>The GStreamer application I used stops with a segmentation fault.  What can
+I do ?</I
+></I
+></A
+>
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><DIV
+CLASS="question"
+><P
+><A
+NAME="using-gst-launch"
+></A
+><B
+>Q: </B
+>How do I use the GStreamer command line interface ?</P
+></DIV
+><DIV
+CLASS="answer"
+><P
+><B
+>A: </B
+>
+You access the GStreamer command line interface using the command gst-launch.
+To decode an mp3 and play it through OSS, you could use
+<PRE
+CLASS="programlisting"
+>&#13;gst-launch filesrc location=thesong.mp3 ! mad ! audioconvert !
+audioresample ! osssink
+</PRE
+>.
+More examples can be found in the gst-launch man page.
+        </P
+><P
+>&#13;To automatically detect the right codec in a pipeline, try 
+<PRE
+CLASS="programlisting"
+>&#13;gst-launch filesrc location=my-random-media-file.mpeg ! decodebin !
+ audioconvert ! audioresample ! osssink
+</PRE
+>.
+or
+<PRE
+CLASS="programlisting"
+>&#13;gst-launch filesrc location=my-random-media-file.mpeg ! decodebin !
+ ffmpegcolorspace ! xvimagesink
+</PRE
+>
+Something more complicated:
+<PRE
+CLASS="programlisting"
+>&#13;gst-launch filesrc location=my-random-media-file.mpeg ! decodebin name=decoder
+   decoder. ! ffmpegcolorspace ! xvimagesink
+   decoder. ! audioconvert ! audioresample ! osssink
+</PRE
+>
+        </P
+><P
+>&#13;We also have a basic media playing plugin that will take care of most things
+for you. This plugin is called playbin. Try this:
+<PRE
+CLASS="programlisting"
+>&#13;gst-launch playbin uri=file:///home/joe/my-random-media-file.mpeg
+</PRE
+>
+This should play the file if the format is supported, ie. you have all the
+necessary demuxing and decoding and some output plugins installed.
+        </P
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-getting.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-troubleshooting.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Getting GStreamer</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Troubleshooting GStreamer</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

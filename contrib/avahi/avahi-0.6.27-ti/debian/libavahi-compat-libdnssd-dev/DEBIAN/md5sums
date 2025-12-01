@@ -1,0 +1,8 @@
+e5753faf5383d616a39b25b742e541ca  usr/include/avahi-compat-libdns_sd/dns_sd.h
+8d861dd6a24ce6aecb066ed7d21d080a  usr/lib/libdns_sd.a
+cb9977ad551ba27c1ceadab13f7f7ad5  usr/lib/libdns_sd.la
+0cae99b2ebfc035aaa5c5cc73181e69b  usr/lib/pkgconfig/avahi-compat-libdns_sd.pc
+1d0801cb141dbe1d87c980e6d701c909  usr/share/doc/libavahi-compat-libdnssd-dev/NEWS.gz
+359847954ee1f4e9970c4afd10ce796b  usr/share/doc/libavahi-compat-libdnssd-dev/README
+af6c686018c717f4a5c95d6cf07f7949  usr/share/doc/libavahi-compat-libdnssd-dev/changelog.Debian.gz
+026515c317e1591092392844df5f1ee0  usr/share/doc/libavahi-compat-libdnssd-dev/copyright

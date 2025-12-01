@@ -1,0 +1,2 @@
+shlibs:Depends=libc6 (>= 2.4), libdaemon0 (>= 0.10)
+misc:Depends=

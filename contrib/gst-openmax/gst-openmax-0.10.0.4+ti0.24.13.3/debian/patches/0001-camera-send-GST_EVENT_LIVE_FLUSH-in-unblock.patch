@@ -1,0 +1,33 @@
+From b4986f0c8bb77132b07f0227a0978aa27607b093 Mon Sep 17 00:00:00 2001
+From: Alessandro Decina <alessandro.decina@collabora.co.uk>
+Date: Fri, 6 May 2011 16:02:26 +0200
+Subject: [PATCH 1/7] camera: send GST_EVENT_LIVE_FLUSH in ::unblock
+
+When setting omx_camera from PLAYING to PAUSED, it can happen that ::create is
+blocked in buffer_alloc, blocking on v4l2sink. That's a source of possible
+deadlocks since in PAUSED v4l2sink stops processing buffers and so buffer_alloc
+can wait forever.
+
+We avoid this sending a GST_EVENT_LIVE_FLUSH event (similar to a FLUSH_START
+event, but it doesn't reset the running-time, nor sets pads flushing etc) to
+instruct v4l2sink to unblock.
+---
+ omx/gstomx_base_src.c |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/omx/gstomx_base_src.c b/omx/gstomx_base_src.c
+index 69b3b37..2c43568 100644
+--- a/omx/gstomx_base_src.c
++++ b/omx/gstomx_base_src.c
+@@ -202,6 +202,8 @@ unlock (GstBaseSrc *gst_base)
+ {
+     GstOmxBaseSrc *self = GST_OMX_BASE_SRC (gst_base);
+ 
++    /* unblock buffer_alloc calls blocked in v4l2sink */
++    gst_pad_push_event (gst_base->srcpad, gst_event_new_live_flush ());
+     g_omx_port_pause (self->out_port);
+     return TRUE;
+ }
+-- 
+1.7.1
+

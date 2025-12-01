@@ -1,0 +1,1879 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>List of Defined Types</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Types and Properties"
+HREF="chapter-building-types.html"><LINK
+REL="PREVIOUS"
+TITLE="Typefind Functions and Autoplugging"
+HREF="section-types-typefind.html"><LINK
+REL="NEXT"
+TITLE="Request and Sometimes pads"
+HREF="chapter-advanced-request.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-types-typefind.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 12. Types and Properties</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-advanced-request.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-types-definitions"
+>12.3. List of Defined Types</A
+></H1
+><P
+>&#13;        Below is a list of all the defined types in <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>. They are split
+        up in separate tables for audio, video, container, subtitle and other
+        types, for the sake of readability. Below each table might follow a
+        list of notes that apply to that table. In the definition of each type,
+        we try to follow the types and rules as defined by <A
+HREF="http://www.iana.org/assignments/media-types"
+TARGET="_top"
+>&#13;        IANA</A
+> for as far as possible.
+      </P
+><P
+>&#13;        Jump directly to a specific table:
+	<P
+></P
+><UL
+><LI
+><P
+><A
+HREF="section-types-definitions.html#table-audio-types"
+>Table of Audio Types</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="section-types-definitions.html#table-video-types"
+>Table of Video Types</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="section-types-definitions.html#table-container-types"
+>Table of Container Types</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="section-types-definitions.html#table-subtitle-types"
+>Table of Subtitle Types</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="section-types-definitions.html#table-other-types"
+>Table of Other Types</A
+></P
+></LI
+></UL
+>
+      </P
+><P
+>&#13;        Note that many of the properties are not <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>required</I
+></SPAN
+>,
+        but rather <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>optional</I
+></SPAN
+> properties. This means that
+        most of these properties can be extracted from the container header,
+        but that - in case the container header does not provide these - they
+        can also be extracted by parsing the stream header or the stream
+        content. The policy is that your element should provide the data that
+        it knows about by only parsing its own content, not another element's
+        content. Example: the AVI header provides samplerate of the contained
+        audio stream in the header. MPEG system streams don't. This means that
+        an AVI stream demuxer would provide samplerate as a property for MPEG
+        audio streams, whereas an MPEG demuxer would not. A decoder needing
+        this data would require a stream parser in between two extract this
+        from the header or calculate it from the stream.
+      </P
+><DIV
+CLASS="table"
+><A
+NAME="table-audio-types"
+></A
+><P
+><B
+>Table 12-1. Table of Audio Types</B
+></P
+><TABLE
+BORDER="1"
+FRAME="border"
+RULES="all"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="cola1"><COL><COL><COL><COL><COL
+WIDTH="6*"
+TITLE="cola6"><THEAD
+><TR
+><TH
+>Mime Type</TH
+><TH
+>Description</TH
+><TH
+>Property</TH
+><TH
+>Property Type</TH
+><TH
+>Property Values</TH
+><TH
+>Property Description</TH
+></TR
+></THEAD
+><TBODY
+VALIGN="top"
+><TR
+><TD
+COLSPAN="6"
+>&#13;              <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>All audio types.</I
+></SPAN
+>
+            </TD
+></TR
+><TR
+><TD
+ROWSPAN="2"
+>audio/*</TD
+><TD
+ROWSPAN="2"
+>&#13;              <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>All audio types</I
+></SPAN
+>
+            </TD
+><TD
+>rate</TD
+><TD
+>integer</TD
+><TD
+>greater than 0</TD
+><TD
+>&#13;              The sample rate of the data, in samples (per channel) per second.
+            </TD
+></TR
+><TR
+><TD
+>channels</TD
+><TD
+>integer</TD
+><TD
+>greater than 0</TD
+><TD
+>&#13;              The number of channels of audio data.
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="6"
+>&#13;              <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>All raw audio types.</I
+></SPAN
+>
+            </TD
+></TR
+><TR
+><TD
+ROWSPAN="4"
+>audio/x-raw-int</TD
+><TD
+ROWSPAN="4"
+>&#13;              Unstructured and uncompressed raw fixed-integer audio data.
+            </TD
+><TD
+>endianness</TD
+><TD
+>integer</TD
+><TD
+>G_BIG_ENDIAN (4321) or G_LITTLE_ENDIAN (1234)</TD
+><TD
+>&#13;              The order of bytes in a sample. The value G_LITTLE_ENDIAN (1234)
+              means <SPAN
+CLASS="QUOTE"
+>"little-endian"</SPAN
+> (byte-order is <SPAN
+CLASS="QUOTE"
+>"least
+              significant byte first"</SPAN
+>). The value G_BIG_ENDIAN (4321)
+              means <SPAN
+CLASS="QUOTE"
+>"big-endian"</SPAN
+> (byte order is <SPAN
+CLASS="QUOTE"
+>"most
+              significant byte first"</SPAN
+>).
+            </TD
+></TR
+><TR
+><TD
+>signed</TD
+><TD
+>boolean</TD
+><TD
+>TRUE or FALSE</TD
+><TD
+>&#13;              Whether the values of the integer samples are signed or not.
+              Signed samples use one bit to indicate sign (negative or
+              positive) of the value. Unsigned samples are always positive.
+            </TD
+></TR
+><TR
+><TD
+>width</TD
+><TD
+>integer</TD
+><TD
+>greater than 0</TD
+><TD
+>&#13;              Number of bits allocated per sample.
+            </TD
+></TR
+><TR
+><TD
+>depth</TD
+><TD
+>integer</TD
+><TD
+>greater than 0</TD
+><TD
+>&#13;              The number of bits used per sample. This must be less than or
+              equal to the width: If the depth is less than the width, the
+              low bits are assumed to be the ones used. For example, a width
+              of 32 and a depth of 24 means that each sample is stored in a
+              32 bit word, but only the low 24 bits are actually used.
+            </TD
+></TR
+><TR
+><TD
+ROWSPAN="2"
+>audio/x-raw-float</TD
+><TD
+>&#13;              Unstructured and uncompressed raw floating-point audio data.
+            </TD
+><TD
+>endianness</TD
+><TD
+>integer</TD
+><TD
+>G_BIG_ENDIAN (4321) or G_LITTLE_ENDIAN (1234)</TD
+><TD
+>&#13;              The order of bytes in a sample. The value G_LITTLE_ENDIAN (1234)
+              means <SPAN
+CLASS="QUOTE"
+>"little-endian"</SPAN
+> (byte-order is <SPAN
+CLASS="QUOTE"
+>"least
+              significant byte first"</SPAN
+>). The value G_BIG_ENDIAN (4321)
+              means <SPAN
+CLASS="QUOTE"
+>"big-endian"</SPAN
+> (byte order is <SPAN
+CLASS="QUOTE"
+>"most
+              significant byte first"</SPAN
+>).
+            </TD
+></TR
+><TR
+><TD
+>width</TD
+><TD
+>integer</TD
+><TD
+>greater than 0</TD
+><TD
+>&#13;              The amount of bits used and allocated per sample.
+            </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+COLSPAN="6"
+>&#13;              <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>All encoded audio types.</I
+></SPAN
+>
+            </TD
+></TR
+><TR
+><TD
+>audio/x-ac3</TD
+><TD
+>AC-3 or A52 audio streams.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+ROWSPAN="2"
+>audio/x-adpcm</TD
+><TD
+ROWSPAN="2"
+>ADPCM Audio streams.</TD
+><TD
+>layout</TD
+><TD
+>string</TD
+><TD
+>&#13;              <SPAN
+CLASS="QUOTE"
+>"quicktime"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"dvi"</SPAN
+>,
+              <SPAN
+CLASS="QUOTE"
+>"microsoft"</SPAN
+> or <SPAN
+CLASS="QUOTE"
+>"4xm"</SPAN
+>.
+            </TD
+><TD
+>&#13;              The layout defines the packing of the samples in the stream. In
+              ADPCM, most formats store multiple samples per channel together.
+              This number of samples differs per format, hence the different
+              layouts. On the long term, we probably want this variable to die
+              and use something more descriptive, but this will do for now.
+            </TD
+></TR
+><TR
+><TD
+>block_align</TD
+><TD
+>integer</TD
+><TD
+>&#13;              Any
+            </TD
+><TD
+>&#13;              Chunk buffer size.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-cinepak</TD
+><TD
+>Audio as provided in a Cinepak (Quicktime) stream.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-dv</TD
+><TD
+>Audio as provided in a Digital Video stream.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-flac</TD
+><TD
+>Free Lossless Audio codec (FLAC).</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-gsm</TD
+><TD
+>Data encoded by the GSM codec.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-alaw</TD
+><TD
+>A-Law Audio.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-mulaw</TD
+><TD
+>Mu-Law Audio.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-mace</TD
+><TD
+>MACE Audio (used in Quicktime).</TD
+><TD
+>maceversion</TD
+><TD
+>integer</TD
+><TD
+>3 or 6</TD
+><TD
+>&#13;              The version of the MACE audio codec used to encode the stream.
+            </TD
+></TR
+><TR
+><TD
+ROWSPAN="4"
+>audio/mpeg</TD
+><TD
+ROWSPAN="4"
+>&#13;              Audio data compressed using the MPEG audio encoding scheme.
+            </TD
+><TD
+>mpegversion</TD
+><TD
+>integer</TD
+><TD
+>1, 2 or 4</TD
+><TD
+>&#13;              The MPEG-version used for encoding the data. The value 1 refers
+              to MPEG-1, -2 and -2.5 layer 1, 2 or 3. The values 2 and 4 refer
+              to the MPEG-AAC audio encoding schemes.
+            </TD
+></TR
+><TR
+><TD
+>framed</TD
+><TD
+>boolean</TD
+><TD
+>0 or 1</TD
+><TD
+>&#13;              A true value indicates that each buffer contains exactly one
+              frame. A false value indicates that frames and buffers do not
+              necessarily match up.
+            </TD
+></TR
+><TR
+><TD
+>layer</TD
+><TD
+>integer</TD
+><TD
+>1, 2, or 3</TD
+><TD
+>&#13;              The compression scheme layer used to compress the data
+              <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>(only if mpegversion=1)</I
+></SPAN
+>.
+            </TD
+></TR
+><TR
+><TD
+>bitrate</TD
+><TD
+>integer</TD
+><TD
+>greater than 0</TD
+><TD
+>&#13;              The bitrate, in bits per second. For VBR (variable bitrate)
+              MPEG data, this is the average bitrate.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-qdm2</TD
+><TD
+>Data encoded by the QDM version 2 codec.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-pn-realaudio</TD
+><TD
+>Realmedia Audio data.</TD
+><TD
+>raversion</TD
+><TD
+>integer</TD
+><TD
+>1 or 2</TD
+><TD
+>&#13;              The version of the Real Audio codec used to encode the stream.
+              1 stands for a 14k4 stream, 2 stands for a 28k8 stream.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-speex</TD
+><TD
+>Data encoded by the Speex audio codec</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-vorbis</TD
+><TD
+>Vorbis audio data</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-wma</TD
+><TD
+>Windows Media Audio</TD
+><TD
+>wmaversion</TD
+><TD
+>integer</TD
+><TD
+>1,2 or 3</TD
+><TD
+>&#13;              The version of the WMA codec used to encode the stream.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-paris</TD
+><TD
+>Ensoniq PARIS audio</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-svx</TD
+><TD
+>Amiga IFF / SVX8 / SV16 audio</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-nist</TD
+><TD
+>Sphere NIST audio</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-voc</TD
+><TD
+>Sound Blaster VOC audio</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-ircam</TD
+><TD
+>Berkeley/IRCAM/CARL audio</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-w64</TD
+><TD
+>Sonic Foundry's 64 bit RIFF/WAV</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="table"
+><A
+NAME="table-video-types"
+></A
+><P
+><B
+>Table 12-2. Table of Video Types</B
+></P
+><TABLE
+BORDER="1"
+FRAME="border"
+RULES="all"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="colv1"><COL><COL><COL><COL><COL
+WIDTH="6*"
+TITLE="colv6"><THEAD
+><TR
+><TH
+>Mime Type</TH
+><TH
+>Description</TH
+><TH
+>Property</TH
+><TH
+>Property Type</TH
+><TH
+>Property Values</TH
+><TH
+>Property Description</TH
+></TR
+></THEAD
+><TBODY
+VALIGN="top"
+><TR
+><TD
+COLSPAN="6"
+>&#13;              <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>All video types.</I
+></SPAN
+>
+            </TD
+></TR
+><TR
+><TD
+ROWSPAN="3"
+>video/*</TD
+><TD
+ROWSPAN="3"
+>&#13;              <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>All video types</I
+></SPAN
+>
+            </TD
+><TD
+>width</TD
+><TD
+>integer</TD
+><TD
+>greater than 0</TD
+><TD
+>The width of the video image</TD
+></TR
+><TR
+><TD
+>height</TD
+><TD
+>integer</TD
+><TD
+>greater than 0</TD
+><TD
+>The height of the video image</TD
+></TR
+><TR
+><TD
+>framerate</TD
+><TD
+>fraction</TD
+><TD
+>greater or equal 0</TD
+><TD
+>&#13;              The (average) framerate in frames per second. Note that this
+              property does not guarantee in <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>any</I
+></SPAN
+> way that
+              it will actually come close to this value. If you need a fixed
+              framerate, please use an element that provides that (such as
+              <SPAN
+CLASS="QUOTE"
+>"videodrop"</SPAN
+>). 0 means a variable framerate.
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="6"
+>&#13;              <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>All raw video types.</I
+></SPAN
+>
+            </TD
+></TR
+><TR
+><TD
+>video/x-raw-yuv</TD
+><TD
+>YUV (or Y'Cb'Cr) video format.</TD
+><TD
+>format</TD
+><TD
+>fourcc</TD
+><TD
+>&#13;              YUY2, YVYU, UYVY, Y41P, IYU2, Y42B, YV12, I420, Y41B, YUV9, YVU9,
+              Y800
+            </TD
+><TD
+>&#13;              The layout of the video. See <A
+HREF="http://www.fourcc.org/"
+TARGET="_top"
+>FourCC definition site</A
+>
+              for references and definitions. YUY2, YVYU and UYVY are 4:2:2
+              packed-pixel, Y41P is 4:1:1 packed-pixel and IYU2 is 4:4:4
+              packed-pixel. Y42B is 4:2:2 planar, YV12 and I420 are 4:2:0
+              planar, Y41B is 4:1:1 planar and YUV9 and YVU9 are 4:1:0 planar.
+              Y800 contains Y-samples only (black/white).
+            </TD
+></TR
+><TR
+><TD
+ROWSPAN="4"
+>video/x-raw-rgb</TD
+><TD
+ROWSPAN="4"
+>Red-Green-Blue (RBG) video.</TD
+><TD
+>bpp</TD
+><TD
+>integer</TD
+><TD
+>greater than 0</TD
+><TD
+>&#13;              The number of bits allocated per pixel. This is usually 16, 24
+              or 32.
+            </TD
+></TR
+><TR
+><TD
+>depth</TD
+><TD
+>integer</TD
+><TD
+>greater than 0</TD
+><TD
+>&#13;              The number of bits used per pixel by the R/G/B components. This
+              is usually 15, 16 or 24.
+            </TD
+></TR
+><TR
+><TD
+>endianness</TD
+><TD
+>integer</TD
+><TD
+>G_BIG_ENDIAN (4321) or G_LITTLE_ENDIAN (1234)</TD
+><TD
+>&#13;              The order of bytes in a sample. The value G_LITTLE_ENDIAN (1234)
+              means <SPAN
+CLASS="QUOTE"
+>"little-endian"</SPAN
+> (byte-order is <SPAN
+CLASS="QUOTE"
+>"least
+              significant byte first"</SPAN
+>). The value G_BIG_ENDIAN (4321)
+              means <SPAN
+CLASS="QUOTE"
+>"big-endian"</SPAN
+> (byte order is <SPAN
+CLASS="QUOTE"
+>"most
+              significant byte first"</SPAN
+>). For 24/32bpp, this should always
+              be big endian because the byte order can be given in both.
+            </TD
+></TR
+><TR
+><TD
+>red_mask, green_mask and blue_mask</TD
+><TD
+>integer</TD
+><TD
+>any</TD
+><TD
+>&#13;              The masks that cover all the bits used by each of the samples.
+              The mask should be given in the endianness specified above. This
+              means that for 24/32bpp, the masks might be opposite to host byte
+              order (if you are working on little-endian computers).
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="6"
+>&#13;              <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>All encoded video types.</I
+></SPAN
+>
+            </TD
+></TR
+><TR
+><TD
+>video/x-3ivx</TD
+><TD
+>3ivx video.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>video/x-divx</TD
+><TD
+>DivX video.</TD
+><TD
+>divxversion</TD
+><TD
+>integer</TD
+><TD
+>3, 4 or 5</TD
+><TD
+>&#13;              Version of the DivX codec used to encode the stream.
+            </TD
+></TR
+><TR
+><TD
+>video/x-dv</TD
+><TD
+>Digital Video.</TD
+><TD
+>systemstream</TD
+><TD
+>boolean</TD
+><TD
+>FALSE</TD
+><TD
+>&#13;              Indicates that this stream is <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>not</I
+></SPAN
+> a system
+              container stream.
+            </TD
+></TR
+><TR
+><TD
+>video/x-ffv</TD
+><TD
+>FFMpeg video.</TD
+><TD
+>ffvversion</TD
+><TD
+>integer</TD
+><TD
+>1</TD
+><TD
+>&#13;              Version of the FFMpeg video codec used to encode the stream.
+            </TD
+></TR
+><TR
+><TD
+ROWSPAN="2"
+>video/x-h263</TD
+><TD
+ROWSPAN="2"
+>H-263 video.</TD
+><TD
+>variant</TD
+><TD
+>string</TD
+><TD
+>itu, lead, microsoft, vdolive, vivo, xirlink </TD
+><TD
+>&#13;              Vendor specific variant of the format. 'itu' is the standard.
+            </TD
+></TR
+><TR
+><TD
+>h263version</TD
+><TD
+>string</TD
+><TD
+>h263, h263p, h263pp</TD
+><TD
+>&#13;              Enhanced versions of the h263 codec.
+            </TD
+></TR
+><TR
+><TD
+>video/x-h264</TD
+><TD
+>H-264 video.</TD
+><TD
+>variant</TD
+><TD
+>string</TD
+><TD
+>itu, videosoft</TD
+><TD
+>&#13;              Vendor specific variant of the format. 'itu' is the standard.
+            </TD
+></TR
+><TR
+><TD
+>video/x-huffyuv</TD
+><TD
+>Huffyuv video.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>video/x-indeo</TD
+><TD
+>Indeo video.</TD
+><TD
+>indeoversion</TD
+><TD
+>integer</TD
+><TD
+>3</TD
+><TD
+>&#13;              Version of the Indeo codec used to encode this stream.
+            </TD
+></TR
+><TR
+><TD
+>video/x-intel-h263</TD
+><TD
+>H-263 video.</TD
+><TD
+>variant</TD
+><TD
+>string</TD
+><TD
+>intel</TD
+><TD
+>&#13;              Vendor specific variant of the format.
+            </TD
+></TR
+><TR
+><TD
+>video/x-jpeg</TD
+><TD
+>Motion-JPEG video.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type. Note that video/x-jpeg only applies to Motion-JPEG
+              pictures (YUY2 colourspace). RGB colourspace JPEG images are
+              referred to as image/jpeg (JPEG image).
+            </TD
+></TR
+><TR
+><TD
+ROWSPAN="2"
+>video/mpeg</TD
+><TD
+ROWSPAN="2"
+>MPEG video.</TD
+><TD
+>mpegversion</TD
+><TD
+>integer</TD
+><TD
+>1, 2 or 4</TD
+><TD
+>&#13;              Version of the MPEG codec that this stream was encoded with.
+              Note that we have different mimetypes for 3ivx, XviD, DivX and
+              "standard" ISO MPEG-4. This is <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>not</I
+></SPAN
+> a good
+              thing and we're fully aware of this. However, we do not have a
+              solution yet.
+            </TD
+></TR
+><TR
+><TD
+>systemstream</TD
+><TD
+>boolean</TD
+><TD
+>FALSE</TD
+><TD
+>&#13;              Indicates that this stream is <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>not</I
+></SPAN
+> a system
+              container stream.
+            </TD
+></TR
+><TR
+><TD
+>video/x-msmpeg</TD
+><TD
+>Microsoft MPEG-4 video deviations.</TD
+><TD
+>msmpegversion</TD
+><TD
+>integer</TD
+><TD
+>41, 42 or 43</TD
+><TD
+>&#13;              Version of the MS-MPEG-4-like codec that was used to encode this
+              version. A value of 41 refers to MS MPEG 4.1, 42 to 4.2 and 43
+              to version 4.3.
+            </TD
+></TR
+><TR
+><TD
+>video/x-msvideocodec</TD
+><TD
+>Microsoft Video 1 (oldish codec).</TD
+><TD
+>msvideoversion</TD
+><TD
+>integer</TD
+><TD
+>1</TD
+><TD
+>&#13;              Version of the codec - always 1.
+            </TD
+></TR
+><TR
+><TD
+>video/x-pn-realvideo</TD
+><TD
+>Realmedia video.</TD
+><TD
+>rmversion</TD
+><TD
+>integer</TD
+><TD
+>1, 2 or 3</TD
+><TD
+>&#13;              Version of the Real Video codec that this stream was encoded
+              with.
+            </TD
+></TR
+><TR
+><TD
+ROWSPAN="3"
+>video/x-rle</TD
+><TD
+ROWSPAN="3"
+>RLE animation format.</TD
+><TD
+>layout</TD
+><TD
+>string</TD
+><TD
+>"microsoft" or "quicktime"</TD
+><TD
+>&#13;              The RLE format inside the Microsoft AVI container has a
+              different byte layout than the RLE format inside Apple's
+              Quicktime container; this property keeps track of the
+              layout.
+            </TD
+></TR
+><TR
+><TD
+>depth</TD
+><TD
+>integer</TD
+><TD
+>1 to 64</TD
+><TD
+>&#13;              Bit depth of the used palette. This means that the palette
+              that belongs to this format defines 2^depth colors.
+            </TD
+></TR
+><TR
+><TD
+>palette_data</TD
+><TD
+>GstBuffer</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              Buffer containing a color palette (in native-endian RGBA) used
+              by this format. The buffer is of size 4*2^depth.
+            </TD
+></TR
+><TR
+><TD
+>video/x-svq</TD
+><TD
+>Sorensen Video.</TD
+><TD
+>svqversion</TD
+><TD
+>integer</TD
+><TD
+>1 or 3</TD
+><TD
+>&#13;              Version of the Sorensen codec that the stream was encoded with.
+            </TD
+></TR
+><TR
+><TD
+>video/x-tarkin</TD
+><TD
+>Tarkin video.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>video/x-theora</TD
+><TD
+>Theora video.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>video/x-vp3</TD
+><TD
+>VP-3 video.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type. Note that we have different mimetypes for VP-3 and
+              Theora, which is not necessarily a good idea. This could probably
+              be improved.
+            </TD
+></TR
+><TR
+><TD
+>video/x-wmv</TD
+><TD
+>Windows Media Video</TD
+><TD
+>wmvversion</TD
+><TD
+>integer</TD
+><TD
+>1,2 or 3</TD
+><TD
+>&#13;              Version of the WMV codec that the stream was encoded with.
+            </TD
+></TR
+><TR
+><TD
+>video/x-xvid</TD
+><TD
+>XviD video.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="6"
+>&#13;              <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>All image types.</I
+></SPAN
+>
+            </TD
+></TR
+><TR
+><TD
+>image/gif</TD
+><TD
+>Graphics Interchange Format.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>image/jpeg</TD
+><TD
+>Joint Picture Expert Group Image.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type. Note that image/jpeg only applies to RGB-colourspace
+              JPEG images; YUY2-colourspace JPEG pictures are referred to as
+              video/x-jpeg ("Motion JPEG").
+            </TD
+></TR
+><TR
+><TD
+>image/png</TD
+><TD
+>Portable Network Graphics Image.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>image/tiff</TD
+><TD
+>Tagged Image File Format.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="table"
+><A
+NAME="table-container-types"
+></A
+><P
+><B
+>Table 12-3. Table of Container Types</B
+></P
+><TABLE
+BORDER="1"
+FRAME="border"
+RULES="all"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="colc1"><COL><COL><COL><COL><COL
+WIDTH="6*"
+TITLE="colc6"><THEAD
+><TR
+><TH
+>Mime Type</TH
+><TH
+>Description</TH
+><TH
+>Property</TH
+><TH
+>Property Type</TH
+><TH
+>Property Values</TH
+><TH
+>Property Description</TH
+></TR
+></THEAD
+><TBODY
+VALIGN="top"
+><TR
+><TD
+>video/x-ms-asf</TD
+><TD
+>Advanced Streaming Format (ASF).</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>video/x-msvideo</TD
+><TD
+>AVI.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>video/x-dv</TD
+><TD
+>Digital Video.</TD
+><TD
+>systemstream</TD
+><TD
+>boolean</TD
+><TD
+>TRUE</TD
+><TD
+>&#13;              Indicates that this is a container system stream rather than an
+              elementary video stream.
+            </TD
+></TR
+><TR
+><TD
+>video/x-matroska</TD
+><TD
+>Matroska.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>video/mpeg</TD
+><TD
+>Motion Pictures Expert Group System Stream.</TD
+><TD
+>systemstream</TD
+><TD
+>boolean</TD
+><TD
+>TRUE</TD
+><TD
+>&#13;              Indicates that this is a container system stream rather than an
+              elementary video stream.
+            </TD
+></TR
+><TR
+><TD
+>application/ogg</TD
+><TD
+>Ogg.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>video/quicktime</TD
+><TD
+>Quicktime.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>application/vnd.rn-realmedia</TD
+><TD
+>RealMedia.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+><TR
+><TD
+>audio/x-wav</TD
+><TD
+>WAV.</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              There are currently no specific properties defined or needed for
+              this type.
+            </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="table"
+><A
+NAME="table-subtitle-types"
+></A
+><P
+><B
+>Table 12-4. Table of Subtitle Types</B
+></P
+><TABLE
+BORDER="1"
+FRAME="border"
+RULES="all"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="colt1"><COL><COL><COL><COL><COL
+WIDTH="6*"
+TITLE="colt6"><THEAD
+><TR
+><TH
+>Mime Type</TH
+><TH
+>Description</TH
+><TH
+>Property</TH
+><TH
+>Property Type</TH
+><TH
+>Property Values</TH
+><TH
+>Property Description</TH
+></TR
+></THEAD
+><TBODY
+VALIGN="top"
+><TR
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              None defined yet.
+            </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="table"
+><A
+NAME="table-other-types"
+></A
+><P
+><B
+>Table 12-5. Table of Other Types</B
+></P
+><TABLE
+BORDER="1"
+FRAME="border"
+RULES="all"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="colo1"><COL><COL><COL><COL><COL
+WIDTH="6*"
+TITLE="colo6"><THEAD
+><TR
+><TH
+>Mime Type</TH
+><TH
+>Description</TH
+><TH
+>Property</TH
+><TH
+>Property Type</TH
+><TH
+>Property Values</TH
+><TH
+>Property Description</TH
+></TR
+></THEAD
+><TBODY
+VALIGN="top"
+><TR
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+><TD
+>&#13;              None defined yet.
+            </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-types-typefind.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-advanced-request.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Typefind Functions and Autoplugging</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-building-types.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Request and Sometimes pads</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

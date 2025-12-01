@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Decodebin</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Components"
+HREF="chapter-components.html"><LINK
+REL="PREVIOUS"
+TITLE="Components"
+HREF="chapter-components.html"><LINK
+REL="NEXT"
+TITLE="XML in GStreamer (deprecated)"
+HREF="chapter-xml.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-components.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 19. Components</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-xml.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-components-decodebin"
+>19.2. Decodebin</A
+></H1
+><P
+>&#13;      Decodebin is the actual autoplugger backend of playbin, which was
+      discussed in the previous section. Decodebin will, in short, accept
+      input from a source that is linked to its sinkpad and will try to
+      detect the media type contained in the stream, and set up decoder
+      routines for each of those. It will automatically select decoders.
+      For each decoded stream, it will emit the <SPAN
+CLASS="QUOTE"
+>"new-decoded-pad"</SPAN
+>
+      signal, to let the client know about the newly found decoded stream.
+      For unknown streams (which might be the whole stream), it will emit
+      the <SPAN
+CLASS="QUOTE"
+>"unknown-type"</SPAN
+> signal. The application is then
+      responsible for reporting the error to the user.
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;#include &#60;gst/gst.h&#62;
+
+[.. my_bus_callback goes here ..]
+
+GstElement *pipeline, *audio;
+
+static void
+cb_newpad (GstElement *decodebin,
+	   GstPad     *pad,
+	   gboolean    last,
+	   gpointer    data)
+{
+  GstCaps *caps;
+  GstStructure *str;
+  GstPad *audiopad;
+
+  /* only link once */
+  audiopad = gst_element_get_static_pad (audio, "sink");
+  if (GST_PAD_IS_LINKED (audiopad)) {
+    g_object_unref (audiopad);
+    return;
+  }
+
+  /* check media type */
+  caps = gst_pad_get_caps (pad);
+  str = gst_caps_get_structure (caps, 0);
+  if (!g_strrstr (gst_structure_get_name (str), "audio")) {
+    gst_caps_unref (caps);
+    gst_object_unref (audiopad);
+    return;
+  }
+  gst_caps_unref (caps);
+
+  /* link'n'play */
+  gst_pad_link (pad, audiopad);
+
+  g_object_unref (audiopad);
+}
+
+gint
+main (gint   argc,
+      gchar *argv[])
+{
+  GMainLoop *loop;
+  GstElement *src, *dec, *conv, *sink;
+  GstPad *audiopad;
+  GstBus *bus;
+
+  /* init GStreamer */
+  gst_init (&#38;argc, &#38;argv);
+  loop = g_main_loop_new (NULL, FALSE);
+
+  /* make sure we have input */
+  if (argc != 2) {
+    g_print ("Usage: %s &#60;filename&#62;\n", argv[0]);
+    return -1;
+  }
+
+  /* setup */
+  pipeline = gst_pipeline_new ("pipeline");
+
+  bus = gst_pipeline_get_bus (GST_PIPELINE (pipeline));
+  gst_bus_add_watch (bus, my_bus_callback, loop);
+  gst_object_unref (bus);
+
+  src = gst_element_factory_make ("filesrc", "source");
+  g_object_set (G_OBJECT (src), "location", argv[1], NULL);
+  dec = gst_element_factory_make ("decodebin", "decoder");
+  g_signal_connect (dec, "new-decoded-pad", G_CALLBACK (cb_newpad), NULL);
+  gst_bin_add_many (GST_BIN (pipeline), src, dec, NULL);
+  gst_element_link (src, dec);
+
+  /* create audio output */
+  audio = gst_bin_new ("audiobin");
+  conv = gst_element_factory_make ("audioconvert", "aconv");
+  audiopad = gst_element_get_static_pad (conv, "sink");
+  sink = gst_element_factory_make ("alsasink", "sink");
+  gst_bin_add_many (GST_BIN (audio), conv, sink, NULL);
+  gst_element_link (conv, sink);
+  gst_element_add_pad (audio,
+      gst_ghost_pad_new ("sink", audiopad));
+  gst_object_unref (audiopad);
+  gst_bin_add (GST_BIN (pipeline), audio);
+
+  /* run */
+  gst_element_set_state (pipeline, GST_STATE_PLAYING);
+  g_main_loop_run (loop);
+
+  /* cleanup */
+  gst_element_set_state (pipeline, GST_STATE_NULL);
+  gst_object_unref (GST_OBJECT (pipeline));
+
+  return 0;
+}
+    </PRE
+><P
+>&#13;      Decodebin, similar to playbin, supports the following features:
+    </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;          Can decode an unlimited number of contained streams to decoded
+          output pads.
+        </P
+></LI
+><LI
+><P
+>&#13;          Is handled as a <CODE
+CLASS="classname"
+>GstElement</CODE
+> in all ways,
+          including tag or error forwarding and state handling.
+        </P
+></LI
+></UL
+><P
+>&#13;      Although decodebin is a good autoplugger, there's a whole lot of
+      things that it does not do and is not intended to do:
+    </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;          Taking care of input streams with a known media type (e.g. a DVD,
+          an audio-CD or such).
+        </P
+></LI
+><LI
+><P
+>&#13;          Selection of streams (e.g. which audio track to play in case of
+          multi-language media streams).
+        </P
+></LI
+><LI
+><P
+>&#13;          Overlaying subtitles over a decoded video stream.
+        </P
+></LI
+></UL
+><P
+>&#13;      Decodebin can be easily tested on the commandline, e.g. by using the
+      command <B
+CLASS="command"
+>gst-launch-0.10 filesrc location=file.ogg ! decodebin
+      ! audioconvert ! audioresample ! autoaudiosink</B
+>.
+    </P
+><P
+>&#13;      New applications should use decodebin2 instead of the old decodebin.
+    </P
+><P
+>&#13;      The uridecodebin element is very similar to decodebin2, only that it
+      automatically plugs a source plugin based on the protocol of the URI
+      given.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-components.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-xml.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Components</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-components.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>XML in <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> (deprecated)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

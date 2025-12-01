@@ -1,0 +1,14 @@
+Package: gstreamer0.10-openmax-dbg
+Source: gst-openmax
+Version: 0.10.0.4+ti0.24.13.3-0ubuntu1
+Architecture: armel
+Maintainer: Maintainers of GStreamer packages <pkg-gstreamer-maintainers@lists.alioth.debian.org>
+Installed-Size: 1276
+Depends: gstreamer0.10-openmax (= 0.10.0.4+ti0.24.13.3-0ubuntu1)
+Section: debug
+Priority: extra
+Homepage: http://freedesktop.org/wiki/GstOpenMAX
+Description: Debug symbols for gst-openmax.
+ gst-openmax is a GStreamer plug-in that allows communication with
+ OpenMAX IL components.
+Uploaders: Marc-Andre Lureau <marcandre.lureau@gmail.com>, Loic Minier <lool@dooz.org>

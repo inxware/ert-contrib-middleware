@@ -1,0 +1,1 @@
+/usr/share/pyshared/numpy/numarray/alter_code1.py

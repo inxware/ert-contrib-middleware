@@ -1,0 +1,7 @@
+01de07c45cc07746871d72aaa8e28612  usr/include/avahi-client/client.h
+9e22520ea308b3f5395d6078c25e081c  usr/include/avahi-client/lookup.h
+c25a3bdbe0bf332aa8e31d6cdc440e0f  usr/include/avahi-client/publish.h
+a6ca7147dc8f00f9266336e233aa3e33  usr/lib/libavahi-client.a
+535d639036b4e1a532480f43a9e992d7  usr/lib/libavahi-client.la
+8e4085428409643fa922dd8491e3c09f  usr/lib/pkgconfig/avahi-client.pc
+026515c317e1591092392844df5f1ee0  usr/share/doc/libavahi-client-dev/copyright

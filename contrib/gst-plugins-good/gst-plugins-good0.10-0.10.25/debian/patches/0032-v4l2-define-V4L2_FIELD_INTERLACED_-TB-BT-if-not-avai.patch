@@ -1,0 +1,56 @@
+From 4de377e33e77b4f7594fc103512b53d84c5090d4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Tim-Philipp=20M=C3=BCller?= <tim.muller@collabora.co.uk>
+Date: Wed, 12 Jan 2011 20:38:59 +0000
+Subject: [PATCH 32/44] v4l2: define V4L2_FIELD_INTERLACED_{TB,BT} if not available in header
+
+Older kernels don't have these, and there's no easy way to check for the
+existance of enums that doesn't involve a configure check, so just define
+these if the V4L2_CAP_VIDEO_OUTPUT_OVERLAY define is not there, which was
+added in the same commit as the TB/BT enum. Fixes compilation on CentOS 5.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=639339
+---
+ sys/v4l2/gstv4l2bufferpool.c |    8 ++++++++
+ sys/v4l2/gstv4l2object.c     |    7 +++++++
+ 2 files changed, 15 insertions(+), 0 deletions(-)
+
+diff --git a/sys/v4l2/gstv4l2bufferpool.c b/sys/v4l2/gstv4l2bufferpool.c
+index 505689a..e976ec5 100644
+--- a/sys/v4l2/gstv4l2bufferpool.c
++++ b/sys/v4l2/gstv4l2bufferpool.c
+@@ -40,6 +40,14 @@
+ #include "v4l2_calls.h"
+ #include "gst/gst-i18n-plugin.h"
+ 
++/* videodev2.h is not versioned and we can't easily check for the presence
++ * of enum values at compile time, but the V4L2_CAP_VIDEO_OUTPUT_OVERLAY define
++ * was added in the same commit as V4L2_FIELD_INTERLACED_{TB,BT} (b2787845) */
++#ifndef V4L2_CAP_VIDEO_OUTPUT_OVERLAY
++#define V4L2_FIELD_INTERLACED_TB 8
++#define V4L2_FIELD_INTERLACED_BT 9
++#endif
++
+ 
+ GST_DEBUG_CATEGORY_EXTERN (v4l2_debug);
+ #define GST_CAT_DEFAULT v4l2_debug
+diff --git a/sys/v4l2/gstv4l2object.c b/sys/v4l2/gstv4l2object.c
+index 21ec2bc..7e15489 100644
+--- a/sys/v4l2/gstv4l2object.c
++++ b/sys/v4l2/gstv4l2object.c
+@@ -41,6 +41,13 @@
+ 
+ #include "gst/gst-i18n-plugin.h"
+ 
++/* videodev2.h is not versioned and we can't easily check for the presence
++ * of enum values at compile time, but the V4L2_CAP_VIDEO_OUTPUT_OVERLAY define
++ * was added in the same commit as V4L2_FIELD_INTERLACED_{TB,BT} (b2787845) */
++#ifndef V4L2_CAP_VIDEO_OUTPUT_OVERLAY
++#define V4L2_FIELD_INTERLACED_TB 8
++#define V4L2_FIELD_INTERLACED_BT 9
++#endif
+ 
+ GST_DEBUG_CATEGORY_EXTERN (v4l2_debug);
+ #define GST_CAT_DEFAULT v4l2_debug
+-- 
+1.7.1
+

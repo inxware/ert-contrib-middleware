@@ -1,0 +1,25 @@
+Package: gstreamer0.10-alsa
+Source: gst-plugins-base0.10
+Version: 0.10.30-2+ti0.24.12.2+2
+Architecture: armel
+Maintainer: Maintainers of GStreamer packages <pkg-gstreamer-maintainers@lists.alioth.debian.org>
+Installed-Size: 188
+Depends: libasound2 (>> 1.0.24.1), libc6 (>= 2.4), libglib2.0-0 (>= 2.24.0), libgstreamer0.10-0 (>= 0.10.30), libgstreamer-plugins-base0.10-0 (>= 0.10.30)
+Recommends: alsa-base (>= 0.9.0)
+Suggests: alsa-utils (>= 0.9.0)
+Provides: gstreamer0.10-audiosink, gstreamer0.10-audiosource
+Section: libs
+Priority: optional
+Homepage: http://gstreamer.freedesktop.org
+Description: GStreamer plugin for ALSA
+ GStreamer is a streaming media framework, based on graphs of filters
+ which operate on media data.  Applications using this library can do
+ anything from real-time sound processing to playing videos, and just
+ about anything else media-related.  Its plugin-based architecture means
+ that new data types or processing capabilities can be added simply by
+ installing new plug-ins.
+ .
+ This package contains the GStreamer plugin for the ALSA library.  ALSA
+ is the Advanced Linux Sound Architecture.
+Gstreamer-Elements: alsamixer, alsasink, alsasrc
+Gstreamer-Version: 0.10

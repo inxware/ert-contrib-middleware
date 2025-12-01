@@ -1,0 +1,10 @@
+prefix=/mingw
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libarchive
+Description: library that can create and read several streaming archive formats
+Version: 2.8.3
+Libs: -larchive
+Libs.private: -lexpat -llzma -lbz2 -lz 

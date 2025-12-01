@@ -1,0 +1,10 @@
+gstreamer0.10-plugins-base-apps_0.10.30-2+ti0.24.12.2+2_armel.deb utils optional
+gstreamer0.10-plugins-base-doc_0.10.30-2+ti0.24.12.2+2_armel.deb doc optional
+libgstreamer-plugins-base0.10-0_0.10.30-2+ti0.24.12.2+2_armel.deb libs optional
+libgstreamer-plugins-base0.10-dev_0.10.30-2+ti0.24.12.2+2_armel.deb libdevel optional
+gstreamer0.10-alsa_0.10.30-2+ti0.24.12.2+2_armel.deb libs optional
+gstreamer0.10-gnomevfs_0.10.30-2+ti0.24.12.2+2_armel.deb libs optional
+gstreamer0.10-plugins-base_0.10.30-2+ti0.24.12.2+2_armel.deb libs optional
+gstreamer0.10-plugins-base-dbg_0.10.30-2+ti0.24.12.2+2_armel.deb debug extra
+gstreamer0.10-x_0.10.30-2+ti0.24.12.2+2_armel.deb libs optional
+gir1.0-gst-plugins-base-0.10_0.10.30-2+ti0.24.12.2+2_armel.deb libs optional

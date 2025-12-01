@@ -1,0 +1,359 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Creating a GstElement</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Elements"
+HREF="chapter-elements.html"><LINK
+REL="PREVIOUS"
+TITLE="Elements"
+HREF="chapter-elements.html"><LINK
+REL="NEXT"
+TITLE="Using an element as a GObject"
+HREF="section-elements-properties.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-elements.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 5. Elements</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-elements-properties.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-elements-create"
+>5.2. Creating a <CODE
+CLASS="classname"
+>GstElement</CODE
+></A
+></H1
+><P
+>&#13;      The simplest way to create an element is to use <A
+HREF="http://gstreamer.freedesktop.org/data/doc/gstreamer/stable/gstreamer/html/GstElementFactory.html#gst-element-factory-make"
+TARGET="_top"
+><CODE
+CLASS="function"
+>gst_element_factory_make
+      ()</CODE
+></A
+>. This function takes a factory name and an
+      element name for the newly created element. The name of the element
+      is something you can use later on to look up the element in a bin,
+      for example. The name will also be used in debug output. You can
+      pass <CODE
+CLASS="symbol"
+>NULL</CODE
+> as the name argument to get a unique,
+      default name.
+    </P
+><P
+>&#13;      When you don't need the element anymore, you need to unref it using
+      <A
+HREF="http://gstreamer.freedesktop.org/data/doc/gstreamer/stable/gstreamer/html/GstObject.html#gst-object-unref"
+TARGET="_top"
+><CODE
+CLASS="function"
+>gst_object_unref 
+      ()</CODE
+></A
+>. This decreases the reference count for the
+      element by 1. An element has a refcount of 1 when it gets created.
+      An element gets destroyed completely when the refcount is decreased
+      to 0.
+    </P
+><P
+>&#13;      The following example 
+<A
+NAME="AEN417"
+HREF="#FTN.AEN417"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+ shows how to create an element named
+      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>source</I
+></SPAN
+> from the element factory named
+      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>fakesrc</I
+></SPAN
+>.  It checks if the creation succeeded.
+      After checking, it unrefs the element.
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;#include &#60;gst/gst.h&#62;
+
+int
+main (int   argc,
+      char *argv[])
+{
+  GstElement *element;
+
+  /* init GStreamer */
+  gst_init (&#38;argc, &#38;argv);
+
+  /* create element */
+  element = gst_element_factory_make ("fakesrc", "source");
+  if (!element) {
+    g_print ("Failed to create element of type 'fakesrc'\n");
+    return -1;
+  }
+
+  gst_object_unref (GST_OBJECT (element));
+
+  return 0;
+}
+    </PRE
+><P
+> 
+      <CODE
+CLASS="function"
+>gst_element_factory_make</CODE
+> is actually a shorthand
+      for a combination of two functions. A <A
+HREF="http://gstreamer.freedesktop.org/data/doc/gstreamer/stable/gstreamer/html/GstElement.html"
+TARGET="_top"
+><CODE
+CLASS="classname"
+>GstElement</CODE
+></A
+>
+      object is created from a factory. To create the element, you have to
+      get access to a <A
+HREF="http://gstreamer.freedesktop.org/data/doc/gstreamer/stable/gstreamer/html/GstElementFactory.html"
+TARGET="_top"
+><CODE
+CLASS="classname"
+>GstElementFactory</CODE
+></A
+>
+      object using a unique factory name. This is done with <A
+HREF="http://gstreamer.freedesktop.org/data/doc/gstreamer/stable/gstreamer/html/GstElementFactory.html#gst-element-factory-find"
+TARGET="_top"
+><CODE
+CLASS="function"
+>gst_element_factory_find
+      ()</CODE
+></A
+>.
+    </P
+><P
+> 
+      The following code fragment is used to get a factory that can be used 
+      to create the <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>fakesrc</I
+></SPAN
+> element, a fake data source.
+      The function <A
+HREF="http://gstreamer.freedesktop.org/data/doc/gstreamer/stable/gstreamer/html/GstElementFactory.html#gst-element-factory-create"
+TARGET="_top"
+><CODE
+CLASS="function"
+>gst_element_factory_create
+      ()</CODE
+></A
+> will use the element factory to create an
+      element with the given name.
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;#include &#60;gst/gst.h&#62;
+
+int
+main (int   argc,
+      char *argv[])
+{
+  GstElementFactory *factory;
+  GstElement * element;
+
+  /* init GStreamer */
+  gst_init (&#38;argc, &#38;argv);
+
+  /* create element, method #2 */
+  factory = gst_element_factory_find ("fakesrc");
+  if (!factory) {
+    g_print ("Failed to find factory of type 'fakesrc'\n");
+    return -1;
+  }
+  element = gst_element_factory_create (factory, "source");
+  if (!element) {
+    g_print ("Failed to create element, even though its factory exists!\n");
+    return -1;
+  }
+
+  gst_object_unref (GST_OBJECT (element));
+
+  return 0;
+}
+    </PRE
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN417"
+HREF="section-elements-create.html#AEN417"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>&#13;    The code for this example is automatically extracted from
+    the documentation and built under <TT
+CLASS="filename"
+>examples/manual</TT
+>
+    in the GStreamer tarball.
+  </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-elements.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-elements-properties.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Elements</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-elements.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Using an element as a <CODE
+CLASS="classname"
+>GObject</CODE
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

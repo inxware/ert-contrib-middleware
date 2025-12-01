@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Types and Properties</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Advanced Filter Concepts"
+HREF="part-advanced.html"><LINK
+REL="PREVIOUS"
+TITLE="Providing random access"
+HREF="section-scheduling-randomxs.html"><LINK
+REL="NEXT"
+TITLE="Typefind Functions and Autoplugging"
+HREF="section-types-typefind.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-scheduling-randomxs.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-types-typefind.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="chapter-building-types"
+></A
+>Chapter 12. Types and Properties</H1
+><P
+>&#13;    There is a very large set of possible types that may be used to pass data
+    between elements. Indeed, each new element that is defined may use a new
+    data format (though unless at least one other element recognises that
+    format, it will be most likely be useless since nothing will be able to
+    link with it).
+  </P
+><P
+>&#13;    In order for types to be useful, and for systems like autopluggers to
+    work, it is necessary that all elements agree on the type definitions,
+    and which properties are required for each type. The <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> framework
+    itself simply provides the ability to define types and parameters, but
+    does not fix the meaning of types and parameters, and does not enforce
+    standards on the creation of new types. This is a matter for a policy to
+    decide, not technical systems to enforce.
+  </P
+><P
+>&#13;    For now, the policy is simple:
+    <P
+></P
+><UL
+><LI
+><P
+>&#13;          Do not create a new type if you could use one which already exists.
+        </P
+></LI
+><LI
+><P
+>&#13;          If creating a new type, discuss it first with the other <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>
+          developers, on at least one of: IRC, mailing lists.
+        </P
+></LI
+><LI
+><P
+>&#13;          Try to ensure that the name for a new format is as unlikely to
+          conflict with anything else created already, and is not a more
+          generalised name than it should be. For example: "audio/compressed"
+          would be too generalised a name to represent audio data compressed
+          with an mp3 codec. Instead "audio/mp3" might be an appropriate name,
+          or "audio/compressed" could exist and have a property indicating the
+          type of compression used.
+        </P
+></LI
+><LI
+><P
+>&#13;          Ensure that, when you do create a new type, you specify it clearly,
+          and get it added to the list of known types so that other developers
+          can use the type correctly when writing their elements.
+        </P
+></LI
+></UL
+>
+  </P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-types-test"
+>12.1. Building a Simple Format for Testing</A
+></H1
+><P
+>&#13;      If you need a new format that has not yet been defined in our <A
+HREF="section-types-definitions.html"
+>List of Defined Types</A
+>, you will want to have some general
+      guidelines on mimetype naming, properties and such. A mimetype would
+      ideally be one defined by IANA; else, it should be in the form
+      type/x-name, where type is the sort of data this mimetype handles (audio,
+      video, ...) and name should be something specific for this specific type.
+      Audio and video mimetypes should try to support the general audio/video
+      properties (see the list), and can use their own properties, too. To get
+      an idea of what properties we think are useful, see (again) the list.
+    </P
+><P
+>&#13;      Take your time to find the right set of properties for your type. There
+      is no reason to hurry. Also, experimenting with this is generally a good
+      idea. Experience learns that theoretically thought-out types are good,
+      but they still need practical use to assure that they serve their needs.
+      Make sure that your property names do not clash with similar properties
+      used in other types. If they match, make sure they mean the same thing;
+      properties with different types but the same names are
+      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>not</I
+></SPAN
+> allowed.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-scheduling-randomxs.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-types-typefind.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Providing random access</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part-advanced.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Typefind Functions and Autoplugging</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

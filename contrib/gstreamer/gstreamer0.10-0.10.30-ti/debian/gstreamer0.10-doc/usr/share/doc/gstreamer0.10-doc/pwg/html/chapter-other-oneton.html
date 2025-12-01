@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Writing a Demuxer or Parser</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Creating special element types"
+HREF="part-other.html"><LINK
+REL="PREVIOUS"
+TITLE="Writing a transformation element"
+HREF="section-base-transform.html"><LINK
+REL="NEXT"
+TITLE="Writing a N-to-1 Element or Muxer"
+HREF="chapter-other-ntoone.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-base-transform.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-other-ntoone.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="chapter-other-oneton"
+></A
+>Chapter 20. Writing a Demuxer or Parser</H1
+><P
+>&#13;    Demuxers are the 1-to-N elements that need very special care.
+    They are responsible for timestamping raw, unparsed data into
+    elementary video or audio streams, and there are many things that you
+    can optimize or do wrong. Here, several culprits will be mentioned
+    and common solutions will be offered. Parsers are demuxers with only
+    one source pad. Also, they only cut the stream into buffers, they
+    don't touch the data otherwise.
+  </P
+><P
+>&#13;    As mentioned previously in <A
+HREF="chapter-negotiation.html"
+>Caps negotiation</A
+>,
+    demuxers should use fixed caps, since their data type will not change.
+  </P
+><P
+>&#13;    As discussed in <A
+HREF="chapter-scheduling.html"
+>Different scheduling modes</A
+>, demuxer elements
+    can be written in multiple ways:
+  </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;        They can be the driving force of the pipeline, by running their own
+        task. This works particularly well for elements that need random
+        access, for example an AVI demuxer.
+      </P
+></LI
+><LI
+><P
+>&#13;        They can also run in push-based mode, which means that an upstream
+        element drives the pipeline. This works particularly well for streams
+        that may come from network, such as Ogg.
+      </P
+></LI
+></UL
+><P
+>&#13;    In addition, audio parsers with one output can, in theory, also be written
+    in random access mode. Although simple playback will mostly work if your
+    element only accepts one mode, it may be required to implement multiple
+    modes to work in combination with all sorts of applications, such as
+    editing. Also, performance may become better if you implement multiple
+    modes. See <A
+HREF="chapter-scheduling.html"
+>Different scheduling modes</A
+> to see how an element
+    can accept multiple scheduling modes.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-base-transform.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-other-ntoone.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Writing a transformation element</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part-other.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Writing a N-to-1 Element or Muxer</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

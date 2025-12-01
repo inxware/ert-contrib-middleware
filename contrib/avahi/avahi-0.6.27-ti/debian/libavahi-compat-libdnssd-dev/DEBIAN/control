@@ -1,0 +1,20 @@
+Package: libavahi-compat-libdnssd-dev
+Source: avahi
+Version: 0.6.27-2ubuntu3.1
+Architecture: armel
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Installed-Size: 204
+Depends: libavahi-compat-libdnssd1 (= 0.6.27-2ubuntu3.1), libavahi-client-dev
+Section: libdevel
+Priority: optional
+Homepage: http://avahi.org/
+Description: Development headers for the Avahi Apple Bonjour compatibility library
+ Avahi is a fully LGPL framework for Multicast DNS Service Discovery.
+ It allows programs to publish and discover services and hosts
+ running on a local network with no specific configuration. For
+ example you can plug into a network and instantly find printers to
+ print to, files to look at and people to talk to.
+ .
+ This package contains the development headers for Apple Bonjour compatibility
+ library of Avahi.
+Original-Maintainer: Utopia Maintenance Team <pkg-utopia-maintainers@lists.alioth.debian.org>

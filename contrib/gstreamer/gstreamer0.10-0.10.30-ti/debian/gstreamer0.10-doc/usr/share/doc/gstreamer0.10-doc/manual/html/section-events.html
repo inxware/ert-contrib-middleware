@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Events</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Buffers and Events"
+HREF="chapter-data.html"><LINK
+REL="PREVIOUS"
+TITLE="Buffers and Events"
+HREF="chapter-data.html"><LINK
+REL="NEXT"
+TITLE="Your first application"
+HREF="chapter-helloworld.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-data.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 9. Buffers and Events</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-helloworld.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-events"
+>9.2. Events</A
+></H1
+><P
+>&#13;      Events are control particles that are sent both up- and downstream in
+      a pipeline along with buffers. Downstream events notify fellow elements
+      of stream states. Possible events include seeking, flushes,
+      end-of-stream notifications and so on. Upstream events are used both
+      in application-element interaction as well as element-element interaction
+      to request changes in stream state, such as seeks. For applications,
+      only upstream events are important. Downstream events are just
+      explained to get a more complete picture of the data concept.
+    </P
+><P
+>&#13;      Since most applications seek in time units, our example below does so
+      too:
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;static void
+seek_to_time (GstElement *element,
+	      guint64     time_ns)
+{
+  GstEvent *event;
+
+  event = gst_event_new_seek (1.0, GST_FORMAT_TIME,
+			      GST_SEEK_FLAG_NONE,
+			      GST_SEEK_METHOD_SET, time_ns,
+			      GST_SEEK_TYPE_NONE, G_GUINT64_CONSTANT (0));
+  gst_element_send_event (element, event);
+}
+    </PRE
+><P
+>&#13;      The function <CODE
+CLASS="function"
+>gst_element_seek ()</CODE
+> is a shortcut
+      for this. This is mostly just to show how it all works.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-data.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-helloworld.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Buffers and Events</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-data.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Your first application</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

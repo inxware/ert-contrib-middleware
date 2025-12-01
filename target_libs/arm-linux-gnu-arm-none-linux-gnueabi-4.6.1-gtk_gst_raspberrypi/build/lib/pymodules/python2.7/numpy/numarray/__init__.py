@@ -1,0 +1,1 @@
+/usr/share/pyshared/numpy/numarray/__init__.py

@@ -1,0 +1,25 @@
+Package: gir1.0-gstreamer-0.10
+Source: gstreamer0.10
+Version: 0.10.30-1+ti0.24.12.2+2
+Architecture: armel
+Maintainer: Maintainers of GStreamer packages <pkg-gstreamer-maintainers@lists.alioth.debian.org>
+Installed-Size: 304
+Depends: gir1.0-freedesktop, gir1.0-glib-2.0, libgstreamer0.10-0 (>= 0.10.30-1+ti0.24.12.2+1+cm1)
+Replaces: gobject-introspection-repository (<< 0.6.5-2), libgstreamer0.10-0 (<< 0.10.25-3)
+Provides: gir1.0-gst-0.10, gir1.0-gstbase-0.10, gir1.0-gstcheck-0.10, gir1.0-gstcontroller-0.10, gir1.0-gstnet-0.10
+Section: libs
+Priority: optional
+Homepage: http://gstreamer.freedesktop.org
+Description: Description: GObject introspection data for the GStreamer library
+ This package contains introspection data for the GStreamer streaming media
+ framework.
+ .
+ GStreamer is a streaming media framework, based on graphs of filters
+ which operate on media data.  Applications using this library can do
+ anything from real-time sound processing to playing videos, and just
+ about anything else media-related.  Its plugin-based architecture means
+ that new data types or processing capabilities can be added simply by
+ installing new plug-ins.
+ .
+ It can be used by packages using the GIRepository format to generate
+ dynamic bindings.

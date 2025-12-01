@@ -1,0 +1,5 @@
+0001-Tiler-library-was-renamed.patch
+0002-Added-include-for-signal-functions-and-changed-handl.patch
+0003-RPC_MemAlloc-Free-prototypes-were-incorrect-dataSize.patch
+0004-Removed-an-unused-variable-to-fix-a-compiler-warning.patch
+0005-Fixed-OMX-libary-SONAME.patch

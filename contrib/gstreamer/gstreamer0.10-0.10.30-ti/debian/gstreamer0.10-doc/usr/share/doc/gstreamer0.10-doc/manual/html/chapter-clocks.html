@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Clocks in GStreamer</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Advanced GStreamer concepts"
+HREF="part-advanced.html"><LINK
+REL="PREVIOUS"
+TITLE="The X Overlay interface"
+HREF="section-interfaces-xoverlay.html"><LINK
+REL="NEXT"
+TITLE="Clock slaves"
+HREF="section-clocks-slaves.html"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-interfaces-xoverlay.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-clocks-slaves.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="chapter-clocks"
+></A
+>Chapter 14. Clocks in GStreamer</H1
+><P
+>&#13;    To maintain sync in pipeline playback (which is the only case where this
+    really matters), <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> uses <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>clocks</I
+></SPAN
+>. Clocks
+    are exposed by some elements, whereas other elements are merely clock
+    slaves. The primary task of a clock is to represent the time progress
+    according to the element exposing the clock, based on its own playback
+    rate. If no clock provider is available in a pipeline, the system clock
+    is used instead.
+  </P
+><P
+>&#13;    <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> derives several times from the clock and the playback state.
+    It is important to note, that a  <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>clock-time</I
+></SPAN
+> is
+    monotonically rising, but the value itself is not meaningful.
+    Subtracting the <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>base-time</I
+></SPAN
+> yields the
+    <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>running-time</I
+></SPAN
+>. It is the same as the
+    <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>stream-time</I
+></SPAN
+> if one plays from start to end at original
+    rate. The <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>stream-time</I
+></SPAN
+> indicates the position in the
+    media.
+  </P
+><DIV
+CLASS="figure"
+><A
+NAME="chapter-clock-img"
+></A
+><P
+><B
+>Figure 14-1. <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> clock and various times</B
+></P
+><DIV
+CLASS="mediaobject"
+><P
+><IMG
+SRC="images/clocks.png"></P
+></DIV
+></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-clocks-providers"
+>14.1. Clock providers</A
+></H1
+><P
+>&#13;      Clock providers exist because they play back media at some rate, and
+      this rate is not necessarily the same as the system clock rate. For
+      example, a soundcard may playback at 44,1 kHz, but that doesn't mean
+      that after <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>exactly</I
+></SPAN
+> 1 second <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>according
+      to the system clock</I
+></SPAN
+>, the soundcard has played back 44.100
+      samples. This is only true by approximation. Therefore, generally,
+      pipelines with an audio output use the audiosink as clock provider.
+      This ensures that one second of video will be played back at the same
+      rate as that the soundcard plays back 1 second of audio.
+    </P
+><P
+>&#13;      Whenever some part of the pipeline requires to know the current clock
+      time, it will be requested from the clock through
+      <CODE
+CLASS="function"
+>gst_clock_get_time ()</CODE
+>. The clock-time does not
+      need to start at 0. The pipeline, which contains the global clock that
+      all elements in the pipeline will use, in addition has a <SPAN
+CLASS="QUOTE"
+>"base
+      time"</SPAN
+>, which is the clock time at the the point where media time
+      is starting from zero. This timestamp is subctracted from the clock
+      time, and that value is returned by <CODE
+CLASS="function"
+>_get_time ()</CODE
+>.
+    </P
+><P
+>&#13;      The clock provider is responsible for making sure that the clock time
+      always represents the current media time as closely as possible; it
+      has to take care of things such as playback latencies, buffering in
+      audio-kernel modules, and so on, since all those could affect a/v sync
+      and thus decrease the user experience.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-interfaces-xoverlay.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-clocks-slaves.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The X Overlay interface</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="part-advanced.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Clock slaves</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

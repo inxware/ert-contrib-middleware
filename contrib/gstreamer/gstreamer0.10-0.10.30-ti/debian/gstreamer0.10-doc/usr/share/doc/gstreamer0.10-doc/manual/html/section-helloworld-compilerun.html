@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Compiling and Running helloworld.c</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Application Development Manual (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Your first application"
+HREF="chapter-helloworld.html"><LINK
+REL="PREVIOUS"
+TITLE="Your first application"
+HREF="chapter-helloworld.html"><LINK
+REL="NEXT"
+TITLE="Conclusion"
+HREF="section-hello-world-conclusion.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Application Development Manual (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-helloworld.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 10. Your first application</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-hello-world-conclusion.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-helloworld-compilerun"
+>10.2. Compiling and Running helloworld.c</A
+></H1
+><P
+>&#13;      To compile the helloworld example, use: <B
+CLASS="command"
+>gcc -Wall
+      $(pkg-config --cflags --libs gstreamer-0.10)
+      helloworld.c -o helloworld</B
+>. <SPAN
+CLASS="application"
+>GStreamer</SPAN
+> makes use of
+      <B
+CLASS="command"
+>pkg-config</B
+> to get compiler and linker flags
+      needed to compile this application.
+    </P
+><P
+>&#13;      If you're running a non-standard installation (ie. you've installed
+      GStreamer from source yourself instead of using pre-built packages),
+      make sure the <CODE
+CLASS="classname"
+>PKG_CONFIG_PATH</CODE
+> environment variable
+      is set to the correct location (<TT
+CLASS="filename"
+>$libdir/pkgconfig</TT
+>).
+    </P
+><P
+>&#13;      In the unlikely case that you are using an uninstalled GStreamer
+      setup (ie. gst-uninstalled), you will need to use libtool to build the
+      hello world program, like this: <B
+CLASS="command"
+>libtool --mode=link gcc -Wall
+      $(pkg-config --cflags --libs gstreamer-0.10)
+      helloworld.c -o helloworld</B
+>.
+    </P
+><P
+>&#13;      You can run this example application with <B
+CLASS="command"
+>./helloworld
+      file.ogg</B
+>. Substitute <TT
+CLASS="filename"
+>file.ogg</TT
+>
+      with your favourite Ogg/Vorbis file.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-helloworld.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-hello-world-conclusion.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Your first application</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-helloworld.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Conclusion</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

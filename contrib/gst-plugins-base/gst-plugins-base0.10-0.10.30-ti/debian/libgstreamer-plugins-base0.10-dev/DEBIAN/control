@@ -1,0 +1,21 @@
+Package: libgstreamer-plugins-base0.10-dev
+Source: gst-plugins-base0.10
+Version: 0.10.30-2+ti0.24.12.2+2
+Architecture: armel
+Maintainer: Maintainers of GStreamer packages <pkg-gstreamer-maintainers@lists.alioth.debian.org>
+Installed-Size: 1668
+Depends: libgstreamer-plugins-base0.10-0 (= 0.10.30-2+ti0.24.12.2+2), libc6-dev | libc-dev, pkg-config, libgstreamer0.10-dev (>= 0.10.30), libglib2.0-dev, libxml2-dev
+Replaces: gobject-introspection-repository (<< 0.6.5-2)
+Section: libdevel
+Priority: optional
+Homepage: http://gstreamer.freedesktop.org
+Description: GStreamer development files for libraries from the "base" set
+ GStreamer is a streaming media framework, based on graphs of filters
+ which operate on media data.  Applications using this library can do
+ anything from real-time sound processing to playing videos, and just
+ about anything else media-related.  Its plugin-based architecture means
+ that new data types or processing capabilities can be added simply by
+ installing new plug-ins.
+ .
+ This package contains development files for GStreamer libraries from
+ the "base" set, an essential exemplary set of elements.

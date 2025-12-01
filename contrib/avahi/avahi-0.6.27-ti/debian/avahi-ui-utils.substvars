@@ -1,0 +1,2 @@
+shlibs:Depends=libatk1.0-0 (>= 1.29.3), libavahi-client3 (>= 0.6.16), libavahi-common3 (>= 0.6.22), libavahi-glib1 (>= 0.6.16), libavahi-ui0 (>= 0.6.22), libc6 (>= 2.4), libcairo2 (>= 1.2.4), libdbus-1-3 (>= 1.0.2), libfontconfig1 (>= 2.8.0), libfreetype6 (>= 2.2.1), libgdbm3 (>= 1.8.3), libgdk-pixbuf2.0-0 (>= 2.21.6), libglib2.0-0 (>= 2.16.0), libgtk2.0-0 (>= 2.14.0), libpango1.0-0 (>= 1.14.0), libpng12-0 (>= 1.2.13-4), zlib1g (>= 1:1.1.4)
+misc:Depends=

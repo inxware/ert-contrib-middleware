@@ -1,0 +1,13 @@
+libOMX.TI.DUCATI1.VIDEO.MPEG4E 0 libtiopenmax-domx0
+libOMX.TI.DUCATI1.VIDEO.DECODER 0 libtiopenmax-domx0
+libOMX.TI.DUCATI1.VIDEO.H264D 0 libtiopenmax-domx0
+libOMX_Core 0 libtiopenmax-domx0
+libmmosal 0 libtiopenmax-domx0
+libdomx 0 libtiopenmax-domx0
+libOMX.TI.DUCATI1.VIDEO.H264E 0 libtiopenmax-domx0
+libOMX.TI.DUCATI1.VIDEO.CAMERA 0 libtiopenmax-domx0
+libOMX.TI.DUCATI1.MISC.SAMPLE 0 libtiopenmax-domx0
+libOMX.TI.DUCATI1.VIDEO.MPEG4D 0 libtiopenmax-domx0
+libOMX.TI.DUCATI1.VIDEO.VP7D 0 libtiopenmax-domx0
+libOMX.TI.DUCATI1.VIDEO.VP6D 0 libtiopenmax-domx0
+libOMX.TI.DUCATI1.IMAGE.JPEGD 0 libtiopenmax-domx0

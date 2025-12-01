@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$unionxcb__randr__notify__data__t.html" title="xcb_randr_notify_data_t" alt="" coords="215,101,375,131"/>
+<area shape="rect" id="node4" href="$structxcb__randr__output__change__t.html" title="xcb_randr_output_change_t" alt="" coords="5,5,187,35"/>
+<area shape="rect" id="node6" href="$structxcb__randr__crtc__change__t.html" title="xcb_randr_crtc_change_t" alt="" coords="211,5,379,35"/>
+<area shape="rect" id="node8" href="$structxcb__randr__output__property__t.html" title="xcb_randr_output_property_t" alt="" coords="403,5,589,35"/>
+</map>

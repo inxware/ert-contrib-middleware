@@ -1,0 +1,11 @@
+speex_header.lo speex_header.o: speex_header.c \
+  ../include/speex/speex_header.h misc.h ../include/speex/speex.h \
+  ../include/speex/speex_bits.h
+
+../include/speex/speex_header.h:
+
+misc.h:
+
+../include/speex/speex.h:
+
+../include/speex/speex_bits.h:

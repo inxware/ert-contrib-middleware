@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Debugging</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Things to check when writing an element"
+HREF="chapter-checklist-element.html"><LINK
+REL="PREVIOUS"
+TITLE="Things to check when writing an element"
+HREF="chapter-checklist-element.html"><LINK
+REL="NEXT"
+TITLE="Querying, events and the like"
+HREF="section-checklist-query.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-checklist-element.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 23. Things to check when writing an element</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-checklist-query.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-checklist-debug"
+>23.2. Debugging</A
+></H1
+><P
+></P
+><UL
+><LI
+><P
+>&#13;          Elements should <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>never</I
+></SPAN
+> use their standard
+          output for debugging (using functions such as <CODE
+CLASS="function"
+>printf
+          ()</CODE
+> or <CODE
+CLASS="function"
+>g_print ()</CODE
+>). Instead,
+          elements should use the logging functions provided by <SPAN
+CLASS="application"
+>GStreamer</SPAN
+>,
+          named <CODE
+CLASS="function"
+>GST_DEBUG ()</CODE
+>,
+          <CODE
+CLASS="function"
+>GST_LOG ()</CODE
+>, <CODE
+CLASS="function"
+>GST_INFO ()</CODE
+>,
+          <CODE
+CLASS="function"
+>GST_WARNING ()</CODE
+> and
+          <CODE
+CLASS="function"
+>GST_ERROR ()</CODE
+>. The various logging levels can
+          be turned on and off at runtime and can thus be used for solving
+          issues as they turn up. Instead of <CODE
+CLASS="function"
+>GST_LOG ()</CODE
+>
+          (as an example), you can also use <CODE
+CLASS="function"
+>GST_LOG_OBJECT
+          ()</CODE
+> to print the object that you're logging output for.
+        </P
+></LI
+><LI
+><P
+>&#13;          Ideally, elements should use their own debugging category. Most
+          elements use the following code to do that:
+        </P
+><PRE
+CLASS="programlisting"
+>&#13;GST_DEBUG_CATEGORY_STATIC (myelement_debug);
+#define GST_CAT_DEFAULT myelement_debug
+
+[..]
+
+static void
+gst_myelement_class_init (GstMyelementClass *klass)
+{
+[..]
+  GST_DEBUG_CATEGORY_INIT (myelement_debug, "myelement",
+			   0, "My own element");
+}
+        </PRE
+><P
+>&#13;          At runtime, you can turn on debugging using the commandline
+          option <B
+CLASS="command"
+>--gst-debug=myelement:5</B
+>.
+        </P
+></LI
+><LI
+><P
+>&#13;          Elements should use GST_DEBUG_FUNCPTR when setting pad functions or
+          overriding element class methods, for example:
+          <PRE
+CLASS="programlisting"
+>&#13;gst_pad_set_event_func (myelement-&#62;srcpad,
+    GST_DEBUG_FUNCPTR (my_element_src_event));
+          </PRE
+>
+          This makes debug output much easier to read later on.
+        </P
+></LI
+><LI
+><P
+>&#13;          Elements that are aimed for inclusion into one of the GStreamer
+          modules should ensure consistent naming of the element name,
+          structures and function names. For example, if the element type is
+          GstYellowFooDec, functions should be prefixed with
+          gst_yellow_foo_dec_ and the element should be registered
+          as 'yellowfoodec'. Separate words should be separate in this scheme,
+          so it should be GstFooDec and gst_foo_dec, and not GstFoodec and
+          gst_foodec.
+        </P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-checklist-element.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-checklist-query.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Things to check when writing an element</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-checklist-element.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Querying, events and the like</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

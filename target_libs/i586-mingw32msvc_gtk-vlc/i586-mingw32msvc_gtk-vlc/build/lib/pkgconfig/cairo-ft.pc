@@ -1,0 +1,12 @@
+prefix=c:/devel/target/72bd3422f63c5f1b3f981fd82f3aa37d
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: cairo-ft
+Description: FreeType font backend for cairo graphics library
+Version: 1.10.0
+
+Requires: cairo freetype2 >= 9.7.3 
+Libs:  
+Cflags: -I${includedir}/cairo 

@@ -1,0 +1,89 @@
+
+
+Building VLC for windows - Manual
+
+Without building dependencies:
+
+#sudo apt-get install gcc-mingw32 mingw32-binutils
+-- Need mingw32-runtime >= 3.17 and w32api >
+
+with ubuntu 10.10 You get:
+
+Setting up mingw32-binutils (2.20-0.1) ...
+Setting up mingw32-runtime (3.15.2-0ubuntu1) ...
+Setting up gcc-mingw32 (4.4.4-0.1build1) ...
+Setting up mingw-w64 (0~20100125-3fakesync1) .
+
+Download some crud from http://people.videolan.org/~jb/Contribs/:
+
+wget contrib-20100109-win32-bin-gcc-4.4.2-runtime-3.15.2-only.tar.bz2 
+
+Read the INSTALL.win32
+
+There are mingw scripts that dont work in the git repo.
+
+The modified version of these essentially does:
+
+need to be root and build the contrib to a nasty place
+tar jxf contrib-20100109-win32-bin-gcc-4.4.2-runtime-3.15.2-only.tar.bz2 -C /
+export CPPFLAGS="-I/usr/win32/include -I/usr/win32/include/ebml" \
+export LDFLAGS="-L/usr/win32/lib" \
+export CONTRIB_DIR=/usr/win32
+export CC=i586-mingw32msvc-gcc CXX=i586-mingw32msvc-g++ \
+export CONFIG="${root}configure \
+--host=i586-mingw32msvc \
+--build=i386-linux \
+--disable-mkv \
+--enable-taglib --enable-release --disable-nls --enable-projectm" \
+--enable-shared \ 
+--with-contrib \
+--disable-speex --disable-shout --disable-dvbpsi \
+        --disable-qt4  --disable-skins2 \
+        --enable-shared \
+      --with-contrib \
+      --enable-update-check \
+      --disable-lua \
+      --enable-faad \
+      --disable-flac \
+      --enable-theora \
+      --enable-twolame \
+      --enable-quicktime \
+      --enable-real \
+      --enable-avcodec  --enable-merge-ffmpeg \
+      --enable-dca \
+      --enable-mpc \
+      --enable-libass \
+      --disable-x264 \
+      --disable-schroedinger \
+      --enable-realrtsp \
+      --disable-live555 \
+      --disable-dvdread --with-dvdnav-config-path=$CONTRIB_DIR/bin \
+      --disable-goom \
+      --disable-caca \
+      --enable-portaudio \
+      --enable-sdl \
+      --disable-qt4 \
+      --enable-sse --enable-mmx \
+      --enable-libcddb \
+      --enable-zvbi --disable-telx \
+      --disable-sqlite \
+      --disable-media-library \
+      --disable-dvb \
+      --disable-dirac \
+      --enable-peflags \
+--disable-dbus-control --disable-dbus \
+#
+##
+
+
+there INSTALL.win32 doc mentions running some weitd dos commands, but it doesn't look like these work to me. 
+
+make install seems to create every thiing in _win32/bin and _win32/lib
+
+Pre-compiled dlls are typically got from
+
+http://sourceforge.net/projects/mingw/files/MinGW/
+
+
+
+

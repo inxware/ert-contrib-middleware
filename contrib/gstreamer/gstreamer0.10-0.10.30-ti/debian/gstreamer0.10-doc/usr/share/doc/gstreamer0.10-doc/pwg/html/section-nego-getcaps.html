@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Implementing a getcaps function</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Caps negotiation"
+HREF="chapter-negotiation.html"><LINK
+REL="PREVIOUS"
+TITLE="Upstream caps (re)negotiation"
+HREF="section-nego-upstream.html"><LINK
+REL="NEXT"
+TITLE="Different scheduling modes"
+HREF="chapter-scheduling.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-nego-upstream.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 10. Caps negotiation</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-scheduling.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-nego-getcaps"
+>10.5. Implementing a getcaps function</A
+></H1
+><P
+>&#13;      A <CODE
+CLASS="function"
+>_getcaps ()</CODE
+>-function is called when a peer
+      element would like to know which formats this element supports, and
+      in what order of preference. The return value should be all formats
+      that this elements supports, taking into account limitations of peer
+      elements further downstream or upstream, sorted by order of preference,
+      highest preference first.
+    </P
+><P
+>&#13;    </P
+><PRE
+CLASS="programlisting"
+>&#13;
+static GstCaps *
+gst_my_filter_getcaps (GstPad *pad)
+{
+  GstMyFilter *filter = GST_MY_FILTER (GST_OBJECT_PARENT (pad));
+  GstPad *otherpad = (pad == filter-&#62;srcpad) ? filter-&#62;sinkpad :
+						  filter-&#62;srcpad;
+  GstCaps *othercaps = gst_pad_get_allowed_caps (otherpad), *caps;
+  gint i;
+
+  /* We support *any* samplerate, indifferent from the samplerate
+   * supported by the linked elements on both sides. */
+  for (i = 0; i &#60; gst_caps_get_size (othercaps); i++) {
+    GstStructure *structure = gst_caps_get_structure (othercaps, i);
+
+    gst_structure_remove_field (structure, "rate");
+  }
+  caps = gst_caps_intersect (othercaps, gst_pad_get_pad_template_caps (pad));
+  gst_caps_unref (othercaps);
+
+  return caps;
+}
+
+</PRE
+><P
+>&#13;      Using all the knowledge you've acquired by reading this chapter, you
+      should be able to write an element that does correct caps negotiation.
+      If in doubt, look at other elements of the same type in our git
+      repository to get an idea of how they do what you want to do.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-nego-upstream.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-scheduling.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Upstream caps (re)negotiation</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-negotiation.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Different scheduling modes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

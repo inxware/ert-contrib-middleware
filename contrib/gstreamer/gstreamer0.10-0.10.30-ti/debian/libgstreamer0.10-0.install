@@ -1,0 +1,4 @@
+debian/tmp/usr/lib/gstreamer-0.10/*.so
+debian/tmp/usr/lib/gstreamer0.10/gstreamer-0.10/gst-plugin-scanner
+debian/tmp/usr/lib/*.so.*
+debian/tmp/usr/share/locale

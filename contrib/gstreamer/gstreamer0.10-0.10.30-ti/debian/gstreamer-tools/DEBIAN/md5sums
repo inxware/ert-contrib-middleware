@@ -1,0 +1,12 @@
+4c9800f3db08bbd79d988ce710f6ccad  usr/bin/gst-feedback
+3b3e161d25f50962611938af44daa5ae  usr/bin/gst-inspect
+650e2ff7ba2604628cd90238ce0965b9  usr/bin/gst-launch
+c97803f037bed09743d166303376cf78  usr/bin/gst-typefind
+92ab0fe7b5d933df73d16d506fda2a26  usr/bin/gst-xmlinspect
+f47cac18fde6ba5b64dfa895a9904b65  usr/bin/gst-xmllaunch
+18728550cf69534a157d3e39af9281ea  usr/share/doc/gstreamer-tools/AUTHORS
+6c3446eb0b266d6473d48383da174b81  usr/share/doc/gstreamer-tools/NEWS.gz
+5bafd23836a2eb87b9d8f5341a9114e3  usr/share/doc/gstreamer-tools/README.Debian
+5ef868ea45979fe4de4cc183812c06b4  usr/share/doc/gstreamer-tools/README.gz
+87a1d104d602860254add665cc86339f  usr/share/doc/gstreamer-tools/changelog.Debian.gz
+58afe71a3df11ad72a42613606ecd6a7  usr/share/doc/gstreamer-tools/copyright

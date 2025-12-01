@@ -1,0 +1,9 @@
+prefix=/home/pdrezet/workspace/inxware2.0-Release/INX/comp-lib-support/inx_build_scripts/../target_libs/arm-linux-gnu-glibc-2.12.2-gtk_gst/build
+datarootdir=${prefix}/share
+datadir=${datarootdir}
+xcbincludedir=${datadir}/xcb
+pythondir=${prefix}/lib/python2.7/site-packages
+
+Name: XCB Proto
+Description: X protocol descriptions for XCB
+Version: 1.6

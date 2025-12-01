@@ -1,0 +1,3 @@
+application/x-image;	squeak %s; nametemplate=%s.image; test=test "$DISPLAY" != "" 
+application/squeak-image;	squeak %s; nametemplate=%s.image; test=test "$DISPLAY" != "" 
+application/squeak-project;	squeak %s; nametemplate=%s.pr; test=test "$DISPLAY" != "" 

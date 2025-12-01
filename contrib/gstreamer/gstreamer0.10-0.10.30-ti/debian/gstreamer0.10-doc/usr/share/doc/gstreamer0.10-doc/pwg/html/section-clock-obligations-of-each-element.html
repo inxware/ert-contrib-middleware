@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>&#13;      Obligations of each element.
+    </TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Clocking"
+HREF="chapter-advanced-clock.html"><LINK
+REL="PREVIOUS"
+TITLE="
+      Flow of data between elements and time
+    "
+HREF="section-time-data-flow.html"><LINK
+REL="NEXT"
+TITLE="Supporting Dynamic Parameters"
+HREF="chapter-dparams.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-time-data-flow.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 14. Clocking</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-dparams.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-clock-obligations-of-each-element"
+>14.4. Obligations of each element.</A
+></H1
+><P
+>&#13;      Let us clarify the contract between GStreamer and each element in the
+      pipeline.
+    </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1570"
+>14.4.1. Source elements</A
+></H2
+><P
+>&#13;	Source elements (or parsers of formats that provide notion of time, such
+	as MPEG, as explained above) must place a timestamp in each buffer that
+	they deliver. The origin of the time used is arbitrary, but it must
+	match the time delivered in the discontinuous event (see below).
+	However, it is expected that the origin is the origin of the media
+	stream.
+      </P
+><P
+>&#13;	In order to initialize the element time of the rest of the pipeline, a
+	source element must send a discontinuous event before starting to play.
+	In addition, after seeking, a discontinuous event must be sent, because
+	the timestamp of the next element does not match the element time of the
+	rest of the pipeline.
+      </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN1574"
+>14.4.2. Sink elements</A
+></H2
+><P
+>&#13;	If the element is intended to emit samples at a specific time (real time
+	playing), the element should require a clock, and thus implement the
+	method <CODE
+CLASS="function"
+>set_clock</CODE
+>.
+      </P
+><P
+>&#13;	In addition, before playing each sample, if the current element time is
+	less than the timestamp in the sample, it wait until the current time
+	arrives should call <CODE
+CLASS="function"
+>gst_element_wait()</CODE
+>
+	<A
+NAME="AEN1580"
+HREF="#FTN.AEN1580"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+      </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1580"
+HREF="section-clock-obligations-of-each-element.html#AEN1580"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>&#13;	    With some schedulers, <CODE
+CLASS="function"
+>gst_element_wait()</CODE
+> 
+	    blocks the pipeline. For instance, if there is one audio sink element
+	    and one video sink element, while the audio element is waiting for a
+	    sample the video element cannot play other sample. This behaviour is
+	    under discussion, and might change in a future release.
+	  </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-time-data-flow.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-dparams.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Flow of data between elements and time</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-advanced-clock.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Supporting Dynamic Parameters</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

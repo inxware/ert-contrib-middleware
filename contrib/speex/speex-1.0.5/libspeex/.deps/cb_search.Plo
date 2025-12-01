@@ -1,0 +1,14 @@
+cb_search.lo cb_search.o: cb_search.c cb_search.h \
+  ../include/speex/speex_bits.h filters.h stack_alloc.h vq.h misc.h
+
+cb_search.h:
+
+../include/speex/speex_bits.h:
+
+filters.h:
+
+stack_alloc.h:
+
+vq.h:
+
+misc.h:

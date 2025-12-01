@@ -1,0 +1,15 @@
+# Name,     Type,   SubType,    Offset,     Size,    Flags
+# Note: if you have increased the bootloader size, make sure to update the offsets to avoid overlap
+# esp32-S3-MINI-1U-N8 has 8MB flash. 1.8 MebiByte to 1887436.8 Byte for apps. hex(math.floor(1.8*1048576)) = 0x1ccccc
+nvs,        data,   nvs,        ,       0x4000,
+otadata,    data,   ota,        ,       0x2000,
+phy_init,   data,   phy,        ,       0x1000,
+# factory,    app,    factory,    ,       0x21c000,
+ota_0,      app,    ota_0,      ,       0x2ef000,
+ota_1,      app,    ota_1,      ,       0x2ef000,
+appdata,    data,   spiffs,     ,       0x7d000,
+storage,    data,   spiffs,     ,       0x180000
+# storage,    data,   spiffs,     ,       0x17c000,
+# storage,    data,   spiffs,     ,           2M,	encrypted
+# nvs_key,    data,   nvs_keys,   ,           0x1000,	encrypted
+# custom_nvs, data,   nvs,        ,           0x6000,

@@ -1,0 +1,163 @@
+From 3337f4ed61fe6f4079a6a00671c1730f99d61283 Mon Sep 17 00:00:00 2001
+From: Stefan Kost <ensonic@users.sf.net>
+Date: Fri, 27 Aug 2010 15:35:49 +0300
+Subject: [PATCH 8/9] queue: add silent property to suppress signal emission
+
+Allow to turn off signal emission and therefore extra locking if this is not needed.
+Fixes #621299
+---
+ plugins/elements/gstqueue.c |   76 ++++++++++++++++++++++++++++++++----------
+ plugins/elements/gstqueue.h |    2 +
+ 2 files changed, 60 insertions(+), 18 deletions(-)
+
+diff --git a/plugins/elements/gstqueue.c b/plugins/elements/gstqueue.c
+index b8aecda..5b5b3e8 100644
+--- a/plugins/elements/gstqueue.c
++++ b/plugins/elements/gstqueue.c
+@@ -117,8 +117,8 @@ enum
+   ARG_MIN_THRESHOLD_BUFFERS,
+   ARG_MIN_THRESHOLD_BYTES,
+   ARG_MIN_THRESHOLD_TIME,
+-  ARG_LEAKY
+-      /* FILL ME */
++  ARG_LEAKY,
++  PROP_SILENT
+ };
+ 
+ /* default property values */
+@@ -351,6 +351,19 @@ gst_queue_class_init (GstQueueClass * klass)
+           GST_TYPE_QUEUE_LEAKY, GST_QUEUE_NO_LEAK,
+           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+ 
++  /**
++   * GstQueue:silent
++   *
++   * Don't emit queue signals. Makes queues more lightweight if no signals are
++   * needed.
++   *
++   * Since: 0.10.31
++   */
++  g_object_class_install_property (gobject_class, PROP_SILENT,
++      g_param_spec_boolean ("silent", "Silent",
++          "Don't emit queue signals", FALSE,
++          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
++
+   gobject_class->finalize = gst_queue_finalize;
+ 
+   /* Registering debug symbols for function pointers */
+@@ -933,9 +946,14 @@ gst_queue_chain (GstPad * pad, GstBuffer * buffer)
+    * the user defined as "full". Note that this only applies to buffers.
+    * We always handle events and they don't count in our statistics. */
+   while (gst_queue_is_filled (queue)) {
+-    GST_QUEUE_MUTEX_UNLOCK (queue);
+-    g_signal_emit (queue, gst_queue_signals[SIGNAL_OVERRUN], 0);
+-    GST_QUEUE_MUTEX_LOCK_CHECK (queue, out_flushing);
++    if (!queue->silent) {
++      GST_QUEUE_MUTEX_UNLOCK (queue);
++      g_signal_emit (queue, gst_queue_signals[SIGNAL_OVERRUN], 0);
++      GST_QUEUE_MUTEX_LOCK_CHECK (queue, out_flushing);
++    } else {
++      if (queue->srcresult != GST_FLOW_OK)
++        goto out_flushing;
++    }
+ 
+     /* we recheck, the signal could have changed the thresholds */
+     if (!gst_queue_is_filled (queue))
+@@ -970,9 +988,14 @@ gst_queue_chain (GstPad * pad, GstBuffer * buffer)
+ 
+         GST_CAT_DEBUG_OBJECT (queue_dataflow, queue, "queue is not full");
+ 
+-        GST_QUEUE_MUTEX_UNLOCK (queue);
+-        g_signal_emit (queue, gst_queue_signals[SIGNAL_RUNNING], 0);
+-        GST_QUEUE_MUTEX_LOCK_CHECK (queue, out_flushing);
++        if (!queue->silent) {
++          GST_QUEUE_MUTEX_UNLOCK (queue);
++          g_signal_emit (queue, gst_queue_signals[SIGNAL_RUNNING], 0);
++          GST_QUEUE_MUTEX_LOCK_CHECK (queue, out_flushing);
++        } else {
++          if (queue->srcresult != GST_FLOW_OK)
++            goto out_flushing;
++        }
+         break;
+       }
+     }
+@@ -1164,22 +1187,33 @@ gst_queue_loop (GstPad * pad)
+   GST_QUEUE_MUTEX_LOCK_CHECK (queue, out_flushing);
+ 
+   while (gst_queue_is_empty (queue)) {
+-    GST_QUEUE_MUTEX_UNLOCK (queue);
+-    g_signal_emit (queue, gst_queue_signals[SIGNAL_UNDERRUN], 0);
+-    GST_CAT_DEBUG_OBJECT (queue_dataflow, queue, "queue is empty");
+-    GST_QUEUE_MUTEX_LOCK_CHECK (queue, out_flushing);
++    if (!queue->silent) {
++      GST_QUEUE_MUTEX_UNLOCK (queue);
++      g_signal_emit (queue, gst_queue_signals[SIGNAL_UNDERRUN], 0);
++      GST_CAT_DEBUG_OBJECT (queue_dataflow, queue, "queue is empty");
++      GST_QUEUE_MUTEX_LOCK_CHECK (queue, out_flushing);
++    } else {
++      GST_CAT_DEBUG_OBJECT (queue_dataflow, queue, "queue is empty");
++      if (queue->srcresult != GST_FLOW_OK)
++        goto out_flushing;
++    }
+ 
+     /* we recheck, the signal could have changed the thresholds */
+     while (gst_queue_is_empty (queue)) {
+       GST_QUEUE_WAIT_ADD_CHECK (queue, out_flushing);
+     }
+-    GST_QUEUE_MUTEX_UNLOCK (queue);
+ 
+-    g_signal_emit (queue, gst_queue_signals[SIGNAL_RUNNING], 0);
+-    g_signal_emit (queue, gst_queue_signals[SIGNAL_PUSHING], 0);
+-    GST_CAT_DEBUG_OBJECT (queue_dataflow, queue, "queue is not empty");
+-
+-    GST_QUEUE_MUTEX_LOCK_CHECK (queue, out_flushing);
++    if (!queue->silent) {
++      GST_QUEUE_MUTEX_UNLOCK (queue);
++      g_signal_emit (queue, gst_queue_signals[SIGNAL_RUNNING], 0);
++      g_signal_emit (queue, gst_queue_signals[SIGNAL_PUSHING], 0);
++      GST_CAT_DEBUG_OBJECT (queue_dataflow, queue, "queue is not empty");
++      GST_QUEUE_MUTEX_LOCK_CHECK (queue, out_flushing);
++    } else {
++      GST_CAT_DEBUG_OBJECT (queue_dataflow, queue, "queue is not empty");
++      if (queue->srcresult != GST_FLOW_OK)
++        goto out_flushing;
++    }
+   }
+ 
+   ret = gst_queue_push_one (queue);
+@@ -1430,6 +1464,9 @@ gst_queue_set_property (GObject * object,
+     case ARG_LEAKY:
+       queue->leaky = g_value_get_enum (value);
+       break;
++    case PROP_SILENT:
++      queue->silent = g_value_get_boolean (value);
++      break;
+     default:
+       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+       break;
+@@ -1477,6 +1514,9 @@ gst_queue_get_property (GObject * object,
+     case ARG_LEAKY:
+       g_value_set_enum (value, queue->leaky);
+       break;
++    case PROP_SILENT:
++      g_value_set_boolean (value, queue->silent);
++      break;
+     default:
+       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+       break;
+diff --git a/plugins/elements/gstqueue.h b/plugins/elements/gstqueue.h
+index 96c6fe9..eff1cb9 100644
+--- a/plugins/elements/gstqueue.h
++++ b/plugins/elements/gstqueue.h
+@@ -112,6 +112,8 @@ struct _GstQueue {
+   GCond *item_del;      /* signals space now available for writing */
+ 
+   gboolean head_needs_discont, tail_needs_discont;
++  
++  gboolean silent;      /* don't emit signals */ 
+ };
+ 
+ struct _GstQueueClass {
+-- 
+1.7.1
+

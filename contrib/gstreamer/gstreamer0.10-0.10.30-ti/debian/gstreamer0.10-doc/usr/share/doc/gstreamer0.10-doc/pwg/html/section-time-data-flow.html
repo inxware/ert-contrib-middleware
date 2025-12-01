@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>&#13;      Flow of data between elements and time
+    </TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Clocking"
+HREF="chapter-advanced-clock.html"><LINK
+REL="PREVIOUS"
+TITLE="Clocks"
+HREF="section-clocks.html"><LINK
+REL="NEXT"
+TITLE="
+      Obligations of each element.
+    "
+HREF="section-clock-obligations-of-each-element.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-clocks.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 14. Clocking</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-clock-obligations-of-each-element.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-time-data-flow"
+>14.3. Flow of data between elements and time</A
+></H1
+><P
+>&#13;      Now we will see how time information travels the pipeline in different states.
+    </P
+><P
+>&#13;      The pipeline starts playing.
+      The source element typically knows the time of each sample. 
+      <A
+NAME="AEN1562"
+HREF="#FTN.AEN1562"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+> 
+      First, the source element sends a discontinuous event. This event carries information
+      about the current relative time of the next sample. This relative time is
+      arbitrary, but it must be consistent with the timestamp that will be
+      placed in buffers. It is expected to be the relative time to the start
+      of the media stream, or whatever makes sense in the case of each media.
+      When receiving it, the other elements adjust their offset of the element time so that this
+      time matches the time written in the event.
+    </P
+><P
+>&#13;      Then the source element sends media samples in buffers. This element places a
+      timestamp in each buffer saying when the sample should be played. When the
+      buffer reaches the sink pad of the last element, this element compares the
+      current element time with the timestamp of the buffer. If the timestamp is
+      higher or equal it plays the buffer, otherwise it waits until the time to
+      place the buffer arrives with <CODE
+CLASS="function"
+>gst_element_wait()</CODE
+>.
+    </P
+><P
+>&#13;      If the stream is seeked, the next samples sent will have a timestamp that
+      is not adjusted with the element time. Therefore, the source element must
+      send a discontinuous event.
+    </P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1562"
+HREF="section-time-data-flow.html#AEN1562"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>&#13;	  Sometimes it
+	  is a parser element the one that knows the time, for instance if a pipeline
+	  contains a filesrc element connected to a MPEG decoder element, the former 
+	  is the one that knows the time of each sample, because the knowledge of
+	  when to play each sample is embedded in the MPEG format. In this case this
+	  element will be regarded as the source element for this discussion.
+	</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-clocks.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-clock-obligations-of-each-element.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Clocks</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-advanced-clock.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Obligations of each element.</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

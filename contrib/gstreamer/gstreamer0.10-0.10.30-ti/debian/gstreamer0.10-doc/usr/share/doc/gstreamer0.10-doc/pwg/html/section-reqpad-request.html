@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Request pads</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Request and Sometimes pads"
+HREF="chapter-advanced-request.html"><LINK
+REL="PREVIOUS"
+TITLE="Request and Sometimes pads"
+HREF="chapter-advanced-request.html"><LINK
+REL="NEXT"
+TITLE="Clocking"
+HREF="chapter-advanced-clock.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="chapter-advanced-request.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 13. Request and Sometimes pads</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="chapter-advanced-clock.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-reqpad-request"
+>13.2. Request pads</A
+></H1
+><P
+>&#13;      <SPAN
+CLASS="QUOTE"
+>"Request"</SPAN
+> pads are similar to sometimes pads, except that
+      request are created on demand of something outside of the element rather
+      than something inside the element. This concept is often used in muxers,
+      where - for each elementary stream that is to be placed in the output
+      system stream - one sink pad will be requested. It can also be used in
+      elements with a variable number of input or outputs pads, such as the
+      <CODE
+CLASS="classname"
+>tee</CODE
+> (multi-output), <CODE
+CLASS="classname"
+>switch</CODE
+>
+      or <CODE
+CLASS="classname"
+>aggregator</CODE
+> (both multi-input) elements. At the
+      time of writing this, it is unclear to me who is responsible for cleaning
+      up the created pad and how or when that should be done. Below is a simple
+      example of an aggregator based on request pads.
+    </P
+><PRE
+CLASS="programlisting"
+>&#13;
+static GstPad *	gst_my_filter_request_new_pad	(GstElement     *element,
+						 GstPadTemplate *templ,
+						 const gchar    *name);
+
+static void
+gst_my_filter_base_init (GstMyFilterClass *klass)
+{
+  GstElementClass *element_class = GST_ELEMENT_CLASS (klass);
+  static GstStaticPadTemplate sink_factory =
+  GST_STATIC_PAD_TEMPLATE (
+    "sink_%d",
+    GST_PAD_SINK,
+    GST_PAD_REQUEST,
+    GST_STATIC_CAPS ("ANY")
+  );
+[..]
+  gst_element_class_add_pad_template (klass,
+	gst_static_pad_template_get (&#38;sink_factory));
+}
+
+static void
+gst_my_filter_class_init (GstMyFilterClass *klass)
+{
+  GstElementClass *element_class = GST_ELEMENT_CLASS (klass);
+[..]
+  element_class-&#62;request_new_pad = gst_my_filter_request_new_pad;
+}
+
+static GstPad *
+gst_my_filter_request_new_pad (GstElement     *element,
+			       GstPadTemplate *templ,
+			       const gchar    *name)
+{
+  GstPad *pad;
+  GstMyFilterInputContext *context;
+
+  context = g_new0 (GstMyFilterInputContext, 1);
+  pad = gst_pad_new_from_template (templ, name);
+  gst_pad_set_element_private (pad, context);
+
+  /* normally, you would set _link () and _getcaps () functions here */
+
+  gst_element_add_pad (element, pad);
+
+  return pad;
+}
+
+    </PRE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="chapter-advanced-request.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="chapter-advanced-clock.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Request and Sometimes pads</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-advanced-request.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Clocking</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

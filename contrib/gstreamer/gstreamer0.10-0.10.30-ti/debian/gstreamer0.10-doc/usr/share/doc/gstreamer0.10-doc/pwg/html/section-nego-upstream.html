@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Upstream caps (re)negotiation</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="GStreamer Plugin Writer's Guide (0.10.30)"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Caps negotiation"
+HREF="chapter-negotiation.html"><LINK
+REL="PREVIOUS"
+TITLE="Downstream caps negotiation"
+HREF="section-nego-downstream.html"><LINK
+REL="NEXT"
+TITLE="Implementing a getcaps function"
+HREF="section-nego-getcaps.html"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+><SPAN
+CLASS="application"
+>GStreamer</SPAN
+> Plugin Writer's Guide (0.10.30)</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="section-nego-downstream.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 10. Caps negotiation</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="section-nego-getcaps.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="section-nego-upstream"
+>10.4. Upstream caps (re)negotiation</A
+></H1
+><P
+>&#13;      Upstream negotiation's primary use is to renegotiate (part of) an
+      already-negotiated pipeline to a new format. Some practical examples
+      include to select a different video size because the size of the video
+      window changed, and the video output itself is not capable of rescaling,
+      or because the audio channel configuration changed.
+    </P
+><P
+>&#13;      Upstream caps renegotiation is done in the <CODE
+CLASS="function"
+>gst_pad_alloc_buffer
+      ()</CODE
+>-function. The idea here is that an element requesting a
+      buffer from downstream, has to specify the type of that buffer. If
+      renegotiation is to take place, this type will no longer apply, and the
+      downstream element will set a new caps on the provided buffer. The element
+      should then reconfigure itself to push buffers with the returned caps. The
+      source pad's setcaps will be called once the buffer is pushed.
+    </P
+><P
+>&#13;      It is important to note here that different elements actually have
+      different responsibilities here:
+    </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;          Elements should implement a <SPAN
+CLASS="QUOTE"
+>"padalloc"</SPAN
+>-function in
+          order to be able to change format on renegotiation. This is also
+          true for filters and converters.
+        </P
+></LI
+><LI
+><P
+>&#13;          Elements should allocate new buffers using
+          <CODE
+CLASS="function"
+>gst_pad_alloc_buffer ()</CODE
+>.
+        </P
+></LI
+><LI
+><P
+>&#13;          Elements that are renegotiable should implement a
+          <SPAN
+CLASS="QUOTE"
+>"setcaps"</SPAN
+>-function on their sourcepad as well.
+        </P
+></LI
+></UL
+><P
+>&#13;      Unfortunately, not all details here have been worked out yet, so this
+      documentation is incomplete. FIXME.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="section-nego-downstream.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="section-nego-getcaps.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Downstream caps negotiation</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="chapter-negotiation.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Implementing a getcaps function</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
