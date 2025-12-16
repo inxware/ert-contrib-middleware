@@ -1,5 +1,10 @@
 #!/bin/bash
 
+
+IMAGE_NAME=inxware/ubuntu18-build-essential
+source ./source-scripts/inx-dockersetup-source-me.sh
+check_and_run_docker $IMAGE_NAME
+
 #hacks
 #this is because clib is not built properly.
 #export LIBS=-lc_nonshared
@@ -34,6 +39,10 @@ source ./source-scripts/inx-xbuilder-source-me.sh
 ##                                                                                                     
 ## build_component [package_name] [version] [optional: config parameters]  [optional: target directory] [optional envirionment variables to set]
 #########################################################################################################
+
+#build-i686-linux-gnu-glibc-2.12.2-ehs-gtk-gst.sh
+build_component curl -7.88.1 " --without-random"
+
 if [ 1 == 0 ];then
 #export LDFLAGS+=-lc_nonshared
 build_component zlib -1.2.5 ## Seems this needs to be run twice in cross compile mode...
@@ -123,8 +132,9 @@ build_component gst-plugins-ugly -0.10.15 "" "" "CSDIR_LIB"
 build_component gst-plugins-bad -0.10.19 "--disable-jpegformat"
 build_component gst-ffmpeg -0.10.11 "--with-system-ffmpeg"
 
-fi
 build_component webkit -2012 "--with-gtk=2.0"
+
+fi
 
 source source-scripts/inx-install-target-libs.sh
 

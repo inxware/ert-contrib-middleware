@@ -21,14 +21,14 @@ check_and_run_docker(){
 	 mkdir -p  "${DOCKER_STAGING_DIR}" ||exit
 	 pushd "${DOCKER_STAGING_DIR}" || exit
 	 echo " CHecking local cache for ${DOCKER_IMAGE} ..."
-	 if ${SUDO_COMMAND} docker image inspect "${DOCKER_IMAGE}"  &> /dev/null ; then 
+	 if ${SUDO_COMMAND} docker image inspect "${DOCKER_IMAGE}"  &> /dev/null ; then
 		 echo "Found - Using local docker image"
 		 ${SUDO_COMMAND} docker run --user "$(id -u)":"$(id -g)" --rm --privileged -it \
-		 -v "$(pwd)/../../../:/inxware"  -w "/inxware/ert-contrib-middleware/inx_build_scripts"\
-		 ${DOCKER_IMAGE}\
+		 -v "$(pwd)/../../../:/inxware"  -w "/inxware/ert-contrib-middleware/inx_build_scripts" \
+		 ${DOCKER_IMAGE} \
 		 sh -c "echo 'Running $0 in Docker Container...'  pwd  && "$0""
 		 exit
-	  else 
+	  else
 		echo "Trying to Pull ${DOCKER_IMAGE} from dockerhub"
 		echo "Dockerfile path ="${PATH_TO_TARGET_DOCKERFILE}""
 		if  [ -f  ${PATH_TO_TARGET_DOCKERFILE} ] ; then
