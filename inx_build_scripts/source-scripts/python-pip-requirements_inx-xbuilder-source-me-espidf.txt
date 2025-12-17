@@ -40,3 +40,5 @@ six==1.16.0
 tqdm==4.64.0
 urllib3==1.26.9
 Werkzeug==0.16.1
+littlefs-python>=0.9.1 
+esptool>=4.0.0

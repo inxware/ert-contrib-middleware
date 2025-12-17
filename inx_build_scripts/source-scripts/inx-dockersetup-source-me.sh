@@ -23,9 +23,9 @@ check_and_run_docker(){
 	 echo " CHecking local cache for ${DOCKER_IMAGE} ..."
 	 if ${SUDO_COMMAND} docker image inspect "${DOCKER_IMAGE}"  &> /dev/null ; then
 		 echo "Found - Using local docker image"
-		 ${SUDO_COMMAND} docker run --user "$(id -u)":"$(id -g)" --rm --privileged -it \
-		 -v "$(pwd)/../../../:/inxware"  -w "/inxware/ert-contrib-middleware/inx_build_scripts" \
-		 ${DOCKER_IMAGE} \
+		 ${SUDO_COMMAND} docker run --user "$(id -u)":"$(id -g)" --rm --privileged -it --network=host \
+		 -v "$(pwd)/../../../:/inxware"  -w "/inxware/ert-contrib-middleware/inx_build_scripts"\
+		 ${DOCKER_IMAGE}\
 		 sh -c "echo 'Running $0 in Docker Container...'  pwd  && "$0""
 		 exit
 	  else
@@ -35,7 +35,7 @@ check_and_run_docker(){
 			echo "Checking image exists ..."
 			mkdir -p  ${DOCKER_STAGING_DIR} || exit
 			${SUDO_COMMAND} docker pull  ${DOCKER_IMAGE} || echo "Could not find  ${DOCKER_IMAGE} in remote repository.  use make publishddockerimage to fix this if you have a Dockerfile"
-			${SUDO_COMMAND} docker run --user "$(id -u):$(id -g)" --rm --privileged -it \
+			${SUDO_COMMAND} docker run --user "$(id -u):$(id -g)" --rm --privileged -it --network=host \
 			 -v "$(pwd)/../../../:/inxware"  -w "/inxware/ert-contrib-middleware/inx_build_scripts"\
 			${DOCKER_IMAGE}\
 			sh -c "echo 'Running $0 in Docker Container...' && pwd  && "$0""
