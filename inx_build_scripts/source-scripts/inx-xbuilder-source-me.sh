@@ -78,7 +78,7 @@ test -z  ${INX_GLIBC_VERSION} && INX_GLIBC_VERSION=${OS_VERSION}   && echo "** W
 
 #set a default prefix
 if [ -z ${TOOLCHAIN_BIN_PREFIX} ];then
-	TOOLCHAIN_BIN_PREFIX="" 
+	TOOLCHAIN_BIN_PREFIX=""
 	echo "** Warning TOOLCHAIN_BIN_PREFIX not set. Setting to ${TOOLCHAIN_BIN_PREFIX} **" 
 else
 ## check we  don't have a default toolchain when the target is not a PC
@@ -111,7 +111,7 @@ fi
 export OUTTARGET
 export CLIBTARGET
 #export these as they maybe used the target tree constructor script
-TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR=${TEMP_PWD}/../../ert-build-support/support_libs/target_libs/${CLIBTARGET}
+export TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR=${TEMP_PWD}/../../ert-build-support/support_libs/target_libs/${CLIBTARGET}
 export TARGET_PATH_FROM_COMPONENT_SOURCE_DIR=${TEMP_PWD}/../target_libs/${OUTTARGET}
 export BUILD_INSTALL_DIR="build"
 export USRLIB_BUILD_ROOT=${TARGET_PATH_FROM_COMPONENT_SOURCE_DIR}/${BUILD_INSTALL_DIR}
@@ -147,7 +147,6 @@ export RANLIB=${TOOLCHAIN_BIN_PREFIX}ranlib
 # Some belt and braces to capture our target path if configure doesn't do it 
 INX_HOST_ARCH=$(uname -m)
 TOOLCHAIN_PATH="${TEMP_PWD}/../../ert-build-support/toolchains/${INX_HOST_ARCH}/${TOOLCHAIN_VERSION}"
-echo "##################################### ${TOOLCHAIN_PATH}"
 TOOLCHAIN_BIN_PATH="${TOOLCHAIN_PATH}/bin"
 # export CFLAGS=${CGLAGS}" -O2 " # set default configuration and add any previous stuff
 export PATH="${TOOLCHAIN_BIN_PATH}":${PATH}
@@ -159,23 +158,23 @@ export LD_LIBRARY_PATH="${TEMP_PWD}/../../ert-build-support/toolchains/${INX_HOS
 export TOOLCHAINBASE="${TEMP_PWD}/../../ert-build-support/toolchains/${INX_HOST_ARCH}/${TOOLCHAIN_VERSION}"
 
 if [ -n $HOST_BUILD ]; then
-	echo "***********************************************************************************************************************"
+	echo "****************************************************************************"
 	echo "                    !!! Using the host compiler $CC !!!"
-	echo "**************************************************************************"
+	echo "****************************************************************************"
 else
 if test -e  "${TOOLCHAINBASE}/sysroot"
 then
- echo "Setting sysroot to ${TOOLCHAINBASE}/sysroot"
+ #echo "Setting sysroot to ${TOOLCHAINBASE}/sysroot"
  export SYSROOT="${TOOLCHAINBASE}/sysroot"
 else
   if test -e  "${TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR}/${BUILD_INSTALL_DIR}"
   then
-    echo "Setting sysroot to ${TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR}/${BUILD_INSTALL_DIR}"
+    #echo "Setting sysroot to ${TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR}/${BUILD_INSTALL_DIR}"
     export SYSROOT="${TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR}/${BUILD_INSTALL_DIR}"
   else 
 	if test -e  "${TOOLCHAINBASE}/"
 	then
-	 echo "Setting sysroot to ${TOOLCHAINBASE}/"
+	#echo "Setting sysroot to ${TOOLCHAINBASE}/"
 	 export SYSROOT="${TOOLCHAINBASE}/"
 	fi
      if test -e  "${USRLIB_BUILD_ROOT}"
@@ -183,19 +182,18 @@ else
        echo "Setting sysroot to ${USRLIB_BUILD_ROOT}"
        export SYSROOT="${USRLIB_BUILD_ROOT}"
      fi
-echo "no sysroot found...."
+     echo "WARNING: no sysroot found...."
   fi
-fi 
+fi
 
 fi
-#Overwrite the system default pkg config path with libc's (well at least obscure the system's as we are not interested in the systems stuff
- export PKG_CONFIG_LIBDIR=$USRLIB_LIBRARY_PATH/pkgconfig 
+# Overwrite the system default pkg config path with libc s (well at least obscure the system's as we are not interested in the systems stuff
+ export PKG_CONFIG_LIBDIR=$USRLIB_LIBRARY_PATH/pkgconfig
 #$TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR/$BUILD_INSTALL_DIR/lib/pkgconfig
 #add the other paths used by component builds.
-#echo "XXXXXXXXXXXXXXXXXXXXX"
 #echo $SYSROOT
 #exit
- 
+
 unset PKG_CONFIG_PATH
  export PKG_CONFIG_PATH=$USRLIB_LIBRARY_PATH/pkgconfig:$USRLIB_BUILD_ROOT/share/pkgconfig # te core library are references above if they provide pkg config - which they generally don't
 if [ -n "${SYSROOT}" ];then
@@ -212,12 +210,25 @@ else
 fi
 
 ## Report what we're doing:
+ echo "****************************************************************************************************************************************"
  echo -e "Building with: \n     CC=$CC\n     AR=$AR\n RANLIB=$RANLIB\n CFLAGS=$CFLAGS\nLDFLAGS=$LDFLAGS"
+ echo -e "TOOLCHAIN_PATH                         = ${TOOLCHAIN_PATH}\n"
  echo -e "Toolchain bin [${TEMP_PWD}/../../ert-build-support/toolchains/${INX_HOST_ARCH}/${TOOLCHAIN_VERSION}/bin/${TOOLCHAIN_BIN_PREFIX}*] =\n"
+ echo -e "LDFLAGS                                 = ${LDFLAGS}"
+ echo -e "SYSROOT                                 = $SYSROOT\n"
+ echo    "TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR = ${TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR}"
+ echo    "TARGET_PATH_FROM_COMPONENT_SOURCE_DIR   = ${TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR}"
+ echo    "USRLIB_BUILD_ROOT                       = ${USRLIB_BUILD_ROOT}"
+ echo    "CMAKE_INSTALL_PREFIX                    = ${CMAKE_INSTALL_PREFIX}"
+ echo    "CMAKE_SYSTEM_PREFIX_PATH                = ${USRLIB_BUILD_ROOT}"
+ echo    "USRLIB_INCLUDE_PATH                     = ${USRLIB_INCLUDE_PATH}"
+ echo    "USRLIB_LIBRARY_PATH                     = ${USRLIB_BUILD_ROOT}"
+ echo    "CORELIB_INCLUDE_PATH                    = ${USRLIB_BUILD_ROOT}"
+#export CORELIB_LIBRARY_PATH=${TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR}/${BUILD_INSTALL_DIR}/lib
+#export CORELIB_KERNEL_HEADERS_PATH=${TEMP_PWD}/../../ert-build-support/kernel-dependencies/${KERNEL_HEADERS}
  echo    "Installing target to $OUTTARGET"
- echo -e "LDFLAGS=${LDFLAGS}"
- echo "***********************************************************************************************************************"
- echo    "ANY KEY TO START - Ctrl-C to exit"
+ echo "***************************************************************************************************************************************"
+ echo    " ANY KEY TO START - Ctrl-C to exit"
  read -n 1
 
 ##################################################################
@@ -312,7 +323,7 @@ pwd
 	export EXTRA_INSTALL_FLAGS=$5
 	export MAKE_REL_PATH=$6 # if make is not in root of package give the directory name here
 	echo "############# Making $COMPONENTNAME${COMPONENTVERSION} ############################################"
-if [ "${BUILD_OPTIONS}" != "SKIP_MAKE" ];then	
+if [ "${BUILD_OPTIONS}" != "SKIP_MAKE" ];then
 	cd ${TEMP_PWD}/../contrib/${COMPONENTNAME}/${COMPONENTNAME}${COMPONENTVERSION} || exit
 
      if [ "${REMAKE}" = "true" ]; then

@@ -1,9 +1,10 @@
 #!/bin/bash
 
-
+if [ 1 = 1 ]; then
 IMAGE_NAME=inxware/ubuntu18-build-essential
 source ./source-scripts/inx-dockersetup-source-me.sh
 check_and_run_docker $IMAGE_NAME
+fi
 
 #hacks
 #this is because clib is not built properly.
@@ -41,7 +42,8 @@ source ./source-scripts/inx-xbuilder-source-me.sh
 #########################################################################################################
 
 #build-i686-linux-gnu-glibc-2.12.2-ehs-gtk-gst.sh
-build_component curl -7.88.1 " --without-random"
+#build_component curl -7.88.1 " --without-random"
+build_component curl -7.21.2 " --without-random"
 
 if [ 1 == 0 ];then
 #export LDFLAGS+=-lc_nonshared

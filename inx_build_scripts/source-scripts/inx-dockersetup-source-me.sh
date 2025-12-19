@@ -24,7 +24,8 @@ check_and_run_docker(){
 	 if ${SUDO_COMMAND} docker image inspect "${DOCKER_IMAGE}"  &> /dev/null ; then
 		 echo "Found - Using local docker image"
 		 ${SUDO_COMMAND} docker run --user "$(id -u)":"$(id -g)" --rm --privileged -it --network=host \
-		 -v "$(pwd)/../../../:/inxware"  -w "/inxware/ert-contrib-middleware/inx_build_scripts"\
+		 -v "$(pwd)/../../../:/inxware"\
+		 -w "/inxware/ert-contrib-middleware/inx_build_scripts"\
 		 ${DOCKER_IMAGE}\
 		 sh -c "echo 'Running $0 in Docker Container...'  pwd  && "$0""
 		 exit

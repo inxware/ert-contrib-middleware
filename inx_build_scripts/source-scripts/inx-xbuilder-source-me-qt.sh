@@ -48,38 +48,35 @@ export BUILDHOST="i686-linux-gnu"
 
 #Setup the parallel build parameters if not defined
 test -z ${PROCESSORS} && PROCESSORS=2 && echo "** Warning PROCESSORS not set. Setting to ${PROCESSOS} **" 
-
-
 test -z ${ARCH} && ARCH="i686" && echo "** warning ARCH not set. Using i686"
 test -z ${OS} && OS="linux-gnu" && echo "** Warning OS not set. Using linux-gnu"
 export TARGET="${ARCH}-${OS}"
 
-#adding support for specifying a project name which will affect the OUTTARGET directory
+# Adding support for specifying a project name which will affect the OUTTARGET directory
 test -z ${INX_PROJECT_NAME} && INX_PROJECT_NAME="" && echo "** Warning INX_PROJECT_NAME not set. **"
 
-#Set the Default GLIB version we are using
+# Set the Default GLIB version we are using
 test -z ${TARGET} && TARGET=i686-linux-gnu  && echo "** Warning TARGET not set. Setting to ${TARGET} **" 
 
-#Set a default GLIBC version
+# Set a default GLIBC version
 test -z  ${INX_GLIBC_VERSION} && INX_GLIBC_VERSION=${TOOLCHAIN_VERSION}   && echo "** Warning INX_GLIBC_VERSION not set. Setting to ${INX_GLIBC_VERSION} **" 
 
-#Set a default component build failure behaviour 
+# Set a default component build failure behaviour 
 test -z ${EXIT_ON_FAIL} && EXIT_ON_FAIL="true"  
 
-#support for remake flag, if true then clean everything first and do a configure, if not then skip configure and make clean
-#todo make this a script arg 
+# support for remake flag, if true then clean everything first and do a configure, if not then skip configure and make clean
+# todo make this a script arg 
 test "${REMAKE}" != "true" -a "${REMAKE}" != "false"  && REMAKE="true" 
 
-#set a default version of gcc
+# set a default version of gcc
 test -z ${TOOLCHAIN_VERSION} && TOOLCHAIN_VERSION="" && echo "** Warning TOOLCHAIN_VERSION not set. Setting to ${TOOLCHAIN_VERSION} **" 
-#gcc-4.3.3-i686-pc-linux-gnu
 
-#set a default prefix
+# set a default prefix
 if [ -z ${TOOLCHAIN_BIN_PREFIX} ];then
 	TOOLCHAIN_BIN_PREFIX="" 
 	echo "** Warning TOOLCHAIN_BIN_PREFIX not set. Setting to ${TOOLCHAIN_BIN_PREFIX} **" 
 else
-## check we  don't have a default toolchain when the target is not a PC
+# Check we  don't have a default toolchain when the target is not a PC
   if [ -z ${TOOLCHAIN_VERSION} ]; then 
     case "$TARGET" in
 	i?86* | x86 ) echo "using host gcc for x86 host"  ;;
