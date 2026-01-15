@@ -180,6 +180,7 @@ cp ${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/build/esp-idf/espres
 cp ${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/build/esp-idf/joltwallet__littlefs/libjoltwallet__littlefs.a ${USRLIB_LIBRARY_PATH}/liblittlefs.a
 
 cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/esp_coex/lib/esp32s3/*.a ${USRLIB_LIBRARY_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/controller/lib_esp32c3_family/esp32s3/*.a ${USRLIB_LIBRARY_PATH}/
 
 #-----
 #copy the libraries & linker files
