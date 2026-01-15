@@ -116,6 +116,7 @@ build_component esp-idf ${IDF_VERSION} ulp
 build_component esp-idf ${IDF_VERSION} usb
 build_component esp-idf ${IDF_VERSION} wifi_provisioning
 build_component esp-idf ${IDF_VERSION} xtensa
+build_component esp-idf ${IDF_VERSION} bt
 
 #-----
 # copy includes
@@ -145,6 +146,20 @@ cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/gp
 cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/temperature_sensor/include/* ${USRLIB_INCLUDE_PATH}/
 cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/dac/include/* ${USRLIB_INCLUDE_PATH}/
 cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/sigma_delta/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/porting/nimble/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/porting/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/porting/npl/freertos/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/host/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/host/services/gap/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/host/services/gatt/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/esp-hci/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/transport/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/controller/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/drivers/native/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/drivers/native/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/port/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/host/util/include/* ${USRLIB_INCLUDE_PATH}/
 
 cp -Rf ${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/build/config/sdkconfig.h ${USRLIB_INCLUDE_PATH}/
 
@@ -164,6 +179,7 @@ cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/xtensa/es
 cp ${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/build/esp-idf/espressif__expat/libespressif__expat.a ${USRLIB_LIBRARY_PATH}/libexpat.a
 cp ${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/build/esp-idf/joltwallet__littlefs/libjoltwallet__littlefs.a ${USRLIB_LIBRARY_PATH}/liblittlefs.a
 
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/esp_coex/lib/esp32s3/*.a ${USRLIB_LIBRARY_PATH}/
 
 #-----
 #copy the libraries & linker files
