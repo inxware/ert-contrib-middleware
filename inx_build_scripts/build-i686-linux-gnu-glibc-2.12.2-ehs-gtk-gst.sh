@@ -31,7 +31,7 @@ TOOLCHAIN_VERSION="i686-pc-linux-gnu-4.4.6"
 TOOLCHAIN_BIN_PREFIX="i686-pc-linux-gnu-"
 #TOOLCHAIN_BIN_PREFIX=""
 #i686-pc-linux-gnu-
-KERNEL_HEADERS="linux/2.6.35.9"
+KERNEL_HEADERS="linux/2.6.35.30"
 
 source ./source-scripts/inx-xbuilder-source-me.sh
 
