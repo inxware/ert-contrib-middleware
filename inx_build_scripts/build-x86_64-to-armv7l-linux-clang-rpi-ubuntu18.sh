@@ -48,7 +48,7 @@ export CC="${INX_ORIG_CC} -nostdinc --sysroot=${USRLIB_BUILD_ROOT} -B ${USRLIB_B
 #build_component libarchive -3.6.0 "--with-sysroot=${USRLIB_BUILD_ROOT} --without-openssl"
 #build_component curl -7.21.2 " --without-random"
 export CFLAGS="-v --target=armv7l-pc-linux-gnueabihf -mfloat-abi=hard -I${USRLIB_BUILD_ROOT}/usr/include -I${USRLIB_BUILD_ROOT}/usr/include/asm-generic -I${USRLIB_BUILD_ROOT}/usr/lib/gcc/arm-linux-gnueabihf/8/include -I${USRLIB_BUILD_ROOT}/usr/include/arm-linux-gnueabihf -I${USRLIB_BUILD_ROOT}/usr/include/c++/8 -I${USRLIB_BUILD_ROOT}/usr/lib/gcc/arm-linux-gnueabihf/8/include-fixed -L${USRLIB_BUILD_ROOT}/usr/lib/gcc/arm-linux-gnueabihf/8 ${INX_ORIG_CFLAGS}"
-#build_aws_c_common
+#build_cmake_component aws-c-common -2.2022
 
 export CFLAGS="-Wno-gnu-include-next -Wno-incomplete-setjmp-declaration -v --target=armv7l-pc-linux-gnueabihf -mfloat-abi=hard -I${USRLIB_BUILD_ROOT}/usr/include -I${USRLIB_BUILD_ROOT}/usr/include/asm-generic -I${USRLIB_BUILD_ROOT}/usr/lib/gcc/arm-linux-gnueabihf/8/include -I${USRLIB_BUILD_ROOT}/usr/include/arm-linux-gnueabihf -I${USRLIB_BUILD_ROOT}/usr/lib/gcc/arm-linux-gnueabihf/8/include ${INX_ORIG_CFLAGS} -I${USRLIB_BUILD_ROOT}/usr/lib/gcc/arm-linux-gnueabihf/8/include-fixed"
 export INX_ORIG_CXX="${CXX}"
@@ -56,13 +56,13 @@ export INX_ORIG_CXX="${CXX}"
 export CXX="${INX_ORIG_CXX} -v --target=armv7l-pc-linux-gnueabihf -mfloat-abi=hard --sysroot=${USRLIB_BUILD_ROOT} -B ${USRLIB_BUILD_ROOT}/usr/lib/ -B ${USRLIB_BUILD_ROOT}/usr/lib/gcc/arm-linux-gnueabihf/8 -I${USRLIB_BUILD_ROOT}/usr/include/arm-linux-gnueabihf -I${USRLIB_BUILD_ROOT}/usr/include"
 #-L${USRLIB_BUILD_ROOT}/usr/lib
 export CXXFLAGS="-v"
-#build_aws_lc "-DCMAKE_CROSSCOMPILING=True -DBUILD_TESTING=OFF -DOPENSSL_NO_ASM=1"
-build_aws_s2n
-build_aws_c_cal
-build_aws_c_io
-build_aws_c_compression
-build_aws_c_http
-build_aws_c_mqtt
+#build_cmake_component aws-lc -2.2022 "-DCMAKE_CROSSCOMPILING=True -DBUILD_TESTING=OFF -DOPENSSL_NO_ASM=1"
+build_cmake_component s2n-tls -2.2022
+build_cmake_component aws-c-cal -2.2022
+build_cmake_component aws-c-io -2.2022
+build_cmake_component aws-c-compression -2.2022
+build_cmake_component aws-c-http -2.2022
+build_cmake_component aws-c-mqtt -2.2022
 
 export CFLAGS="-L${USRLIB_BUILD_ROOT}/usr/lib/gcc/arm-linux-gnueabihf/8 -fPIC -v --target=armv7l-pc-linux-gnueabihf -mfloat-abi=hard -I${USRLIB_BUILD_ROOT}/usr/include -I${USRLIB_BUILD_ROOT}/usr/include/asm-generic -I${USRLIB_BUILD_ROOT}/usr/lib/gcc/arm-linux-gnueabihf/8/include/ -I${USRLIB_BUILD_ROOT}/usr/include/arm-linux-gnueabihf -I${USRLIB_BUILD_ROOT}/usr/include/c++/8 -I${USRLIB_BUILD_ROOT}/usr/lib/gcc/arm-linux-gnueabihf/8/include-fixed ${INX_ORIG_CFLAGS}"
 #build_component expat -2.0.1

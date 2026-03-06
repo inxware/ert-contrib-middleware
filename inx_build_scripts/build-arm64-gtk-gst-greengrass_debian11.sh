@@ -47,14 +47,14 @@ export CFLAGS="-v --target=aarch64-linux-gnu -I/usr/aarch64-linux-gnu/include/c+
 
 #set to false if you don't want to rebuild the components, but copy artefacts to the build directory
 if [ 1 = 1 ];then
-build_aws_c_common -DCMAKE_TOOLCHAIN_FILE=toolchain-aarch64.cmake
-build_aws_lc "-DCMAKE_TOOLCHAIN_FILE=toolchain-aarch64.cmake -DOPENSSL_NO_ASM=1"
-build_aws_s2n -DCMAKE_TOOLCHAIN_FILE=toolchain-aarch64.cmake
-build_aws_c_cal
-build_aws_c_io
-build_aws_c_compression
-build_aws_c_http
-build_aws_c_mqtt
+build_cmake_component aws-c-common -2.2022 -DCMAKE_TOOLCHAIN_FILE=toolchain-aarch64.cmake
+build_cmake_component aws-lc -2.2022 "-DCMAKE_TOOLCHAIN_FILE=toolchain-aarch64.cmake -DOPENSSL_NO_ASM=1"
+build_cmake_component s2n-tls -2.2022 -DCMAKE_TOOLCHAIN_FILE=toolchain-aarch64.cmake
+build_cmake_component aws-c-cal -2.2022
+build_cmake_component aws-c-io -2.2022
+build_cmake_component aws-c-compression -2.2022
+build_cmake_component aws-c-http -2.2022
+build_cmake_component aws-c-mqtt -2.2022
 fi
 
 #These are needed only if we want to build from scratch rather than using debian lib*-dev packages.

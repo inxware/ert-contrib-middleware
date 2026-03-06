@@ -2,7 +2,7 @@
 set -e
 
 #Set the docker image name to build this in
-IMAGE_NAME=inxware/inx-debian10-clang10
+IMAGE_NAME=inxware/inx-debian11-clang11
 
 echo "source 1"
 source ./source-scripts/inx-dockersetup-source-me.sh 
@@ -21,7 +21,7 @@ INX_GLIBC_VERSION=""
 EXIT_ON_FAIL=true
 # This is the variant & version of the compiler as defined by ls  ../inx-core-uspace/toolchains/
 # Leave blank for using the default host compiler
-TOOLCHAIN_VERSION="clang10"
+TOOLCHAIN_VERSION="clang11"
 
 #Optional: prefix for the compiler of not just gcc. 
 TOOLCHAIN_BIN_PREFIX=""

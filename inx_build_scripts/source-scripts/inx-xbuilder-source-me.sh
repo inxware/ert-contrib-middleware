@@ -352,105 +352,19 @@ fi
 	cd ${TEMP_PWD}
 }
 
-#todo2022 - all of these should be one function that takes the package name as the argument
-
-build_aws_c_common() {
-	INX_CMAKE_ARGS=${1}
-	pushd ../contrib/aws-c-common
-	rm -rf ./build
-	mkdir build
-	cd build
-	cmake ${INX_CMAKE_ARGS} -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make VERBOSE=1 -j 6
-	DESTDIR=${USRLIB_BUILD_ROOT}
-	make install
-	cd ..
-	popd
-}
-
-build_aws_lc () {
-	INX_CMAKE_ARGS=$1
-	pushd ../contrib/aws-lc
-	rm -rf build
-	mkdir build
-	cd build
-	#cmake ${INX_CMAKE_ARGS} -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	cmake ${INX_CMAKE_ARGS} -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make VERBOSE=1 -j 6
-	# {USRLIB_BUILD_ROOT}
-	make install
-	cd ..
-	popd
-}
-
-build_aws_s2n () {
-	INX_CMAKE_ARGS=${1}
-	pushd ../contrib/s2n-tls
+build_cmake_component() {
+	export COMPONENTNAME=$1
+	export COMPONENTVERSION=$2
+	INX_CMAKE_ARGS=$3
+	# Resolve any relative CMAKE_TOOLCHAIN_FILE path to absolute (cmake resolves relative to build dir)
+	INX_CMAKE_ARGS=$(echo "$INX_CMAKE_ARGS" | sed "s|-DCMAKE_TOOLCHAIN_FILE=\([^/]\)|-DCMAKE_TOOLCHAIN_FILE=${TEMP_PWD}/\1|")
+	echo "############# Making $COMPONENTNAME${COMPONENTVERSION} (cmake) ############################################"
+	pushd ${TEMP_PWD}/../contrib/${COMPONENTNAME}/${COMPONENTNAME}${COMPONENTVERSION}
 	rm -rf build
 	mkdir build
 	cd build
 	cmake ${INX_CMAKE_ARGS} -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make VERBOSE=1 -j 6
-	make install
-	cd ..
-	popd
-}
-
-build_aws_c_io () {
-	pushd ../contrib/aws-c-io
-	rm -rf build
-	mkdir build
-	cd build
-	cmake -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make -j 6
-	make install
-	cd ..
-	popd
-}
-
-build_aws_c_cal () {
-	pushd ../contrib/aws-c-cal
-	rm -rf build
-	mkdir build
-	cd build
-	cmake -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make -j 6
-	make install
-	cd ..
-	popd
-}
-
-build_aws_c_compression() {
-	pushd ../contrib/aws-c-compression
-	rm -rf build
-	mkdir build
-	cd build
-	cmake -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make -j 2
-	make install
-	cd ..
-	popd
-}
-
-build_aws_c_http() {
-	pushd ../contrib/aws-c-http
-	rm -rf build
-	mkdir build
-	cd build
-	cmake -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make -j 6
-	make install
-	cd ..
-	popd
-}
-
-build_aws_c_mqtt() {
-	pushd ../contrib/aws-c-mqtt
-	rm -rf build
-	mkdir build
-	cd build
-	cmake -DCMAKE_MODULE_PATH=${USRLIB_BUILD_ROOT}/lib/cmake -DCMAKE_INSTALL_PREFIX=${USRLIB_BUILD_ROOT} ../
-	make -j 6
+	make -j ${PROCESSORS}
 	make install
 	cd ..
 	popd

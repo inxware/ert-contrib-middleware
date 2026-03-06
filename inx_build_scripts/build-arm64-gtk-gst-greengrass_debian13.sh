@@ -2,10 +2,9 @@
 set -e
 
 #Set the docker image name to build this in
-IMAGE_NAME=inxware/inx-debian10-clang10
-
+IMAGE_NAME=inxware/inx-debian13-arm64
 echo "source 1"
-source ./source-scripts/inx-dockersetup-source-me.sh 
+source ./source-scripts/inx-dockersetup-source-me.sh
 check_and_run_docker $IMAGE_NAME
 
 #project name - appended to target variant and version info
@@ -13,37 +12,24 @@ INX_PROJECT_NAME=base
 # todo remove this should be identified in sourced script
 PROCESSORS=8
 #gnu standard form of target architecture - prefix for existing libc version and created target directory
-ARCH=x86_64
+ARCH=arm64
 OS=linux-gnu
-#CLIBTARGET_OVERRIDE=i586-linux-gnu-glibc-2.11.3 # set to something that doesn't exist and the system libraries will be used!
-#version libc - ls  ../inx-core-uspace/toolchains/target_libs/ 
 INX_GLIBC_VERSION=""
 EXIT_ON_FAIL=true
-# This is the variant & version of the compiler as defined by ls  ../inx-core-uspace/toolchains/
-# Leave blank for using the default host compiler
-TOOLCHAIN_VERSION="clang10"
+# The following are appended to the build path to searate different tool chains and OS versions (Libc at least) used in the build
+TOOLCHAIN_VERSION="clang19"
+OS_VERSION="debian13"
 
-#Optional: prefix for the compiler of not just gcc. 
+#Optional: prefix for the compiler of not just gcc.
 TOOLCHAIN_BIN_PREFIX=""
 #these toolchiain binaries are the ert-vuild-suppoty ones, that don't run many places.
-#INX_CC=$(pwd)/../../ert-build-support/toolchains/x86_64/x86_64-linux-gnu_clang10ubuntu18/bin/clang
-#INX_CXX=$(pwd)/../../ert-build-support/toolchains/x86_64/x86_64-linux-gnu_clang10ubuntu18/bin/clang++
-#INX_LD=$(pwd)/../../ert-build-support/toolchains/x86_64/x86_64-linux-gnu_clang10ubuntu18/bin/clang
 
 export HOST_BUILD=yes
 INX_CC=clang
 INX_CXX=clang++
 INX_LD=clang
 
-#seems new ubuntu uses fpic as he default, which stops the libs linking as it adds a Global offset table.
-#export CFLAGS=-fno-pic
-#export CXXFLAGS=-fno-pic
-
-
 #TOOLCHAIN_BIN_PREFIX=""
-#i686-pc-linux-gnu-
-KERNEL_HEADERS="linux/2.6.35.30"
-
 
 source ./source-scripts/inx-xbuilder-source-me.sh
 ########################################################################################################
@@ -51,35 +37,39 @@ source ./source-scripts/inx-xbuilder-source-me.sh
 ##
 ## build_component [package_name] [version] [optional: config parameters]  [optional: target directory] [optional envirionment variables to set]
 #########################################################################################################
+export CXXFLAGS="-v --target=aarch64-linux-gnu -I/usr/aarch64-linux-gnu/include/c++/14/aarch64-linux-gnu"
+export CFLAGS="-v --target=aarch64-linux-gnu -I/usr/aarch64-linux-gnu/include/c++/14/aarch64-linux-gnu"
 
-
+#export LD_FLAGS="-v --target=aarch64-linux-gnu"
 # note to do a make clean we need to drop into each component
 # todo add make clean
 
 #set to false if you don't want to rebuild the components, but copy artefacts to the build directory
-build_cmake_component aws-lc -2.2022
-build_cmake_component aws-c-common -2.2022
-build_cmake_component s2n-tls -2.2022
-build_cmake_component aws-c-cal -2.2022
-build_cmake_component aws-c-io -2.2022
-build_cmake_component aws-c-compression -2.2022
-build_cmake_component aws-c-http -2.2022
-build_cmake_component aws-c-mqtt -2.2022
-
+if [ 1 = 1 ];then
+build_cmake_component aws-c-common -v0.12.6 -DCMAKE_TOOLCHAIN_FILE=toolchain-aarch64.cmake
+build_cmake_component aws-lc -v1.69.0 "-DCMAKE_TOOLCHAIN_FILE=toolchain-aarch64.cmake -DOPENSSL_NO_ASM=1 -DDISABLE_GO=ON"
+build_cmake_component s2n-tls -1.7.1 -DCMAKE_TOOLCHAIN_FILE=toolchain-aarch64.cmake
+build_cmake_component aws-c-cal -v0.9.13
+build_cmake_component aws-c-io -v0.26.1
+build_cmake_component aws-c-compression -v0.3.2
+build_cmake_component aws-c-http -v0.10.11
+build_cmake_component aws-c-mqtt -v0.14.0
+fi
 
 #These are needed only if we want to build from scratch rather than using debian lib*-dev packages.
-if [ 1 = 0 ];then
 #build_component expat -2.0.1
 #build_component libidn -1.33
 
-if [ 1 = 1 ];then
-build_component curl -7.21.2 " --without-random"
+# not needed if we are doing a host build - we'll get these from the host socker for debian
+if [ 1 = 0 ];then
+# We don't need to build these because we#ll get em from the docker host
+#build_component openssl -3.0.7
+build_openssl_component openssl -3.0.7 linux-x86-clang
+build_component curl -7.85.0 "--with-openssl"
 
 build_component libxml2 .X "--with-sysroot=${SYSROOT}"
-#this has deprecated stuff clang10 doesn't like in it so bumping up the version: build_component libarchive -3.0.0a "--with-sysroot=${SYSROOT}"
+#this has deprecated stuff clang19 doesn't like in it so bumping up the version: build_component libarchive -3.0.0a "--with-sysroot=${SYSROOT}"
 build_component libarchive -3.6.1 "--with-sysroot=${SYSROOT}"
-fi
-
 
 build_component util-macros -1.10.1
 build_component renderproto -0.11.1
@@ -97,7 +87,7 @@ build_component libX11 -1.3.2
 build_component expat -2.0.1
 build_component libxml2 .X   "--without-python"
 build_component freetype -2.4.3
-build_component fontconfig -2.8.0 "--enable-libxml2  --without-expat" 
+build_component fontconfig -2.8.0 "--enable-libxml2  --without-expat"
 build_component libXrender -0.9.5
 build_component libXext -1.1.1
 build_component pixman -0.19.4 "--disable-gtk"
@@ -105,7 +95,7 @@ build_component tiff -3.9.4 #uses libtool, g++,
 build_component jpeg -8b
 build_component libpng -1.4.4
 build_component cairo -1.10.0
-build_component pango -1.28.3 "--enable-debug=no" 
+build_component pango -1.28.3 "--enable-debug=no"
 build_component gdk-pixbuf -2.22.0 "--without-libjpeg"
 build_component compositeproto -0.4.1
 build_component fixesproto -4.1.1
@@ -116,3 +106,4 @@ build_component atk -1.29.2
 build_component gtk +-2.22.0 "--disable-cups --disable-papi --disable-xinerama"  #--x-libraries=$TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR/$BUILD_INSTALL_DIR/lib/ --x-includes=$TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR/$BUILD_INSTALL_DIR/lib/fs"
 build_component alsa-lib -1.0.23
 fi
+
