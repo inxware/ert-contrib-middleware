@@ -1,1 +1,0 @@
-../templates/template-for-repository/proofs/run-cbmc-proofs.py
