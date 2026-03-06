@@ -1,0 +1,45 @@
+name: CMake Compatability
+on:
+  push:
+    branches: [ '*' ]
+  pull_request:
+    branches: [ '*' ]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+env:
+  DOCKER_BUILDKIT: 1
+  GOPROXY: https://proxy.golang.org,direct
+permissions:
+  contents: read
+
+jobs:
+  cmake:
+    if: github.repository_owner == 'aws'
+    name: CMake ${{ matrix.cmake.version}} build with ${{ matrix.generator}} FIPS=${{ matrix.fips }}
+    strategy:
+      fail-fast: false
+      matrix:
+        cmake:
+          - { version: "3.5", url: "https://cmake.org/files/v3.5/cmake-3.5.0.tar.gz", hash: "92c83ad8a4fd6224cf6319a60b399854f55b38ebe9d297c942408b792b1a9efa" }
+          - { version: "3.28", url: "https://cmake.org/files/v3.28/cmake-3.28.1.tar.gz", hash: "15e94f83e647f7d620a140a7a5da76349fc47a1bfed66d0f5cdee8e7344079ad" }
+          - { version: "4.0", url: "https://cmake.org/files/v4.0/cmake-4.0.0.tar.gz", hash: "ddc54ad63b87e153cf50be450a6580f1b17b4881de8941da963ff56991a4083b" }
+        generator:
+          - "Unix Makefiles"
+          - "Ninja"
+        fips:
+          - 0
+          - 1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Docker Image
+        working-directory: .github/docker_images/cmake_build_versions
+        run: |
+          docker build -t "cmake-${{ matrix.cmake.version }}" --build-arg CMAKE_VERSION=${{ matrix.cmake.version }} --build-arg CMAKE_DOWNLOAD_URL=${{ matrix.cmake.url }} --build-arg CMAKE_SHA256=${{ matrix.cmake.hash }} .
+      - name: ${{ matrix.generator }} (Static)
+        run: |
+          docker run -v "${{ github.workspace }}:/awslc" "cmake-${{ matrix.cmake.version }}" -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=0 -DFIPS=${{ matrix.fips }}
+      - name: ${{ matrix.generator }} (Shared)
+        run: |
+          docker run -v "${{ github.workspace }}:/awslc" "cmake-${{ matrix.cmake.version }}" -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=1 -DFIPS=${{ matrix.fips }}
