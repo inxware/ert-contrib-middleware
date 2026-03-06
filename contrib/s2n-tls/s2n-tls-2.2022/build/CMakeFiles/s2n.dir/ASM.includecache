@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_align_avx2.h
+stdint.h
+-
+immintrin.h
+-
+
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_basemul_avx2.S
+kyber512r3_consts_avx2.h
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_consts_avx2.h
+
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_consts_avx2.h
+kyber512r3_params.h
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_params.h
+kyber512r3_align_avx2.h
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_align_avx2.h
+
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_fq_avx2.S
+kyber512r3_consts_avx2.h
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_consts_avx2.h
+
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_invntt_avx2.S
+kyber512r3_consts_avx2.h
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_consts_avx2.h
+
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_ntt_avx2.S
+kyber512r3_consts_avx2.h
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_consts_avx2.h
+
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_params.h
+
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_shuffle_avx2.S
+kyber512r3_consts_avx2.h
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/kyber_r3/kyber512r3_consts_avx2.h
+
+/inxware/ert-contrib-middleware/contrib/s2n-tls/pq-crypto/sike_r3/sikep434r3_fp_x64_asm.S
+

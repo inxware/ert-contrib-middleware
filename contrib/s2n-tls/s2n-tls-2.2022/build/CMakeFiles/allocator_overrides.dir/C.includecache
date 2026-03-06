@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/inxware/ert-contrib-middleware/contrib/s2n-tls/tests/LD_PRELOAD/allocator_overrides.c
+string.h
+-
+dlfcn.h
+-
+malloc.h
+-
+

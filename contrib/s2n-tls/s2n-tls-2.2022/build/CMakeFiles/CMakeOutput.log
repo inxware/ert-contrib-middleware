@@ -1,0 +1,201 @@
+The system is: Linux - 6.8.0-100-generic - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/clang 
+Build flags: ;-I/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include;-I/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/include/;-I/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/kernel-dependencies/linux/2.6.35.30;
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is Clang, found in "/inxware/ert-contrib-middleware/contrib/s2n-tls/build/CMakeFiles/3.18.4/CompilerIdC/a.out"
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /inxware/ert-contrib-middleware/contrib/s2n-tls/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_68479/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_68479.dir/build.make CMakeFiles/cmTC_68479.dir/build
+gmake[1]: Entering directory '/inxware/ert-contrib-middleware/contrib/s2n-tls/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_68479.dir/CMakeCCompilerABI.c.o
+/usr/bin/clang   -I/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include -I/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/include/ -I/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/kernel-dependencies/linux/2.6.35.30    -v -o CMakeFiles/cmTC_68479.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.18/Modules/CMakeCCompilerABI.c
+Debian clang version 11.0.1-2
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
+Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/10
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/10
+Selected GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/10
+Candidate multilib: .;@m64
+Selected multilib: .;@m64
+ (in-process)
+ "/usr/lib/llvm-11/bin/clang" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model static -mframe-pointer=all -fmath-errno -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu x86-64 -fno-split-dwarf-inlining -debugger-tuning=gdb -v -resource-dir /usr/lib/llvm-11/lib/clang/11.0.1 -I /inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include -I /inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/include/ -I /inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/kernel-dependencies/linux/2.6.35.30 -internal-isystem /usr/local/include -internal-isystem /usr/lib/llvm-11/lib/clang/11.0.1/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdebug-compilation-dir /inxware/ert-contrib-middleware/contrib/s2n-tls/build/CMakeFiles/CMakeTmp -ferror-limit 19 -fgnuc-version=4.2.1 -faddrsig -o CMakeFiles/cmTC_68479.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake-3.18/Modules/CMakeCCompilerABI.c
+clang -cc1 version 11.0.1 based upon LLVM 11.0.1 default target x86_64-pc-linux-gnu
+ignoring nonexistent directory "/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/include/"
+ignoring nonexistent directory "/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/kernel-dependencies/linux/2.6.35.30"
+ignoring nonexistent directory "/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include
+ /usr/local/include
+ /usr/lib/llvm-11/lib/clang/11.0.1/include
+ /usr/include/x86_64-linux-gnu
+ /usr/include
+End of search list.
+Linking C executable cmTC_68479
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_68479.dir/link.txt --verbose=1
+/usr/bin/clang -I/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include -I/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/include/ -I/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/kernel-dependencies/linux/2.6.35.30  -L/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib  -L/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/lib  -L/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib/../usr/lib/x86_64-linux-gnu/ -v -rdynamic CMakeFiles/cmTC_68479.dir/CMakeCCompilerABI.c.o -o cmTC_68479 
+Debian clang version 11.0.1-2
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
+Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/10
+Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/10
+Selected GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/10
+Candidate multilib: .;@m64
+Selected multilib: .;@m64
+ "/usr/bin/ld" -export-dynamic --hash-style=both --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_68479 /usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crt1.o /usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crti.o /usr/bin/../lib/gcc/x86_64-linux-gnu/10/crtbegin.o -L/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib -L/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/lib -L/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib/../usr/lib/x86_64-linux-gnu/ -L/usr/bin/../lib/gcc/x86_64-linux-gnu/10 -L/usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../.. -L/usr/lib/llvm-11/bin/../lib -L/lib -L/usr/lib CMakeFiles/cmTC_68479.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib/gcc/x86_64-linux-gnu/10/crtend.o /usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crtn.o
+gmake[1]: Leaving directory '/inxware/ert-contrib-middleware/contrib/s2n-tls/build/CMakeFiles/CMakeTmp'
+
+
+
+Parsed C implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include]
+    add: [/usr/local/include]
+    add: [/usr/lib/llvm-11/lib/clang/11.0.1/include]
+    add: [/usr/include/x86_64-linux-gnu]
+    add: [/usr/include]
+  end of search list found
+  collapse include dir [/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include] ==> [/inxware/ert-contrib-middleware/target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include]
+  collapse include dir [/usr/local/include] ==> [/usr/local/include]
+  collapse include dir [/usr/lib/llvm-11/lib/clang/11.0.1/include] ==> [/usr/lib/llvm-11/lib/clang/11.0.1/include]
+  collapse include dir [/usr/include/x86_64-linux-gnu] ==> [/usr/include/x86_64-linux-gnu]
+  collapse include dir [/usr/include] ==> [/usr/include]
+  implicit include dirs: [/inxware/ert-contrib-middleware/target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include;/usr/local/include;/usr/lib/llvm-11/lib/clang/11.0.1/include;/usr/include/x86_64-linux-gnu;/usr/include]
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /inxware/ert-contrib-middleware/contrib/s2n-tls/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/bin/gmake cmTC_68479/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_68479.dir/build.make CMakeFiles/cmTC_68479.dir/build]
+  ignore line: [gmake[1]: Entering directory '/inxware/ert-contrib-middleware/contrib/s2n-tls/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_68479.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/clang   -I/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include -I/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/include/ -I/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/kernel-dependencies/linux/2.6.35.30    -v -o CMakeFiles/cmTC_68479.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.18/Modules/CMakeCCompilerABI.c]
+  ignore line: [Debian clang version 11.0.1-2]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: /usr/bin]
+  ignore line: [Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/10]
+  ignore line: [Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/10]
+  ignore line: [Selected GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/10]
+  ignore line: [Candidate multilib: .]
+  ignore line: [@m64]
+  ignore line: [Selected multilib: .]
+  ignore line: [@m64]
+  ignore line: [ (in-process)]
+  ignore line: [ "/usr/lib/llvm-11/bin/clang" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model static -mframe-pointer=all -fmath-errno -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu x86-64 -fno-split-dwarf-inlining -debugger-tuning=gdb -v -resource-dir /usr/lib/llvm-11/lib/clang/11.0.1 -I /inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include -I /inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/include/ -I /inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/kernel-dependencies/linux/2.6.35.30 -internal-isystem /usr/local/include -internal-isystem /usr/lib/llvm-11/lib/clang/11.0.1/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdebug-compilation-dir /inxware/ert-contrib-middleware/contrib/s2n-tls/build/CMakeFiles/CMakeTmp -ferror-limit 19 -fgnuc-version=4.2.1 -faddrsig -o CMakeFiles/cmTC_68479.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake-3.18/Modules/CMakeCCompilerABI.c]
+  ignore line: [clang -cc1 version 11.0.1 based upon LLVM 11.0.1 default target x86_64-pc-linux-gnu]
+  ignore line: [ignoring nonexistent directory "/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/include/"]
+  ignore line: [ignoring nonexistent directory "/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/kernel-dependencies/linux/2.6.35.30"]
+  ignore line: [ignoring nonexistent directory "/include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include]
+  ignore line: [ /usr/local/include]
+  ignore line: [ /usr/lib/llvm-11/lib/clang/11.0.1/include]
+  ignore line: [ /usr/include/x86_64-linux-gnu]
+  ignore line: [ /usr/include]
+  ignore line: [End of search list.]
+  ignore line: [Linking C executable cmTC_68479]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_68479.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/clang -I/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include -I/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/include/ -I/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/kernel-dependencies/linux/2.6.35.30  -L/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib  -L/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/lib  -L/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib/../usr/lib/x86_64-linux-gnu/ -v -rdynamic CMakeFiles/cmTC_68479.dir/CMakeCCompilerABI.c.o -o cmTC_68479 ]
+  ignore line: [Debian clang version 11.0.1-2]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: /usr/bin]
+  ignore line: [Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/10]
+  ignore line: [Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/10]
+  ignore line: [Selected GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/10]
+  ignore line: [Candidate multilib: .]
+  ignore line: [@m64]
+  ignore line: [Selected multilib: .]
+  ignore line: [@m64]
+  link line: [ "/usr/bin/ld" -export-dynamic --hash-style=both --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_68479 /usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crt1.o /usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crti.o /usr/bin/../lib/gcc/x86_64-linux-gnu/10/crtbegin.o -L/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib -L/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/lib -L/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib/../usr/lib/x86_64-linux-gnu/ -L/usr/bin/../lib/gcc/x86_64-linux-gnu/10 -L/usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../.. -L/usr/lib/llvm-11/bin/../lib -L/lib -L/usr/lib CMakeFiles/cmTC_68479.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib/gcc/x86_64-linux-gnu/10/crtend.o /usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crtn.o]
+    arg [/usr/bin/ld] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [--hash-style=both] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_68479] ==> ignore
+    arg [/usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crt1.o] ==> ignore
+    arg [/usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crti.o] ==> ignore
+    arg [/usr/bin/../lib/gcc/x86_64-linux-gnu/10/crtbegin.o] ==> ignore
+    arg [-L/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib] ==> dir [/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib]
+    arg [-L/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/lib] ==> dir [/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/lib]
+    arg [-L/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib/../usr/lib/x86_64-linux-gnu/] ==> dir [/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib/../usr/lib/x86_64-linux-gnu/]
+    arg [-L/usr/bin/../lib/gcc/x86_64-linux-gnu/10] ==> dir [/usr/bin/../lib/gcc/x86_64-linux-gnu/10]
+    arg [-L/usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu] ==> dir [/usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu]
+    arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+    arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+    arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+    arg [-L/usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../..] ==> dir [/usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../..]
+    arg [-L/usr/lib/llvm-11/bin/../lib] ==> dir [/usr/lib/llvm-11/bin/../lib]
+    arg [-L/lib] ==> dir [/lib]
+    arg [-L/usr/lib] ==> dir [/usr/lib]
+    arg [CMakeFiles/cmTC_68479.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [/usr/bin/../lib/gcc/x86_64-linux-gnu/10/crtend.o] ==> ignore
+    arg [/usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crtn.o] ==> ignore
+  collapse library dir [/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib] ==> [/inxware/ert-contrib-middleware/target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib]
+  collapse library dir [/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/lib] ==> [/inxware/ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/lib]
+  collapse library dir [/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib/../usr/lib/x86_64-linux-gnu/] ==> [/inxware/ert-contrib-middleware/target_libs/x86_64-linux-gnu-clang11_unknown_base/build/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/bin/../lib/gcc/x86_64-linux-gnu/10] ==> [/usr/lib/gcc/x86_64-linux-gnu/10]
+  collapse library dir [/usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+  collapse library dir [/lib/../lib64] ==> [/lib64]
+  collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/bin/../lib/gcc/x86_64-linux-gnu/10/../../..] ==> [/usr/lib]
+  collapse library dir [/usr/lib/llvm-11/bin/../lib] ==> [/usr/lib/llvm-11/lib]
+  collapse library dir [/lib] ==> [/lib]
+  collapse library dir [/usr/lib] ==> [/usr/lib]
+  implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+  implicit dirs: [/inxware/ert-contrib-middleware/target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib;/inxware/ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/lib;/inxware/ert-contrib-middleware/target_libs/x86_64-linux-gnu-clang11_unknown_base/build/usr/lib/x86_64-linux-gnu;/usr/lib/gcc/x86_64-linux-gnu/10;/usr/lib/x86_64-linux-gnu;/lib/x86_64-linux-gnu;/lib64;/usr/lib;/usr/lib/llvm-11/lib;/lib]
+  implicit fwks: []
+
+
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: /inxware/ert-contrib-middleware/contrib/s2n-tls/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_75b52/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_75b52.dir/build.make CMakeFiles/cmTC_75b52.dir/build
+gmake[1]: Entering directory '/inxware/ert-contrib-middleware/contrib/s2n-tls/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_75b52.dir/CheckIncludeFile.c.o
+/usr/bin/clang   -I/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include -I/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/include/ -I/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/kernel-dependencies/linux/2.6.35.30  -o CMakeFiles/cmTC_75b52.dir/CheckIncludeFile.c.o -c /inxware/ert-contrib-middleware/contrib/s2n-tls/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_75b52
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_75b52.dir/link.txt --verbose=1
+/usr/bin/clang -I/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/include -I/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/include/ -I/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/kernel-dependencies/linux/2.6.35.30  -L/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib  -L/inxware/ert-contrib-middleware/inx_build_scripts/../../ert-build-support/support_libs/target_libs/x86_64-linux-gnuunknown/build/lib  -L/inxware/ert-contrib-middleware/inx_build_scripts/../target_libs/x86_64-linux-gnu-clang11_unknown_base/build/lib/../usr/lib/x86_64-linux-gnu/  -rdynamic CMakeFiles/cmTC_75b52.dir/CheckIncludeFile.c.o -o cmTC_75b52 
+gmake[1]: Leaving directory '/inxware/ert-contrib-middleware/contrib/s2n-tls/build/CMakeFiles/CMakeTmp'
+
+
+
+Checking whether the ASM compiler is Clang using "--version" matched "(clang version)":
+Debian clang version 11.0.1-2
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
