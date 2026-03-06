@@ -1,0 +1,8 @@
+prefix=/inxware/ert-contrib-middleware/target_libs/arm64-linux-gnu-clang19_debian13_base/build
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: AWS-LC
+Description: AWS-LC (OpenSSL SHIM)
+Version: 1.1.1
+Requires: libssl libcrypto
