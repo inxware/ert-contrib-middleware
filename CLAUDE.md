@@ -1,10 +1,11 @@
-# CLAUDE.md
+# CLAUDE.md — ert-contrib-middleware
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code when working in this repository.
 
-## Repository Purpose
+## Repository purpose
 
-This repository contains contributed open-source middleware libraries used by the inxware eRT (event-driven Run-Time). It holds source code for third-party libraries (in `contrib/`) and pre-built static library artifacts (in `target_libs/`) for multiple target platforms.
+Cross-compilation build scripts that produce static third-party libraries
+consumed by `ert-components`.  Artefacts land in `target_libs/<OUTTARGET>/build/`.
 
 The companion repo `ert-components` (https://github.com/inxware/ert-components) must be cloned alongside this one before building.
 
@@ -40,19 +41,6 @@ contrib/s2n-tls/
     s2n-tls-2.2022/
     s2n-tls-1.7.1/          # note: s2n-tls tags have no 'v' prefix
 ```
-
-Current AWS CRT component versions downloaded from upstream:
-
-| Component | Legacy | Latest |
-|-----------|--------|--------|
-| aws-c-common | -2.2022 | -v0.12.6 |
-| aws-c-cal | -2.2022 | -v0.9.13 |
-| aws-c-compression | -2.2022 | -v0.3.2 |
-| aws-c-http | -2.2022 | -v0.10.11 |
-| aws-c-io | -2.2022 | -v0.26.1 |
-| aws-c-mqtt | -2.2022 | -v0.14.0 |
-| aws-lc | -2.2022 | -v1.69.0 |
-| s2n-tls | -2.2022 | -1.7.1 |
 
 ## Build Commands
 
@@ -176,16 +164,6 @@ Each file contains a single line with the image name (e.g. `inxware/inx-debian13
 The build scripts read these indirectly — the `IMAGE_NAME` set at the top of each
 `build-<target>.sh` must match the corresponding `Dockerimagename` file for that platform.
 
-Images relevant to this repo's build scripts:
-
-| Build script | Platform dir | Docker image |
-|---|---|---|
-| `build-arm64-gtk-gst-greengrass_debian13.sh` | `linux_arm64_debian13_base` | `inxware/inx-debian13-arm64` |
-| `build-arm64-gtk-gst-greengrass_debian11.sh` | `linux_arm64_gtk_gst_gg_debian11` | `inxware/inx-debian11-clang-arm` |
-| `build-arm64-gtk-gst-greengrass_debian10.sh` | `linux_arm64_gtk_gst_gg_debian10` | `inxware/inx-debian10-clang-arm` |
-| `build-x86_64-to-x86_64-linux-debian12.sh` | `linux_x86_64_clang_gg_debian11` | `inxware/inx-debian11-clang11` |
-| `build-x86_64-to-x86_64-linux-clang.sh` | `linux_x86_64_clang_gg_debian10` | `inxware/inx-debian10-clang10` |
-| `build-esp32s3-*-idf-5-1-x.sh` | `esp32s3_freertos-xtensa-base` | `inxware/esp32s3_ubuntu22.04-build-essential` |
 
 All images are `amd64`. The arm64 images contain aarch64 cross-compilation toolchains.
 Docker mounts the workspace root as `/inxware` and sets working directory to
@@ -204,7 +182,8 @@ Toolchains are expected at:
 `REMAKE=true` (default) — clean + reconfigure + rebuild each component.
 `REMAKE=false` — skip configure/clean, only copy existing artifacts.
 
-## Known Issues and Consistency Gaps
+
+# Known Issues and Consistency Gaps
 
 ### aws-lc requires `-DDISABLE_GO=ON`
 `aws-lc` v1.69.0+ requires Go for code generation. Docker images do not include Go.
@@ -232,7 +211,98 @@ The entire `cp` section (headers, blobs, linker files, mbedtls combination) is d
 verbatim across all four scripts. This should be refactored into a shared sourced script
 (e.g. `source-scripts/inx-espidf-s3-copy-artifacts.sh`) called from each variant script.
 
+# There are two very similar android ABI 30 support paths
+
 ### `inx-dockersetup-source-me.sh` requires interactive TTY
 `docker run` is called with `-it`, which requires a TTY. When running non-interactively
 (e.g. from CI), pass `-i` only, or set `DOCKER_RUNNING=true` as an environment variable
 and restore the commented-out env-var check at the top of `check_and_run_docker`.
+# Specific Middlewares
+
+## AWS Greengrass support
+Current AWS CRT component versions downloaded from upstream:
+
+| Component | Legacy | Latest |
+|-----------|--------|--------|
+| aws-c-common | -2.2022 | -v0.12.6 |
+| aws-c-cal | -2.2022 | -v0.9.13 |
+| aws-c-compression | -2.2022 | -v0.3.2 |
+| aws-c-http | -2.2022 | -v0.10.11 |
+| aws-c-io | -2.2022 | -v0.26.1 |
+| aws-c-mqtt | -2.2022 | -v0.14.0 |
+| aws-lc | -2.2022 | -v1.69.0 |
+| s2n-tls | -2.2022 | -1.7.1 |
+
+
+## Android build — `inx_build_scripts/build-android-ehs.sh`
+
+Single entry point for all Android ABI builds.  See `inx_build_scripts/README.md`
+for full documentation.
+
+```bash
+cd inx_build_scripts
+bash build-android-ehs.sh --abi armeabi-v7a --api 30
+bash build-android-ehs.sh --abi arm64-v8a   --api 30
+```
+
+**Docker image**: `inxware/ubuntu22.04-android-ndk-build`
+(cmake 3.28+ from Kitware APT + Android NDK r27c at `/opt/android-ndk-r27c`).
+Build it once: `docker build -f Dockerfile.android-ndk-build -t inxware/ubuntu22.04-android-ndk-build .`
+cmake 3.28+ is required — Ubuntu 22.04's default cmake 3.22 has a known FetchContent bug where
+nested sub-projects (XNNPACK's cpuinfo/pthreadpool) don't inherit `CMAKE_TOOLCHAIN_FILE`, causing
+them to compile for the host arch and fail with an architecture mismatch.
+
+**LiteRT (TFLite)**
+- Version: 2.17.0; pinned in `LITERT_VERSION` inside `build-android-ehs.sh`.
+- Built from `source-scripts/litert-build.sh`.
+- XNNPACK: **enabled for all ABIs** including armeabi-v7a. The `=t` x87 asm constraint bug
+  (clang 18 / NDK r27c, TFLite 2.14.0) is fixed in 2.17.0+. ARM32 NEON is a first-class
+  XNNPACK target. Verified: `liblitert_c.a` for armeabi-v7a contains `xnnpack_delegate.cc.o`.
+- Staging directory (`staging/`) is gitignored at the repo root.
+
+**libidn**: not built for Android — bionic provides IDNA; libidn's autoreconf
+requires `gtkdocize`; older versions fail with NDK clang 18.  curl is built
+`--without-libidn`.
+
+## Staging directory
+
+`staging/` (repo root) is gitignored.  It contains:
+- `staging/src/litert-v<VERSION>/` — sparse-cloned TFLite source (shared across ABI builds)
+- `staging/build/litert-<ABI>-api<LEVEL>/` — per-ABI CMake build trees (1.5 GB+ each)
+
+Artefacts are **not** in staging — they go to `target_libs/`.
+
+**After a successful build**, `staging/build/` can and should be deleted to recover disk space
+(cmake intermediates, not needed once `liblitert_c.a` is in `target_libs/`):
+```bash
+rm -rf staging/build/
+```
+`staging/src/` can be kept to avoid re-cloning the TFLite source (~200 MB sparse checkout)
+on the next ABI build. Delete it only to pick up a new `LITERT_VERSION`.
+
+### Why staging/ instead of contrib/?
+
+TFLite cannot follow the `contrib/<name>/<name><version>/` convention used by autotools packages:
+
+1. **Size**: The TFLite source tree is hundreds of megabytes even with a sparse checkout. Checking
+   it into the repo (as a static snapshot) is impractical.
+2. **FetchContent dependencies**: TFLite's CMake build downloads additional sub-dependencies at
+   configure time (XNNPACK, abseil-cpp, flatbuffers, cpuinfo, pthreadpool, ruy, …).  These
+   themselves are not checked in and cannot be — their combined source is gigabytes.
+3. **Pinned reproducibility**: `litert-build.sh` uses `--depth 1 --branch v${LITERT_VERSION}` to
+   sparse-clone exactly the pinned tag, giving reproducible builds without committing source.
+
+The `staging/` pattern is therefore deliberate: ephemeral local build cache, gitignored, with the
+final artefact (`liblitert_c.a` + headers) committed to `target_libs/` as usual.
+
+## Key file locations
+
+| File | Purpose |
+|------|---------|
+| `inx_build_scripts/build-android-ehs.sh` | Main Android build entry point |
+| `inx_build_scripts/source-scripts/litert-build.sh` | LiteRT/TFLite CMake build logic |
+| `inx_build_scripts/source-scripts/inx-dockersetup-source-me.sh` | `check_and_run_docker` utility |
+| `inx_build_scripts/source-scripts/inx-xbuilder-source-me.sh` | Autotools cross-build framework |
+| `inx_build_scripts/Dockerfile.android-ndk-build` | Android build Docker image definition |
+| `target_libs/` | Build output consumed by ert-components |
+| `staging/` | Local-only build cache (gitignored) |
