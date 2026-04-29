@@ -1,0 +1,4 @@
+dependencies:
+  espressif/expat: "*"
+  joltwallet/littlefs: "==1.12.1"
+  espressif/led_strip: "^2.0.0"
