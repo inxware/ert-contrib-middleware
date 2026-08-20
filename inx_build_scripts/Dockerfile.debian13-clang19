@@ -1,0 +1,32 @@
+# Dockerfile.debian13-clang19
+#
+# Lean build environment for ert-contrib-middleware x86_64 Debian 13 builds.
+# Produces image: inxware/inx-debian13-clang19
+#
+# This image is shared by any ert-contrib-middleware build that targets
+# x86_64 Debian 13 — it is not tied to any specific ert-components platform.
+#
+# To build:
+#   cd inx_build_scripts
+#   docker build -f Dockerfile.debian13-clang19 -t inxware/inx-debian13-clang19 .
+
+FROM debian:13
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    ninja-build \
+    clang \
+    llvm \
+    lld \
+    git \
+    git-lfs \
+    rsync \
+    wget \
+    curl \
+    ca-certificates \
+    pkg-config \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /tmp

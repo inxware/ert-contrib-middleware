@@ -1,0 +1,62 @@
+# Dockerfile.android-ndk-build
+#
+# Build image for ert-contrib-middleware Android cross-builds.
+# Extends inxware/ubuntu22.04-build-essential with:
+#   - cmake 3.28+ from Kitware APT (fixes FetchContent toolchain propagation for arm64)
+#   - Android NDK r27c at /opt/android-ndk-r27c
+#   - rsync, wget, unzip, python3 (required by build-android-ehs.sh)
+#
+# To build and tag this image:
+#   cd inx_build_scripts
+#   docker build -f Dockerfile.android-ndk-build \
+#       -t inxware/ubuntu22.04-android-ndk-build .
+#
+# Image name: inxware/ubuntu22.04-android-ndk-build
+#
+# Used by build-android-ehs.sh when not already running inside Docker.
+
+FROM inxware/ubuntu22.04-build-essential
+
+# Install cmake 3.28+ from Kitware's APT repository.
+# Ubuntu 22.04's default cmake is 3.22, which has a known FetchContent issue:
+# nested FetchContent sub-projects (e.g. XNNPACK's cpuinfo/pthreadpool) do not
+# reliably inherit CMAKE_TOOLCHAIN_FILE from the parent configure, causing the
+# sub-project to compile for the host arch instead of the Android target and
+# failing with an architecture mismatch at the "Build step for xnnpack" stage.
+# cmake 3.24 improved FetchContent toolchain propagation; 3.28 resolved it fully.
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ca-certificates gpg wget && \
+    wget -qO- https://apt.kitware.com/keys/kitware-archive-latest.asc \
+        | gpg --dearmor > /usr/share/keyrings/kitware-archive-keyring.gpg && \
+    echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ jammy main' \
+        > /etc/apt/sources.list.d/kitware.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        cmake \
+        rsync \
+        unzip \
+        python3 \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV ANDROID_NDK_VERSION=r27c
+ENV ANDROID_NDK=/opt/android-ndk-r27c
+
+# NDK r27c is ~900 MB compressed; the toolchain.cmake inside it is what CMake
+# needs.  The zip extracts to android-ndk-r27c/; we rename for a stable path.
+RUN wget -q \
+        "https://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux.zip" \
+        -O /tmp/ndk.zip \
+    && unzip -q /tmp/ndk.zip -d /opt \
+    && rm /tmp/ndk.zip
+
+# Autotools suite — required for contrib packages that ship configure.ac but no
+# pre-generated configure script (e.g. libidn-1.33).  In a separate layer so
+# the NDK download layer above stays cached across Dockerfile edits.
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        autoconf \
+        automake \
+        libtool \
+        gettext \
+        autopoint \
+    && rm -rf /var/lib/apt/lists/*

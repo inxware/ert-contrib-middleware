@@ -1,0 +1,313 @@
+#!/bin/bash
+#set -e
+
+IMAGE_NAME=inxware/esp32s3_ubuntu22.04-build-essential
+
+echo "source 1"
+#left to do
+source ./source-scripts/inx-dockersetup-source-me.sh 
+check_and_run_docker $IMAGE_NAME
+
+#project name - appended to target variant and version info
+# Don't set up a project name as we want to build a generic sysroot
+#INX_PROJECT_NAME=esp32-native-freertos
+
+# todo remove this should be identified in sourced script
+PROCESSORS=8
+#gnu standard form of target architecture - prefix for existing libc version and created target directory
+ARCH=xtensa
+OS=esp32s3_freertos_n8r8
+#version libc - this is in the linux toolchain
+INX_GLIBC_VERSION=""
+# Empty as we are using the toolchains
+EXIT_ON_FAIL=true
+# This is the variant & version of the compiler as defined by ls  ../inx-core-uspace/toolchains/
+# Leave blank for using the default host compiler
+IDF_VERSION="-5.1"
+TOOLCHAIN_VERSION="xtensa-esp32s3-elf${IDF_VERSION}"
+
+#Optional: prefix for the compiler of not just gcc.
+TOOLCHAIN_BIN_PREFIX="xtensa-esp32s3-elf-"
+#i686-pc-linux-gnu-
+
+source ./source-scripts/inx-xbuilder-source-me-espidf-s3.sh
+
+
+########################################################################################################
+## Components to build
+##
+## build_component [package_name] [version] [optional: config parameters]  [optional: target directory] [optional envirionment variables to set]
+#########################################################################################################
+
+# note to do a make clean we need to drop into each component
+# todo add make clean
+
+#set to false if you don't want to rebuild the components, but copy artefacts to the build directory
+if [ 1 = 1 ]; then
+
+#Essential ones
+#Built bootloader
+
+build_bootloader esp-idf ${IDF_VERSION} bootloader
+build_partition_table esp-idf ${IDF_VERSION} partition_table
+
+#-----
+build_component esp-idf ${IDF_VERSION} esp_ringbuf
+build_component esp-idf ${IDF_VERSION} efuse
+build_component esp-idf ${IDF_VERSION} driver
+build_component esp-idf ${IDF_VERSION} esp_pm
+build_component esp-idf ${IDF_VERSION} mbedtls
+build_component esp-idf ${IDF_VERSION} esp_app_format
+build_component esp-idf ${IDF_VERSION} bootloader_support
+build_component esp-idf ${IDF_VERSION} esp_partition
+build_component esp-idf ${IDF_VERSION} app_update
+build_component esp-idf ${IDF_VERSION} esp_mm
+build_component esp-idf ${IDF_VERSION} spi_flash
+build_component esp-idf ${IDF_VERSION} pthread
+build_component esp-idf ${IDF_VERSION} esp_system
+build_component esp-idf ${IDF_VERSION} esp_rom
+build_component esp-idf ${IDF_VERSION} hal
+build_component esp-idf ${IDF_VERSION} log
+build_component esp-idf ${IDF_VERSION} heap
+build_component esp-idf ${IDF_VERSION} soc
+build_component esp-idf ${IDF_VERSION} esp_hw_support
+build_component esp-idf ${IDF_VERSION} freertos
+build_component esp-idf ${IDF_VERSION} newlib
+build_component esp-idf ${IDF_VERSION} cxx
+build_component esp-idf ${IDF_VERSION} esp_common
+build_component esp-idf ${IDF_VERSION} esp_timer
+build_component esp-idf ${IDF_VERSION} app_trace
+build_component esp-idf ${IDF_VERSION} esp_event
+build_component esp-idf ${IDF_VERSION} nvs_flash
+build_component esp-idf ${IDF_VERSION} esp_phy
+build_component esp-idf ${IDF_VERSION} vfs
+build_component esp-idf ${IDF_VERSION} lwip
+build_component esp-idf ${IDF_VERSION} esp_netif
+build_component esp-idf ${IDF_VERSION} wpa_supplicant
+build_component esp-idf ${IDF_VERSION} esp_coex
+build_component esp-idf ${IDF_VERSION} esp_wifi
+build_component esp-idf ${IDF_VERSION} unity
+build_component esp-idf ${IDF_VERSION} cmock
+build_component esp-idf ${IDF_VERSION} console
+build_component esp-idf ${IDF_VERSION} http_parser
+build_component esp-idf ${IDF_VERSION} esp-tls
+build_component esp-idf ${IDF_VERSION} esp_adc
+build_component esp-idf ${IDF_VERSION} esp_eth
+build_component esp-idf ${IDF_VERSION} esp_gdbstub
+build_component esp-idf ${IDF_VERSION} esp_hid
+build_component esp-idf ${IDF_VERSION} tcp_transport
+build_component esp-idf ${IDF_VERSION} esp_http_client
+build_component esp-idf ${IDF_VERSION} esp_http_server
+build_component esp-idf ${IDF_VERSION} esp_https_ota
+build_component esp-idf ${IDF_VERSION} esp_lcd
+build_component esp-idf ${IDF_VERSION} protobuf-c
+build_component esp-idf ${IDF_VERSION} protocomm
+build_component esp-idf ${IDF_VERSION} esp_local_ctrl
+build_component esp-idf ${IDF_VERSION} espcoredump
+build_component esp-idf ${IDF_VERSION} wear_levelling
+build_component esp-idf ${IDF_VERSION} sdmmc
+build_component esp-idf ${IDF_VERSION} fatfs
+build_component esp-idf ${IDF_VERSION} json
+build_component esp-idf ${IDF_VERSION} mqtt
+build_component esp-idf ${IDF_VERSION} perfmon
+build_component esp-idf ${IDF_VERSION} spiffs
+build_component esp-idf ${IDF_VERSION} touch_element
+build_component esp-idf ${IDF_VERSION} ulp
+build_component esp-idf ${IDF_VERSION} usb
+build_component esp-idf ${IDF_VERSION} wifi_provisioning
+build_component esp-idf ${IDF_VERSION} xtensa
+build_component esp-idf ${IDF_VERSION} esp_psram
+build_component esp-idf ${IDF_VERSION} bt
+
+#-----
+# copy includes
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/newlib/platform_include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/freertos/FreeRTOS-Kernel/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/freertos/esp_additions/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/freertos/esp_additions/arch/xtensa/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/soc/esp32s3/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/hal/esp32s3/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/xtensa/esp32s3/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/lwip/lwip/src/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/lwip/port/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/lwip/port/freertos/include/* ${USRLIB_INCLUDE_PATH}/
+cp -a ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/lwip/port/esp32xx/include/. ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/wpa_supplicant/esp_supplicant/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/esp_wifi/lib/esp32s3/* ${USRLIB_LIBRARY_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/mqtt/esp-mqtt/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/esp_adc/esp32s3/include/* ${USRLIB_INCLUDE_PATH}/
+
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/uart/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/usb_serial_jtag/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/gpio/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/spi/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/ledc/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/i2c/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/gptimer/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/temperature_sensor/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/dac/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/sigma_delta/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/porting/nimble/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/porting/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/porting/npl/freertos/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/host/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/host/services/gap/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/host/services/gatt/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/esp-hci/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/transport/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/controller/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/drivers/native/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/drivers/native/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/port/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/host/nimble/nimble/nimble/host/util/include/* ${USRLIB_INCLUDE_PATH}/
+
+cp -Rf ${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/build/config/sdkconfig.h ${USRLIB_INCLUDE_PATH}/
+
+# copy extra includes
+cp -Rf ${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/managed_components/joltwallet__littlefs/include/* ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/managed_components/espressif__expat/expat/expat/lib/expat.h ${USRLIB_INCLUDE_PATH}/
+cp -Rf ${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/managed_components/espressif__expat/expat/expat/lib/expat_external.h ${USRLIB_INCLUDE_PATH}/
+
+# add header files for depricated drivers e.g. timer 
+mkdir -p ${USRLIB_INCLUDE_PATH}/deprecated
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/driver/deprecated/driver ${USRLIB_INCLUDE_PATH}/deprecated
+
+# copy extra libs
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/esp_wifi/lib/esp32s3/* ${USRLIB_LIBRARY_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/esp_phy/lib/esp32s3/* ${USRLIB_LIBRARY_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/xtensa/esp32s3/* ${USRLIB_LIBRARY_PATH}/
+cp ${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/build/esp-idf/espressif__expat/libespressif__expat.a ${USRLIB_LIBRARY_PATH}/libexpat.a
+cp ${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/build/esp-idf/joltwallet__littlefs/libjoltwallet__littlefs.a ${USRLIB_LIBRARY_PATH}/liblittlefs.a
+
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/esp_coex/lib/esp32s3/*.a ${USRLIB_LIBRARY_PATH}/
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/bt/controller/lib_esp32c3_family/esp32s3/*.a ${USRLIB_LIBRARY_PATH}/
+
+#-----
+#copy the libraries & linker files
+cp -Rf ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/esp_rom/esp32s3/ld/* ${USRLIB_LIBRARY_PATH}/
+
+cp -Rf ${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/build/esp-idf/esp_system/ld/* ${USRLIB_LIBRARY_PATH}/
+cp -Rf  ${TEMP_PWD}/../contrib/esp-idf/esp-idf${IDF_VERSION}/components/soc/esp32s3/ld/* ${USRLIB_LIBRARY_PATH}/
+
+mkdir -p ${USRLIB_LIBRARY_PATH}/mbedtls/OLD/library
+cp -Rf ${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/build/esp-idf/mbedtls/mbedtls/library/*.a ${USRLIB_LIBRARY_PATH}/mbedtls/OLD/library
+
+# Combine mbedtls libraries
+pushd ${USRLIB_LIBRARY_PATH}/
+mv libmbedtls.a mbedtls/OLD
+mkdir -p mbedtls/NEW
+${TOOLCHAIN_BIN_PREFIX}ar -M <<EOM
+CREATE libmbedtls.a
+ADDLIB mbedtls/OLD/libmbedtls.a
+ADDLIB mbedtls/OLD/library/libmbedtls.a
+ADDLIB mbedtls/OLD/library/libmbedcrypto.a
+ADDLIB mbedtls/OLD/library/libmbedx509.a
+SAVE
+END
+EOM
+${TOOLCHAIN_BIN_PREFIX}ranlib libmbedtls.a
+popd
+
+#  ############################################## LVGL ########################################################
+#  build_component esp-idf ${IDF_VERSION} lvgl
+#  build_component esp-idf ${IDF_VERSION} lvgl_esp32_drivers
+#  ############################################## LVGL ########################################################
+
+# build_prepare_kconfig_files esp-idf ${IDF_VERSION} prepare_kconfig_files
+
+########################################################################################################
+## Arduino-as-IDF-component extraction.
+##
+## arduino-esp32 v3.0.7 is registered as an IDF component via
+## EXTRA_COMPONENT_DIRS in the project-level CMakeLists.txt overlay
+## (ert_config_files/esp32s3_freertos_n8r8/CMakeLists.txt) and pulled into the
+## build graph by a REQUIRES in main/CMakeLists.txt. IDF derives the component
+## name from the directory basename → "arduino-esp32-v3.0.7". The ninja build
+## therefore produces build/esp-idf/arduino-esp32-v3.0.7/
+## libarduino-esp32-v3.0.7.a as a side effect of any build_component call
+## above. Here we lift that archive (rename to libarduino.a) and copy the
+## arduino core/variant/SPI headers into target_libs/.
+##
+## Other eRT platforms using n8r8 ignore libarduino.a — build-time bloat only,
+## not runtime.
+########################################################################################################
+
+ARDUINO_SRC="${TEMP_PWD}/../contrib/arduino-esp32/arduino-esp32-v3.0.7"
+ARDUINO_BUILD_DIR="${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/build/esp-idf/arduino-esp32-v3.0.7"
+ARDUINO_INC_OUT="${USRLIB_INCLUDE_PATH}/arduino"
+
+if [ -f "${ARDUINO_BUILD_DIR}/libarduino-esp32-v3.0.7.a" ]; then
+    echo "==== Extracting arduino-esp32 (v3.0.7) ===="
+
+    # lib
+    cp -f "${ARDUINO_BUILD_DIR}/libarduino-esp32-v3.0.7.a" "${USRLIB_LIBRARY_PATH}/libarduino.a"
+
+    # Arduino headers live under an arduino/ subdir so the generic names
+    # (Arduino.h, Print.h, Stream.h, SPI.h) don't collide with IDF/kernel headers.
+    mkdir -p "${ARDUINO_INC_OUT}/variants" "${ARDUINO_INC_OUT}/libraries"
+
+    # core headers (cores/esp32/*.h, *.hpp, libb64/)
+    find "${ARDUINO_SRC}/cores/esp32" -maxdepth 2 \( -name '*.h' -o -name '*.hpp' \) \
+        -exec cp -f {} "${ARDUINO_INC_OUT}/" \;
+
+    # esp32s3 default variant — Phase 2 will add rak3112/ variant alongside
+    cp -Rf "${ARDUINO_SRC}/variants/esp32s3" "${ARDUINO_INC_OUT}/variants/"
+
+    # Libraries whose headers are likely to be consumed by eRT HAL code.
+    # (Only public include dirs, not .cpp.) SX126x-Arduino needs SPI and
+    # Ticker (timer.h #include <Ticker.h> for ESP32 is unconditional).
+    for lib in SPI Wire Ticker; do
+        if [ -d "${ARDUINO_SRC}/libraries/${lib}/src" ]; then
+            mkdir -p "${ARDUINO_INC_OUT}/libraries/${lib}"
+            find "${ARDUINO_SRC}/libraries/${lib}/src" -maxdepth 2 \( -name '*.h' -o -name '*.hpp' \) \
+                -exec cp -f {} "${ARDUINO_INC_OUT}/libraries/${lib}/" \;
+        fi
+    done
+
+    echo "  -> ${USRLIB_LIBRARY_PATH}/libarduino.a"
+    echo "  -> ${ARDUINO_INC_OUT}/"
+else
+    echo "==== arduino-esp32 archive NOT FOUND at ${ARDUINO_BUILD_DIR} ===="
+    echo "==== (main/idf_component.yml did not pull it in, or the build failed) ===="
+fi
+
+## SX126x-Arduino (beegee-tokyo) v2.0.32 — LoRaWAN stack on top of arduino-esp32.
+## Also discovered via EXTRA_COMPONENT_DIRS (see the project-level CMakeLists.txt
+## overlay in ert_config_files/esp32s3_freertos_n8r8/). Archive name mirrors the
+## component dir basename → libsx126x-arduino-v2.0.32.a; renamed to the generic
+## libsx126x-arduino.a so eRT link rules don't hard-code the version.
+##
+## Headers are installed under include/sx126x-arduino/ preserving the library's
+## own src/ tree (boards/mcu/, radio/sx126x/, mac/region/, system/crypto/, …).
+## The tree shape is mandatory: SX126x-Arduino.h / LoRaWan-Arduino.h use
+## subtree-relative includes like "boards/mcu/board.h" and "radio/radio.h",
+## and duplicate basenames exist across subdirs so a flat copy would collide.
+## Consumers do `#include "SX126x-Arduino.h"` with -I .../include/sx126x-arduino/.
+SX_SRC="${TEMP_PWD}/../contrib/sx126x-arduino/sx126x-arduino-v2.0.32"
+SX_BUILD_DIR="${STAGING_DIR}/esp-idf${IDF_VERSION}-${OS}/dummy_project/build/esp-idf/sx126x-arduino-v2.0.32"
+SX_INC_OUT="${USRLIB_INCLUDE_PATH}/sx126x-arduino"
+
+if [ -f "${SX_BUILD_DIR}/libsx126x-arduino-v2.0.32.a" ]; then
+    echo "==== Extracting SX126x-Arduino (v2.0.32) ===="
+
+    cp -f "${SX_BUILD_DIR}/libsx126x-arduino-v2.0.32.a" "${USRLIB_LIBRARY_PATH}/libsx126x-arduino.a"
+
+    mkdir -p "${SX_INC_OUT}"
+    # Preserve the src/ subdirectory tree — the library's own headers use
+    # relative paths like "boards/mcu/board.h", "radio/radio.h" that would
+    # break under a flat copy.
+    cp -Rf "${SX_SRC}/src/." "${SX_INC_OUT}/"
+
+    echo "  -> ${USRLIB_LIBRARY_PATH}/libsx126x-arduino.a"
+    echo "  -> ${SX_INC_OUT}/"
+else
+    echo "==== sx126x-arduino archive NOT FOUND at ${SX_BUILD_DIR} ===="
+    echo "==== (EXTRA_COMPONENT_DIRS entry missing, or the build failed) ===="
+fi
+
+fi
+###################################################################################################################################################
+
+echo "All done!"

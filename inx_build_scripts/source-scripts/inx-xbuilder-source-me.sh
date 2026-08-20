@@ -111,7 +111,7 @@ fi
 export OUTTARGET
 export CLIBTARGET
 #export these as they maybe used the target tree constructor script
-export TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR=${TEMP_PWD}/../../ert-build-support/support_libs/target_libs/${CLIBTARGET}
+TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR=${TEMP_PWD}/../../ert-build-support/support_libs/target_libs/${CLIBTARGET}
 export TARGET_PATH_FROM_COMPONENT_SOURCE_DIR=${TEMP_PWD}/../target_libs/${OUTTARGET}
 export BUILD_INSTALL_DIR="build"
 export USRLIB_BUILD_ROOT=${TARGET_PATH_FROM_COMPONENT_SOURCE_DIR}/${BUILD_INSTALL_DIR}
@@ -227,9 +227,10 @@ fi
 #export CORELIB_LIBRARY_PATH=${TARGET_PATH_FROM_CORESUPPORT_SOURCE_DIR}/${BUILD_INSTALL_DIR}/lib
 #export CORELIB_KERNEL_HEADERS_PATH=${TEMP_PWD}/../../ert-build-support/kernel-dependencies/${KERNEL_HEADERS}
  echo    "Installing target to $OUTTARGET"
- echo "***************************************************************************************************************************************"
- echo    " ANY KEY TO START - Ctrl-C to exit"
- read -n 1
+ echo -e "LDFLAGS=${LDFLAGS}"
+ echo "***********************************************************************************************************************"
+ echo    "ANY KEY TO START - Ctrl-C to exit (skipped when stdin is not a terminal)"
+ if [ -t 0 ]; then read -n 1; fi
 
 ##################################################################
 # make the root directory for pooled libs for this target 
@@ -271,7 +272,7 @@ if [ "${BUILD_OPTIONS}" != "SKIP_MAKE" ]; then
 	#NM-nm is needed for glibc - there is a bug in this version affecting  older toolchains.
 		if [ ! -e ./configure ] && [ ! -e ./Configure ]; then
 			echo "!! No configure found!! Running the ./bootstrap or autogen.sh scripts " 
-			./bootstrap.sh  || ./autogen.sh --noconfigure # || or we will fail the next bit with a descriptive error prompt
+			./bootstrap.sh || ./autogen.sh --noconfigure || autoreconf -fi # generate configure from configure.ac if no bootstrap script
 		fi
 		if [ "${CONFIG_CACHE}" == "NO_AUTOTOOLS_CROSS_COMPILE_HINTS" ] ;then
 			echo "Running ./configure..."
