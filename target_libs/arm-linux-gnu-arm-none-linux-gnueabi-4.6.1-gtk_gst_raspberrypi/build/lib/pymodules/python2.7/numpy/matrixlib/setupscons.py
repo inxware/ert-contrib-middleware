@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/matrixlib/setupscons.py

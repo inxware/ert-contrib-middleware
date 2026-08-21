@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/f2py/f2py_testing.py

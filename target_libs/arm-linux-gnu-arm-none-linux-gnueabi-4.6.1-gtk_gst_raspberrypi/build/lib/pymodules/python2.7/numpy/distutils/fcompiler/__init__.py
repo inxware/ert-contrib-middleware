@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/distutils/fcompiler/__init__.py

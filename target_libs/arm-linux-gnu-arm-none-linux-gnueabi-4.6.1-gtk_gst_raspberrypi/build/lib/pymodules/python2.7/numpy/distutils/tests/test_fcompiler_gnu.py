@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/distutils/tests/test_fcompiler_gnu.py

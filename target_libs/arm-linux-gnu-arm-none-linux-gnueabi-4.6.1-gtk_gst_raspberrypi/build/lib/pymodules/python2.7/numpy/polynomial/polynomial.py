@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/polynomial/polynomial.py

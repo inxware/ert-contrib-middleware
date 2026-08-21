@@ -1970,6 +1970,23 @@
  * While this helps code completion, it might conflict with existing libraries.
  * (only used if you use sockets.c)
  */
+// @todo LWIP-API-HIDDEN-ABSTRACTION
+// DO NOT re-enable the #if/#endif guards above and below this block. They are
+// intentionally commented out so that `#define LWIP_COMPAT_SOCKETS 1` is
+// UNCONDITIONAL and runs after lwipopts.h (included from opt.h line ~51), which
+// otherwise leaves the value at 0. With the value forced to 1, the BSD-name
+// macros at lwip/sockets.h:611-680 expand `socket()` → `lwip_socket()` etc. at
+// preprocess time, so ert-components can keep writing portable BSD-style socket
+// code while liblwip.a (which only exports lwip_*-prefixed symbols) resolves.
+//
+// About 15 ert-components files rely on this (target_mbport.c, porttcp[_m].c,
+// ping.c, target_tcp.c, console_server.c, the mqtt glues, inx-netsocket*.c, …).
+// The mechanism is a "hidden SDK abstraction": source reads as BSD, middleware
+// header silently redirects. Architecturally we'd prefer those callers to use
+// lwip_* names directly on LwIP targets (guarded so host BSD builds still
+// compile with plain names) and drop this patch. That's a deliberate sweep,
+// not a debug-session fix — one-line revert here breaks every ert-components
+// esp32s3 link. Track as a follow-up before doing it.
 //#if !defined LWIP_COMPAT_SOCKETS || defined __DOXYGEN__
 #define LWIP_COMPAT_SOCKETS             1
 //#endif

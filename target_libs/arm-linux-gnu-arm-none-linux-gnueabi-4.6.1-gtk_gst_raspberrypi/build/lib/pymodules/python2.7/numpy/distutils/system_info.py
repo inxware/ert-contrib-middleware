@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/distutils/system_info.py

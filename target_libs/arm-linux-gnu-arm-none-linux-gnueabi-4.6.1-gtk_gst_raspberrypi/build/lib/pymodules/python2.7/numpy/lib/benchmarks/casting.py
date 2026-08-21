@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/lib/benchmarks/casting.py

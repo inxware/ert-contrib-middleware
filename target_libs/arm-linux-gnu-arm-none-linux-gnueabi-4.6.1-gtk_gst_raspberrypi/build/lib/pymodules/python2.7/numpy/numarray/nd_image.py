@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/numarray/nd_image.py

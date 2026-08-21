@@ -1970,9 +1970,9 @@
  * While this helps code completion, it might conflict with existing libraries.
  * (only used if you use sockets.c)
  */
-//#if !defined LWIP_COMPAT_SOCKETS || defined __DOXYGEN__
+#if !defined LWIP_COMPAT_SOCKETS || defined __DOXYGEN__
 #define LWIP_COMPAT_SOCKETS             1
-//#endif
+#endif
 
 /**
  * LWIP_POSIX_SOCKETS_IO_NAMES==1: Enable POSIX-style sockets functions names.

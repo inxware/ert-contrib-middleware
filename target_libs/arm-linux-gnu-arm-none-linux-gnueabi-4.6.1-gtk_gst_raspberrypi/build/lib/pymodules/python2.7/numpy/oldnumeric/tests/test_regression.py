@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/oldnumeric/tests/test_regression.py

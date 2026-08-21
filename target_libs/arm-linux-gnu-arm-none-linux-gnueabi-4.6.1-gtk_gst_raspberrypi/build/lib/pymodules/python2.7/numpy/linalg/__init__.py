@@ -1,1 +1,0 @@
-/usr/share/pyshared/numpy/linalg/__init__.py

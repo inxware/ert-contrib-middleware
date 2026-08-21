@@ -1,0 +1,9 @@
+prefix=/inxware/ert-contrib-middleware/target_libs/x86_64-linux-gnu-clang19_debian13_base/build
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: AWS-LC-libcrypto
+Description: AWS-LC cryptography library
+Version: 1.1.1
+Libs: -L${libdir} -lcrypto
+Cflags: -I${includedir}
