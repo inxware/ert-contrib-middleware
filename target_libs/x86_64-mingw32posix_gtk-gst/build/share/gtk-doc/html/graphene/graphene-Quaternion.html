@@ -1,0 +1,1322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Quaternion: Graphene Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.2">
+<link rel="home" href="index.html" title="Graphene Reference Manual">
+<link rel="up" href="ch01.html" title="Graphene">
+<link rel="prev" href="graphene-Euler.html" title="Euler">
+<link rel="next" href="graphene-Plane.html" title="Plane">
+<meta name="generator" content="GTK-Doc V1.34.0 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="graphene-Euler.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="graphene-Plane.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="graphene-Quaternion"></a><div class="titlepage"></div>
+
+<div class="refnamediv">
+<h2><span class="refentrytitle"><a name="graphene-Quaternion.top_of_page"></a>Quaternion</span></h2>
+<p>
+Quaternion
+ — Quaternion operations
+</p>
+</div>
+
+<div class="refsect1">
+<a name="graphene-Quaternion.functions"></a><h2>Functions</h2>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_proto_type">
+<col class="functions_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-alloc" title="graphene_quaternion_alloc ()">graphene_quaternion_alloc</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-free" title="graphene_quaternion_free ()">graphene_quaternion_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-init" title="graphene_quaternion_init ()">graphene_quaternion_init</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-init-identity" title="graphene_quaternion_init_identity ()">graphene_quaternion_init_identity</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-init-from-quaternion" title="graphene_quaternion_init_from_quaternion ()">graphene_quaternion_init_from_quaternion</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-init-from-vec4" title="graphene_quaternion_init_from_vec4 ()">graphene_quaternion_init_from_vec4</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-init-from-matrix" title="graphene_quaternion_init_from_matrix ()">graphene_quaternion_init_from_matrix</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-init-from-angles" title="graphene_quaternion_init_from_angles ()">graphene_quaternion_init_from_angles</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-init-from-radians" title="graphene_quaternion_init_from_radians ()">graphene_quaternion_init_from_radians</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-init-from-angle-vec3" title="graphene_quaternion_init_from_angle_vec3 ()">graphene_quaternion_init_from_angle_vec3</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-init-from-euler" title="graphene_quaternion_init_from_euler ()">graphene_quaternion_init_from_euler</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-to-vec4" title="graphene_quaternion_to_vec4 ()">graphene_quaternion_to_vec4</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-to-matrix" title="graphene_quaternion_to_matrix ()">graphene_quaternion_to_matrix</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-to-angles" title="graphene_quaternion_to_angles ()">graphene_quaternion_to_angles</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-to-radians" title="graphene_quaternion_to_radians ()">graphene_quaternion_to_radians</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-to-angle-vec3" title="graphene_quaternion_to_angle_vec3 ()">graphene_quaternion_to_angle_vec3</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">bool</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-equal" title="graphene_quaternion_equal ()">graphene_quaternion_equal</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">float</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-dot" title="graphene_quaternion_dot ()">graphene_quaternion_dot</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-invert" title="graphene_quaternion_invert ()">graphene_quaternion_invert</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-normalize" title="graphene_quaternion_normalize ()">graphene_quaternion_normalize</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-add" title="graphene_quaternion_add ()">graphene_quaternion_add</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-multiply" title="graphene_quaternion_multiply ()">graphene_quaternion_multiply</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-scale" title="graphene_quaternion_scale ()">graphene_quaternion_scale</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Quaternion.html#graphene-quaternion-slerp" title="graphene_quaternion_slerp ()">graphene_quaternion_slerp</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect1">
+<a name="graphene-Quaternion.other"></a><h2>Types and Values</h2>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="other_proto_type">
+<col class="other_proto_name">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t">graphene_quaternion_t</a></td>
+</tr></tbody>
+</table>
+</div>
+</div>
+
+<div class="refsect1">
+<a name="graphene-Quaternion.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;graphene.h&gt;
+</pre>
+</div>
+
+<div class="refsect1">
+<a name="graphene-Quaternion.description"></a><h2>Description</h2>
+
+<p>Quaternions are a mathematical entity that can be used to represent
+rotation transformations in 3D space; unlike the usual Euler representation
+with roll, pitch, and yaw, quaternions do not suffer from the so-called
+<a class="ulink" href="http://en.wikipedia.org/wiki/Gimbal_lock" target="_top">"Gimbal Lock"</a> problem.</p>
+<p>See also: <a class="link" href="graphene-Euler.html#graphene-euler-t" title="graphene_euler_t"><span class="type">graphene_euler_t</span></a></p>
+
+</div>
+<div class="refsect1">
+<a name="graphene-Quaternion.functions_details"></a><h2>Functions</h2>
+
+<div class="refsect2">
+<a name="graphene-quaternion-alloc"></a><h3>graphene_quaternion_alloc ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.2.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+graphene_quaternion_alloc (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Allocates a new <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a>.</p>
+<p>The contents of the returned value are undefined.</p>
+
+<p><span class="annotation">[<acronym class="acronym">constructor</acronym>]</span></p>
+<div class="refsect3">
+<a name="graphene-quaternion-alloc.returns"></a><h4>Returns</h4>
+
+<p>the newly allocated <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a>. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer full</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-free"></a><h3>graphene_quaternion_free ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.3.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_quaternion_free (<em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>);</pre>
+<p>Releases the resources allocated by <a class="link" href="graphene-Quaternion.html#graphene-quaternion-alloc" title="graphene_quaternion_alloc ()"><code class="function">graphene_quaternion_alloc()</code></a>.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-free.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-init"></a><h3>graphene_quaternion_init ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.4.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+graphene_quaternion_init (<em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                          <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> x</code></em>,
+                          <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> y</code></em>,
+                          <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> z</code></em>,
+                          <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> w</code></em>);</pre>
+<p>Initializes a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> using the given four values.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-init.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>x</p></td>
+<td class="parameter_description"><p>the first component of the quaternion</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>y</p></td>
+<td class="parameter_description"><p>the second component of the quaternion</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>z</p></td>
+<td class="parameter_description"><p>the third component of the quaternion</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>w</p></td>
+<td class="parameter_description"><p>the fourth component of the quaternion</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-quaternion-init.returns"></a><h4>Returns</h4>
+
+<p>the initialized quaternion. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-init-identity"></a><h3>graphene_quaternion_init_identity ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.5.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+graphene_quaternion_init_identity (<em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>);</pre>
+<p>Initializes a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> using the identity
+transformation.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-init-identity.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-quaternion-init-identity.returns"></a><h4>Returns</h4>
+
+<p>the initialized quaternion. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-init-from-quaternion"></a><h3>graphene_quaternion_init_from_quaternion ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.6.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+graphene_quaternion_init_from_quaternion
+                               (<em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                                <em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *src</code></em>);</pre>
+<p>Initializes a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> with the values from <em class="parameter"><code>src</code></em>
+.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-init-from-quaternion.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>src</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-quaternion-init-from-quaternion.returns"></a><h4>Returns</h4>
+
+<p>the initialized quaternion. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-init-from-vec4"></a><h3>graphene_quaternion_init_from_vec4 ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.7.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+graphene_quaternion_init_from_vec4 (<em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                                    <em class="parameter"><code>const <a class="link" href="graphene-Vectors.html#graphene-vec4-t" title="graphene_vec4_t"><span class="type">graphene_vec4_t</span></a> *src</code></em>);</pre>
+<p>Initializes a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> with the values from <em class="parameter"><code>src</code></em>
+.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-init-from-vec4.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>src</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Vectors.html#graphene-vec4-t" title="graphene_vec4_t"><span class="type">graphene_vec4_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-quaternion-init-from-vec4.returns"></a><h4>Returns</h4>
+
+<p>the initialized quaternion. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-init-from-matrix"></a><h3>graphene_quaternion_init_from_matrix ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.8.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+graphene_quaternion_init_from_matrix (<em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                                      <em class="parameter"><code>const <a class="link" href="graphene-Matrix.html#graphene-matrix-t" title="graphene_matrix_t"><span class="type">graphene_matrix_t</span></a> *m</code></em>);</pre>
+<p>Initializes a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> using the rotation components
+of a transformation matrix.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-init-from-matrix.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>m</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Matrix.html#graphene-matrix-t" title="graphene_matrix_t"><span class="type">graphene_matrix_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-quaternion-init-from-matrix.returns"></a><h4>Returns</h4>
+
+<p>the initialized quaternion. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-init-from-angles"></a><h3>graphene_quaternion_init_from_angles ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.9.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+graphene_quaternion_init_from_angles (<em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                                      <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> deg_x</code></em>,
+                                      <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> deg_y</code></em>,
+                                      <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> deg_z</code></em>);</pre>
+<p>Initializes a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> using the values of
+the <a class="ulink" href="http://en.wikipedia.org/wiki/Euler_angles" target="_top">Euler angles</a>
+on each axis.</p>
+<p>See also: <a class="link" href="graphene-Quaternion.html#graphene-quaternion-init-from-euler" title="graphene_quaternion_init_from_euler ()"><code class="function">graphene_quaternion_init_from_euler()</code></a></p>
+<div class="refsect3">
+<a name="graphene-quaternion-init-from-angles.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>deg_x</p></td>
+<td class="parameter_description"><p>rotation angle on the X axis (yaw), in degrees</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>deg_y</p></td>
+<td class="parameter_description"><p>rotation angle on the Y axis (pitch), in degrees</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>deg_z</p></td>
+<td class="parameter_description"><p>rotation angle on the Z axis (roll), in degrees</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-quaternion-init-from-angles.returns"></a><h4>Returns</h4>
+
+<p>the initialized quaternion. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-init-from-radians"></a><h3>graphene_quaternion_init_from_radians ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.10.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+graphene_quaternion_init_from_radians (<em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                                       <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> rad_x</code></em>,
+                                       <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> rad_y</code></em>,
+                                       <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> rad_z</code></em>);</pre>
+<p>Initializes a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> using the values of
+the <a class="ulink" href="http://en.wikipedia.org/wiki/Euler_angles" target="_top">Euler angles</a>
+on each axis.</p>
+<p>See also: <a class="link" href="graphene-Quaternion.html#graphene-quaternion-init-from-euler" title="graphene_quaternion_init_from_euler ()"><code class="function">graphene_quaternion_init_from_euler()</code></a></p>
+<div class="refsect3">
+<a name="graphene-quaternion-init-from-radians.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rad_x</p></td>
+<td class="parameter_description"><p>rotation angle on the X axis (yaw), in radians</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rad_y</p></td>
+<td class="parameter_description"><p>rotation angle on the Y axis (pitch), in radians</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rad_z</p></td>
+<td class="parameter_description"><p>rotation angle on the Z axis (roll), in radians</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-quaternion-init-from-radians.returns"></a><h4>Returns</h4>
+
+<p>the initialized quaternion. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-init-from-angle-vec3"></a><h3>graphene_quaternion_init_from_angle_vec3 ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.11.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+graphene_quaternion_init_from_angle_vec3
+                               (<em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                                <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> angle</code></em>,
+                                <em class="parameter"><code>const <a class="link" href="graphene-Vectors.html#graphene-vec3-t" title="graphene_vec3_t"><span class="type">graphene_vec3_t</span></a> *axis</code></em>);</pre>
+<p>Initializes a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> using an <em class="parameter"><code>angle</code></em>
+ on a
+specific <em class="parameter"><code>axis</code></em>
+.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-init-from-angle-vec3.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>angle</p></td>
+<td class="parameter_description"><p>the rotation on a given axis, in degrees</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>axis</p></td>
+<td class="parameter_description"><p>the axis of rotation, expressed as a vector</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-quaternion-init-from-angle-vec3.returns"></a><h4>Returns</h4>
+
+<p>the initialized quaternion. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-init-from-euler"></a><h3>graphene_quaternion_init_from_euler ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.12.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="returnvalue">graphene_quaternion_t</span></a> *
+graphene_quaternion_init_from_euler (<em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                                     <em class="parameter"><code>const <a class="link" href="graphene-Euler.html#graphene-euler-t" title="graphene_euler_t"><span class="type">graphene_euler_t</span></a> *e</code></em>);</pre>
+<p>Initializes a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> using the given <a class="link" href="graphene-Euler.html#graphene-euler-t" title="graphene_euler_t"><span class="type">graphene_euler_t</span></a>.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-init-from-euler.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>the <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> to initialize</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>e</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Euler.html#graphene-euler-t" title="graphene_euler_t"><span class="type">graphene_euler_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-quaternion-init-from-euler.returns"></a><h4>Returns</h4>
+
+<p>the initialized <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a>. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-to-vec4"></a><h3>graphene_quaternion_to_vec4 ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.13.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_quaternion_to_vec4 (<em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                             <em class="parameter"><code><a class="link" href="graphene-Vectors.html#graphene-vec4-t" title="graphene_vec4_t"><span class="type">graphene_vec4_t</span></a> *res</code></em>);</pre>
+<p>Copies the components of a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> into a
+<a class="link" href="graphene-Vectors.html#graphene-vec4-t" title="graphene_vec4_t"><span class="type">graphene_vec4_t</span></a>.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-to-vec4.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>return location for a
+<a class="link" href="graphene-Vectors.html#graphene-vec4-t" title="graphene_vec4_t"><span class="type">graphene_vec4_t</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-to-matrix"></a><h3>graphene_quaternion_to_matrix ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.14.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_quaternion_to_matrix (<em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                               <em class="parameter"><code><a class="link" href="graphene-Matrix.html#graphene-matrix-t" title="graphene_matrix_t"><span class="type">graphene_matrix_t</span></a> *m</code></em>);</pre>
+<p>Converts a quaternion into a transformation matrix expressing
+the rotation defined by the <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a>.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-to-matrix.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>m</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Matrix.html#graphene-matrix-t" title="graphene_matrix_t"><span class="type">graphene_matrix_t</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-to-angles"></a><h3>graphene_quaternion_to_angles ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.15.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_quaternion_to_angles (<em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                               <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> *deg_x</code></em>,
+                               <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> *deg_y</code></em>,
+                               <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> *deg_z</code></em>);</pre>
+<p>Converts a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> to its corresponding rotations
+on the <a class="ulink" href="http://en.wikipedia.org/wiki/Euler_angles" target="_top">Euler angles</a>
+on each axis.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-to-angles.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>deg_x</p></td>
+<td class="parameter_description"><p>return location for the rotation angle on
+the X axis (yaw), in degrees. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out</acronym>][<acronym class="acronym">optional</acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>deg_y</p></td>
+<td class="parameter_description"><p>return location for the rotation angle on
+the Y axis (pitch), in degrees. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out</acronym>][<acronym class="acronym">optional</acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>deg_z</p></td>
+<td class="parameter_description"><p>return location for the rotation angle on
+the Z axis (roll), in degrees. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out</acronym>][<acronym class="acronym">optional</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-to-radians"></a><h3>graphene_quaternion_to_radians ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.16.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_quaternion_to_radians (<em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                                <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> *rad_x</code></em>,
+                                <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> *rad_y</code></em>,
+                                <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> *rad_z</code></em>);</pre>
+<p>Converts a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> to its corresponding rotations
+on the <a class="ulink" href="http://en.wikipedia.org/wiki/Euler_angles" target="_top">Euler angles</a>
+on each axis.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-to-radians.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rad_x</p></td>
+<td class="parameter_description"><p>return location for the rotation angle on
+the X axis (yaw), in radians. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out</acronym>][<acronym class="acronym">optional</acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rad_y</p></td>
+<td class="parameter_description"><p>return location for the rotation angle on
+the Y axis (pitch), in radians. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out</acronym>][<acronym class="acronym">optional</acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rad_z</p></td>
+<td class="parameter_description"><p>return location for the rotation angle on
+the Z axis (roll), in radians. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out</acronym>][<acronym class="acronym">optional</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-to-angle-vec3"></a><h3>graphene_quaternion_to_angle_vec3 ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.17.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_quaternion_to_angle_vec3 (<em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                                   <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> *angle</code></em>,
+                                   <em class="parameter"><code><a class="link" href="graphene-Vectors.html#graphene-vec3-t" title="graphene_vec3_t"><span class="type">graphene_vec3_t</span></a> *axis</code></em>);</pre>
+<p>Converts a quaternion into an <em class="parameter"><code>angle</code></em>
+, <em class="parameter"><code>axis</code></em>
+ pair.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-to-angle-vec3.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>angle</p></td>
+<td class="parameter_description"><p>return location for the angle, in degrees. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out</acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>axis</p></td>
+<td class="parameter_description"><p>return location for the rotation axis. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-equal"></a><h3>graphene_quaternion_equal ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.18.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">bool</span></a>
+graphene_quaternion_equal (<em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *a</code></em>,
+                           <em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *b</code></em>);</pre>
+<p>Checks whether the given quaternions are equal.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-equal.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-quaternion-equal.returns"></a><h4>Returns</h4>
+
+<p> <code class="literal">true</code> if the quaternions are equal</p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-dot"></a><h3>graphene_quaternion_dot ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.19.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">float</span></a>
+graphene_quaternion_dot (<em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *a</code></em>,
+                         <em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *b</code></em>);</pre>
+<p>Computes the dot product of two <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a>.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-dot.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-quaternion-dot.returns"></a><h4>Returns</h4>
+
+<p> the value of the dot products</p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-invert"></a><h3>graphene_quaternion_invert ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.20.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_quaternion_invert (<em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                            <em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *res</code></em>);</pre>
+<p>Inverts a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a>, and returns the conjugate
+quaternion of <em class="parameter"><code>q</code></em>
+.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-invert.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>return location for the inverted
+quaternion. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-normalize"></a><h3>graphene_quaternion_normalize ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.21.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_quaternion_normalize (<em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                               <em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *res</code></em>);</pre>
+<p>Normalizes a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a>.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-normalize.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>return location for the normalized
+quaternion. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-add"></a><h3>graphene_quaternion_add ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.22.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_quaternion_add (<em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *a</code></em>,
+                         <em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *b</code></em>,
+                         <em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *res</code></em>);</pre>
+<p>Adds two <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> <em class="parameter"><code>a</code></em>
+ and <em class="parameter"><code>b</code></em>
+.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-add.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>the result of the operation. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix07.html#api-index-1.10">1.10</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-multiply"></a><h3>graphene_quaternion_multiply ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.23.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_quaternion_multiply (<em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *a</code></em>,
+                              <em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *b</code></em>,
+                              <em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *res</code></em>);</pre>
+<p>Multiplies two <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> <em class="parameter"><code>a</code></em>
+ and <em class="parameter"><code>b</code></em>
+.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-multiply.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>the result of the operation. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix07.html#api-index-1.10">1.10</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-scale"></a><h3>graphene_quaternion_scale ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.24.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_quaternion_scale (<em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *q</code></em>,
+                           <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> factor</code></em>,
+                           <em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *res</code></em>);</pre>
+<p>Scales all the elements of a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> <em class="parameter"><code>q</code></em>
+ using
+the given scalar factor.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-scale.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>q</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>factor</p></td>
+<td class="parameter_description"><p>a scaling factor</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>the result of the operation. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix07.html#api-index-1.10">1.10</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-quaternion-slerp"></a><h3>graphene_quaternion_slerp ()</h3>
+
+<a class="indexterm" name="id-1.2.17.7.25.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_quaternion_slerp (<em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *a</code></em>,
+                           <em class="parameter"><code>const <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *b</code></em>,
+                           <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> factor</code></em>,
+                           <em class="parameter"><code><a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> *res</code></em>);</pre>
+<p>Interpolates between the two given quaternions using a spherical
+linear interpolation, or <a class="ulink" href="http://en.wikipedia.org/wiki/Slerp" target="_top">SLERP</a>,
+using the given interpolation <em class="parameter"><code>factor</code></em>
+.</p>
+<div class="refsect3">
+<a name="graphene-quaternion-slerp.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>factor</p></td>
+<td class="parameter_description"><p>the linear interpolation factor</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>return location for the interpolated
+quaternion. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+
+</div>
+<div class="refsect1">
+<a name="graphene-Quaternion.other_details"></a><h2>Types and Values</h2>
+
+<div class="refsect2">
+<a name="graphene-quaternion-t"></a><h3>graphene_quaternion_t</h3>
+
+<a class="indexterm" name="id-1.2.17.8.2.2"></a>
+<pre class="programlisting">typedef struct {
+} graphene_quaternion_t;
+</pre>
+<p>A quaternion.</p>
+<p>The contents of the <a class="link" href="graphene-Quaternion.html#graphene-quaternion-t" title="graphene_quaternion_t"><span class="type">graphene_quaternion_t</span></a> structure are private
+and should never be accessed directly.</p>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+
+</div>
+
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.34.0</div>
+</body>
+</html>

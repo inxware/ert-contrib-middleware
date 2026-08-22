@@ -1,0 +1,13 @@
+prefix=/mingw64
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+toolsdir=${prefix}/bin
+orcc=${toolsdir}/orcc.exe
+
+Name: orc-0.4
+Description: Library of Optimized Inner Loops Runtime Compiler
+Version: 0.4.42
+Libs: -L${libdir} -lorc-0.4
+Libs.private: -lm -latomic
+Cflags: -I${includedir}/orc-0.4

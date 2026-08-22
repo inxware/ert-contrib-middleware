@@ -1,0 +1,4 @@
+
+Name: adwaita-icon-theme-legacy
+Description: Icon theme that provides fallback icons for old apps relying on global icon themes
+Version: 46.2

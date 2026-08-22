@@ -1,0 +1,4 @@
+[Thumbnailer Entry]
+TryExec=/mingw64/bin/gdk-pixbuf-thumbnailer
+Exec=/mingw64/bin/gdk-pixbuf-thumbnailer -s %s %u %o
+MimeType=application/emf;application/ico;application/x-emf;application/x-navi-animation;image/bmp;image/emf;image/gif;image/ico;image/icon;image/jpeg;image/png;image/qtif;image/tiff;image/vnd.microsoft.icon;image/wmf;image/x-MS-bmp;image/x-bmp;image/x-emf;image/x-icns;image/x-ico;image/x-icon;image/x-mgx-emf;image/x-portable-anymap;image/x-portable-bitmap;image/x-portable-graymap;image/x-portable-pixmap;image/x-quicktime;image/x-tga;image/x-win-bitmap;image/x-wmf;image/x-xbitmap;image/x-xpixmap;text/ico;

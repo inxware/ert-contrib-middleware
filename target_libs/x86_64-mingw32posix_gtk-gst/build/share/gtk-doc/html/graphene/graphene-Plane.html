@@ -1,0 +1,789 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Plane: Graphene Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.2">
+<link rel="home" href="index.html" title="Graphene Reference Manual">
+<link rel="up" href="ch01.html" title="Graphene">
+<link rel="prev" href="graphene-Quaternion.html" title="Quaternion">
+<link rel="next" href="graphene-Ray.html" title="Ray">
+<meta name="generator" content="GTK-Doc V1.34.0 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="graphene-Quaternion.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="graphene-Ray.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="graphene-Plane"></a><div class="titlepage"></div>
+
+<div class="refnamediv">
+<h2><span class="refentrytitle"><a name="graphene-Plane.top_of_page"></a>Plane</span></h2>
+<p>
+Plane
+ — A plane in 3D space
+</p>
+</div>
+
+<div class="refsect1">
+<a name="graphene-Plane.functions"></a><h2>Functions</h2>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_proto_type">
+<col class="functions_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="returnvalue">graphene_plane_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Plane.html#graphene-plane-alloc" title="graphene_plane_alloc ()">graphene_plane_alloc</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Plane.html#graphene-plane-free" title="graphene_plane_free ()">graphene_plane_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="returnvalue">graphene_plane_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Plane.html#graphene-plane-init" title="graphene_plane_init ()">graphene_plane_init</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="returnvalue">graphene_plane_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Plane.html#graphene-plane-init-from-vec4" title="graphene_plane_init_from_vec4 ()">graphene_plane_init_from_vec4</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="returnvalue">graphene_plane_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Plane.html#graphene-plane-init-from-plane" title="graphene_plane_init_from_plane ()">graphene_plane_init_from_plane</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="returnvalue">graphene_plane_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Plane.html#graphene-plane-init-from-point" title="graphene_plane_init_from_point ()">graphene_plane_init_from_point</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="returnvalue">graphene_plane_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Plane.html#graphene-plane-init-from-points" title="graphene_plane_init_from_points ()">graphene_plane_init_from_points</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Plane.html#graphene-plane-normalize" title="graphene_plane_normalize ()">graphene_plane_normalize</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Plane.html#graphene-plane-negate" title="graphene_plane_negate ()">graphene_plane_negate</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">bool</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Plane.html#graphene-plane-equal" title="graphene_plane_equal ()">graphene_plane_equal</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">float</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Plane.html#graphene-plane-distance" title="graphene_plane_distance ()">graphene_plane_distance</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Plane.html#graphene-plane-transform" title="graphene_plane_transform ()">graphene_plane_transform</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Plane.html#graphene-plane-get-normal" title="graphene_plane_get_normal ()">graphene_plane_get_normal</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">float</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Plane.html#graphene-plane-get-constant" title="graphene_plane_get_constant ()">graphene_plane_get_constant</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect1">
+<a name="graphene-Plane.other"></a><h2>Types and Values</h2>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="other_proto_type">
+<col class="other_proto_name">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t">graphene_plane_t</a></td>
+</tr></tbody>
+</table>
+</div>
+</div>
+
+<div class="refsect1">
+<a name="graphene-Plane.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;graphene.h&gt;
+</pre>
+</div>
+
+<div class="refsect1">
+<a name="graphene-Plane.description"></a><h2>Description</h2>
+
+<p><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> is a structure representing a plane that extends
+infinitely in 3D space, described using the <a class="ulink" href="http://mathworld.wolfram.com/HessianNormalForm.html" target="_top">Hessian normal
+form</a>
+of a unit length normal vector pointing towards the origin, and a
+constant distance from the origin along the normal vector.</p>
+
+</div>
+<div class="refsect1">
+<a name="graphene-Plane.functions_details"></a><h2>Functions</h2>
+
+<div class="refsect2">
+<a name="graphene-plane-alloc"></a><h3>graphene_plane_alloc ()</h3>
+
+<a class="indexterm" name="id-1.2.18.7.2.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="returnvalue">graphene_plane_t</span></a> *
+graphene_plane_alloc (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Allocates a new <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> structure.</p>
+<p>The contents of the returned structure are undefined.</p>
+
+<p><span class="annotation">[<acronym class="acronym">constructor</acronym>]</span></p>
+<div class="refsect3">
+<a name="graphene-plane-alloc.returns"></a><h4>Returns</h4>
+
+<p>the newly allocated <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a>.
+Use <a class="link" href="graphene-Plane.html#graphene-plane-free" title="graphene_plane_free ()"><code class="function">graphene_plane_free()</code></a> to free the resources allocated by
+this function. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer full</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-plane-free"></a><h3>graphene_plane_free ()</h3>
+
+<a class="indexterm" name="id-1.2.18.7.3.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_plane_free (<em class="parameter"><code><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *p</code></em>);</pre>
+<p>Frees the resources allocated by <a class="link" href="graphene-Plane.html#graphene-plane-alloc" title="graphene_plane_alloc ()"><code class="function">graphene_plane_alloc()</code></a>.</p>
+<div class="refsect3">
+<a name="graphene-plane-free.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-plane-init"></a><h3>graphene_plane_init ()</h3>
+
+<a class="indexterm" name="id-1.2.18.7.4.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="returnvalue">graphene_plane_t</span></a> *
+graphene_plane_init (<em class="parameter"><code><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *p</code></em>,
+                     <em class="parameter"><code>const <a class="link" href="graphene-Vectors.html#graphene-vec3-t" title="graphene_vec3_t"><span class="type">graphene_vec3_t</span></a> *normal</code></em>,
+                     <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> constant</code></em>);</pre>
+<p>Initializes the given <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> using the given <em class="parameter"><code>normal</code></em>
+ vector
+and <em class="parameter"><code>constant</code></em>
+ values.</p>
+<div class="refsect3">
+<a name="graphene-plane-init.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>the <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> to initialize</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>normal</p></td>
+<td class="parameter_description"><p>a unit length normal vector defining the plane
+pointing towards the origin; if unset, we use the X axis by default. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">nullable</acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>constant</p></td>
+<td class="parameter_description"><p>the distance from the origin to the plane along the
+normal vector; the sign determines the half-space occupied by the
+plane</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-plane-init.returns"></a><h4>Returns</h4>
+
+<p>the initialized plane. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-plane-init-from-vec4"></a><h3>graphene_plane_init_from_vec4 ()</h3>
+
+<a class="indexterm" name="id-1.2.18.7.5.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="returnvalue">graphene_plane_t</span></a> *
+graphene_plane_init_from_vec4 (<em class="parameter"><code><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *p</code></em>,
+                               <em class="parameter"><code>const <a class="link" href="graphene-Vectors.html#graphene-vec4-t" title="graphene_vec4_t"><span class="type">graphene_vec4_t</span></a> *src</code></em>);</pre>
+<p>Initializes the given <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> using the components of
+the given <a class="link" href="graphene-Vectors.html#graphene-vec4-t" title="graphene_vec4_t"><span class="type">graphene_vec4_t</span></a> vector.</p>
+<div class="refsect3">
+<a name="graphene-plane-init-from-vec4.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>the <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> to initialize</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>src</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Vectors.html#graphene-vec4-t" title="graphene_vec4_t"><span class="type">graphene_vec4_t</span></a> containing the normal vector in its first
+three components, and the distance in its fourth component</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-plane-init-from-vec4.returns"></a><h4>Returns</h4>
+
+<p>the initialized plane. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-plane-init-from-plane"></a><h3>graphene_plane_init_from_plane ()</h3>
+
+<a class="indexterm" name="id-1.2.18.7.6.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="returnvalue">graphene_plane_t</span></a> *
+graphene_plane_init_from_plane (<em class="parameter"><code><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *p</code></em>,
+                                <em class="parameter"><code>const <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *src</code></em>);</pre>
+<p>Initializes the given <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> using the normal
+vector and constant of another <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a>.</p>
+<div class="refsect3">
+<a name="graphene-plane-init-from-plane.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>the <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> to initialize</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>src</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-plane-init-from-plane.returns"></a><h4>Returns</h4>
+
+<p>the initialized plane. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-plane-init-from-point"></a><h3>graphene_plane_init_from_point ()</h3>
+
+<a class="indexterm" name="id-1.2.18.7.7.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="returnvalue">graphene_plane_t</span></a> *
+graphene_plane_init_from_point (<em class="parameter"><code><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *p</code></em>,
+                                <em class="parameter"><code>const <a class="link" href="graphene-Vectors.html#graphene-vec3-t" title="graphene_vec3_t"><span class="type">graphene_vec3_t</span></a> *normal</code></em>,
+                                <em class="parameter"><code>const <a class="link" href="graphene-Point3D.html#graphene-point3d-t" title="graphene_point3d_t"><span class="type">graphene_point3d_t</span></a> *point</code></em>);</pre>
+<p>Initializes the given <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> using the given normal vector
+and an arbitrary co-planar point.</p>
+<div class="refsect3">
+<a name="graphene-plane-init-from-point.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>the <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> to initialize</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>normal</p></td>
+<td class="parameter_description"><p>a normal vector defining the plane pointing towards the origin</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>point</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point3D.html#graphene-point3d-t" title="graphene_point3d_t"><span class="type">graphene_point3d_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-plane-init-from-point.returns"></a><h4>Returns</h4>
+
+<p>the initialized plane. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-plane-init-from-points"></a><h3>graphene_plane_init_from_points ()</h3>
+
+<a class="indexterm" name="id-1.2.18.7.8.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="returnvalue">graphene_plane_t</span></a> *
+graphene_plane_init_from_points (<em class="parameter"><code><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *p</code></em>,
+                                 <em class="parameter"><code>const <a class="link" href="graphene-Point3D.html#graphene-point3d-t" title="graphene_point3d_t"><span class="type">graphene_point3d_t</span></a> *a</code></em>,
+                                 <em class="parameter"><code>const <a class="link" href="graphene-Point3D.html#graphene-point3d-t" title="graphene_point3d_t"><span class="type">graphene_point3d_t</span></a> *b</code></em>,
+                                 <em class="parameter"><code>const <a class="link" href="graphene-Point3D.html#graphene-point3d-t" title="graphene_point3d_t"><span class="type">graphene_point3d_t</span></a> *c</code></em>);</pre>
+<p>Initializes the given <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> using the 3 provided co-planar
+points.</p>
+<p>The winding order is counter-clockwise, and determines which direction
+the normal vector will point.</p>
+<div class="refsect3">
+<a name="graphene-plane-init-from-points.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>the <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> to initialize</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point3D.html#graphene-point3d-t" title="graphene_point3d_t"><span class="type">graphene_point3d_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point3D.html#graphene-point3d-t" title="graphene_point3d_t"><span class="type">graphene_point3d_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>c</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point3D.html#graphene-point3d-t" title="graphene_point3d_t"><span class="type">graphene_point3d_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-plane-init-from-points.returns"></a><h4>Returns</h4>
+
+<p>the initialized plane. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-plane-normalize"></a><h3>graphene_plane_normalize ()</h3>
+
+<a class="indexterm" name="id-1.2.18.7.9.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_plane_normalize (<em class="parameter"><code>const <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *p</code></em>,
+                          <em class="parameter"><code><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *res</code></em>);</pre>
+<p>Normalizes the vector of the given <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a>,
+and adjusts the constant accordingly.</p>
+<div class="refsect3">
+<a name="graphene-plane-normalize.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>return location for the normalized plane. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-plane-negate"></a><h3>graphene_plane_negate ()</h3>
+
+<a class="indexterm" name="id-1.2.18.7.10.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_plane_negate (<em class="parameter"><code>const <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *p</code></em>,
+                       <em class="parameter"><code><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *res</code></em>);</pre>
+<p>Negates the normal vector and constant of a <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a>, effectively
+mirroring the plane across the origin.</p>
+<div class="refsect3">
+<a name="graphene-plane-negate.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>return location for the negated plane. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-plane-equal"></a><h3>graphene_plane_equal ()</h3>
+
+<a class="indexterm" name="id-1.2.18.7.11.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">bool</span></a>
+graphene_plane_equal (<em class="parameter"><code>const <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *a</code></em>,
+                      <em class="parameter"><code>const <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *b</code></em>);</pre>
+<p>Checks whether the two given <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> are equal.</p>
+<div class="refsect3">
+<a name="graphene-plane-equal.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-plane-equal.returns"></a><h4>Returns</h4>
+
+<p> <code class="literal">true</code> if the given planes are equal</p>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-plane-distance"></a><h3>graphene_plane_distance ()</h3>
+
+<a class="indexterm" name="id-1.2.18.7.12.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">float</span></a>
+graphene_plane_distance (<em class="parameter"><code>const <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *p</code></em>,
+                         <em class="parameter"><code>const <a class="link" href="graphene-Point3D.html#graphene-point3d-t" title="graphene_point3d_t"><span class="type">graphene_point3d_t</span></a> *point</code></em>);</pre>
+<p>Computes the distance of <em class="parameter"><code>point</code></em>
+ from a <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a>.</p>
+<div class="refsect3">
+<a name="graphene-plane-distance.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>point</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point3D.html#graphene-point3d-t" title="graphene_point3d_t"><span class="type">graphene_point3d_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-plane-distance.returns"></a><h4>Returns</h4>
+
+<p> the distance of the given <a class="link" href="graphene-Point3D.html#graphene-point3d-t" title="graphene_point3d_t"><span class="type">graphene_point3d_t</span></a> from the plane</p>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-plane-transform"></a><h3>graphene_plane_transform ()</h3>
+
+<a class="indexterm" name="id-1.2.18.7.13.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_plane_transform (<em class="parameter"><code>const <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *p</code></em>,
+                          <em class="parameter"><code>const <a class="link" href="graphene-Matrix.html#graphene-matrix-t" title="graphene_matrix_t"><span class="type">graphene_matrix_t</span></a> *matrix</code></em>,
+                          <em class="parameter"><code>const <a class="link" href="graphene-Matrix.html#graphene-matrix-t" title="graphene_matrix_t"><span class="type">graphene_matrix_t</span></a> *normal_matrix</code></em>,
+                          <em class="parameter"><code><a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *res</code></em>);</pre>
+<p>Transforms a <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> <em class="parameter"><code>p</code></em>
+ using the given <em class="parameter"><code>matrix</code></em>
+
+and <em class="parameter"><code>normal_matrix</code></em>
+.</p>
+<p>If <em class="parameter"><code>normal_matrix</code></em>
+ is <a class="link" href=""><code class="literal">NULL</code></a>, a transformation matrix for the plane
+normal will be computed from <em class="parameter"><code>matrix</code></em>
+. If you are transforming
+multiple planes using the same <em class="parameter"><code>matrix</code></em>
+ it's recommended to compute
+the normal matrix beforehand to avoid incurring in the cost of
+recomputing it every time.</p>
+<div class="refsect3">
+<a name="graphene-plane-transform.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>matrix</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Matrix.html#graphene-matrix-t" title="graphene_matrix_t"><span class="type">graphene_matrix_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>normal_matrix</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Matrix.html#graphene-matrix-t" title="graphene_matrix_t"><span class="type">graphene_matrix_t</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">nullable</acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>the transformed plane. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix07.html#api-index-1.10">1.10</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-plane-get-normal"></a><h3>graphene_plane_get_normal ()</h3>
+
+<a class="indexterm" name="id-1.2.18.7.14.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_plane_get_normal (<em class="parameter"><code>const <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *p</code></em>,
+                           <em class="parameter"><code><a class="link" href="graphene-Vectors.html#graphene-vec3-t" title="graphene_vec3_t"><span class="type">graphene_vec3_t</span></a> *normal</code></em>);</pre>
+<p>Retrieves the normal vector pointing towards the origin of the
+given <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a>.</p>
+<div class="refsect3">
+<a name="graphene-plane-get-normal.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>normal</p></td>
+<td class="parameter_description"><p>return location for the normal vector. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-plane-get-constant"></a><h3>graphene_plane_get_constant ()</h3>
+
+<a class="indexterm" name="id-1.2.18.7.15.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">float</span></a>
+graphene_plane_get_constant (<em class="parameter"><code>const <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> *p</code></em>);</pre>
+<p>Retrieves the distance along the normal vector of the
+given <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a> from the origin.</p>
+<div class="refsect3">
+<a name="graphene-plane-get-constant.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Plane.html#graphene-plane-t" title="graphene_plane_t"><span class="type">graphene_plane_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-plane-get-constant.returns"></a><h4>Returns</h4>
+
+<p> the constant value of the plane</p>
+</div>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+
+</div>
+<div class="refsect1">
+<a name="graphene-Plane.other_details"></a><h2>Types and Values</h2>
+
+<div class="refsect2">
+<a name="graphene-plane-t"></a><h3>graphene_plane_t</h3>
+
+<a class="indexterm" name="id-1.2.18.8.2.2"></a>
+<pre class="programlisting">typedef struct {
+} graphene_plane_t;
+</pre>
+<p>A 2D plane that extends infinitely in a 3D volume.</p>
+<p>The contents of the <code class="literal">graphene_plane_t</code> are private, and should not be
+modified directly.</p>
+<p class="since">Since: <a class="link" href="ix04.html#api-index-1.2">1.2</a></p>
+</div>
+
+</div>
+
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.34.0</div>
+</body>
+</html>

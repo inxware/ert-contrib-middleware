@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.gtk.GLib.PACRunner
+Exec=/mingw64/libexec/glib-pacrunner
+SystemdService=glib-pacrunner.service

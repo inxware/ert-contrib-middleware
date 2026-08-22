@@ -1,0 +1,82 @@
+\doxysection{theoradec.\+h}
+\label{theoradec_8h_source}\index{theoradec.h@{theoradec.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/********************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ THIS\ FILE\ IS\ PART\ OF\ THE\ OggTheora\ SOFTWARE\ CODEC\ SOURCE\ CODE.\ \ \ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ USE,\ DISTRIBUTION\ AND\ REPRODUCTION\ OF\ THIS\ LIBRARY\ SOURCE\ IS\ \ \ \ \ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ GOVERNED\ BY\ A\ BSD-\/STYLE\ SOURCE\ LICENSE\ INCLUDED\ WITH\ THIS\ SOURCE\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ IN\ 'COPYING'.\ PLEASE\ READ\ THESE\ TERMS\ BEFORE\ DISTRIBUTING.\ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ THE\ Theora\ SOURCE\ CODE\ IS\ COPYRIGHT\ (C)\ 2002-\/2009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ by\ the\ Xiph.Org\ Foundation\ https://www.xiph.org/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ ********************************************************************}}
+\DoxyCodeLine{00012\ \textcolor{comment}{}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ function:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ ********************************************************************/}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#if\ !defined(OGG\_THEORA\_THEORADEC\_HEADER)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#\ define\ OGG\_THEORA\_THEORADEC\_HEADER\ (1)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#\ include\ <stddef.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#\ include\ <ogg/ogg.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#\ include\ "{}codec.h"{}}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#if\ defined(\_\_cplusplus)}}
+\DoxyCodeLine{00027\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ TH\_DECCTL\_GET\_PPLEVEL\_MAX\ (1)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ TH\_DECCTL\_SET\_PPLEVEL\ (3)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ TH\_DECCTL\_SET\_GRANPOS\ (5)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ TH\_DECCTL\_SET\_STRIPE\_CB\ (7)}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ TH\_DECCTL\_SET\_TELEMETRY\_MBMODE\ (9)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ TH\_DECCTL\_SET\_TELEMETRY\_MV\ (11)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ TH\_DECCTL\_SET\_TELEMETRY\_QI\ (13)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ TH\_DECCTL\_SET\_TELEMETRY\_BITS\ (15)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00141\ \textcolor{keyword}{typedef}\ void\ (*th\_stripe\_decoded\_func)(\textcolor{keywordtype}{void}\ *\_ctx,th\_ycbcr\_buffer\ \_buf,}
+\DoxyCodeLine{00142\ \ \textcolor{keywordtype}{int}\ \_yfrag0,\textcolor{keywordtype}{int}\ \_yfrag\_end);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00145\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}\{}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *ctx;}
+\DoxyCodeLine{00150\ \ \ th\_stripe\_decoded\_func\ \ stripe\_decoded;}
+\DoxyCodeLine{00151\ \}th\_stripe\_callback;}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00162\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }th\_dec\_ctx\ \ \ \ th\_dec\_ctx;}
+\DoxyCodeLine{00169\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }th\_setup\_info\ th\_setup\_info;}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00234\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ th\_decode\_headerin(th\_info\ *\_info,th\_comment\ *\_tc,}
+\DoxyCodeLine{00235\ \ th\_setup\_info\ **\_setup,ogg\_packet\ *\_op);}
+\DoxyCodeLine{00258\ \textcolor{keyword}{extern}\ th\_dec\_ctx\ *th\_decode\_alloc(\textcolor{keyword}{const}\ th\_info\ *\_info,}
+\DoxyCodeLine{00259\ \ \textcolor{keyword}{const}\ th\_setup\_info\ *\_setup);}
+\DoxyCodeLine{00265\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ th\_setup\_free(th\_setup\_info\ *\_setup);}
+\DoxyCodeLine{00277\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ th\_decode\_ctl(th\_dec\_ctx\ *\_dec,\textcolor{keywordtype}{int}\ \_req,\textcolor{keywordtype}{void}\ *\_buf,}
+\DoxyCodeLine{00278\ \ \textcolor{keywordtype}{size\_t}\ \_buf\_sz);}
+\DoxyCodeLine{00301\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ th\_decode\_packetin(th\_dec\_ctx\ *\_dec,\textcolor{keyword}{const}\ ogg\_packet\ *\_op,}
+\DoxyCodeLine{00302\ \ ogg\_int64\_t\ *\_granpos);}
+\DoxyCodeLine{00318\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ th\_decode\_ycbcr\_out(th\_dec\_ctx\ *\_dec,}
+\DoxyCodeLine{00319\ \ th\_ycbcr\_buffer\ \_ycbcr);}
+\DoxyCodeLine{00322\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ th\_decode\_free(th\_dec\_ctx\ *\_dec);}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\#if\ defined(\_\_cplusplus)}}
+\DoxyCodeLine{00329\ \}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ OGG\_THEORA\_THEORADEC\_HEADER\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,11 @@
+prefix=/mingw64
+exec_prefix=/mingw64
+libdir=/mingw64/lib
+includedir=/mingw64/include
+
+Name: FLAC++
+Description: Free Lossless Audio Codec Library (C++ API)
+Version: 1.5.0
+Requires: flac
+Libs: -L${libdir} -lFLAC++
+Cflags: -I${includedir}

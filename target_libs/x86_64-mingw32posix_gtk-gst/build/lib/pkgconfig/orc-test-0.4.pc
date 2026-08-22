@@ -1,0 +1,10 @@
+prefix=/mingw64
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+Name: orc-test
+Description: Test Library of Optimized Inner Loops Runtime Compiler
+Version: 0.4.42
+Libs: -L${libdir} -lorc-test-0.4 -lm -lorc-0.4
+Libs.private: -latomic
+Cflags: -I${includedir}/orc-0.4

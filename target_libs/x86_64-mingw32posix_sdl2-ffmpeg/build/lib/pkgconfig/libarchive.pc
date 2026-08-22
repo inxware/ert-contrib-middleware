@@ -1,0 +1,13 @@
+prefix=/mingw64
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libarchive
+Description: library that can create and read several streaming archive formats
+Version: 3.8.9
+Cflags: -I${includedir}
+Cflags.private: -DLIBARCHIVE_STATIC
+Libs: -L${libdir} -larchive
+Libs.private:  -lz -lbz2 -llzma -lb2 -llz4 -lzstd -lbcrypt -lcrypto -liconv -lcharset -lexpat -lpcre2-posix
+Requires.private: 

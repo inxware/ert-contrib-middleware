@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: 2004 Alastair McKinstry
+# SPDX-FileCopyrightText: 2008 Dr. Tobias Quathamer
+#
+# SPDX-License-Identifier: LGPL-2.1-or-later
+
+prefix=/mingw64
+domains=iso_15924 iso_3166-1 iso_3166-2 iso_3166-3 iso_4217 iso_639-2 iso_639-3 iso_639-5
+
+Name: iso-codes
+Description: ISO country, language, script, currency codes, and translations
+Version: 4.20.1
+Copyright: 2004 iso-codes project authors
+License: LGPL-2.1-or-later
+Maintainer: Dr. Tobias Quathamer <toddy@debian.org>
+URL: https://salsa.debian.org/iso-codes-team/iso-codes

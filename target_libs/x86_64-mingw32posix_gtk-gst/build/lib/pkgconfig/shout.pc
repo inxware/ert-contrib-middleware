@@ -1,0 +1,13 @@
+# libshout pkg-config source file
+
+prefix=/mingw64
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Shout
+Description: Audio streaming library for icecast encoders
+Version: 2.4.6
+Requires.private: ogg, vorbis, theora, speex, libssl
+Libs: -L${libdir} -lshout
+Cflags: -I${includedir}  

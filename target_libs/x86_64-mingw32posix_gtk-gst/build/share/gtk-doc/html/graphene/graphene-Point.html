@@ -1,0 +1,761 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Point: Graphene Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.2">
+<link rel="home" href="index.html" title="Graphene Reference Manual">
+<link rel="up" href="ch01.html" title="Graphene">
+<link rel="prev" href="ch01.html" title="Graphene">
+<link rel="next" href="graphene-Point3D.html" title="Point3D">
+<meta name="generator" content="GTK-Doc V1.34.0 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ch01.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="graphene-Point3D.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="graphene-Point"></a><div class="titlepage"></div>
+
+<div class="refnamediv">
+<h2><span class="refentrytitle"><a name="graphene-Point.top_of_page"></a>Point</span></h2>
+<p>
+Point
+ — A point with 2 coordinates
+</p>
+</div>
+
+<div class="refsect1">
+<a name="graphene-Point.functions"></a><h2>Functions</h2>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_proto_type">
+<col class="functions_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name">
+<a class="link" href="graphene-Point.html#GRAPHENE-POINT-INIT:CAPS" title="GRAPHENE_POINT_INIT()">GRAPHENE_POINT_INIT</a><span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="returnvalue">graphene_point_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Point.html#graphene-point-alloc" title="graphene_point_alloc ()">graphene_point_alloc</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Point.html#graphene-point-free" title="graphene_point_free ()">graphene_point_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="returnvalue">graphene_point_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Point.html#graphene-point-init" title="graphene_point_init ()">graphene_point_init</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="returnvalue">graphene_point_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Point.html#graphene-point-init-from-point" title="graphene_point_init_from_point ()">graphene_point_init_from_point</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="returnvalue">graphene_point_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Point.html#graphene-point-init-from-vec2" title="graphene_point_init_from_vec2 ()">graphene_point_init_from_vec2</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">bool</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Point.html#graphene-point-equal" title="graphene_point_equal ()">graphene_point_equal</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">float</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Point.html#graphene-point-distance" title="graphene_point_distance ()">graphene_point_distance</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">bool</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Point.html#graphene-point-near" title="graphene_point_near ()">graphene_point_near</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Point.html#graphene-point-interpolate" title="graphene_point_interpolate ()">graphene_point_interpolate</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href=""><span class="returnvalue">void</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Point.html#graphene-point-to-vec2" title="graphene_point_to_vec2 ()">graphene_point_to_vec2</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="returnvalue">graphene_point_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="graphene-Point.html#graphene-point-zero" title="graphene_point_zero ()">graphene_point_zero</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect1">
+<a name="graphene-Point.other"></a><h2>Types and Values</h2>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="other_proto_type">
+<col class="other_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="graphene-Point.html#GRAPHENE-POINT-INIT-ZERO:CAPS" title="GRAPHENE_POINT_INIT_ZERO">GRAPHENE_POINT_INIT_ZERO</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t">graphene_point_t</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="refsect1">
+<a name="graphene-Point.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;graphene.h&gt;
+</pre>
+</div>
+
+<div class="refsect1">
+<a name="graphene-Point.description"></a><h2>Description</h2>
+
+<p><a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> is a data structure capable of describing a point with
+two coordinates:</p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p><em class="parameter"><code>graphene_point_t.x</code></em>
+</p></li>
+<li class="listitem"><p><em class="parameter"><code>graphene_point_t.y</code></em>
+</p></li>
+</ul></div>
+
+</div>
+<div class="refsect1">
+<a name="graphene-Point.functions_details"></a><h2>Functions</h2>
+
+<div class="refsect2">
+<a name="GRAPHENE-POINT-INIT:CAPS"></a><h3>GRAPHENE_POINT_INIT()</h3>
+
+<a class="indexterm" name="id-1.2.3.7.2.2"></a>
+<pre class="programlisting">#define GRAPHENE_POINT_INIT(_x,_y)      (graphene_point_t) { .x = (_x), .y = (_y) }
+</pre>
+<p>Initializes a <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> with the given coordinates
+when declaring it, e.g:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="n">graphene_point_t</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GRAPHENE_POINT_INIT</span><span class="w"> </span><span class="p">(</span><span class="mf">10.f</span><span class="p">,</span><span class="w"> </span><span class="mf">10.f</span><span class="p">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<div class="refsect3">
+<a name="GRAPHENE-POINT-INIT.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>_x</p></td>
+<td class="parameter_description"><p>the X coordinate</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>_y</p></td>
+<td class="parameter_description"><p>the Y coordinate</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-point-alloc"></a><h3>graphene_point_alloc ()</h3>
+
+<a class="indexterm" name="id-1.2.3.7.3.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="returnvalue">graphene_point_t</span></a> *
+graphene_point_alloc (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Allocates a new <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> structure.</p>
+<p>The coordinates of the returned point are (0, 0).</p>
+<p>It's possible to chain this function with <a class="link" href="graphene-Point.html#graphene-point-init" title="graphene_point_init ()"><code class="function">graphene_point_init()</code></a>
+or <a class="link" href="graphene-Point.html#graphene-point-init-from-point" title="graphene_point_init_from_point ()"><code class="function">graphene_point_init_from_point()</code></a>, e.g.:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="n">graphene_point_t</span><span class="w"> </span><span class="o">*</span>
+<span class="nf">point_new</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">graphene_point_init</span><span class="w"> </span><span class="p">(</span><span class="n">graphene_point_alloc</span><span class="w"> </span><span class="p">(),</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">graphene_point_t</span><span class="w"> </span><span class="o">*</span>
+<span class="nf">point_copy</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">graphene_point_t</span><span class="w"> </span><span class="o">*</span><span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">graphene_point_init_from_point</span><span class="w"> </span><span class="p">(</span><span class="n">graphene_point_alloc</span><span class="w"> </span><span class="p">(),</span><span class="w"> </span><span class="n">p</span><span class="p">);</span>
+<span class="p">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+
+<p><span class="annotation">[<acronym class="acronym">constructor</acronym>]</span></p>
+<div class="refsect3">
+<a name="graphene-point-alloc.returns"></a><h4>Returns</h4>
+
+<p>the newly allocated <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a>.
+Use <a class="link" href="graphene-Point.html#graphene-point-free" title="graphene_point_free ()"><code class="function">graphene_point_free()</code></a> to free the resources allocated by
+this function. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer full</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-point-free"></a><h3>graphene_point_free ()</h3>
+
+<a class="indexterm" name="id-1.2.3.7.4.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_point_free (<em class="parameter"><code><a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *p</code></em>);</pre>
+<p>Frees the resources allocated by <a class="link" href="graphene-Point.html#graphene-point-alloc" title="graphene_point_alloc ()"><code class="function">graphene_point_alloc()</code></a>.</p>
+<div class="refsect3">
+<a name="graphene-point-free.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-point-init"></a><h3>graphene_point_init ()</h3>
+
+<a class="indexterm" name="id-1.2.3.7.5.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="returnvalue">graphene_point_t</span></a> *
+graphene_point_init (<em class="parameter"><code><a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *p</code></em>,
+                     <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> x</code></em>,
+                     <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> y</code></em>);</pre>
+<p>Initializes <em class="parameter"><code>p</code></em>
+ to the given <em class="parameter"><code>x</code></em>
+ and <em class="parameter"><code>y</code></em>
+ coordinates.</p>
+<p>It's safe to call this function multiple times.</p>
+<div class="refsect3">
+<a name="graphene-point-init.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>x</p></td>
+<td class="parameter_description"><p>the X coordinate</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>y</p></td>
+<td class="parameter_description"><p>the Y coordinate</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-point-init.returns"></a><h4>Returns</h4>
+
+<p>the initialized point. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-point-init-from-point"></a><h3>graphene_point_init_from_point ()</h3>
+
+<a class="indexterm" name="id-1.2.3.7.6.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="returnvalue">graphene_point_t</span></a> *
+graphene_point_init_from_point (<em class="parameter"><code><a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *p</code></em>,
+                                <em class="parameter"><code>const <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *src</code></em>);</pre>
+<p>Initializes <em class="parameter"><code>p</code></em>
+ with the same coordinates of <em class="parameter"><code>src</code></em>
+.</p>
+<div class="refsect3">
+<a name="graphene-point-init-from-point.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>src</p></td>
+<td class="parameter_description"><p>the <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> to use</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-point-init-from-point.returns"></a><h4>Returns</h4>
+
+<p>the initialized point. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-point-init-from-vec2"></a><h3>graphene_point_init_from_vec2 ()</h3>
+
+<a class="indexterm" name="id-1.2.3.7.7.2"></a>
+<pre class="programlisting"><a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="returnvalue">graphene_point_t</span></a> *
+graphene_point_init_from_vec2 (<em class="parameter"><code><a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *p</code></em>,
+                               <em class="parameter"><code>const <a class="link" href="graphene-Vectors.html#graphene-vec2-t" title="graphene_vec2_t"><span class="type">graphene_vec2_t</span></a> *src</code></em>);</pre>
+<p>Initializes <em class="parameter"><code>p</code></em>
+ with the coordinates inside the given <a class="link" href="graphene-Vectors.html#graphene-vec2-t" title="graphene_vec2_t"><span class="type">graphene_vec2_t</span></a>.</p>
+<div class="refsect3">
+<a name="graphene-point-init-from-vec2.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>the <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> to initialize</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>src</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Vectors.html#graphene-vec2-t" title="graphene_vec2_t"><span class="type">graphene_vec2_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-point-init-from-vec2.returns"></a><h4>Returns</h4>
+
+<p>the initialized point. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix05.html#api-index-1.4">1.4</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-point-equal"></a><h3>graphene_point_equal ()</h3>
+
+<a class="indexterm" name="id-1.2.3.7.8.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">bool</span></a>
+graphene_point_equal (<em class="parameter"><code>const <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *a</code></em>,
+                      <em class="parameter"><code>const <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *b</code></em>);</pre>
+<p>Checks if the two points <em class="parameter"><code>a</code></em>
+ and <em class="parameter"><code>b</code></em>
+ point to the same
+coordinates.</p>
+<p>This function accounts for floating point fluctuations; if
+you want to control the fuzziness of the match, you can use
+<a class="link" href="graphene-Point.html#graphene-point-near" title="graphene_point_near ()"><code class="function">graphene_point_near()</code></a> instead.</p>
+<div class="refsect3">
+<a name="graphene-point-equal.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-point-equal.returns"></a><h4>Returns</h4>
+
+<p> <code class="literal">true</code> if the points have the same coordinates</p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-point-distance"></a><h3>graphene_point_distance ()</h3>
+
+<a class="indexterm" name="id-1.2.3.7.9.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">float</span></a>
+graphene_point_distance (<em class="parameter"><code>const <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *a</code></em>,
+                         <em class="parameter"><code>const <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *b</code></em>,
+                         <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> *d_x</code></em>,
+                         <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> *d_y</code></em>);</pre>
+<p>Computes the distance between <em class="parameter"><code>a</code></em>
+ and <em class="parameter"><code>b</code></em>
+.</p>
+<div class="refsect3">
+<a name="graphene-point-distance.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>d_x</p></td>
+<td class="parameter_description"><p>distance component on the X axis. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out</acronym>][<acronym class="acronym">optional</acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>d_y</p></td>
+<td class="parameter_description"><p>distance component on the Y axis. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out</acronym>][<acronym class="acronym">optional</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-point-distance.returns"></a><h4>Returns</h4>
+
+<p> the distance between the two points</p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-point-near"></a><h3>graphene_point_near ()</h3>
+
+<a class="indexterm" name="id-1.2.3.7.10.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">bool</span></a>
+graphene_point_near (<em class="parameter"><code>const <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *a</code></em>,
+                     <em class="parameter"><code>const <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *b</code></em>,
+                     <em class="parameter"><code><a class="link" href=""><span class="type">float</span></a> epsilon</code></em>);</pre>
+<p>Checks whether the two points <em class="parameter"><code>a</code></em>
+ and <em class="parameter"><code>b</code></em>
+ are within
+the threshold of <em class="parameter"><code>epsilon</code></em>
+.</p>
+<div class="refsect3">
+<a name="graphene-point-near.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>epsilon</p></td>
+<td class="parameter_description"><p>threshold between the two points</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="refsect3">
+<a name="graphene-point-near.returns"></a><h4>Returns</h4>
+
+<p> <code class="literal">true</code> if the distance is within <em class="parameter"><code>epsilon</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-point-interpolate"></a><h3>graphene_point_interpolate ()</h3>
+
+<a class="indexterm" name="id-1.2.3.7.11.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_point_interpolate (<em class="parameter"><code>const <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *a</code></em>,
+                            <em class="parameter"><code>const <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *b</code></em>,
+                            <em class="parameter"><code><a class="link" href=""><span class="type">double</span></a> factor</code></em>,
+                            <em class="parameter"><code><a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *res</code></em>);</pre>
+<p>Linearly interpolates the coordinates of <em class="parameter"><code>a</code></em>
+ and <em class="parameter"><code>b</code></em>
+ using the
+given <em class="parameter"><code>factor</code></em>
+.</p>
+<div class="refsect3">
+<a name="graphene-point-interpolate.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>factor</p></td>
+<td class="parameter_description"><p>the linear interpolation factor</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>return location for the interpolated
+point. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-point-to-vec2"></a><h3>graphene_point_to_vec2 ()</h3>
+
+<a class="indexterm" name="id-1.2.3.7.12.2"></a>
+<pre class="programlisting"><a class="link" href=""><span class="returnvalue">void</span></a>
+graphene_point_to_vec2 (<em class="parameter"><code>const <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> *p</code></em>,
+                        <em class="parameter"><code><a class="link" href="graphene-Vectors.html#graphene-vec2-t" title="graphene_vec2_t"><span class="type">graphene_vec2_t</span></a> *v</code></em>);</pre>
+<p>Stores the coordinates of the given <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> into a
+<a class="link" href="graphene-Vectors.html#graphene-vec2-t" title="graphene_vec2_t"><span class="type">graphene_vec2_t</span></a>.</p>
+<div class="refsect3">
+<a name="graphene-point-to-vec2.parameters"></a><h4>Parameters</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>a <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>v</p></td>
+<td class="parameter_description"><p>return location for the vertex. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym class="acronym">out caller-allocates</acronym>]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix05.html#api-index-1.4">1.4</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-point-zero"></a><h3>graphene_point_zero ()</h3>
+
+<a class="indexterm" name="id-1.2.3.7.13.2"></a>
+<pre class="programlisting">const <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="returnvalue">graphene_point_t</span></a> *
+graphene_point_zero (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Returns a point fixed at (0, 0).</p>
+<div class="refsect3">
+<a name="graphene-point-zero.returns"></a><h4>Returns</h4>
+
+<p>a fixed point. </p>
+<p><span class="annotation">[<acronym class="acronym">transfer none</acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+
+</div>
+<div class="refsect1">
+<a name="graphene-Point.other_details"></a><h2>Types and Values</h2>
+
+<div class="refsect2">
+<a name="GRAPHENE-POINT-INIT-ZERO:CAPS"></a><h3>GRAPHENE_POINT_INIT_ZERO</h3>
+
+<a class="indexterm" name="id-1.2.3.8.2.2"></a>
+<pre class="programlisting">#define GRAPHENE_POINT_INIT_ZERO        GRAPHENE_POINT_INIT (0.f, 0.f)
+</pre>
+<p>Initializes a <a class="link" href="graphene-Point.html#graphene-point-t" title="graphene_point_t"><span class="type">graphene_point_t</span></a> to (0, 0) when declaring it.</p>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+<div class="refsect2">
+<a name="graphene-point-t"></a><h3>graphene_point_t</h3>
+
+<a class="indexterm" name="id-1.2.3.8.3.2"></a>
+<pre class="programlisting">typedef struct {
+  float x;
+  float y;
+} graphene_point_t;
+</pre>
+<p>A point with two coordinates.</p>
+<div class="refsect3">
+<a name="graphene-point-t.members"></a><h4>Members</h4>
+
+<div class="informaltable">
+<table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><a class="link" href=""><span class="type">float</span></a> <em class="structfield"><code><a name="graphene-point-t.x"></a>x</code></em>;</p></td>
+<td class="struct_member_description"><p>the X coordinate of the point</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a class="link" href=""><span class="type">float</span></a> <em class="structfield"><code><a name="graphene-point-t.y"></a>y</code></em>;</p></td>
+<td class="struct_member_description"><p>the Y coordinate of the point</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p class="since">Since: <a class="link" href="ix03.html#api-index-1.0">1.0</a></p>
+</div>
+
+</div>
+
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.34.0</div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+prefix=/mingw64
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: gsettings-desktop-schemas
+Description: Shared GSettings schemas for the desktop, including helper headers
+Version: 50.1
+Cflags: -I${includedir}/gsettings-desktop-schemas
