@@ -16,6 +16,7 @@ ert-contrib-middleware/
 ├── contrib/              # Source trees for each middleware library
 │   ├── <name>/           # One directory per library (e.g. aws-c-common/, curl/, esp-idf/)
 │   │   └── <name><version>/  # Versioned source tree (e.g. aws-c-common-v0.12.6/)
+│   ├── xmos-sdk/         # XMOS SDK sources — git submodules; see contrib/xmos-sdk/README.md
 │   └── ...
 ├── inx_build_scripts/    # Build orchestration scripts (must be run from here)
 │   ├── build-<target>.sh         # Per-target top-level build scripts
@@ -233,6 +234,27 @@ Current AWS CRT component versions downloaded from upstream:
 | aws-lc | -2.2022 | -v1.69.0 |
 | s2n-tls | -2.2022 | -1.7.1 |
 
+
+## XMOS SDK — `contrib/xmos-sdk/`
+
+The XMOS SDK components (`fwk_core`, `fwk_io`, `fwk_rtos`, `lib_i2c`, `lib_i2s`,
+`lib_qspi_fast_read`, `lib_uart`, `lib_xcore_math`, `xcommon_cmake`) are git
+submodules of `github.com/xmos/*`, pinned to specific SHAs. `fwk_rtos` has its
+own nested submodules (FreeRTOS-SMP-Kernel, mbedtls, tinyusb, …) which must be
+fetched recursively — the build container has no SSH client.
+
+Initialise after clone:
+```bash
+git submodule update --init contrib/xmos-sdk/*
+git -C contrib/xmos-sdk/fwk_rtos submodule update --init --recursive
+```
+
+Treat as read-only third-party. If `git status` shows them as dirty:
+- **"new commits"**: submodule HEAD drifted; `git -C <path> checkout --detach <pinned-sha>` (SHA from `git ls-tree HEAD contrib/xmos-sdk/`).
+- **"modified content"**: a nested submodule drifted; `git -C <path> submodule update --init --recursive --force`.
+
+Build details (build container, `build-xmos-libs.sh`, XTC Tools versioning, and the
+list of pinned versions) live in `contrib/xmos-sdk/README.md`.
 
 ## Android build — `inx_build_scripts/build-android-ehs.sh`
 

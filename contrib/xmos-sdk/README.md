@@ -31,21 +31,21 @@ the XMOS GitHub organisation at `https://github.com/xmos/`.
 | `lib_uart/` | github.com/xmos/lib_uart | v1.x | Async UART TX/RX |
 | `lib_i2s/` | github.com/xmos/lib_i2s | v6.x | I2S audio interface |
 
-### Quick clone
+### Initialising the submodules
+
+These directories are git submodules of this repo (registered in the top-level
+`.gitmodules`). From the repo root:
 
 ```bash
-cd ert-contrib-middleware/contrib/xmos-sdk
+git submodule update --init contrib/xmos-sdk/*
+```
 
-git clone https://github.com/xmos/fwk_rtos.git
-# fwk_io is a dependency of fwk_rtos pulled in via CMake FetchContent.
-# Clone it with --recurse-submodules on the host — the build container has no
-# SSH client and cannot fetch submodules at build time.
-git clone --recurse-submodules https://github.com/xmos/fwk_io.git
-git clone https://github.com/xmos/xcommon_cmake.git
-git clone https://github.com/xmos/lib_xcore_math.git
-git clone https://github.com/xmos/lib_i2c.git
-git clone https://github.com/xmos/lib_uart.git
-git clone https://github.com/xmos/lib_i2s.git
+`fwk_rtos` has its own nested submodules (FreeRTOS-SMP-Kernel, mbedtls, tinyusb,
+etc.) which must also be fetched — the build container has no SSH client and
+cannot pull them at build time:
+
+```bash
+git -C contrib/xmos-sdk/fwk_rtos submodule update --init --recursive
 ```
 
 ## Building the SDK libraries (one-time, per XTC Tools version)

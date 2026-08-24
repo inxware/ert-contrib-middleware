@@ -8,6 +8,18 @@ https://www.inx-systems.com/platform/
 
 First clone the ert-components repo from https://github.com/inxware/ert-components (or the private repo)
 
+## XMOS SDK submodules
+
+The XMOS SDK components under `contrib/xmos-sdk/` are pulled in as git submodules
+from `github.com/xmos/*`. After cloning this repo, initialise them with:
+
+```bash
+git submodule update --init contrib/xmos-sdk/*
+```
+
+Treat them as read-only third-party sources — do not commit changes back to them.
+See `contrib/xmos-sdk/README.md` for the full component list and build steps.
+
 
 
 # To Add to or Modify This Repository 

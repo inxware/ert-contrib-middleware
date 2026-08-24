@@ -1,0 +1,27 @@
+[submodule "contrib/xmos-sdk/fwk_core"]
+	path = contrib/xmos-sdk/fwk_core
+	url = https://github.com/xmos/fwk_core.git
+[submodule "contrib/xmos-sdk/fwk_io"]
+	path = contrib/xmos-sdk/fwk_io
+	url = https://github.com/xmos/fwk_io.git
+[submodule "contrib/xmos-sdk/fwk_rtos"]
+	path = contrib/xmos-sdk/fwk_rtos
+	url = https://github.com/xmos/fwk_rtos.git
+[submodule "contrib/xmos-sdk/lib_i2c"]
+	path = contrib/xmos-sdk/lib_i2c
+	url = https://github.com/xmos/lib_i2c.git
+[submodule "contrib/xmos-sdk/lib_i2s"]
+	path = contrib/xmos-sdk/lib_i2s
+	url = https://github.com/xmos/lib_i2s.git
+[submodule "contrib/xmos-sdk/lib_qspi_fast_read"]
+	path = contrib/xmos-sdk/lib_qspi_fast_read
+	url = https://github.com/xmos/lib_qspi_fast_read.git
+[submodule "contrib/xmos-sdk/lib_uart"]
+	path = contrib/xmos-sdk/lib_uart
+	url = https://github.com/xmos/lib_uart.git
+[submodule "contrib/xmos-sdk/lib_xcore_math"]
+	path = contrib/xmos-sdk/lib_xcore_math
+	url = https://github.com/xmos/lib_xcore_math.git
+[submodule "contrib/xmos-sdk/xcommon_cmake"]
+	path = contrib/xmos-sdk/xcommon_cmake
+	url = https://github.com/xmos/xcommon_cmake.git
